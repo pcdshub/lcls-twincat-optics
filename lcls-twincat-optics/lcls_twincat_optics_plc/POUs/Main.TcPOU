@@ -5,22 +5,22 @@
 VAR
 	// Axes for each system
 	// M1L0
-	M1 : DUT_MotionStage:=(nCommand:=3); // Yup
+	M1 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // Yup
 	fbMotionStage_m1 : FB_MotionStage;
 
-	M2 : DUT_MotionStage:=(nCommand:=3); // Ydwn
+	M2 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // Ydwn
 	fbMotionStage_m2 : FB_MotionStage;
 
-	M3 : DUT_MotionStage:=(nCommand:=3); // Xup
+	M3 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // Xup
 	fbMotionStage_m3 : FB_MotionStage;
 
-	M4 : DUT_MotionStage:=(nCommand:=3); // Xdwn
+	M4 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // Xdwn
 	fbMotionStage_m4 : FB_MotionStage;
 
-	M5 : DUT_MotionStage:=(nCommand:=3); // PitchCoarse
+	M5 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // PitchCoarse
 	fbMotionStage_m5 : FB_MotionStage;
 
-	M6 : DUT_MotionStage:=(nCommand:=3); // Bender
+	M6 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // Bender
 	fbMotionStage_m6 : FB_MotionStage;
 	
 	fbRunHOMS_M1L0 : FB_RunHOMS;
@@ -37,22 +37,22 @@ VAR
 	nCurrGantryXM1L0 : LINT; // encoder counts = nm
 	
 	// M2L0
-	M7 : DUT_MotionStage:=(nCommand:=3); // Yup
+	M7 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // Yup
 	fbMotionStage_m7 : FB_MotionStage;
 
-	M8 : DUT_MotionStage:=(nCommand:=3); // Ydwn
+	M8 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // Ydwn
 	fbMotionStage_m8 : FB_MotionStage;
 
-	M9 : DUT_MotionStage:=(nCommand:=3); // Xup
+	M9 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // Xup
 	fbMotionStage_m9 : FB_MotionStage;
 
-	M10 : DUT_MotionStage:=(nCommand:=3); // Xdwn
+	M10 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // Xdwn
 	fbMotionStage_m10 : FB_MotionStage;
 
-	M11 : DUT_MotionStage:=(nCommand:=3); // PitchCoarse
+	M11 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // PitchCoarse
 	fbMotionStage_m11 : FB_MotionStage;
 
-	M12 : DUT_MotionStage:=(nCommand:=3); // Bender
+	M12 : DUT_MotionStage:=(nCommand:=ENUM_EpicsMotorCmd.EPICS_MOTOR_MOVE_ABS); // Bender
 	fbMotionStage_m12 : FB_MotionStage;
 
 	fbRunHOMS_M2L0 : FB_RunHOMS;
