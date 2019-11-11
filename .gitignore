@@ -9,6 +9,7 @@ _CompileInfo
 *.~u
 TrialLicense.tclrs
 *.library
+*.dbg
 
 # EPICS ignores
 O.*
