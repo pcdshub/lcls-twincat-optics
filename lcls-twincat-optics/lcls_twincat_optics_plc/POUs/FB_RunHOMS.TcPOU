@@ -10,8 +10,8 @@ VAR_INPUT
 	nXdwnEncRef : ULINT;
 
 	// Gantry tolerances
-	nGantryTolY : LINT := 50000; // Encoder counts = nm
-	nGantryTolX : LINT := 50000; // Encoder counts = nm
+	nGantryTolY : LINT := GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+	nGantryTolX : LINT := GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
 END_VAR
 VAR_OUTPUT
 	// Gantry coupling status
