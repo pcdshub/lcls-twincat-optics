@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <POU Name="FB_RunHOMS" Id="{ee7498ff-903e-47a0-a649-7587adeefcee}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_RunHOMS
 VAR_INPUT
@@ -39,7 +39,8 @@ VAR_IN_OUT
 END_VAR
 VAR
 	// STO Button
-	bSTOEnable AT %I* : BOOL;
+	bSTOEnable1 AT %I* : BOOL;
+	bSTOEnable2 AT %I* : BOOL;
 
 	// Encoders
 	stYupEnc AT %I* : ST_RenishawAbsEnc;
@@ -72,12 +73,12 @@ nCurrGantryY := ((ULINT_TO_LINT(stYupEnc.Count) - ULINT_TO_LINT(stYupEnc.Ref)) -
 nCurrGantryX := ((ULINT_TO_LINT(stXupEnc.Count) - ULINT_TO_LINT(stXupEnc.Ref)) - (ULINT_TO_LINT(stXdwnEnc.Count) - ULINT_TO_LINT(stXdwnEnc.Ref)));
 
 // Release the hounds!
-stYup.bHardwareEnable := bSTOEnable;
-stYdwn.bHardwareEnable := bSTOEnable;
-stXup.bHardwareEnable := bSTOEnable;
-stXdwn.bHardwareEnable := bSTOEnable;
-stPitch.bHardwareEnable := bSTOEnable;
-stBender.bHardwareEnable := bSTOEnable;
+stYup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stYdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stXup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stXdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stPitch.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 
 // Start Autocoupling
 fbAutoCoupleY(nGantryTol:=nGantryTolY,
