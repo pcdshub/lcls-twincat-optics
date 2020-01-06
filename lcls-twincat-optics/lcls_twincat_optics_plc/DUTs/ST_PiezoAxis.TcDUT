@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.14">
-  <DUT Name="ST_PiezoAxis" Id="{c7025001-b75e-406e-97f8-4b40fd0b0a81}">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <DUT Name="ST_PiezoAxis" Id="{94081b12-5a5d-4193-a69e-fd329da2319a}">
     <Declaration><![CDATA[TYPE ST_PiezoAxis :
 STRUCT
 	(* IO *)
@@ -30,20 +30,19 @@ STRUCT
 	(* Control Parameters *)
 		rActPos	:	LREAL; //Encoder Readback
 		//Pitch piezo dmove range (urad)
-		rPiezoDmovRange		:	REAL := 1;
-		(*
+		rPiezoDmovRange		:	REAL := 0.0002;
 		stPIParams	:	ST_CTRL_PI_PARAMS := (
-			tCtrlCycleTime := T#0MS, 
-			tTaskCycleTime := T#0MS, 
-			tTn       := T#1S, 
-			fKp      := 0.25, 
-			fOutMaxLimit := 1, 
-			fOutMinLimit := -1, 
+			tCtrlCycleTime := T#0MS,
+			tTaskCycleTime := T#0MS,
+			tTn       := T#1S,
+			fKp      := 0.25,
+			fOutMaxLimit := 1,
+			fOutMinLimit := -1,
 			bARWOnIPartOnly := FALSE);
-	*)
+
 	(* Voltage ranges, come from specifications of the driver *)
-		UpperVoltage	:	REAL := 120; // E-816 has no software limits
-		LowerVoltage	:	REAL := 0; // E-816 has no software limits 
+		UpperVoltage	:	REAL := GVL_Constants.cPiezoMaxVoltage; // E-816 has no software limits
+		LowerVoltage	:	REAL := GVL_Constants.cPiezoMinVoltage; // E-816 has no software limits
 END_STRUCT
 END_TYPE
 ]]></Declaration>

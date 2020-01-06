@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="Main" Id="{bced800e-adc0-4347-8ec8-808d3a0afec0}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Main
+VAR
+	fbPitchControl : FB_PitchControl;
+	TestPitch : HOMS_PitchMechanism := (
+		ReqPosLimHi := 1000,
+		ReqPosLimLo := -1000,
+		diEncPosLimHi := 10722213,
+		diEncPosLimLo := 8208000
+	);;
+	ExpertMode : BOOL := FALSE;
+	PitchManualMode : BOOL := FALSE;
+
+	// Test FBs for Debugging/Playground
+	fbMotionStage : FB_MotionStage;
+	fbPower : MC_Power;
+	bEnable : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestPitch.Stepper.bLimitBackwardEnable := TRUE;
+TestPitch.Stepper.bLimitForwardEnable := TRUE;
+TestPitch.Stepper.bHardwareEnable := TRUE;
+//fbPitchControl(Pitch:=TestPitch,
+//	           DirectPiezoMode:=(ExpertMode AND PitchManualMode),
+//			   q_xDone=>TestPitch.Stepper.bDone,
+//			   q_xBusy=>TestPitch.Stepper.bBusy);
+
+// Test FBs for Debugging/Playground
+fbMotionStage(stMotionStage:=TestPitch.Stepper);
+//fbPower(Axis:=TestPitch.Stepper.Axis,
+//	    Enable:=bEnable);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
