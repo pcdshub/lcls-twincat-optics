@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_RunHOMS" Id="{ee7498ff-903e-47a0-a649-7587adeefcee}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_RunHOMS
+VAR_INPUT
+	// Encoder Reference Values
+	nYupEncRef : ULINT;
+	nYdwnEncRef : ULINT;
+	nXupEncRef : ULINT;
+	nXdwnEncRef : ULINT;
+
+	// Gantry tolerances
+	nGantryTolY : LINT := GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+	nGantryTolX : LINT := GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+END_VAR
+VAR_OUTPUT
+	// Gantry coupling status
+	bGantryAlreadyCoupledY : BOOL;
+	bGantryAlreadyCoupledX : BOOL;
+	
+	// Current gantry difference
+	nCurrGantryY : LINT;
+	nCurrGantryX : LINT;
+END_VAR
+VAR_IN_OUT
+	// Motor Structs
+	stYup : DUT_MotionStage;
+	stYdwn : DUT_MotionStage;
+	stXup : DUT_MotionStage;
+	stXdwn : DUT_MotionStage;
+	stPitch : DUT_MotionStage;
+	stBender : DUT_MotionStage;
+
+	// Manual coupling Gantried Axes
+	bExecuteCoupleY : BOOL;
+	bExecuteCoupleX : BOOL;
+	bExecuteDecoupleY : BOOL;
+	bExecuteDecoupleX : BOOL;
+END_VAR
+VAR
+	// STO Button
+	bSTOEnable1 AT %I* : BOOL;
+	bSTOEnable2 AT %I* : BOOL;
+
+	// Encoders
+	stYupEnc AT %I* : ST_RenishawAbsEnc;
+	stYdwnEnc AT %I* : ST_RenishawAbsEnc;
+	
+	stXupEnc AT %I* : ST_RenishawAbsEnc;
+	stXdwnEnc AT %I* : ST_RenishawAbsEnc;
+
+	// Autocoupling Gantried Axes
+	fbAutoCoupleY : FB_GantryAutoCoupling;
+	fbAutoCoupleX : FB_GantryAutoCoupling;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Enable motors according to pytmc docs
+stYup.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+stYdwn.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+stXup.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+stXdwn.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+stPitch.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+stBender.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+
+// Encoder Reference Values
+stYupEnc.Ref := nYupEncRef;
+stYdwnEnc.Ref := nYdwnEncRef;
+stXupEnc.Ref := nXupEncRef;
+stXdwnEnc.Ref := nXdwnEncRef;
+
+// Gantry Differences to monitor
+nCurrGantryY := ((ULINT_TO_LINT(stYupEnc.Count) - ULINT_TO_LINT(stYupEnc.Ref)) - (ULINT_TO_LINT(stYdwnEnc.Count) - ULINT_TO_LINT(stYdwnEnc.Ref)));
+nCurrGantryX := ((ULINT_TO_LINT(stXupEnc.Count) - ULINT_TO_LINT(stXupEnc.Ref)) - (ULINT_TO_LINT(stXdwnEnc.Count) - ULINT_TO_LINT(stXdwnEnc.Ref)));
+
+// Release the hounds!
+stYup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stYdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stXup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stXdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stPitch.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+
+// Start Autocoupling
+fbAutoCoupleY(nGantryTol:=nGantryTolY,
+	          Master:=stYup,
+			  MasterEnc:= stYupEnc,
+			  Slave:=stYdwn,
+			  SlaveEnc:=stYdwnEnc,
+			  bExecuteCouple:=bExecuteCoupleY,
+			  bExecuteDecouple:=bExecuteDecoupleY,
+			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledY);
+
+fbAutoCoupleX(nGantryTol:=nGantryTolX,
+	          Master:=stXup,
+			  MasterEnc:= stXupEnc,
+			  Slave:=stXdwn,
+			  SlaveEnc:=stXdwnEnc,
+			  bExecuteCouple:=bExecuteCoupleX,
+			  bExecuteDecouple:=bExecuteDecoupleX,
+			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
