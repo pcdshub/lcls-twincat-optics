@@ -48,6 +48,9 @@
     <Compile Include="POUs\FB_PitchControl.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_PitchControlJackson.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_RunHOMS.TcPOU">
       <SubType>Code</SubType>
     </Compile>
