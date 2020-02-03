@@ -1324,9 +1324,19 @@ External Setpoint Generation:
 	<Axis Id="1" CreateSymbols="true" AxisType="1">
 		<Name>__FILENAME__</Name>
 		<AxisPara>
+			<General UnitName="urad"/>
+			<Dynamic Acceleration="390" Deceleration="390" DelayTime="0.008"/>
+			<Velo Maximum="150"/>
 			<OtherSettings AllowMotionCmdToSlave="true"/>
+			<ParameterChanged>260</ParameterChanged>
+			<ParameterChanged>39</ParameterChanged>
+			<ParameterChanged>257</ParameterChanged>
+			<ParameterChanged>258</ParameterChanged>
 		</AxisPara>
 		<Encoder Name="Enc" EncType="1">
+			<EncPara ScaleFactorNumerator="0.001949317739">
+				<ParameterChanged>35</ParameterChanged>
+			</EncPara>
 			<Vars VarGrpType="1">
 				<Name>Inputs</Name>
 				<Var>
@@ -1394,7 +1404,8 @@ External Setpoint Generation:
 		</Encoder>
 		<Drive Name="Drive" DrvType="5">
 			<DrvPara>
-				<Analog ScaleFactorActTorque="0.1"/>
+				<Analog VeloReferenz="761.4522417" ScaleFactorActTorque="0.1"/>
+				<TimeComp TaskDelayCycles="1"/>
 			</DrvPara>
 			<Vars VarGrpType="1">
 				<Name>Inputs</Name>
@@ -1481,9 +1492,15 @@ Drive Status 4 (manually linked):
 				</Var>
 			</Vars>
 		</Drive>
-		<Controller Name="Ctrl" CtrType="1">
+		<Controller Name="Ctrl" CtrType="2">
 			<CtrPara PriorControlFactor="1">
+				<PosDiffControl Range="195"/>
+				<PID PosKp="10" PosExtKp="1" DeadBandPosition="0.2"/>
 				<Observer BandWidth="20"/>
+				<ParameterChanged>269</ParameterChanged>
+				<ParameterChanged>262</ParameterChanged>
+				<ParameterChanged>18</ParameterChanged>
+				<ParameterChanged>258</ParameterChanged>
 			</CtrPara>
 		</Controller>
 		<Vars VarGrpType="1" InsertType="1">

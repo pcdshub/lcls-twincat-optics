@@ -1,82 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
-  <POU Name="FB_PitchControl" Id="{157a40f4-fb3c-4f04-8b9b-6aa8032367b0}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'reflection'}
-FUNCTION_BLOCK FB_PitchControl
+  <POU Name="FB_PitchControl" Id="{143b5005-3e50-4e14-8a6a-21db919333f0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_PitchControl
 VAR_IN_OUT
-	Pitch : HOMS_PitchMechanism;
+    Pitch : HOMS_PitchMechanism;
 END_VAR
 VAR_INPUT
-	DirectPiezoMode	:	BOOL := FALSE; //Set this true to tell the piezo what position to seek in closed loop
-	rReqAbsPos	:	REAL; //Control the pitch position with this when DirectPiezoMode is false
 END_VAR
 VAR_OUTPUT
-	q_xError	:	BOOL;
-	q_xDone	:	BOOL;
-	q_xBusy :   BOOL;
+	q_bError : BOOL;
+	q_bDone : BOOL;
+	q_bBusy : BOOL;
 END_VAR
 VAR
-	//Introspection
-	//////////////////////////////
-		{attribute 'instance-path'}
-		{attribute 'no_init'}
-		POUName	:	STRING; //Name of the POU for logging/error reporting
-	
-	
-	//FB Boilerplate
-	//////////////////////
-		stDiag	:	ST_fbDiagnostics;
-		fbFormatString	:	FB_FormatString;
-		
-	//Working variables
-	/////////////////////////
-		PC_State 		:	E_PitchControl := PCM_Init;
-		rPrevReqAbsPos	:	REAL; //Previously  requested abs position
-		rPrevStepperPos :	REAL; //Previously successfully achieved stepper position
-		tonStepperHold	:	TON := (PT := T#100MS); //Timer to hold stepper position while the system relaxes
-		FirstPass	:	BOOL := TRUE; //set false after first pass, used for initializations
-		Coarse50PiezoMove	:	BOOL;
-		rSettledRange : REAL := 0.0003; 
-		OriginalPosRequest: REAL;
-		//PTP
-		/////////////////////////
-				nCommand      : UINT;
-				rLastSetpoint : REAL;
-				rtTweakFwd    : R_TRIG;
-				rtTweakBwd    : R_TRIG;
-				rtExecute     : R_TRIG;
-				bRequesting   : BOOL;
-				rSetpoint     : REAL; //Adjusted based on abs pos request or tweaks.
-				mcSmoothMover	:	MC_SmoothMover;
-				fbMotionStage : FB_MotionStage;
-	
-	//Axis Control Blocks
-	/////////////////////////////
-		fbPiezoControl	:	FB_PiezoControl;
-	
-	
-	//Triggers
-	//////////////////////////////
-		rtManualMode:	R_TRIG;
-		ftManualMode	:	F_TRIG;
-		rtStepperDone	:	R_TRIG;
+	// Logging
+	stDiag : ST_fbDiagnostics;
+	fbFormatString : FB_FormatString;
+	{attribute 'instance-path'}
+	{attribute 'no_init'}
+	POUName : STRING; // Name of the POU for logging/error reporting
 
-	lrActPos: LREAL;
-	tonPiezoSettled	: TON := (PT:=T#2S);
-	tonPiezoDone	:	TON := (PT:=T#500ms);
-	
-	ftLimitSwitch: F_TRIG;
-	// Flag to track when a limit switch has been hit.
-	xLimitHit: BOOL;
-	rtPiezoMoveDone: R_TRIG;
-	ftHalt: F_TRIG;
-END_VAR
-VAR CONSTANT
-	cPiezoRange	:	REAL := 60.0; // 90um of stroke to the piezo, which means a 180urad stroke...
+	// Stepper Motion
+    lrActPos : LREAL; // Actual Position of piezo mechanism
+	lrPrevStepperPos : LREAL; // Previous successfully achieved stepper position
+	ftLimitSwitch : F_TRIG;
+	lrOriginalPosRequest : LREAL;
+	lrLastSetpoint : LREAL;
+	lrCurrentSetpoint : LREAL;
+	fbMotionRequest : FB_MotionRequest;
+	fbMotionStage : FB_MotionStage;
+	bLimitHit : BOOL;
+	tonStepperHold : TON := (PT:=T#100MS); // Timer to hold stepper position while the system relaxes
+	rSettledRange : REAL := 0.0003; // Not sure what the units are here...
+	bResetStepper : BOOL;
+	bExecuteStepper : BOOL;
+	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT; // Check on this - guessing it means to wait for move to complete before requesting another
+
+	// Piezo
+	tonPiezoSettled : TON := (PT:=T#2S);
+	fbPiezoControl : FB_PiezoControl;
+	rtPiezoMoveDone : R_TRIG;
+
+	// State Machine
+	PC_State : E_PitchControl := PCM_Init;
+	bFirstPass : BOOL := TRUE; // Set to FALSE after first pass, used for initialization
+	bCoarse50PiezoMove : BOOL;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[(* HOMS Pitch Control
 A. Wallace
+J. Sheppard - Updating to new lcls-twincat-motion API
 
 The HOMS Pitch mechanism consists of a stepper and piezo that work together to adjust
 the pitch of the mirror assembly.
@@ -94,274 +67,180 @@ Fine pitch motion with the piezo will be initiated to finish closing the loop.
 The piezo mechanism can actuate ~ 180urad or 90um.
 
 *)
-lrActPos := Pitch.Stepper.Axis.NcToPlc.ActPos;
-nCommand  := 3;
-(* If we hit a limit during a move, we need to change the setpoint *)
-ftLimitSwitch(CLK:=Pitch.Stepper.bAllForwardEnable AND Pitch.Stepper.bAllBackwardEnable);
+lrCurrentSetpoint := Pitch.Stepper.fPosition; // Current setpoint, written from Epics
+lrActPos := Pitch.Stepper.stAxisStatus.fActPosition;
 
-//Manual mode switching logic
-/////////////////////////////////////
-	rtManualMode(CLK:=DirectPiezoMode);
-	ftManualMode(CLK:=DirectPiezoMode);
-	A_ModeSwitch();
-
-(* // Removing tweak functions
-//Motion control logic from PTP	
-//Tweak Triggers
-/////////////////////////////////////////////
-	rtTweakFwd(CLK:=Pitch.Axis.bTwkFwd);
-	rtTweakBwd(CLK:=Pitch.Axis.bTwkBwd);
-	rtExecute(CLK:=NOT Pitch_PLC_VAR.bDone);
-	
-//Tweak Forward
-/////////////////////
-IF rtTweakFwd.Q THEN
-	//Setup move
-	Pitch.Axis.rReqAbsPos := rLastSetpoint + Pitch.Axis.rTweak;
-//Tweak Backwards
-/////////////////////
-ELSIF rtTweakBwd.Q THEN
-	//Setup move
-	Pitch.Axis.rReqAbsPos := rLastSetpoint - Pitch.Axis.rTweak;
-ELSE
-	bRequesting := FALSE;
+IF bFirstPass THEN
+	// Set setpoint to current motor position
+	Pitch.Stepper.fPosition := lrActPos;
 END_IF
-*)
 
-(* At this point, Pitch.Axis.rReqAbsPos holds the next setpoint.
-Now it will be validated against the soft-limits
-*)
+// If we hit a limit during a move, we need to change the setpoint
+ftLimitSwitch(CLK:=Pitch.Stepper.bAllForwardEnable AND Pitch.Stepper.bAllBackwardEnable);
+IF ftLimitSwitch.Q THEN
+	bExecuteStepper := FALSE;
+	bLimitHit := TRUE;
+	PC_State := PCM_Standby;
+END_IF
 
-//Halt
-///////////////////////////////////
-	ftHalt(CLK:= Pitch.Stepper.bExecute);
-	(* Halt does the following
-	Halts stepper motion, waits for stepper to settle, records stepper position as prev. stepper pos.
-	moves to fine move with a new abs setpoint
-	*)
-	IF ftHalt.Q AND NOT q_xDone THEN
-		PC_State := PCM_Halt;
-	END_IF
+IF (NOT Pitch.Stepper.bAllForwardEnable OR NOT Pitch.Stepper.bAllBackwardEnable) AND (Pitch.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL) THEN
+	// Not a good way of doing things - can't move off limit switch as setpoint will stick at limit switch position
+	Pitch.Stepper.fPosition := lrActPos;
+	lrCurrentSetpoint := Pitch.Stepper.fPosition;
+	lrLastSetpoint := lrCurrentSetpoint;
+END_IF
 
-//Check for new position requests, and sanitize
-///////////////////////////////////////////////
-	IF (rLastSetpoint <> Pitch.Stepper.fPosition) THEN
-		//We don't want to initiate any kind of a move if we don't have to.
-		IF 	Pitch.Stepper.fPosition > Pitch.ReqPosLimHi OR Pitch.Stepper.fPosition < Pitch.ReqPosLimLo OR
-			(Pitch.Stepper.fPosition < lrActPos) AND Pitch.Stepper.bLimitBackwardEnable OR (Pitch.Stepper.fPosition > lrActPos) AND Pitch.Stepper.bLimitForwardEnable THEN
-			//Requested move is outside of travel limits
-			OriginalPosRequest	:= Pitch.Stepper.fPosition;
-			Pitch.Stepper.fPosition := LIMIT(Pitch.ReqPosLimLo, Pitch.Stepper.fPosition, Pitch.ReqPosLimHi);
-			//Only want to log one warning about a bad position request.
-			IF OriginalPosRequest <> Pitch.Stepper.fPosition THEN
-				//Log a warning
-				fbFormatString.sFormat := 'Pitch req OoR fb (%s), reset within limits, %f';
-				fbFormatString.arg1 := F_STRING(POUName);
-				fbFormatString.arg2 := F_REAL(OriginalPosRequest);
-				//fbFormatString(sOut=>fbLogMessage.i_sMsg);
-				fbFormatString(sOut=>stDiag.asResults[stDiag.resultIdx.IncVal()]);
-				//fbLogMessage(i_eSevr:= Warning, i_eSubsystem:=gDefaultSubsystem);
+// Left out Manual Mode Switch and Tweak FBs
+
+// State Machine
+CASE PC_State OF
+	PCM_Init:
+		// Reset the stepper
+		bResetStepper := bFirstPass; // True on first cycle
+		PC_State := PCM_Standby;
+	PCM_Standby:
+	    bResetStepper := bFirstPass; // Should now be FALSE
+		// Waits for move requests and determines if they are valid
+		IF (lrLastSetpoint <> lrCurrentSetpoint) THEN // lrLastSetpoint initially set in PCM_Done
+			// Check for bad setpoints -> revert to previous setpoint
+			IF 	(lrCurrentSetpoint > Pitch.ReqPosLimHi) OR (lrCurrentSetpoint < Pitch.ReqPosLimLo) OR NOT Pitch.Stepper.bHardwareEnable THEN
+				// Outside range of limit switches or bHardwareEnable is FALSE
+				ACT_ResetSetpoint();
+			ELSIF lrCurrentSetpoint > lrLastSetpoint AND NOT Pitch.Stepper.bAllForwardEnable THEN
+				// Forward move when on HL
+				ACT_ResetSetpoint();
+			ELSIF lrCurrentSetpoint < lrLastSetpoint AND NOT Pitch.Stepper.bAllBackwardEnable THEN
+				// Backward move when on LL
+				ACT_ResetSetpoint();
+			END_IF
+			// If the current setpoint still differs from the prvious, we know the move is safe and OK to proceed
+			IF lrLastSetpoint <> lrCurrentSetpoint THEN
+				q_bDone := FALSE;
+				PC_State := PCM_MoveRequested;
 			END_IF
 		END_IF
-		// At this point Pitch.Axis.rReqAbsPos is considered clean and safe, so we pass to a holding variable
-		rSetpoint := Pitch.Stepper.fPosition;
-		//Set the previously requested position here
-		rLastSetpoint := rSetpoint;
-		//New position request, no longer done.
-		q_xDone := FALSE;
-		q_xBusy	:= TRUE;
-		PC_State := PCM_MoveRequested;
-	END_IF
-	
-//State Machine
-//////////////////////////////////
-CASE PC_State OF
-	PCM_Init: 
-		//Initialize stepper motor mc power block
-		Pitch.Stepper.bReset := FirstPass;
-		PC_State := PCM_Standby;
-		
-	PCM_Standby:
-		;
-		
-	PCM_MoveRequested: 
-		//A move has been requested, is it within range of the piezo?
-		IF WithinRange(ValA:=rSetpoint, Center:=rPrevStepperPos, Range:=cPiezoRange, Offset:=0) THEN
-			//Move is within the nominal range of the piezo
+	PCM_MoveRequested:
+		// A move has been requested, is it within range of the piezo?
+		IF WithinRange(ValA:=lrCurrentSetpoint, Center:=lrPrevStepperPos, Range:=GVL_Constants.cPiezoRange, Offset:=0) THEN
+			// Move is within the nominal range of the piezo
 			fbFormatString.sFormat := 'Within range, fine move %f';
-			fbFormatString.arg1 := F_REAL(rSetpoint);
+			fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
 			fbFormatString(sOut=>stDiag.asResults[stDiag.resultIdx.IncVal()]);
 			PC_State := PCM_FineMove;
 		ELSE
 			// Out of range, head to coarse move
+			fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
 			fbFormatString.sFormat := 'OoR, using stepper %f';
-			fbFormatString.arg1 := F_REAL(rSetpoint);
 			fbFormatString(sOut=>stDiag.asResults[stDiag.resultIdx.IncVal()]);
 			PC_State := PCM_Coarse50Piezo;
 		END_IF
-
 	PCM_Coarse50Piezo:
-		//A coarse move uses the stepper to do a best-effort position
-		//First set the piezo to nominal 50% extension using idle mode
+		// A coarse move uses the stepper to do a best-effort position
+		// First set the piezo to nominal 50% extension using idle mode
 		//////////////////////////////////////////////////////////////////////////////
 		Pitch.Piezo.xIdleMode := TRUE;
-		//Indicate we are doing the coarse 50% piezo move	
-		Coarse50PiezoMove := TRUE;
-		//Wait for piezo to settle
+		// Indicate we are doing the coarse 50% piezo move	
+		bCoarse50PiezoMove := TRUE;
+		// Wait for piezo to settle
 		tonPiezoSettled.IN := TRUE;
-		Coarse50PiezoMove R= tonPiezoSettled.Q;
+		bCoarse50PiezoMove R= tonPiezoSettled.Q;
 		IF tonPiezoSettled.Q THEN
 			//Piezo has moved to 50% position, finish with the stepper
 			PC_State := PCM_CoarseMove;
 			tonPiezoSettled.IN := FALSE;
 		END_IF
-
-	PCM_CoarseMove:
-		//With the piezo at a nom 50% extension, move the stepper to requested position
-		// Lets enable the motor
-		Pitch.Stepper.nEnableMode := 1;
-		Pitch.Stepper.bEnable := TRUE;
-		IF Pitch.Stepper.stAxisStatus.bEnabled THEN
-			mcSmoothMover.ReqAbsPos := rSetpoint;
-			mcSmoothMover.Enable := TRUE;
-		END_IF
-
-		IF ftLimitSwitch.Q THEN
-			Pitch.Stepper.fPosition := lrActPos;
-			mcSmoothMover.ReqAbsPos := lrActPos;
-			xLimitHit	:= TRUE; //set this flag here.
-		END_IF
-		tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=rSetpoint, Range:=rSettledRange, Offset:=0); // range in urad
-		tonStepperHold(); //call this here to reset Q just below on first cycle
-		//If the coarse move is complete, finish position correction with the piezo
+	PCM_CoarseMove: 
+		// With the piezo at a nominal 50% extension, move the stepper to requested position
+		bExecuteStepper := TRUE;
+		// Timer that waits to start until stepper is within range of the setpoint
+		tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=lrCurrentSetpoint, Range:=rSettledRange, Offset:=0);
+		tonStepperHold(); // call this here to reset Q just below on first cycle
+		// If the coarse move is complete, finish position correction with the piezo
 		IF tonStepperHold.Q  OR ftLimitSwitch.Q THEN
 			PC_State := PCM_CoarseMoveCleanup;
-			rPrevStepperPos := Pitch.Stepper.fPosition;
-		ELSIF Pitch.Stepper.bError OR mcSmoothMover.Error THEN
-			Pitch.Stepper.bExecute := FALSE;
-			mcSmoothMover.Enable := FALSE;
-			Pitch.Stepper.nEnableMode := 2; // Disable stepper
+			lrPrevStepperPos := lrActPos;
+		ELSIF Pitch.Stepper.bError THEN
+			bExecuteStepper := FALSE;
 			PC_State := PCM_StepperError;
-			//Stepper fb has encountered an error, pass a message to the logger
-			IF Pitch.Stepper.bError THEN
-				fbFormatString.sFormat := 'Coarse move error, stepper err id %d';
-				fbFormatString.arg1 := F_UDINT(Pitch.Stepper.Axis.Status.ErrorID);
-			ELSIF mcSmoothMover.Error THEN
-				fbFormatString.sFormat := 'Coarse move error, smoothmover error';
-			END_IF
-			fbFormatString(sOut=>stDiag.asResults[stDiag.resultIdx.IncVal()]);
+			// Left out logging
 		END_IF
-
 	PCM_CoarseMoveCleanup:
-	    // Disable Motor
-		Pitch.Stepper.nEnableMode := 2;
-		IF Pitch.Stepper.Axis.Status.Disabled THEN
-			rPrevStepperPos := mcSmoothMover.ReqAbsPos;
-			PC_State := PCM_FineMove;
-		END_IF
-
+		bExecuteStepper := FALSE;
+		PC_State := PCM_FineMove;
 	PCM_FineMove:	
 		Pitch.Piezo.xIdleMode := FALSE;
 		fbPiezoControl.xExecute := TRUE;
-		IF xLimitHit THEN
+		IF bLimitHit THEN
 			Pitch.Piezo.rReqAbsPos := lrActPos;
 		ELSE
-			Pitch.Piezo.rReqAbsPos := rSetpoint;
+			Pitch.Piezo.rReqAbsPos := lrCurrentSetpoint;
 		END_IF
 		rtPiezoMoveDone(CLK:=fbPiezoControl.xDone);
 		IF rtPiezoMoveDone.Q THEN
 			fbPiezoControl.xExecute := FALSE;
 			PC_State := PCM_Done;
 		END_IF
-		
-	PCM_Halt:
-		//We may transition to this state from anywhere, so we need to clean up and move to done
-		//Halt the stepper
-		//If trans. from FineMove, stepper is already disabled
-		Pitch.Stepper.bExecute := FALSE;		
-		IF Pitch.Stepper.bDone OR Pitch.Stepper.Axis.Status.Disabled THEN
-			Pitch.Stepper.nEnableMode := 0;
-			//If the piezo control is done, we haven't started the fine move yet, so we can
-			// record the current position as the prev. achv. stepper position.
-			IF fbPiezoControl.xDone THEN
-				rPrevStepperPos := lrActPos;
-			END_IF
-			// Very special case, where the setpoint is now where we halted
-			rSetpoint := lrActPos;
-			PC_State := PCM_FineMove;
-		END_IF
-
 	PCM_Done:
-		Pitch.Stepper.fPosition := rLastSetpoint; //this might be kind of funky
-		xLimitHit := FALSE;
-		//Indicate we're done
-		q_xDone	:= TRUE;
-		q_xBusy := FALSE;
-		//Move back to standby
+		// Set the previously requested position here
+		lrLastSetpoint := lrCurrentSetpoint;
+		bLimitHit := FALSE;
+		// Indicate we're done
+		q_bDone	:= TRUE;
+		// Move back to standby
 		PC_State := PCM_Standby;
 	PCM_StepperError:
 		Pitch.Stepper.bReset := TRUE; // set false again in PCM_Init
-		q_xBusy := FALSE;
 		PC_State := PCM_Init; 
 	PCM_PiezoError:
-		q_xBusy := FALSE;
 		PC_State := PCM_Init;
 	PCM_OtherError:
-		q_xBusy := FALSE;
 		PC_State := PCM_Init;
-	
 END_CASE
 
-FirstPass := FALSE;
+bFirstPass := FALSE;
 
-//Transfer the other stuff to the piezo
-/////////////////////////////////////////
+fbMotionRequest(stMotionStage:=Pitch.Stepper,
+                bExecute:=bExecuteStepper,
+                bReset:=bResetStepper,
+                enumMotionRequest:=enumMotionRequest,
+                fPos:=lrCurrentSetpoint,
+                fVel:=Pitch.Stepper.fVelocity,
+                fAcc:=Pitch.Stepper.fAcceleration,
+                fDec:=Pitch.Stepper.fDeceleration,
+                bError=>,
+                sErrorMessage=>,
+                bBusy=>,
+                bDone=>);
+fbMotionStage(stMotionStage:=Pitch.Stepper);
+
+// Transfer to the Piezo
 Pitch.Piezo.rActPos := lrActPos;
-
-//Function blocks
-//ACT_PTP();
 
 tonPiezoSettled();
 tonStepperHold();
-
-// Run the Coarse moves (waiting for bEnable to go True
-fbMotionStage(stMotionStage:=Pitch.Stepper);
-
 fbPiezoControl(iq_Piezo:=Pitch.Piezo,
-	Enable_Positive:=Pitch.Stepper.bAllForwardEnable,
-	Enable_Negative:=Pitch.Stepper.bAllBackwardEnable
-);]]></ST>
+	           Enable_Positive:=Pitch.Stepper.bLimitForwardEnable,
+			   Enable_Negative:=Pitch.Stepper.bLimitBackwardEnable);]]></ST>
     </Implementation>
-    <Action Name="A_ModeSwitch" Id="{281d1c4f-e2d3-47e0-b22b-e39b29c10c9c}">
+    <Action Name="ACT_ResetSetpoint" Id="{0b95a558-7e3a-4f95-aac8-420be385c984}">
       <Implementation>
-        <ST><![CDATA[(* When switching between modes, we need to make sure all the executes/ mode switches, etc. are cleared *)
+        <ST><![CDATA[// Action to reset the Setpoint to the previous value when:
+// - New setpoint outside range of soft limits
+// - bHardwareEnable is FALSE
+// - Limit switches are hit and new setpoint the direction of the hit switch
 
-// Automatic to manual
-/////////////////////////////
-IF rtManualMode.Q THEN
-;
-END_IF
-
-// Manual to automatic
-//////////////////////////////
-IF ftManualMode.Q THEN
-	;
+lrOriginalPosRequest := lrCurrentSetpoint;
+Pitch.Stepper.fPosition := lrLastSetpoint;
+lrCurrentSetpoint := Pitch.Stepper.fPosition;
+// Only want to log one warning about a bad position request
+IF lrOriginalPosRequest <> lrCurrentSetpoint THEN
+	// Log a warning
+	fbFormatString.sFormat := 'Pitch req OoR fb (%s), reset within limits, %f';
+	fbFormatString.arg1 := F_STRING(POUName);
+	fbFormatString.arg2 := F_LREAL(lrOriginalPosRequest);
+	fbFormatString(sOut=>stDiag.asResults[stDiag.resultIdx.IncVal()]);
+	PC_State := PCM_Standby;
 END_IF]]></ST>
-      </Implementation>
-    </Action>
-    <Action Name="ACT_PTP" Id="{567d6566-63fe-4281-a3e1-a243f492c380}">
-      <Implementation>
-        <ST><![CDATA[//Reset Execute to wait for next motion command
-////////////////////////////////////////////////
-//bExecute R= Drive.Status.NotMoving AND NOT bRequesting;
-
-//MC Smooth Mover
-////////////////////////////////////////////////
-(* You can control an axis with MC blocks other than those in PTP or drive.
-We just use the drive/PTP block to initialize the axis and manage the limit
-switch logic *)
-mcSmoothMover(Axis:=Pitch.Stepper.Axis,
-	          Velocity:=Pitch.Stepper.fVelocity);]]></ST>
       </Implementation>
     </Action>
   </POU>
