@@ -35,7 +35,8 @@ VAR
 	bResetStepper : BOOL;
 	bExecuteStepper : BOOL;
 	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT; // Check on this - guessing it means to wait for move to complete before requesting another
-
+	ftLimStandStill : F_TRIG;
+	
 	// Piezo
 	tonPiezoSettled : TON := (PT:=T#2S);
 	fbPiezoControl : FB_PiezoControl;
@@ -83,11 +84,13 @@ IF ftLimitSwitch.Q THEN
 	PC_State := PCM_Standby;
 END_IF
 
-IF (NOT Pitch.Stepper.bAllForwardEnable OR NOT Pitch.Stepper.bAllBackwardEnable) AND (Pitch.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL) THEN
+ftLimStandStill(CLK:=(NOT Pitch.Stepper.bAllForwardEnable OR NOT Pitch.Stepper.bAllBackwardEnable) AND (Pitch.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL));
+IF ftLimStandStill.Q THEN
 	// Not a good way of doing things - can't move off limit switch as setpoint will stick at limit switch position
 	Pitch.Stepper.fPosition := lrActPos;
 	lrCurrentSetpoint := Pitch.Stepper.fPosition;
 	lrLastSetpoint := lrCurrentSetpoint;
+	lrPrevStepperPos := lrCurrentSetpoint;
 END_IF
 
 // Left out Manual Mode Switch and Tweak FBs

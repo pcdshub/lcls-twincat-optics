@@ -6,7 +6,7 @@ VAR_GLOBAL CONSTANT
 	nGANTRY_TOLERANCE_NM_DEFAULT : LINT := 50000; // default gantry tolerance in encoder counts = nm
 	cPiezoMaxVoltage	:	LREAL := 120; // in Volts
 	cPiezoMinVoltage	:	LREAL := -10; // in Volts
-	cPiezoRange : REAL := 0.06; // From Old HOMS_FEE Project, 90 um of piezo stroke, unsure what these units are
+	cPiezoRange : REAL := 60.0; // From Old HOMS_FEE Project, 90 um of piezo stroke, unsure what these units are
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

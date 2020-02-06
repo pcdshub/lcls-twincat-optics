@@ -4,22 +4,29 @@
     <Declaration><![CDATA[PROGRAM Main
 VAR
 	fbPitchControl : FB_PitchControl;
-	TestPitch : HOMS_PitchMechanism := (ReqPosLimHi:=20000,
-		                                ReqPosLimLo:=17000,
+	TestPitch : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
+		                                ReqPosLimLo:=-2000,
 		                                diEncPosLimHi:=10768330,
 		                                diEncPosLimLo:=8141680);
 	ExpertMode : BOOL := FALSE;
 	PitchManualMode : BOOL := FALSE;
+	
+	fbMotionStage : FB_MotionStage;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[TestPitch.Stepper.bLimitBackwardEnable;
+      <ST><![CDATA[
+TestPitch.Stepper.bLimitBackwardEnable;
 TestPitch.Stepper.bLimitForwardEnable;
 TestPitch.Stepper.bHardwareEnable;
 TestPitch.Stepper.fVelocity := 150.0;
+
 fbPitchControl(Pitch:=TestPitch,
 			   q_bDone=>,
-			   q_bBusy=>);]]></ST>
+			   q_bBusy=>);
+
+//fbMotionStage(stMotionStage:=TestPitch.Stepper);
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
