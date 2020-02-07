@@ -20,6 +20,7 @@ VAR
 	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT;
 	lrCurrentSetpoint : LREAL;
 	lrActPos : LREAL;
+	mcReset : MC_Reset;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -30,10 +31,12 @@ TestPitch.Stepper.fVelocity := 150.0;
 fbPitchControl(Pitch:=TestPitch,
 			   q_bDone=>bPitchDone,
 			   q_bBusy=>);
-               
-TcUnit.RUN();
-(*
+     
+//TcUnit.RUN();
 // Debug
+(*
+mcReset(Axis:=TestPitch.Stepper.Axis,
+	    Execute:=bResetStepper);
 lrActPos := TestPitch.Stepper.stAxisStatus.fActPosition;
 lrCurrentSetpoint := TestPitch.Stepper.fPosition;
 fbMotionRequest(stMotionStage:=TestPitch.Stepper,
@@ -51,9 +54,5 @@ fbMotionRequest(stMotionStage:=TestPitch.Stepper,
 fbMotionStage(stMotionStage:=TestPitch.Stepper);
 *)]]></ST>
     </Implementation>
-    <LineIds Name="Main">
-      <LineId Id="89" Count="25" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

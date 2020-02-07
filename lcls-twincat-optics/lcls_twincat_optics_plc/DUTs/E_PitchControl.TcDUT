@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <DUT Name="E_PitchControl" Id="{15e5f421-b8c8-457a-9ec3-ba6c1bfbee8f}">
     <Declaration><![CDATA[TYPE E_PitchControl :
 (
@@ -16,7 +16,8 @@
 	PCM_Error   := 9000, //Anything above 9000 is considered an error
 	PCM_StepperError	:= 9100,
 	PCM_PiezoError	:= 9200,
-	PCM_OtherError := 9300
+	PCM_OtherError := 9300,
+	PCM_STOHit := 9400
 );
 END_TYPE
 ]]></Declaration>

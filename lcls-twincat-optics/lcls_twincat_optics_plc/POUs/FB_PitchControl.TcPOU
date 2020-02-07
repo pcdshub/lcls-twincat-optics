@@ -24,19 +24,22 @@ VAR
     lrActPos : LREAL; // Actual Position of piezo mechanism
 	lrPrevStepperPos : LREAL; // Previous successfully achieved stepper position
 	ftLimitSwitch : F_TRIG;
+	ftSTO : F_TRIG;
+	rtSTO : R_TRIG;
 	lrOriginalPosRequest : LREAL; // Used for logging
 	lrLastSetpoint : LREAL; // Previous successfully achieved setpoint
 	lrCurrentSetpoint : LREAL; // Agrees with DUT_MotionStage.fPosition
 	fbMotionRequest : FB_MotionRequest;
 	fbMotionStage : FB_MotionStage;
 	bLimitHit : BOOL;
+	bSTOHit : BOOL;
 	tonStepperHold : TON := (PT:=T#100MS); // Timer to hold stepper position while the system relaxes
 	rSettledRange : REAL := 0.0003; // Not sure what the units are here...
 	bResetStepper : BOOL;
 	bExecuteStepper : BOOL;
 	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT; // Check on this - guessing it means to wait for move to complete before requesting another
-	ftLimStandStill : F_TRIG;
-	
+	mcReset : MC_Reset; // Used to clear error after STO hit and then released
+
 	// Piezo
 	tonPiezoSettled : TON := (PT:=T#2S);
 	fbPiezoControl : FB_PiezoControl;
@@ -77,12 +80,23 @@ IF bFirstPass THEN
 END_IF
 
 // If we hit a limit during a move, we need to change the setpoint
-ftLimitSwitch(CLK:=Pitch.Stepper.bAllForwardEnable AND Pitch.Stepper.bAllBackwardEnable AND Pitch.Stepper.bHardwareEnable);
+ftLimitSwitch(CLK:=Pitch.Stepper.bAllForwardEnable AND Pitch.Stepper.bAllBackwardEnable);
 IF ftLimitSwitch.Q THEN
 	bExecuteStepper := FALSE;
 	bLimitHit := TRUE;
 	lrCurrentSetpoint := lrActPos;
 END_IF
+// If we hit the STO during a move, we also need to change the setpoint
+ftSTO(CLK:=Pitch.Stepper.bHardwareEnable);
+IF ftSTO.Q THEN
+	bExecuteStepper := FALSE;
+	bSTOHit := TRUE;
+	lrCurrentSetpoint := lrActPos;
+	// Unclear why I need the following, I would think FB_MotionRequest would set it from the input fPos:=lrCurrentSetpoint
+	Pitch.Stepper.fPosition := lrActPos;
+END_IF
+// Watch for STO to release to reset stepper
+rtSTO(CLK:=Pitch.Stepper.bHardwareEnable);
 
 // Left out Manual Mode Switch and Tweak FBs
 
@@ -153,6 +167,9 @@ CASE PC_State OF
 		IF tonStepperHold.Q  OR ftLimitSwitch.Q THEN
 			PC_State := PCM_CoarseMoveCleanup;
 			lrPrevStepperPos := lrActPos;
+		ELSIF ftSTO.Q THEN
+			PC_State := PCM_STOHit;
+			lrPrevStepperPos := lrActPos;
 		ELSIF Pitch.Stepper.bError THEN
 			bExecuteStepper := FALSE;
 			PC_State := PCM_StepperError;
@@ -184,11 +201,19 @@ CASE PC_State OF
 		PC_State := PCM_Standby;
 	PCM_StepperError:
 		Pitch.Stepper.bReset := TRUE; // set false again in PCM_Init
-		PC_State := PCM_Init; 
+		PC_State := PCM_Init;
 	PCM_PiezoError:
 		PC_State := PCM_Init;
 	PCM_OtherError:
 		PC_State := PCM_Init;
+	PCM_STOHit:
+		IF rtSTO.Q THEN
+			bResetStepper := TRUE;
+			bExecuteStepper := FALSE; // Not sure why needed, should already be FALSE...
+			mcReset(Axis:=Pitch.Stepper.Axis,
+				    Execute:=bResetStepper);
+			PC_State := PCM_Init;
+		END_IF
 END_CASE
 
 bFirstPass := FALSE;
