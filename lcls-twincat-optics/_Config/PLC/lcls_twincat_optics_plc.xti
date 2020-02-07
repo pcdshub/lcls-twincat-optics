@@ -1010,29 +1010,20 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.TestPitch.Stepper.bLimitForwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Forward Limit Switch: TRUE if ok to move]]>
-					</Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.TestPitch.Stepper.bLimitBackwardEnable</Name>
-					<Comment>
-						<![CDATA[ NC Backward Limit Switch: TRUE if ok to move]]>
-					</Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.TestPitch.Stepper.bHome</Name>
-					<Comment>
-						<![CDATA[ NO Home Switch: TRUE if at home]]>
-					</Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Main.TestPitch.Stepper.bHardwareEnable</Name>
 					<Comment>
-						<![CDATA[ NC STO Input: TRUE if ok to move]]>
+						<![CDATA[ True when Emergency stop button is not activated]]>
 					</Comment>
 					<Type>BOOL</Type>
 				</Var>
@@ -1140,9 +1131,6 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.TestPitch.Stepper.bBrakeRelease</Name>
-					<Comment>
-						<![CDATA[ NC Brake Output: TRUE to release brake]]>
-					</Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>

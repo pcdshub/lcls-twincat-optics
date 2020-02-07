@@ -24,9 +24,9 @@ VAR
     lrActPos : LREAL; // Actual Position of piezo mechanism
 	lrPrevStepperPos : LREAL; // Previous successfully achieved stepper position
 	ftLimitSwitch : F_TRIG;
-	lrOriginalPosRequest : LREAL;
-	lrLastSetpoint : LREAL;
-	lrCurrentSetpoint : LREAL;
+	lrOriginalPosRequest : LREAL; // Used for logging
+	lrLastSetpoint : LREAL; // Previous successfully achieved setpoint
+	lrCurrentSetpoint : LREAL; // Agrees with DUT_MotionStage.fPosition
 	fbMotionRequest : FB_MotionRequest;
 	fbMotionStage : FB_MotionStage;
 	bLimitHit : BOOL;
@@ -77,20 +77,11 @@ IF bFirstPass THEN
 END_IF
 
 // If we hit a limit during a move, we need to change the setpoint
-ftLimitSwitch(CLK:=Pitch.Stepper.bAllForwardEnable AND Pitch.Stepper.bAllBackwardEnable);
+ftLimitSwitch(CLK:=Pitch.Stepper.bAllForwardEnable AND Pitch.Stepper.bAllBackwardEnable AND Pitch.Stepper.bHardwareEnable);
 IF ftLimitSwitch.Q THEN
 	bExecuteStepper := FALSE;
 	bLimitHit := TRUE;
-	PC_State := PCM_Standby;
-END_IF
-
-ftLimStandStill(CLK:=(NOT Pitch.Stepper.bAllForwardEnable OR NOT Pitch.Stepper.bAllBackwardEnable) AND (Pitch.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL));
-IF ftLimStandStill.Q THEN
-	// Not a good way of doing things - can't move off limit switch as setpoint will stick at limit switch position
-	Pitch.Stepper.fPosition := lrActPos;
-	lrCurrentSetpoint := Pitch.Stepper.fPosition;
-	lrLastSetpoint := lrCurrentSetpoint;
-	lrPrevStepperPos := lrCurrentSetpoint;
+	lrCurrentSetpoint := lrActPos;
 END_IF
 
 // Left out Manual Mode Switch and Tweak FBs
