@@ -29,9 +29,9 @@ VAR_INST
     
     iStep : UINT := 0;
     
-    rtStandStill : R_TRIG;
+    rtDone : R_TRIG;
     
-    tonHack : TON (PT:=T#1s);
+    tonHack : TON := (PT:=T#1s);
     
 END_VAR
 VAR CONSTANT
@@ -51,7 +51,7 @@ GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fVelocity := 150.0;
 fbPitchControl(Pitch:=GVL_TestStructs.TestPitch_LimitSwitches,
 			   q_bDone=>,
 			   q_bBusy=>);
-rtStandStill(CLK:= GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL);
+rtDone(CLK:= GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bDone);
 
 tonHack(IN:=GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL);
 
@@ -64,7 +64,7 @@ CASE iStep OF
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := ForwardTestSP;
 
 TEST('Forward Limit Switch Stop');
-IF fActPosition > FwdLimPos AND tonHack.Q THEN
+IF fActPosition > FwdLimPos AND rtDone.Q THEN
 
     AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
     
@@ -73,17 +73,12 @@ IF fActPosition > FwdLimPos AND tonHack.Q THEN
     iStep := 20;
 END_IF
 
-10: // Attempt to move again past fwd limit and be denied
-
-
 
 20: // Attempt to back off limit and succeed
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := FwdLimPos -1;
 
-
-
 TEST('Forward Limit BO');
-IF rtStandStill.Q THEN
+IF rtDone.Q THEN
 
     AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Position not at back off position');
     
@@ -94,33 +89,31 @@ END_IF
 
 
 30: // Set SP to beyond bwd limit and stop
-GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := ForwardTestSP;
+GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := -1*ForwardTestSP;
 
 TEST('Bwd Limit Switch Stop');
-IF fActPosition > FwdLimPos AND tonHack.Q THEN
+IF fActPosition > FwdLimPos AND rtDone.Q THEN
 
     AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
     
     TEST_FINISHED_NAMED('Bwd Limit Switch Stop');
     
-    iStep := 20;
+    iStep := 50;
 END_IF
 
 40: // Attempt to move again past bwd limit and be denied
 
 50: // Attempt to back off limit and succeed
-GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := FwdLimPos -1;
-
-
+GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := BwdLimPos +1;
 
 TEST('Bwd Limit BO');
-IF rtStandStill.Q THEN
+IF rtDone.Q THEN
 
     AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Position not at back off position');
     
     TEST_FINISHED_NAMED('Bwd Limit BO');
     
-    iStep := 30;
+    iStep := 8000;
 END_IF
 
 60:
