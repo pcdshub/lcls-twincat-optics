@@ -10,23 +10,47 @@ VAR
 		                                diEncPosLimLo:=8141680);
 	ExpertMode : BOOL := FALSE;
 	PitchManualMode : BOOL := FALSE;
-	
+	bPitchDone : BOOL;
+
+	// Debug
 	fbMotionStage : FB_MotionStage;
+	fbMotionRequest : FB_MotionRequest;
+	bExecuteStepper : BOOL;
+	bResetStepper : BOOL;
+	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT;
+	lrCurrentSetpoint : LREAL;
+	lrActPos : LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-TestPitch.Stepper.bLimitBackwardEnable;
+      <ST><![CDATA[TestPitch.Stepper.bLimitBackwardEnable;
 TestPitch.Stepper.bLimitForwardEnable;
 TestPitch.Stepper.bHardwareEnable;
 TestPitch.Stepper.fVelocity := 150.0;
 
 fbPitchControl(Pitch:=TestPitch,
-			   q_bDone=>,
+			   q_bDone=>bPitchDone,
 			   q_bBusy=>);
 
-//fbMotionStage(stMotionStage:=TestPitch.Stepper);
-]]></ST>
+
+(*
+// Debug
+lrActPos := TestPitch.Stepper.stAxisStatus.fActPosition;
+lrCurrentSetpoint := TestPitch.Stepper.fPosition;
+fbMotionRequest(stMotionStage:=TestPitch.Stepper,
+                bExecute:=bExecuteStepper,
+                bReset:=bResetStepper,
+                enumMotionRequest:=enumMotionRequest,
+                fPos:=lrCurrentSetpoint,
+                fVel:=TestPitch.Stepper.fVelocity,
+                fAcc:=TestPitch.Stepper.fAcceleration,
+                fDec:=TestPitch.Stepper.fDeceleration,
+                bError=>,
+                sErrorMessage=>,
+                bBusy=>,
+                bDone=>);
+fbMotionStage(stMotionStage:=TestPitch.Stepper);
+*)]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
