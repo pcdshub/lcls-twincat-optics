@@ -3,10 +3,10 @@
   <GVL Name="GVL_TestStructs" Id="{197d9202-dd0f-43a8-a9c2-c3e9ba80d67e}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-    	TestPitch_LimitSwitches : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
-		                                ReqPosLimLo:=-2000,
-		                                diEncPosLimHi:=10768330,
-		                                diEncPosLimLo:=8141680);
+	TestPitch_LimitSwitches : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
+		                                              ReqPosLimLo:=-2000,
+		                                              diEncPosLimHi:=10768330,
+		                                              diEncPosLimLo:=8141680);
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

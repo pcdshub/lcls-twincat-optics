@@ -91,9 +91,9 @@ ftSTO(CLK:=Pitch.Stepper.bHardwareEnable);
 IF ftSTO.Q THEN
 	bExecuteStepper := FALSE;
 	bSTOHit := TRUE;
-	lrCurrentSetpoint := lrActPos;
+//	lrCurrentSetpoint := lrActPos;
 	// Unclear why I need the following, I would think FB_MotionRequest would set it from the input fPos:=lrCurrentSetpoint
-	Pitch.Stepper.fPosition := lrActPos;
+//	Pitch.Stepper.fPosition := lrActPos;
 END_IF
 // Watch for STO to release to reset stepper
 rtSTO(CLK:=Pitch.Stepper.bHardwareEnable);

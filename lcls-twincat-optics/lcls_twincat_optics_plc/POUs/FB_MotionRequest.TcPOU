@@ -141,6 +141,7 @@ CASE nState OF
         END_IF
 	// Lock us into the error state until the FB is reset
     ERROR:
+		stMotionStage.fPosition := stMotionStage.stAxisStatus.fActPosition;
         bMyMove := FALSE;
 END_CASE
 

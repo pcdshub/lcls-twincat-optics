@@ -24,15 +24,16 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[TestPitch.Stepper.bLimitBackwardEnable;
+      <ST><![CDATA[(*
+TestPitch.Stepper.bLimitBackwardEnable;
 TestPitch.Stepper.bLimitForwardEnable;
 TestPitch.Stepper.bHardwareEnable;
 TestPitch.Stepper.fVelocity := 150.0;
 fbPitchControl(Pitch:=TestPitch,
 			   q_bDone=>bPitchDone,
 			   q_bBusy=>);
-     
-//TcUnit.RUN();
+*)     
+TcUnit.RUN();
 // Debug
 (*
 mcReset(Axis:=TestPitch.Stepper.Axis,
