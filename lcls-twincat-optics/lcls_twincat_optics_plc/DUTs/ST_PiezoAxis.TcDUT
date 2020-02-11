@@ -30,12 +30,12 @@ STRUCT
 	(* Control Parameters *)
 		rActPos	:	LREAL; //Encoder Readback
 		//Pitch piezo dmove range (urad)
-		rPiezoDmovRange		:	REAL := 0.0002;
+		rPiezoDmovRange		:	REAL := 1.0;
 		stPIParams	:	ST_CTRL_PI_PARAMS := (
 			tCtrlCycleTime := T#0MS,
 			tTaskCycleTime := T#0MS,
-			tTn       := T#1S,
-			fKp      := 0.25,
+			tTn       := T#200MS,
+			fKp      := 0.0005,
 			fOutMaxLimit := 1,
 			fOutMinLimit := -1,
 			bARWOnIPartOnly := FALSE);

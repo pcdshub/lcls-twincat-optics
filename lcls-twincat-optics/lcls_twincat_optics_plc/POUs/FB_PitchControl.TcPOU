@@ -34,7 +34,7 @@ VAR
 	bLimitHit : BOOL;
 	bSTOHit : BOOL;
 	tonStepperHold : TON := (PT:=T#100MS); // Timer to hold stepper position while the system relaxes
-	rSettledRange : REAL := 0.0003; // Not sure what the units are here...
+	rSettledRange : REAL := 5.0; // Units = urad
 	bResetStepper : BOOL;
 	bExecuteStepper : BOOL;
 	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT; // Check on this - guessing it means to wait for move to complete before requesting another
