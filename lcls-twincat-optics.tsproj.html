@@ -1,0 +1,1051 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>PLC Project (1): lcls_twincat_optics_plc &#8212; pcdshub/lcls-twincat-optics  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="lcls_twincat_optics_plc.tmc" href="lcls_twincat_optics_plc.tmc.html" />
+    <link rel="prev" title="Welcome to pcdshub/lcls-twincat-optics’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="plc-project-1-lcls-twincat-optics-plc">
+<h1>PLC Project (1): lcls_twincat_optics_plc<a class="headerlink" href="#plc-project-1-lcls-twincat-optics-plc" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Project</span> <span class="n">root</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">travis</span><span class="o">/</span><span class="n">build</span><span class="o">/</span><span class="n">pcdshub</span><span class="o">/</span><span class="n">lcls</span><span class="o">-</span><span class="n">twincat</span><span class="o">-</span><span class="n">optics</span><span class="o">/</span><span class="n">lcls</span><span class="o">-</span><span class="n">twincat</span><span class="o">-</span><span class="n">optics</span>
+<span class="n">Project</span> <span class="n">path</span><span class="p">:</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">lcls_twincat_optics_plc</span><span class="o">.</span><span class="n">plcproj</span>
+<span class="n">TMC</span> <span class="n">path</span><span class="p">:</span>     <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">lcls_twincat_optics_plc</span><span class="o">.</span><span class="n">tmc</span>
+<span class="n">AMS</span> <span class="n">ID</span><span class="p">:</span>       
+<span class="n">IP</span> <span class="n">Address</span><span class="p">:</span>    <span class="p">(</span><span class="o">*</span> <span class="n">based</span> <span class="n">on</span> <span class="n">AMS</span> <span class="n">ID</span><span class="p">)</span>
+<span class="n">Port</span><span class="p">:</span>         <span class="mi">851</span>
+
+<span class="n">Source</span> <span class="n">files</span><span class="p">:</span>
+    <span class="mf">1.</span><span class="p">)</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">Common</span><span class="o">/</span><span class="n">POUs</span><span class="o">/</span><span class="n">Helpers</span><span class="o">/</span><span class="n">FB_PI_E621_SerialDriver</span><span class="o">.</span><span class="n">TcPOU</span>
+    <span class="mf">2.</span><span class="p">)</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">Common</span><span class="o">/</span><span class="n">POUs</span><span class="o">/</span><span class="n">Helpers</span><span class="o">/</span><span class="n">FB_PI_E621_SerialTransaction</span><span class="o">.</span><span class="n">TcPOU</span>
+    <span class="mf">3.</span><span class="p">)</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">DUTs</span><span class="o">/</span><span class="n">ST_PiezoAxis</span><span class="o">.</span><span class="n">TcDUT</span>
+    <span class="mf">4.</span><span class="p">)</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">GVLs</span><span class="o">/</span><span class="n">GVL_HOMS</span><span class="o">.</span><span class="n">TcGVL</span>
+    <span class="mf">5.</span><span class="p">)</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">GVLs</span><span class="o">/</span><span class="n">GVL_SerialIO</span><span class="o">.</span><span class="n">TcGVL</span>
+    <span class="mf">6.</span><span class="p">)</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">PlcTask</span><span class="o">.</span><span class="n">TcTTO</span>
+    <span class="mf">7.</span><span class="p">)</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">POUs</span><span class="o">/</span><span class="n">FB_RunHOMS</span><span class="o">.</span><span class="n">TcPOU</span>
+    <span class="mf">8.</span><span class="p">)</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">POUs</span><span class="o">/</span><span class="n">Serial</span> <span class="n">Comm</span><span class="o">/</span><span class="n">PiezoSerial</span><span class="o">.</span><span class="n">TcPOU</span>
+    <span class="mf">9.</span><span class="p">)</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">POUs</span><span class="o">/</span><span class="n">Serial</span> <span class="n">Comm</span><span class="o">/</span><span class="n">P_Serial_Com</span><span class="o">.</span><span class="n">TcPOU</span>
+    <span class="mf">10.</span><span class="p">)</span> <span class="n">lcls_twincat_optics_plc</span><span class="o">/</span><span class="n">Version</span><span class="o">/</span><span class="n">Global_Version</span><span class="o">.</span><span class="n">TcGVL</span>
+
+<span class="n">POUs</span><span class="p">:</span>
+    <span class="mf">1.</span><span class="p">)</span> <span class="n">PiezoSerial</span>
+    <span class="mf">2.</span><span class="p">)</span> <span class="n">P_Serial_Com</span>
+
+<span class="n">GVLs</span><span class="p">:</span>
+    <span class="mf">1.</span><span class="p">)</span> <span class="n">GVL_HOMS</span>
+    <span class="mf">2.</span><span class="p">)</span> <span class="n">GVL_SerialIO</span>
+    <span class="mf">3.</span><span class="p">)</span> <span class="n">Global_Version</span>
+</pre></div>
+</div>
+<div class="section" id="common-pous-helpers-fb-pi-e621-serialdriver-tcpou-tcplcobject">
+<h2>Common/POUs/Helpers/FB_PI_E621_SerialDriver.TcPOU (TcPlcObject)<a class="headerlink" href="#common-pous-helpers-fb-pi-e621-serialdriver-tcpou-tcplcobject" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fb-pi-e621-serialdriver-declaration">
+<h3>FB_PI_E621_SerialDriver: Declaration<a class="headerlink" href="#fb-pi-e621-serialdriver-declaration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_PI_E621_SerialDriver
+VAR_INPUT
+	/// rising edge execute 
+	i_xExecute: BOOL;
+	/// Maximum wait time for reply 
+	i_tTimeOut: TIME := TIME#1S0MS;
+//	i_xReset : BOOL := FALSE; //reset function, for timeout etc
+END_VAR
+VAR_OUTPUT
+	q_xDone: BOOL;
+	q_xError: BOOL;
+	q_sResult: STRING(255);
+	/// Last Strings Sent to Serial Device - for debugging 
+	q_asLastSentStrings: ARRAY[1..50] OF STRING;
+	/// Last Strings Received from Serial Device - for debugging 
+	q_asLastReceivedStrings: ARRAY[1..50] OF STRING;
+END_VAR
+VAR_IN_OUT
+	iq_stPiezoAxis	:	ST_PiezoAxis;
+	iq_stSerialRXBuffer: ComBuffer;
+	iq_stSerialTXBuffer: ComBuffer;
+END_VAR
+VAR
+	rtExecute		: R_TRIG;
+	rtTransDone		: R_TRIG;
+	iStep: INT;
+	sSendData: STRING;
+	fbPITransaction: FB_PI_E621_SerialTransaction;
+	fbFormatString: FB_FormatString;
+	sErrMesg : STRING := &#39;In step %d fbPITransaction failed with message: %s&#39;;
+	i		: INT := 1;
+END_VAR
+</pre></div>
+</div>
+</div>
+<div class="section" id="fb-pi-e621-serialdriver-st">
+<h3>FB_PI_E621_SerialDriver: ST<a class="headerlink" href="#fb-pi-e621-serialdriver-st" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>(* S. Stubbs, 2-23-2017 *)
+(* This function block drives serial communication with a PI E-816 or compatible comm module. 
+   Note this needs to be re-jiggered if the E-517 is used, uses number rather than letter for axis *)
+
+(* RS232 default settings: 115200 8N1, RTS/CTS
+
+All commands follow format:
+CMD X sV.V(Line feed)
+Where CMD is the command, X is axis, and sV.V is sign and number (float or int).
+Not all commands use axis and parameter, for example ERR?
+*)
+
+(* rising edge trigger *)
+rtExecute(CLK:= i_xExecute);
+IF rtExecute.Q THEN
+	q_xDone	:= FALSE;
+	q_xError := FALSE;
+	q_sResult:= &#39;&#39;;
+	iq_stPiezoAxis.xDriverError := FALSE;
+//	i_xReset := FALSE;
+	a_ClearTrans();  (* to provide rising edge for execute *)
+	IF iq_stPiezoAxis.sIdn= &#39;&#39; THEN (* Should only need to check identity once *)
+		iStep := 5;
+	ELSE
+		iStep := 10;
+	END_IF
+END_IF
+
+
+CASE iStep OF
+	0: (* idle *)
+		;
+
+	(* Commands *)
+	5: (* Get Identity *)
+			fbPITransaction.i_xExecute:= TRUE;
+			fbPITransaction.i_sCmd:= &#39;*IDN?&#39;;
+		IF fbPITransaction.q_xDone THEN
+				iq_stPiezoAxis.sIdn := fbPITransaction.q_sResponseData; //Hello I am a piezo
+				a_ClearTrans();  (* to provide rising edge for execute *)
+				iStep := 10;
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+		
+	10: (* Check Servo Mode 
+		To use manual voltage servo mode must be off *)
+		(* Response: 0$L or 1$L *)
+		fbPITransaction.i_xExecute:= TRUE;
+		fbPITransaction.i_sCmd:= &#39;SVO?&#39;;
+		fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+		IF fbPITransaction.q_xDone THEN
+			IF FIND(&#39;1&#39;,fbPITransaction.q_sResponseData) &lt;&gt; 0 THEN //Iff in servo mode, turn it off
+				a_ClearTrans();  (* to provide rising edge for execute *)
+				iStep := iStep + 10;
+			ELSE 
+				a_ClearTrans();
+				iStep := iStep + 20;  //Skip setting servo mode
+			END_IF
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+
+	20: (* Set Servo Mode *)
+		fbPITransaction.i_xExecute:= TRUE;
+		fbPITransaction.i_sCmd:= &#39;SVO&#39;;
+		fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+		fbPITransaction.i_sParam:= &#39;0&#39;;
+		fbPITransaction.i_xExpectReply:= FALSE;
+		IF fbPITransaction.q_xDone THEN
+			a_ClearTrans();  (* to provide rising edge for execute *)
+			iStep := iStep + 10;
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+		
+	30: (* Set Voltage, only if needed *)
+		IF iq_stPiezoAxis.rSetVoltage &lt;&gt; iq_stPiezoAxis.rLastReqVoltage THEN
+			fbPITransaction.i_xExecute:= TRUE;
+			fbPITransaction.i_sCmd:= &#39;SVA&#39;;
+			fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+			fbPITransaction.i_sParam:=REAL_TO_STRING(iq_stPiezoAxis.rSetVoltage);
+			fbPITransaction.i_xExpectReply:= FALSE;
+			IF fbPITransaction.q_xDone THEN
+					a_ClearTrans();  (* to provide rising edge for execute *)
+					iStep := iStep + 10;
+			ELSIF fbPITransaction.q_xError THEN
+				a_ErrorMesg();
+				iStep := 9000;
+			END_IF
+		ELSE
+			iStep := iStep + 30; //Should only need to check error and setpoint if setting voltage
+		END_IF
+
+	40: (* Get Error Code, also resets current error *)
+	(* Response: integer error code *)
+			fbPITransaction.i_xExecute:= TRUE;
+			fbPITransaction.i_sCmd:= &#39;ERR?&#39;;
+		IF fbPITransaction.q_xDone THEN
+				iq_stPiezoAxis.iCurError := STRING_TO_INT(fbPITransaction.q_sResponseData);
+				IF iq_stPiezoAxis.iCurError &lt;&gt; 0 THEN
+					iq_stPiezoAxis.iLastError:= iq_stPiezoAxis.iCurError;
+				END_IF
+				a_ClearTrans();  (* to provide rising edge for execute *)
+				iStep := iStep + 10;
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+
+	50: (* Get Last Requested Piezo Voltage *)
+	(* Response: (float)$L *)
+			fbPITransaction.i_xExecute:= TRUE;
+			fbPITransaction.i_sCmd:= &#39;SVA?&#39;;
+			fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+		IF fbPITransaction.q_xDone THEN
+			iq_stPiezoAxis.rLastReqVoltage := STRING_TO_REAL(fbPITransaction.q_sResponseData);
+			//Check and reset attempts if it went through
+			a_ClearTrans();  (* to provide rising edge for execute *)
+			iStep := iStep + 10;
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+		
+	60: (* Get Actual Piezo Voltage *)
+	(* Response: (float)$L *)
+			fbPITransaction.i_xExecute:= TRUE;
+			fbPITransaction.i_sCmd:= &#39;VOL?&#39;;
+			// E-517 works differently, uses number rather than letter for axis
+			fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+		IF fbPITransaction.q_xDone THEN
+				iq_stPiezoAxis.rActVoltage := STRING_TO_REAL(fbPITransaction.q_sResponseData);
+				a_ClearTrans();  (* to provide rising edge for execute *)
+				iStep := 8000; (* Done *)
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+		
+	8000: (* done *)
+		q_xDone := TRUE;
+		IF  i_xExecute = FALSE THEN
+			q_xDone:= FALSE;
+			iStep := 0;
+		END_IF
+
+	9000: (* Error *)
+		a_ClearTrans();  (* to provide rising edge for execute *)
+		IF fbPITransaction.q_xTimeout THEN
+			iStep:=10;//start over
+		ELSE
+		q_xError := TRUE;
+		iq_stPiezoAxis.xDriverError := TRUE;
+		END_IF	
+
+END_CASE
+
+//call transaction
+fbPITransaction(
+	iq_stSerialRXBuffer:= iq_stSerialRXBuffer, 
+	iq_stSerialTXBuffer:= iq_stSerialTXBuffer);
+
+iq_stPiezoAxis.xTimeout:=fbPITransaction.q_xTimeout;
+(* Rising edge trigger to take care of debugging history *)
+rtTransDone(CLK:= fbPITransaction.q_xDone);
+IF rtTransDone.Q THEN
+q_asLastSentStrings[i] := fbPITransaction.q_sLastSentString;
+q_asLastReceivedStrings[i] := fbPITransaction.q_sLastReceivedString;
+i := i + 1; 
+END_IF
+IF i = 51 THEN i := 1; END_IF
+</pre></div>
+</div>
+</div>
+<div class="section" id="fb-pi-e621-serialdriver-a-cleartrans-st">
+<h3>FB_PI_E621_SerialDriver.a_ClearTrans: ST<a class="headerlink" href="#fb-pi-e621-serialdriver-a-cleartrans-st" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span> <span class="n">Refactor</span> <span class="n">this</span> <span class="n">action</span> <span class="k">to</span> <span class="n">match</span> <span class="n">your</span> <span class="n">transaction</span> <span class="o">*</span><span class="p">)</span>
+<span class="n">fbPITransaction</span><span class="p">.</span><span class="n">i_xExecute</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+<span class="n">fbPITransaction</span><span class="p">.</span><span class="n">i_sCmd</span><span class="o">:=</span> <span class="p">&#39;&#39;;</span> <span class="o">//</span><span class="n">Input</span> <span class="n">args</span> <span class="n">are</span> <span class="n">Cmd</span><span class="p">,</span> <span class="n">Axis</span> <span class="k">and</span> <span class="n">Param</span>
+<span class="n">fbPITransaction</span><span class="p">.</span><span class="n">i_sAxis</span><span class="o">:=</span> <span class="p">&#39;&#39;;</span>
+<span class="n">fbPITransaction</span><span class="p">.</span><span class="n">i_sParam</span><span class="o">:=</span> <span class="p">&#39;&#39;;</span>
+<span class="n">fbPITransaction</span><span class="p">(</span>
+	<span class="n">i_tTimeOut</span><span class="o">:=</span> <span class="n">i_tTimeOut</span><span class="p">,</span> 
+	<span class="n">iq_stSerialRXBuffer</span><span class="o">:=</span> <span class="n">iq_stSerialRXBuffer</span><span class="p">,</span>
+	<span class="n">iq_stSerialTXBuffer</span><span class="o">:=</span> <span class="n">iq_stSerialTXBuffer</span> <span class="p">);</span>
+<span class="n">fbPITransaction</span><span class="p">.</span><span class="n">i_xExecute</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
+<span class="n">fbPITransaction</span><span class="p">(</span>
+	<span class="n">i_tTimeOut</span><span class="o">:=</span> <span class="n">i_tTimeOut</span><span class="p">,</span> 
+	<span class="n">iq_stSerialRXBuffer</span><span class="o">:=</span> <span class="n">iq_stSerialRXBuffer</span><span class="p">,</span>
+	<span class="n">iq_stSerialTXBuffer</span><span class="o">:=</span> <span class="n">iq_stSerialTXBuffer</span> <span class="p">);</span>
+<span class="n">fbPITransaction</span><span class="p">.</span><span class="n">i_xExpectReply</span><span class="o">:=</span><span class="n">TRUE</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fb-pi-e621-serialdriver-a-errormesg-st">
+<h3>FB_PI_E621_SerialDriver.a_ErrorMesg: ST<a class="headerlink" href="#fb-pi-e621-serialdriver-a-errormesg-st" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="n">fbFormatString</span><span class="p">(</span> <span class="n">sformat</span><span class="o">:=</span><span class="n">sErrMesg</span><span class="p">,</span> 
+	<span class="n">arg1</span><span class="o">:=</span><span class="n">F_INT</span><span class="p">(</span><span class="n">iStep</span><span class="p">),</span> 
+	<span class="n">arg2</span><span class="o">:=</span><span class="n">F_STRING</span><span class="p">(</span><span class="n">fbPITransaction</span><span class="p">.</span><span class="n">q_sResult</span><span class="p">),</span>
+	<span class="n">sOut</span> <span class="o">=&gt;</span> <span class="n">q_sResult</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fb-pi-e621-serialdriver-a-unknownerror-st">
+<h3>FB_PI_E621_SerialDriver.a_UnknownError: ST<a class="headerlink" href="#fb-pi-e621-serialdriver-a-unknownerror-st" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="n">q_sResult</span><span class="o">:=</span> <span class="na">&#39;Unknown</span> <span class="n">error</span><span class="p">&#39;;</span>
+
+<span class="n">fbFormatString</span><span class="p">(</span> <span class="n">sformat</span><span class="o">:=</span><span class="n">sErrMesg</span><span class="p">,</span> 
+	<span class="n">arg1</span><span class="o">:=</span><span class="n">F_INT</span><span class="p">(</span><span class="n">iStep</span><span class="p">),</span> 
+	<span class="n">arg2</span><span class="o">:=</span><span class="n">F_STRING</span><span class="p">(</span><span class="n">q_sResult</span><span class="p">),</span> <span class="o">//</span><span class="n">Little</span> <span class="n">silly</span><span class="p">,</span> <span class="n">but</span> <span class="n">have</span> <span class="k">to</span> <span class="n">do</span> <span class="n">this</span> <span class="n">because</span> <span class="n">F_STRING</span> <span class="n">requires</span> <span class="n">read</span><span class="o">/</span><span class="n">write</span> <span class="k">access</span>
+	<span class="n">sOut</span> <span class="o">=&gt;</span> <span class="n">q_sResult</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="common-pous-helpers-fb-pi-e621-serialtransaction-tcpou-tcplcobject">
+<h2>Common/POUs/Helpers/FB_PI_E621_SerialTransaction.TcPOU (TcPlcObject)<a class="headerlink" href="#common-pous-helpers-fb-pi-e621-serialtransaction-tcpou-tcplcobject" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fb-pi-e621-serialtransaction-declaration">
+<h3>FB_PI_E621_SerialTransaction: Declaration<a class="headerlink" href="#fb-pi-e621-serialtransaction-declaration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_PI_E621_SerialTransaction
+VAR_INPUT
+	/// rising edge execute 
+	i_xExecute: BOOL;
+	/// Maximum wait time for reply 
+	i_tTimeOut: TIME := TIME#1s0ms;
+	// Command field
+	i_sCmd: STRING;
+	// Axis field
+	i_sAxis: STRING;
+	// Parameter field
+	i_sParam: STRING;
+	// Does command have a reply?  Default behavior is the same as the other drivers.
+	i_xExpectReply: BOOL := TRUE;
+END_VAR
+VAR_OUTPUT
+	q_xDone: BOOL;
+	q_sResponseData: STRING;
+	q_xError: BOOL;
+	q_xTimeout: BOOL;
+	q_sResult: STRING;
+	/// Last String Sent to Serial Device - for debugging 
+	q_sLastSentString: STRING;
+	/// Last String Received from Serial Device - for debugging 
+	q_sLastReceivedString: STRING;
+END_VAR
+VAR_IN_OUT
+	iq_stSerialRXBuffer: ComBuffer;
+	iq_stSerialTXBuffer: ComBuffer;
+END_VAR
+VAR
+	rtExecute: R_TRIG;
+	iStep: INT;
+	fbClearComBuffer: ClearComBuffer;
+	sSendString: STRING;
+	fbFormatString: FB_FormatString;
+	iChecksum: INT;
+	fbSendString: SendString;
+	fbReceiveString: ReceiveString;
+	sReceivedString: STRING;
+	tonTimeout: TON;
+	sRXStringForChecksum: STRING;
+	sReceiveStringWOChecksum: STRING;
+	sRXCheckSum: STRING;
+	sRXAddress: STRING;
+	sRXParmNum: STRING;
+END_VAR
+</pre></div>
+</div>
+</div>
+<div class="section" id="fb-pi-e621-serialtransaction-st">
+<h3>FB_PI_E621_SerialTransaction: ST<a class="headerlink" href="#fb-pi-e621-serialtransaction-st" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>(* This function block performs serial transactions with a PI E-816 or compatible comm module *)
+
+(* rising edge trigger *)
+rtExecute(CLK:= i_xExecute);
+IF rtExecute.Q THEN
+	q_xDone	:= FALSE;
+	q_sResponseData := &#39;&#39;;
+	q_xError := FALSE;
+	q_sResult:= &#39;&#39;;
+	q_sLastSentString := &#39;&#39;;
+	q_sLastReceivedString:= &#39;&#39;;
+	iStep := 10;
+END_IF
+
+CASE iStep OF
+	0:
+		; (* idle *)
+
+	10: (* clear com buffers *)
+		fbClearComBuffer(Buffer:= iq_stSerialRXBuffer);
+		fbClearComBuffer(Buffer:= iq_stSerialTXBuffer);
+		(* build the send string *)
+		IF i_sParam = &#39;&#39; AND i_sAxis &lt;&gt; &#39;&#39; THEN //Axis but no parameter
+			fbFormatString( sFormat:= &#39;%s %s$L&#39;, 
+				arg1:= F_STRING(i_sCmd),
+				arg2:= F_STRING(i_sAxis),
+				sOut=&gt; sSendString);
+		ELSIF i_sParam &lt;&gt; &#39;&#39; AND i_sAxis = &#39;&#39; THEN //Parameter but no axis, global command
+			fbFormatString( sFormat:= &#39;%s %s$L&#39;, 
+				arg1:= F_STRING(i_sCmd),
+				arg2:= F_STRING(i_sParam), //May not work for all commands, good enough for now
+				sOut=&gt; sSendString);
+		ELSIF i_sParam = &#39;&#39; AND i_sAxis = &#39;&#39; THEN //Global Query/Command
+			fbFormatString( sFormat:= &#39;%s$L&#39;, 
+			arg1:= F_STRING(i_sCmd),
+			sOut=&gt; sSendString);
+		ELSE
+			fbFormatString( sFormat:= &#39;%s %s %s$L&#39;, 
+				arg1:= F_STRING(i_sCmd),
+				arg2:= F_STRING(i_sAxis),
+				arg3:= F_STRING(i_sParam), //May not work for all commands, good enough for now
+				sOut=&gt; sSendString);
+		END_IF
+		(* send it *)
+		fbSendString( SendString:= sSendString, TXbuffer:= iq_stSerialTXBuffer );
+		q_sLastSentString := sSendString;
+		iStep := iStep + 10;
+
+	20: (* Finish sending the String *)
+		IF fbSendString.Busy THEN
+			fbSendString( SendString:= sSendString, TXbuffer:= iq_stSerialTXBuffer );
+		ELSIF fbSendString.Error &lt;&gt; 0 THEN
+			q_sResult := CONCAT(&#39;In step 20 fbSendString resulted in error: &#39;, INT_TO_STRING(fbSendString.Error));
+			iStep := 9000;
+		ELSIF NOT fbSendString.Busy THEN
+			IF i_xExpectReply THEN
+			iStep := iStep + 10;
+			ELSE //No reply expected, transaction complete
+			q_xDone:= TRUE;
+			q_sResult := &#39;Success.&#39;;
+			q_xTimeout := FALSE; //no timeout
+			iStep := 100;
+			END_IF
+		END_IF
+		(* Reset receive *)
+		fbReceiveString(
+			Reset:= TRUE,
+			ReceivedString:= sReceivedString,
+			RXbuffer:= iq_stSerialRXBuffer );
+		tonTimeout(IN:= FALSE);
+
+	30: (* Get reply, if there is one *)
+		fbReceiveString(
+			Prefix:= ,
+			Suffix:= &#39;$L&#39;,
+			Timeout:= i_tTimeOut,
+			Reset:= FALSE,
+			ReceivedString:= sReceivedString,
+			RXbuffer:= iq_stSerialRXBuffer );
+		tonTimeout(IN:= TRUE, PT:= i_tTimeOut);
+		IF fbReceiveString.Error &lt;&gt; 0 AND fbReceiveString.Error &lt;&gt; 16#1008 THEN //16#1008 is timeout error
+			q_sResult := CONCAT(&#39;In step 30 fbReceiveString resulted in error: &#39;, INT_TO_STRING(fbReceiveString.Error));
+			iStep := 9000;
+		ELSIF fbReceiveString.RxTimeout OR tonTimeout.Q THEN
+			q_sResult := &#39;Device failed to reply within timeout period&#39;;
+			q_xTimeout := TRUE;
+			iStep := 9000;
+		ELSIF fbReceiveString.StringReceived THEN
+			q_xTimeout := FALSE; //no timeout
+			q_sLastReceivedString := sReceivedString;
+			q_sResponseData := sReceivedString;
+			q_sResult := &#39;Success.&#39;;
+			q_xDone:= TRUE;
+			iStep := 100;
+		END_IF
+
+	100: (* done *)
+		IF  i_xExecute = FALSE THEN
+			q_xDone:= FALSE;
+			iStep := 0;
+		END_IF
+
+	9000:
+		q_xError := TRUE;
+		
+END_CASE
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="duts-st-piezoaxis-tcdut-tcplcobject">
+<h2>DUTs/ST_PiezoAxis.TcDUT (TcPlcObject)<a class="headerlink" href="#duts-st-piezoaxis-tcdut-tcplcobject" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="st-piezoaxis-declaration">
+<h3>ST_PiezoAxis: Declaration<a class="headerlink" href="#st-piezoaxis-declaration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>TYPE ST_PiezoAxis :
+STRUCT
+	(* IO *)
+		//Readback
+		sIdn				:	STRING; //Identity
+		iCurError			:	INT; //Current error code, should be 0 most of the time
+		iLastError			:	INT; //Last error code, for history
+		rActVoltage			:	REAL; //Actual voltage
+		rLastReqVoltage		:	REAL; //Last requested piezo voltage
+		//Control
+		rSetVoltage			:	REAL; //this parameter is set by the control loop/ voltage mode
+		sAxis				:   STRING :=&#39;A&#39;; //Axis, e.g. A, B, C...A if single unit	
+		//Summaries
+		xTimeout	:	BOOL;
+		xDriverError		:	BOOL; //Summary of any driver errors
+	
+	(* Operation *)
+		xEnable	:	BOOL; //Enable control.
+		(* Note: Voltage mode and Idle mode overrides &quot;DirectPiezoMode&quot; of FB_PitchControl *)
+		xVoltageMode	:	BOOL; //Voltage mode gives direct access to piezo voltage, false means closed loop position acquisition (see FB_PitchControl for piezo and stepper separation)
+		xIdleMode	:	BOOL; //Use to put the piezo at half-stroke
+		rReqVoltage : REAL; //Requested piezo voltage in voltage mode
+		rReqAbsPos	:	LREAL; //Requested Position, latched at rising StartAbsMov
+		xStop	:	BOOL;	//Stops piezo and holds position
+	
+	
+	(* Control Parameters *)
+		rActPos	:	LREAL; //Encoder Readback
+		//Pitch piezo dmove range (urad)
+		rPiezoDmovRange		:	REAL := 1;
+		(*
+		stPIParams	:	ST_CTRL_PI_PARAMS := (
+			tCtrlCycleTime := T#0MS, 
+			tTaskCycleTime := T#0MS, 
+			tTn       := T#1S, 
+			fKp      := 0.25, 
+			fOutMaxLimit := 1, 
+			fOutMinLimit := -1, 
+			bARWOnIPartOnly := FALSE);
+	*)
+	(* Voltage ranges, come from specifications of the driver *)
+		UpperVoltage	:	REAL := 120; // E-816 has no software limits
+		LowerVoltage	:	REAL := 0; // E-816 has no software limits 
+END_STRUCT
+END_TYPE
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="gvls-gvl-homs-tcgvl-tcplcobject">
+<h2>GVLs/GVL_HOMS.TcGVL (TcPlcObject)<a class="headerlink" href="#gvls-gvl-homs-tcgvl-tcplcobject" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="gvl-homs-declaration">
+<h3>GVL_HOMS: Declaration<a class="headerlink" href="#gvl-homs-declaration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>{attribute &#39;qualified_only&#39;}
+VAR_GLOBAL CONSTANT
+	nGANTRY_TOLERANCE_NM_DEFAULT : LINT := 50000; // default gantry tolerance in encoder counts = nm
+END_VAR
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="gvls-gvl-serialio-tcgvl-tcplcobject">
+<h2>GVLs/GVL_SerialIO.TcGVL (TcPlcObject)<a class="headerlink" href="#gvls-gvl-serialio-tcgvl-tcplcobject" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="gvl-serialio-declaration">
+<h3>GVL_SerialIO: Declaration<a class="headerlink" href="#gvl-serialio-declaration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="n">VAR_GLOBAL</span>
+	<span class="o">//</span><span class="n">Better</span> <span class="n">have</span> <span class="n">your</span> <span class="n">inputs</span> <span class="k">and</span> <span class="n">outputs</span><span class="o">!</span>
+	<span class="n">Serial_P1_stComIn</span>   <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span>	<span class="o">:</span>	<span class="n">EL6inData22B</span> <span class="p">(</span><span class="o">*</span><span class="n">KL6inData22B</span><span class="o">*</span><span class="p">);</span>
+	<span class="n">Serial_P1_stComOut</span>  <span class="n">AT</span> <span class="o">%</span><span class="n">Q</span><span class="o">*</span>	<span class="o">:</span>	<span class="n">EL6outData22B</span> <span class="p">(</span><span class="o">*</span><span class="n">KL6outData22B</span><span class="o">*</span><span class="p">);</span>
+	<span class="n">Serial_P1_SerialTXBuffer</span> <span class="o">:</span><span class="n">ComBuffer</span><span class="p">;</span>
+	<span class="n">Serial_P1_SerialRXBuffer</span> <span class="o">:</span><span class="n">ComBuffer</span><span class="p">;</span>	
+<span class="n">END_VAR</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="plctask-tctto-tcplcobject">
+<h2>PlcTask.TcTTO (TcPlcObject)<a class="headerlink" href="#plctask-tctto-tcplcobject" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="pous-fb-runhoms-tcpou-tcplcobject">
+<h2>POUs/FB_RunHOMS.TcPOU (TcPlcObject)<a class="headerlink" href="#pous-fb-runhoms-tcpou-tcplcobject" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fb-runhoms-declaration">
+<h3>FB_RunHOMS: Declaration<a class="headerlink" href="#fb-runhoms-declaration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_RunHOMS</span>
+<span class="n">VAR_INPUT</span>
+	<span class="o">//</span> <span class="n">Encoder</span> <span class="n">Reference</span> <span class="n">Values</span>
+	<span class="n">nYupEncRef</span> <span class="o">:</span> <span class="n">ULINT</span><span class="p">;</span>
+	<span class="n">nYdwnEncRef</span> <span class="o">:</span> <span class="n">ULINT</span><span class="p">;</span>
+	<span class="n">nXupEncRef</span> <span class="o">:</span> <span class="n">ULINT</span><span class="p">;</span>
+	<span class="n">nXdwnEncRef</span> <span class="o">:</span> <span class="n">ULINT</span><span class="p">;</span>
+
+	<span class="o">//</span> <span class="n">Gantry</span> <span class="n">tolerances</span>
+	<span class="n">nGantryTolY</span> <span class="o">:</span> <span class="n">LINT</span> <span class="o">:=</span> <span class="n">GVL_HOMS</span><span class="p">.</span><span class="n">nGANTRY_TOLERANCE_NM_DEFAULT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Encoder</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">nm</span>
+	<span class="n">nGantryTolX</span> <span class="o">:</span> <span class="n">LINT</span> <span class="o">:=</span> <span class="n">GVL_HOMS</span><span class="p">.</span><span class="n">nGANTRY_TOLERANCE_NM_DEFAULT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Encoder</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">nm</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR_OUTPUT</span>
+	<span class="o">//</span> <span class="n">Gantry</span> <span class="n">coupling</span> <span class="n">status</span>
+	<span class="n">bGantryAlreadyCoupledY</span> <span class="o">:</span> <span class="n">BOOL</span><span class="p">;</span>
+	<span class="n">bGantryAlreadyCoupledX</span> <span class="o">:</span> <span class="n">BOOL</span><span class="p">;</span>
+	
+	<span class="o">//</span> <span class="n">Current</span> <span class="n">gantry</span> <span class="n">difference</span>
+	<span class="n">nCurrGantryY</span> <span class="o">:</span> <span class="n">LINT</span><span class="p">;</span>
+	<span class="n">nCurrGantryX</span> <span class="o">:</span> <span class="n">LINT</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR_IN_OUT</span>
+	<span class="o">//</span> <span class="n">Motor</span> <span class="n">Structs</span>
+	<span class="n">stYup</span> <span class="o">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+	<span class="n">stYdwn</span> <span class="o">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+	<span class="n">stXup</span> <span class="o">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+	<span class="n">stXdwn</span> <span class="o">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+	<span class="n">stPitch</span> <span class="o">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+	<span class="n">stBender</span> <span class="o">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+
+	<span class="o">//</span> <span class="n">Manual</span> <span class="n">coupling</span> <span class="n">Gantried</span> <span class="n">Axes</span>
+	<span class="n">bExecuteCoupleY</span> <span class="o">:</span> <span class="n">BOOL</span><span class="p">;</span>
+	<span class="n">bExecuteCoupleX</span> <span class="o">:</span> <span class="n">BOOL</span><span class="p">;</span>
+	<span class="n">bExecuteDecoupleY</span> <span class="o">:</span> <span class="n">BOOL</span><span class="p">;</span>
+	<span class="n">bExecuteDecoupleX</span> <span class="o">:</span> <span class="n">BOOL</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR</span>
+	<span class="o">//</span> <span class="n">STO</span> <span class="n">Button</span>
+	<span class="n">bSTOEnable1</span> <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span> <span class="o">:</span> <span class="n">BOOL</span><span class="p">;</span>
+	<span class="n">bSTOEnable2</span> <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span> <span class="o">:</span> <span class="n">BOOL</span><span class="p">;</span>
+
+	<span class="o">//</span> <span class="n">Encoders</span>
+	<span class="n">stYupEnc</span> <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span> <span class="o">:</span> <span class="n">ST_RenishawAbsEnc</span><span class="p">;</span>
+	<span class="n">stYdwnEnc</span> <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span> <span class="o">:</span> <span class="n">ST_RenishawAbsEnc</span><span class="p">;</span>
+	
+	<span class="n">stXupEnc</span> <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span> <span class="o">:</span> <span class="n">ST_RenishawAbsEnc</span><span class="p">;</span>
+	<span class="n">stXdwnEnc</span> <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span> <span class="o">:</span> <span class="n">ST_RenishawAbsEnc</span><span class="p">;</span>
+
+	<span class="o">//</span> <span class="n">Autocoupling</span> <span class="n">Gantried</span> <span class="n">Axes</span>
+	<span class="n">fbAutoCoupleY</span> <span class="o">:</span> <span class="n">FB_GantryAutoCoupling</span><span class="p">;</span>
+	<span class="n">fbAutoCoupleX</span> <span class="o">:</span> <span class="n">FB_GantryAutoCoupling</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fb-runhoms-st">
+<h3>FB_RunHOMS: ST<a class="headerlink" href="#fb-runhoms-st" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Enable</span> <span class="n">motors</span> <span class="n">according</span> <span class="k">to</span> <span class="n">pytmc</span> <span class="n">docs</span>
+<span class="n">stYup</span><span class="p">.</span><span class="n">nEnableMode</span> <span class="o">:=</span> <span class="n">ENUM_StageEnableMode</span><span class="p">.</span><span class="n">STAGE_ENABLE_ALWAYS</span><span class="p">;</span>
+<span class="n">stYdwn</span><span class="p">.</span><span class="n">nEnableMode</span> <span class="o">:=</span> <span class="n">ENUM_StageEnableMode</span><span class="p">.</span><span class="n">STAGE_ENABLE_ALWAYS</span><span class="p">;</span>
+<span class="n">stXup</span><span class="p">.</span><span class="n">nEnableMode</span> <span class="o">:=</span> <span class="n">ENUM_StageEnableMode</span><span class="p">.</span><span class="n">STAGE_ENABLE_ALWAYS</span><span class="p">;</span>
+<span class="n">stXdwn</span><span class="p">.</span><span class="n">nEnableMode</span> <span class="o">:=</span> <span class="n">ENUM_StageEnableMode</span><span class="p">.</span><span class="n">STAGE_ENABLE_ALWAYS</span><span class="p">;</span>
+<span class="n">stPitch</span><span class="p">.</span><span class="n">nEnableMode</span> <span class="o">:=</span> <span class="n">ENUM_StageEnableMode</span><span class="p">.</span><span class="n">STAGE_ENABLE_ALWAYS</span><span class="p">;</span>
+<span class="n">stBender</span><span class="p">.</span><span class="n">nEnableMode</span> <span class="o">:=</span> <span class="n">ENUM_StageEnableMode</span><span class="p">.</span><span class="n">STAGE_ENABLE_ALWAYS</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="n">Encoder</span> <span class="n">Reference</span> <span class="n">Values</span>
+<span class="n">stYupEnc</span><span class="p">.</span><span class="n">Ref</span> <span class="o">:=</span> <span class="n">nYupEncRef</span><span class="p">;</span>
+<span class="n">stYdwnEnc</span><span class="p">.</span><span class="n">Ref</span> <span class="o">:=</span> <span class="n">nYdwnEncRef</span><span class="p">;</span>
+<span class="n">stXupEnc</span><span class="p">.</span><span class="n">Ref</span> <span class="o">:=</span> <span class="n">nXupEncRef</span><span class="p">;</span>
+<span class="n">stXdwnEnc</span><span class="p">.</span><span class="n">Ref</span> <span class="o">:=</span> <span class="n">nXdwnEncRef</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="n">Gantry</span> <span class="n">Differences</span> <span class="k">to</span> <span class="n">monitor</span>
+<span class="n">nCurrGantryY</span> <span class="o">:=</span> <span class="p">((</span><span class="n">ULINT_TO_LINT</span><span class="p">(</span><span class="n">stYupEnc</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span> <span class="o">-</span> <span class="n">ULINT_TO_LINT</span><span class="p">(</span><span class="n">stYupEnc</span><span class="p">.</span><span class="n">Ref</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="n">ULINT_TO_LINT</span><span class="p">(</span><span class="n">stYdwnEnc</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span> <span class="o">-</span> <span class="n">ULINT_TO_LINT</span><span class="p">(</span><span class="n">stYdwnEnc</span><span class="p">.</span><span class="n">Ref</span><span class="p">)));</span>
+<span class="n">nCurrGantryX</span> <span class="o">:=</span> <span class="p">((</span><span class="n">ULINT_TO_LINT</span><span class="p">(</span><span class="n">stXupEnc</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span> <span class="o">-</span> <span class="n">ULINT_TO_LINT</span><span class="p">(</span><span class="n">stXupEnc</span><span class="p">.</span><span class="n">Ref</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="n">ULINT_TO_LINT</span><span class="p">(</span><span class="n">stXdwnEnc</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span> <span class="o">-</span> <span class="n">ULINT_TO_LINT</span><span class="p">(</span><span class="n">stXdwnEnc</span><span class="p">.</span><span class="n">Ref</span><span class="p">)));</span>
+
+<span class="o">//</span> <span class="n">Release</span> <span class="n">the</span> <span class="n">hounds</span><span class="o">!</span>
+<span class="n">stYup</span><span class="p">.</span><span class="n">bHardwareEnable</span> <span class="o">:=</span> <span class="n">bSTOEnable1</span> <span class="k">AND</span> <span class="n">bSTOEnable2</span><span class="p">;</span>
+<span class="n">stYdwn</span><span class="p">.</span><span class="n">bHardwareEnable</span> <span class="o">:=</span> <span class="n">bSTOEnable1</span> <span class="k">AND</span> <span class="n">bSTOEnable2</span><span class="p">;</span>
+<span class="n">stXup</span><span class="p">.</span><span class="n">bHardwareEnable</span> <span class="o">:=</span> <span class="n">bSTOEnable1</span> <span class="k">AND</span> <span class="n">bSTOEnable2</span><span class="p">;</span>
+<span class="n">stXdwn</span><span class="p">.</span><span class="n">bHardwareEnable</span> <span class="o">:=</span> <span class="n">bSTOEnable1</span> <span class="k">AND</span> <span class="n">bSTOEnable2</span><span class="p">;</span>
+<span class="n">stPitch</span><span class="p">.</span><span class="n">bHardwareEnable</span> <span class="o">:=</span> <span class="n">bSTOEnable1</span> <span class="k">AND</span> <span class="n">bSTOEnable2</span><span class="p">;</span>
+<span class="n">stBender</span><span class="p">.</span><span class="n">bHardwareEnable</span> <span class="o">:=</span> <span class="n">bSTOEnable1</span> <span class="k">AND</span> <span class="n">bSTOEnable2</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="n">Start</span> <span class="n">Autocoupling</span>
+<span class="n">fbAutoCoupleY</span><span class="p">(</span><span class="n">nGantryTol</span><span class="o">:=</span><span class="n">nGantryTolY</span><span class="p">,</span>
+	          <span class="n">Master</span><span class="o">:=</span><span class="n">stYup</span><span class="p">,</span>
+			  <span class="n">MasterEnc</span><span class="o">:=</span> <span class="n">stYupEnc</span><span class="p">,</span>
+			  <span class="n">Slave</span><span class="o">:=</span><span class="n">stYdwn</span><span class="p">,</span>
+			  <span class="n">SlaveEnc</span><span class="o">:=</span><span class="n">stYdwnEnc</span><span class="p">,</span>
+			  <span class="n">bExecuteCouple</span><span class="o">:=</span><span class="n">bExecuteCoupleY</span><span class="p">,</span>
+			  <span class="n">bExecuteDecouple</span><span class="o">:=</span><span class="n">bExecuteDecoupleY</span><span class="p">,</span>
+			  <span class="n">bGantryAlreadyCoupled</span><span class="o">=&gt;</span><span class="n">bGantryAlreadyCoupledY</span><span class="p">);</span>
+
+<span class="n">fbAutoCoupleX</span><span class="p">(</span><span class="n">nGantryTol</span><span class="o">:=</span><span class="n">nGantryTolX</span><span class="p">,</span>
+	          <span class="n">Master</span><span class="o">:=</span><span class="n">stXup</span><span class="p">,</span>
+			  <span class="n">MasterEnc</span><span class="o">:=</span> <span class="n">stXupEnc</span><span class="p">,</span>
+			  <span class="n">Slave</span><span class="o">:=</span><span class="n">stXdwn</span><span class="p">,</span>
+			  <span class="n">SlaveEnc</span><span class="o">:=</span><span class="n">stXdwnEnc</span><span class="p">,</span>
+			  <span class="n">bExecuteCouple</span><span class="o">:=</span><span class="n">bExecuteCoupleX</span><span class="p">,</span>
+			  <span class="n">bExecuteDecouple</span><span class="o">:=</span><span class="n">bExecuteDecoupleX</span><span class="p">,</span>
+			  <span class="n">bGantryAlreadyCoupled</span><span class="o">=&gt;</span><span class="n">bGantryAlreadyCoupledX</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pous-serial-comm-piezoserial-tcpou-tcplcobject">
+<h2>POUs/Serial Comm/PiezoSerial.TcPOU (TcPlcObject)<a class="headerlink" href="#pous-serial-comm-piezoserial-tcpou-tcplcobject" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="piezoserial-declaration">
+<h3>PiezoSerial: Declaration<a class="headerlink" href="#piezoserial-declaration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>PROGRAM PiezoSerial
+VAR
+	//PI Serial
+	fbE621SerialDriverM1 : FB_PI_E621_SerialDriver;
+	piezo: ST_PiezoAxis;
+	rtInitParams	:	R_TRIG;
+	tonTimeoutRstM1	: TON := (PT:=T#2S); //For timeout reset
+	tonTimeoutRstM2	: TON := (PT:=T#2S); //For timeout reset
+END_VAR
+</pre></div>
+</div>
+</div>
+<div class="section" id="piezoserial-st">
+<h3>PiezoSerial: ST<a class="headerlink" href="#piezoserial-st" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">M1</span> <span class="n">Piezo</span> <span class="n">E</span><span class="o">-</span><span class="mi">621</span>
+<span class="o">///////////////////////</span>
+	<span class="n">fbE621SerialDriverM1</span><span class="p">.</span><span class="n">i_xExecute</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+	<span class="n">fbE621SerialDriverM1</span><span class="p">.</span><span class="n">i_xExecute</span> <span class="n">R</span><span class="o">=</span> <span class="n">fbE621SerialDriverM1</span><span class="p">.</span><span class="n">q_xDone</span><span class="p">;</span>
+	<span class="n">fbE621SerialDriverM1</span><span class="p">(</span>
+		<span class="n">iq_stPiezoAxis</span><span class="o">:=</span> <span class="n">piezo</span><span class="p">,</span> 
+		<span class="n">iq_stSerialRXBuffer</span><span class="o">:=</span> <span class="n">Serial_P1_SerialRXBuffer</span><span class="p">,</span> 
+		<span class="n">iq_stSerialTXBuffer</span><span class="o">:=</span> <span class="n">Serial_P1_SerialTXBuffer</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pous-serial-comm-p-serial-com-tcpou-tcplcobject">
+<h2>POUs/Serial Comm/P_Serial_Com.TcPOU (TcPlcObject)<a class="headerlink" href="#pous-serial-comm-p-serial-com-tcpou-tcplcobject" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="p-serial-com-declaration">
+<h3>P_Serial_Com: Declaration<a class="headerlink" href="#p-serial-com-declaration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="n">PROGRAM</span> <span class="n">P_Serial_Com</span>
+<span class="n">VAR</span>
+	<span class="n">fbSerialLineControl_EL6001_P1</span><span class="o">:</span> <span class="n">SerialLineControl</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="p-serial-com-st">
+<h3>P_Serial_Com: ST<a class="headerlink" href="#p-serial-com-st" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">These</span> <span class="n">are</span> <span class="n">the</span> <span class="n">global</span> <span class="n">IOs</span><span class="p">...</span><span class="n">don</span><span class="na">&#39;t</span> <span class="n">forget</span> <span class="k">to</span> <span class="n">copy</span> <span class="n">your</span> <span class="n">data</span> <span class="n">into</span> <span class="n">them</span>
+
+<span class="p">(</span><span class="o">*</span> <span class="n">EL6001</span> <span class="n">Serial</span> <span class="k">port</span> <span class="mi">0</span> <span class="n">com</span> <span class="k">function</span> <span class="o">*</span><span class="p">)</span>
+<span class="n">fbSerialLineControl_EL6001_P1</span><span class="p">(</span>
+	<span class="n">Mode</span><span class="o">:=</span> <span class="n">SERIALLINEMODE_EL6_22B</span> <span class="p">(</span><span class="o">*</span><span class="n">SERIALLINEMODE_KL6_22B_STANDARD</span><span class="o">*</span><span class="p">),</span>
+	<span class="n">pComIn</span><span class="o">:=</span> <span class="n">ADR</span><span class="p">(</span><span class="n">Serial_P1_stComIn</span><span class="p">),</span>
+	<span class="n">pComOut</span><span class="o">:=</span><span class="n">ADR</span><span class="p">(</span><span class="n">Serial_P1_stComOut</span><span class="p">)</span> <span class="p">,</span>
+	<span class="n">SizeComIn</span><span class="o">:=</span> <span class="n">SIZEOF</span><span class="p">(</span><span class="n">Serial_P1_stComIn</span><span class="p">),</span>
+	<span class="n">TxBuffer</span><span class="o">:=</span> <span class="n">Serial_P1_SerialTXBuffer</span><span class="p">,</span>
+	<span class="n">RxBuffer</span><span class="o">:=</span> <span class="n">Serial_P1_SerialRXBuffer</span><span class="p">,</span>
+	<span class="n">Error</span><span class="o">=&gt;</span> <span class="p">,</span>
+	<span class="n">ErrorID</span><span class="o">=&gt;</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="version-global-version-tcgvl-tcplcobject">
+<h2>Version/Global_Version.TcGVL (TcPlcObject)<a class="headerlink" href="#version-global-version-tcgvl-tcplcobject" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="global-version-declaration">
+<h3>Global_Version: Declaration<a class="headerlink" href="#global-version-declaration" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>{attribute &#39;TcGenerated&#39;}
+// This function has been automatically generated from the project information.
+VAR_GLOBAL CONSTANT
+	{attribute &#39;const_non_replaced&#39;}
+	{attribute &#39;linkalways&#39;}
+	stLibVersion_lcls_twincat_optics : ST_LibVersion := (iMajor := 0, iMinor := 0, iBuild := 0, iRevision := 0, sVersion := &#39;0.0.0&#39;);
+END_VAR
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="symbols">
+<h2>Symbols<a class="headerlink" href="#symbols" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Constants</span><span class="o">.</span><span class="n">CompilerVersion</span> <span class="p">:</span> <span class="n">VERSION</span> <span class="p">(</span><span class="mi">4159296</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">Constants</span><span class="o">.</span><span class="n">CompilerVersionNumeric</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4159424</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Constants</span><span class="o">.</span><span class="n">RuntimeVersion</span> <span class="p">:</span> <span class="n">VERSION</span> <span class="p">(</span><span class="mi">4159232</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">Constants</span><span class="o">.</span><span class="n">RuntimeVersionNumeric</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4159392</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Constants</span><span class="o">.</span><span class="n">bFPUSupport</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="p">(</span><span class="mi">4145256</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Constants</span><span class="o">.</span><span class="n">bLittleEndian</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="p">(</span><span class="mi">4144952</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Constants</span><span class="o">.</span><span class="n">bSimulationMode</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="p">(</span><span class="mi">4145248</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Constants</span><span class="o">.</span><span class="n">nPackMode</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4159360</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Constants</span><span class="o">.</span><span class="n">nRegisterSize</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4145264</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">GVL</span><span class="o">.</span><span class="n">AmountOfInitializedTestSuites</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4101232</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">GVL</span><span class="o">.</span><span class="n">CurrentTestNameBeingCalled</span> <span class="p">:</span> <span class="n">Tc2_System</span><span class="o">.</span><span class="n">T_MaxString</span> <span class="p">(</span><span class="mi">4104448</span> <span class="mi">2048</span><span class="p">)</span>
+<span class="n">GVL</span><span class="o">.</span><span class="n">CurrentTestSuiteBeingCalled</span> <span class="p">:</span> <span class="n">lcls_twincat_motion</span><span class="o">.</span><span class="n">TcUnit</span><span class="o">.</span><span class="n">I_TestSuite</span> <span class="p">(</span><span class="mi">4104384</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">GVL</span><span class="o">.</span><span class="n">IgnoreCurrentTest</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="p">(</span><span class="mi">4101224</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">GVL</span><span class="o">.</span><span class="n">TcUnitRunner</span> <span class="p">:</span> <span class="n">lcls_twincat_motion</span><span class="o">.</span><span class="n">TcUnit</span><span class="o">.</span><span class="n">FB_TcUnitRunner</span> <span class="p">(</span><span class="mi">4101248</span> <span class="mi">3136</span><span class="p">)</span>
+<span class="n">GVL</span><span class="o">.</span><span class="n">TestSuiteAddresses</span> <span class="p">:</span> <span class="n">lcls_twincat_motion</span><span class="o">.</span><span class="n">TcUnit</span><span class="o">.</span><span class="n">I_TestSuite</span> <span class="p">(</span><span class="mi">4125696</span> <span class="mi">19200</span><span class="p">)</span>
+<span class="n">GVL</span><span class="o">.</span><span class="n">TestSuiteAssertAddresses</span> <span class="p">:</span> <span class="n">PVOID</span> <span class="p">(</span><span class="mi">4106496</span> <span class="mi">19200</span><span class="p">)</span>
+<span class="n">GVL</span><span class="o">.</span><span class="n">TestSuiteAssertRegistered</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="p">(</span><span class="mi">4101216</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">GVL_Constants</span><span class="o">.</span><span class="n">MaxAmountOfAsserts</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4144928</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">GVL_Constants</span><span class="o">.</span><span class="n">MaxAmountOfTestSuites</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4144896</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">GVL_Constants</span><span class="o">.</span><span class="n">MaxAmountOfTestsForEachTestSuite</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4144912</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">GVL_HOMS</span><span class="o">.</span><span class="n">nGANTRY_TOLERANCE_NM_DEFAULT</span> <span class="p">:</span> <span class="n">LINT</span> <span class="p">(</span><span class="mi">4153472</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">GVL_SerialIO</span><span class="o">.</span><span class="n">Serial_P1_SerialRXBuffer</span> <span class="p">:</span> <span class="n">Tc2_SerialCom</span><span class="o">.</span><span class="n">ComBuffer</span> <span class="p">(</span><span class="mi">4156720</span> <span class="mi">2512</span><span class="p">)</span>
+<span class="n">GVL_SerialIO</span><span class="o">.</span><span class="n">Serial_P1_SerialTXBuffer</span> <span class="p">:</span> <span class="n">Tc2_SerialCom</span><span class="o">.</span><span class="n">ComBuffer</span> <span class="p">(</span><span class="mi">4154208</span> <span class="mi">2512</span><span class="p">)</span>
+<span class="n">GVL_SerialIO</span><span class="o">.</span><span class="n">Serial_P1_stComIn</span> <span class="p">:</span> <span class="n">Tc2_SerialCom</span><span class="o">.</span><span class="n">EL6inData22B</span> <span class="p">(</span><span class="mi">4153824</span> <span class="mi">192</span><span class="p">)</span>
+<span class="n">GVL_SerialIO</span><span class="o">.</span><span class="n">Serial_P1_stComOut</span> <span class="p">:</span> <span class="n">Tc2_SerialCom</span><span class="o">.</span><span class="n">EL6outData22B</span> <span class="p">(</span><span class="mi">4154016</span> <span class="mi">192</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_DEVICE_DATA</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097664</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_IOIMAGE_CLEARI</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097568</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_IOIMAGE_CLEARO</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097600</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_IOIMAGE_RISIZE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097440</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_IOIMAGE_ROSIZE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097536</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_IOIMAGE_RWIB</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097376</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_IOIMAGE_RWIOB</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097632</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_IOIMAGE_RWIX</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097408</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_IOIMAGE_RWOB</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097472</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_IOIMAGE_RWOX</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097504</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYMNAME</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4096960</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYMNOTE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097344</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYMTAB</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4096928</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYMVAL</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4096992</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYM_DOWNLOAD</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097248</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYM_HNDBYNAME</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097024</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYM_INFOBYNAME</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097152</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYM_INFOBYNAMEEX</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097216</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYM_RELEASEHND</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097120</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYM_UPLOAD</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097280</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYM_UPLOADINFO</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097312</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYM_VALBYHND</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097088</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYM_VALBYNAME</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097056</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIGRP_SYM_VERSION</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097184</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIOFFS_DEVDATA_ADSSTATE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097696</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSIOFFS_DEVDATA_DEVSTATE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097728</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSLOG_MSGTYPE_ERROR</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4098784</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSLOG_MSGTYPE_HINT</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4098720</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSLOG_MSGTYPE_LOG</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4098816</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSLOG_MSGTYPE_MSGBOX</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4098848</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSLOG_MSGTYPE_RESOURCE</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4098880</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSLOG_MSGTYPE_STRING</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4098912</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSLOG_MSGTYPE_WARN</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4098752</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_CONFIG</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096832</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_ERROR</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096768</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_EXCEPTION</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096896</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_IDLE</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096608</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_INCOMPATIBLE</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096880</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_INIT</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096640</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_INVALID</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096592</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_LOADCFG</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096720</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_MAXSTATES</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096912</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_POWERFAILURE</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096736</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_POWERGOOD</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096752</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_RECONFIG</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096848</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_RESET</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096624</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_RESUME</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096816</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_RUN</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096672</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_SAVECFG</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096704</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_SHUTDOWN</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096784</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_START</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096656</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_STOP</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096688</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_STOPPING</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096864</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">ADSSTATE_SUSPEND</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096800</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_EVENTLOG</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096304</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_LOGGER</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096288</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_CAM</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096528</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_CAMTOOL</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096544</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_CNC</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096416</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_IO</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096336</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_ISG</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096400</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_LINE</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096432</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_NC</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096352</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_NCSAF</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096368</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_NCSVB</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096384</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_PLC</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096448</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_PLC_RTS1</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096464</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_PLC_RTS2</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096480</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_PLC_RTS3</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096496</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_PLC_RTS4</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096512</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R0_RTIME</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096320</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R3_SCOPESERVER</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096576</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">AMSPORT_R3_SYSSERV</span> <span class="p">:</span> <span class="n">UINT</span> <span class="p">(</span><span class="mi">4096560</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">BOOTDATAFLAGS_PERSISTENT_INVALID</span> <span class="p">:</span> <span class="n">BYTE</span> <span class="p">(</span><span class="mi">4098976</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">BOOTDATAFLAGS_PERSISTENT_LOADED</span> <span class="p">:</span> <span class="n">BYTE</span> <span class="p">(</span><span class="mi">4098968</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">BOOTDATAFLAGS_RETAIN_INVALID</span> <span class="p">:</span> <span class="n">BYTE</span> <span class="p">(</span><span class="mi">4098952</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">BOOTDATAFLAGS_RETAIN_LOADED</span> <span class="p">:</span> <span class="n">BYTE</span> <span class="p">(</span><span class="mi">4098944</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">BOOTDATAFLAGS_RETAIN_REQUESTED</span> <span class="p">:</span> <span class="n">BYTE</span> <span class="p">(</span><span class="mi">4098960</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">DEFAULT_ADS_TIMEOUT</span> <span class="p">:</span> <span class="n">TIME</span> <span class="p">(</span><span class="mi">4099712</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">FOPEN_MODEAPPEND</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4099072</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">FOPEN_MODEBINARY</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4099136</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">FOPEN_MODEPLUS</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4099104</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">FOPEN_MODEREAD</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4099008</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">FOPEN_MODETEXT</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4099168</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">FOPEN_MODEWRITE</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="p">(</span><span class="mi">4099040</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">MAX_STRING_LENGTH</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4099744</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">PI</span> <span class="p">:</span> <span class="n">LREAL</span> <span class="p">(</span><span class="mi">4099648</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_CHANGENETID</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098528</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_CLOSEHANDLE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097888</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_CREATEFILE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097856</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FCLOSE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097952</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FDELETE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098272</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FEOF</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098240</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FGETS</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098112</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FOPEN</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097920</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FPRINTF</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098208</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FPUTS</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098144</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FREAD</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097984</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FRENAME</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098304</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FSCANF</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098176</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FSEEK</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098048</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FTELL</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098080</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_FWRITE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098016</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_MKDIR</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098336</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_OPENCREATE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097760</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_OPENREAD</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097792</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_OPENWRITE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4097824</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_REG_HKEYLOCALMACHINE</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098400</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_RMDIR</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098368</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_SENDEMAIL</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098432</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_STARTPROCESS</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098496</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSERVICE_TIMESERVICES</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098464</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSTATEFLAGS_BSOD</span> <span class="p">:</span> <span class="n">BYTE</span> <span class="p">(</span><span class="mi">4098984</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">SYSTEMSTATEFLAGS_RTVIOLATION</span> <span class="p">:</span> <span class="n">BYTE</span> <span class="p">(</span><span class="mi">4098992</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTFLAG_AUTOFMTALL</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099504</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTFLAG_FMTSELF</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099440</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTFLAG_LOG</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099456</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTFLAG_MSGBOX</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099472</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTFLAG_PRIOCLASS</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099424</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTFLAG_SRCID</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099488</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTSTATE_CONFIRMED</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099568</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTSTATE_INVALID</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099520</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTSTATE_RESET</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099552</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTSTATE_RESETCON</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099584</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENTSTATE_SIGNALED</span> <span class="p">:</span> <span class="n">WORD</span> <span class="p">(</span><span class="mi">4099536</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENT_FMTPRGSIZE</span> <span class="p">:</span> <span class="n">INT</span> <span class="p">(</span><span class="mi">4099616</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TCEVENT_SRCNAMESIZE</span> <span class="p">:</span> <span class="n">INT</span> <span class="p">(</span><span class="mi">4099600</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TIMESERVICE_ADJUSTTIMETORTC</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098656</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TIMESERVICE_DATEANDTIME</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098560</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TIMESERVICE_RTCTIMEDIFF</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098624</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TIMESERVICE_SYSTEMTIMES</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098592</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">TIMESERVICE_TIMEZONINFORMATION</span> <span class="p">:</span> <span class="n">UDINT</span> <span class="p">(</span><span class="mi">4098688</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">eWatchdogConfig</span> <span class="p">:</span> <span class="n">Tc2_System</span><span class="o">.</span><span class="n">E_WATCHDOG_TIME_CONFIG</span> <span class="p">(</span><span class="mi">4099632</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">Global_Variables</span><span class="o">.</span><span class="n">nWatchdogTime</span> <span class="p">:</span> <span class="n">BYTE</span> <span class="p">(</span><span class="mi">4099000</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">Global_Version</span><span class="o">.</span><span class="n">stLibVersion_Tc2_System</span> <span class="p">:</span> <span class="n">ST_LibVersion</span> <span class="p">(</span><span class="mi">4096000</span> <span class="mi">288</span><span class="p">)</span>
+<span class="n">Global_Version</span><span class="o">.</span><span class="n">stLibVersion_Tc2_Utilities</span> <span class="p">:</span> <span class="n">ST_LibVersion</span> <span class="p">(</span><span class="mi">4100928</span> <span class="mi">288</span><span class="p">)</span>
+<span class="n">Global_Version</span><span class="o">.</span><span class="n">stLibVersion_Tc3_Module</span> <span class="p">:</span> <span class="n">ST_LibVersion</span> <span class="p">(</span><span class="mi">4100288</span> <span class="mi">288</span><span class="p">)</span>
+<span class="n">Global_Version</span><span class="o">.</span><span class="n">stLibVersion_TcUnit</span> <span class="p">:</span> <span class="n">ST_LibVersion</span> <span class="p">(</span><span class="mi">4144960</span> <span class="mi">288</span><span class="p">)</span>
+<span class="n">Global_Version</span><span class="o">.</span><span class="n">stLibVersion_lcls_twincat_optics</span> <span class="p">:</span> <span class="n">ST_LibVersion</span> <span class="p">(</span><span class="mi">4153536</span> <span class="mi">288</span><span class="p">)</span>
+<span class="n">TwinCAT_LicenseInfoVarList</span><span class="o">.</span><span class="n">_LicenseInfo</span> <span class="p">:</span> <span class="n">PlcLicenseInfo</span> <span class="p">(</span><span class="mi">4159456</span> <span class="mi">1024</span><span class="p">)</span>
+<span class="n">TwinCAT_SystemInfoVarList</span><span class="o">.</span><span class="n">_AppInfo</span> <span class="p">:</span> <span class="n">PlcAppSystemInfo</span> <span class="p">(</span><span class="mi">4527808</span> <span class="mi">2048</span><span class="p">)</span>
+<span class="n">TwinCAT_SystemInfoVarList</span><span class="o">.</span><span class="n">_TaskInfo</span> <span class="p">:</span> <span class="n">PlcTaskSystemInfo</span> <span class="p">(</span><span class="mi">4529856</span> <span class="mi">1024</span><span class="p">)</span>
+<span class="n">TwinCAT_SystemInfoVarList</span><span class="o">.</span><span class="n">_TaskOid_PlcTask</span> <span class="p">:</span> <span class="n">OTCID</span> <span class="p">(</span><span class="mi">4530880</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">TwinCAT_SystemInfoVarList</span><span class="o">.</span><span class="n">_TaskPouOid_PlcTask</span> <span class="p">:</span> <span class="n">OTCID</span> <span class="p">(</span><span class="mi">4527776</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">TwinCAT_SystemInfoVarList</span><span class="o">.</span><span class="n">__PlcTask</span> <span class="p">:</span> <span class="n">_Implicit_Task_Info</span> <span class="p">(</span><span class="mi">4530944</span> <span class="mi">896</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="boxes">
+<h2>Boxes<a class="headerlink" href="#boxes" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="nc-axes">
+<h2>NC axes<a class="headerlink" href="#nc-axes" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="links">
+<h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="pragma-lint-results">
+<h2>Pragma lint results<a class="headerlink" href="#pragma-lint-results" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INFO</span><span class="p">:</span><span class="n">pytmc</span><span class="o">.</span><span class="n">bin</span><span class="o">.</span><span class="n">pragmalint</span><span class="p">:</span><span class="n">Total</span> <span class="n">pragmas</span> <span class="n">found</span><span class="p">:</span> <span class="mi">4</span> <span class="n">Total</span> <span class="n">linter</span> <span class="n">errors</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">PLC</span> <span class="n">Project</span> <span class="p">(</span><span class="mi">1</span><span class="p">):</span> <span class="n">lcls_twincat_optics_plc</span>
+<span class="o">========================================</span>
+
+
+<span class="n">GVLs</span><span class="o">/</span><span class="n">GVL_HOMS</span><span class="o">.</span><span class="n">TcGVL</span> <span class="p">(</span><span class="n">TcPlcObject</span><span class="p">)</span>
+<span class="o">---------------------------------</span>
+
+    <span class="o">-</span> <span class="n">GVL_HOMS</span><span class="p">:</span> <span class="n">Declaration</span> <span class="o">-</span> <span class="mi">1</span> <span class="n">pragmas</span>
+
+
+<span class="n">Version</span><span class="o">/</span><span class="n">Global_Version</span><span class="o">.</span><span class="n">TcGVL</span> <span class="p">(</span><span class="n">TcPlcObject</span><span class="p">)</span>
+<span class="o">------------------------------------------</span>
+
+    <span class="o">-</span> <span class="n">Global_Version</span><span class="p">:</span> <span class="n">Declaration</span> <span class="o">-</span> <span class="mi">3</span> <span class="n">pragmas</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pcdshub/lcls-twincat-optics</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PLC Project (1): lcls_twincat_optics_plc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#common-pous-helpers-fb-pi-e621-serialdriver-tcpou-tcplcobject">Common/POUs/Helpers/FB_PI_E621_SerialDriver.TcPOU (TcPlcObject)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-pous-helpers-fb-pi-e621-serialtransaction-tcpou-tcplcobject">Common/POUs/Helpers/FB_PI_E621_SerialTransaction.TcPOU (TcPlcObject)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#duts-st-piezoaxis-tcdut-tcplcobject">DUTs/ST_PiezoAxis.TcDUT (TcPlcObject)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gvls-gvl-homs-tcgvl-tcplcobject">GVLs/GVL_HOMS.TcGVL (TcPlcObject)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gvls-gvl-serialio-tcgvl-tcplcobject">GVLs/GVL_SerialIO.TcGVL (TcPlcObject)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plctask-tctto-tcplcobject">PlcTask.TcTTO (TcPlcObject)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pous-fb-runhoms-tcpou-tcplcobject">POUs/FB_RunHOMS.TcPOU (TcPlcObject)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pous-serial-comm-piezoserial-tcpou-tcplcobject">POUs/Serial Comm/PiezoSerial.TcPOU (TcPlcObject)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pous-serial-comm-p-serial-com-tcpou-tcplcobject">POUs/Serial Comm/P_Serial_Com.TcPOU (TcPlcObject)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-global-version-tcgvl-tcplcobject">Version/Global_Version.TcGVL (TcPlcObject)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#symbols">Symbols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#boxes">Boxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nc-axes">NC axes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#links">Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pragma-lint-results">Pragma lint results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lcls_twincat_optics_plc.tmc.html">lcls_twincat_optics_plc.tmc</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to pcdshub/lcls-twincat-optics’s documentation!</a></li>
+      <li>Next: <a href="lcls_twincat_optics_plc.tmc.html" title="next chapter">lcls_twincat_optics_plc.tmc</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, SLAC National Accelerator Laboratory.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/lcls-twincat-optics.tsproj.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

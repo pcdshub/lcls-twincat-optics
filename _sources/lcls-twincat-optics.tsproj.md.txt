@@ -1,0 +1,937 @@
+PLC Project (1): lcls_twincat_optics_plc
+========================================
+
+    Project root: /home/travis/build/pcdshub/lcls-twincat-optics/lcls-twincat-optics
+    Project path: lcls_twincat_optics_plc/lcls_twincat_optics_plc.plcproj
+    TMC path:     lcls_twincat_optics_plc/lcls_twincat_optics_plc.tmc
+    AMS ID:       
+    IP Address:    (* based on AMS ID)
+    Port:         851
+
+    Source files:
+        1.) lcls_twincat_optics_plc/Common/POUs/Helpers/FB_PI_E621_SerialDriver.TcPOU
+        2.) lcls_twincat_optics_plc/Common/POUs/Helpers/FB_PI_E621_SerialTransaction.TcPOU
+        3.) lcls_twincat_optics_plc/DUTs/ST_PiezoAxis.TcDUT
+        4.) lcls_twincat_optics_plc/GVLs/GVL_HOMS.TcGVL
+        5.) lcls_twincat_optics_plc/GVLs/GVL_SerialIO.TcGVL
+        6.) lcls_twincat_optics_plc/PlcTask.TcTTO
+        7.) lcls_twincat_optics_plc/POUs/FB_RunHOMS.TcPOU
+        8.) lcls_twincat_optics_plc/POUs/Serial Comm/PiezoSerial.TcPOU
+        9.) lcls_twincat_optics_plc/POUs/Serial Comm/P_Serial_Com.TcPOU
+        10.) lcls_twincat_optics_plc/Version/Global_Version.TcGVL
+
+    POUs:
+        1.) PiezoSerial
+        2.) P_Serial_Com
+
+    GVLs:
+        1.) GVL_HOMS
+        2.) GVL_SerialIO
+        3.) Global_Version
+
+Common/POUs/Helpers/FB_PI_E621_SerialDriver.TcPOU (TcPlcObject)
+---------------------------------------------------------------
+
+### FB_PI_E621_SerialDriver: Declaration
+
+```vhdl
+FUNCTION_BLOCK FB_PI_E621_SerialDriver
+VAR_INPUT
+	/// rising edge execute 
+	i_xExecute: BOOL;
+	/// Maximum wait time for reply 
+	i_tTimeOut: TIME := TIME#1S0MS;
+//	i_xReset : BOOL := FALSE; //reset function, for timeout etc
+END_VAR
+VAR_OUTPUT
+	q_xDone: BOOL;
+	q_xError: BOOL;
+	q_sResult: STRING(255);
+	/// Last Strings Sent to Serial Device - for debugging 
+	q_asLastSentStrings: ARRAY[1..50] OF STRING;
+	/// Last Strings Received from Serial Device - for debugging 
+	q_asLastReceivedStrings: ARRAY[1..50] OF STRING;
+END_VAR
+VAR_IN_OUT
+	iq_stPiezoAxis	:	ST_PiezoAxis;
+	iq_stSerialRXBuffer: ComBuffer;
+	iq_stSerialTXBuffer: ComBuffer;
+END_VAR
+VAR
+	rtExecute		: R_TRIG;
+	rtTransDone		: R_TRIG;
+	iStep: INT;
+	sSendData: STRING;
+	fbPITransaction: FB_PI_E621_SerialTransaction;
+	fbFormatString: FB_FormatString;
+	sErrMesg : STRING := 'In step %d fbPITransaction failed with message: %s';
+	i		: INT := 1;
+END_VAR
+```
+
+### FB_PI_E621_SerialDriver: ST
+
+```vhdl
+(* S. Stubbs, 2-23-2017 *)
+(* This function block drives serial communication with a PI E-816 or compatible comm module. 
+   Note this needs to be re-jiggered if the E-517 is used, uses number rather than letter for axis *)
+
+(* RS232 default settings: 115200 8N1, RTS/CTS
+
+All commands follow format:
+CMD X sV.V(Line feed)
+Where CMD is the command, X is axis, and sV.V is sign and number (float or int).
+Not all commands use axis and parameter, for example ERR?
+*)
+
+(* rising edge trigger *)
+rtExecute(CLK:= i_xExecute);
+IF rtExecute.Q THEN
+	q_xDone	:= FALSE;
+	q_xError := FALSE;
+	q_sResult:= '';
+	iq_stPiezoAxis.xDriverError := FALSE;
+//	i_xReset := FALSE;
+	a_ClearTrans();  (* to provide rising edge for execute *)
+	IF iq_stPiezoAxis.sIdn= '' THEN (* Should only need to check identity once *)
+		iStep := 5;
+	ELSE
+		iStep := 10;
+	END_IF
+END_IF
+
+
+CASE iStep OF
+	0: (* idle *)
+		;
+
+	(* Commands *)
+	5: (* Get Identity *)
+			fbPITransaction.i_xExecute:= TRUE;
+			fbPITransaction.i_sCmd:= '*IDN?';
+		IF fbPITransaction.q_xDone THEN
+				iq_stPiezoAxis.sIdn := fbPITransaction.q_sResponseData; //Hello I am a piezo
+				a_ClearTrans();  (* to provide rising edge for execute *)
+				iStep := 10;
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+		
+	10: (* Check Servo Mode 
+		To use manual voltage servo mode must be off *)
+		(* Response: 0$L or 1$L *)
+		fbPITransaction.i_xExecute:= TRUE;
+		fbPITransaction.i_sCmd:= 'SVO?';
+		fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+		IF fbPITransaction.q_xDone THEN
+			IF FIND('1',fbPITransaction.q_sResponseData) <> 0 THEN //Iff in servo mode, turn it off
+				a_ClearTrans();  (* to provide rising edge for execute *)
+				iStep := iStep + 10;
+			ELSE 
+				a_ClearTrans();
+				iStep := iStep + 20;  //Skip setting servo mode
+			END_IF
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+
+	20: (* Set Servo Mode *)
+		fbPITransaction.i_xExecute:= TRUE;
+		fbPITransaction.i_sCmd:= 'SVO';
+		fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+		fbPITransaction.i_sParam:= '0';
+		fbPITransaction.i_xExpectReply:= FALSE;
+		IF fbPITransaction.q_xDone THEN
+			a_ClearTrans();  (* to provide rising edge for execute *)
+			iStep := iStep + 10;
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+		
+	30: (* Set Voltage, only if needed *)
+		IF iq_stPiezoAxis.rSetVoltage <> iq_stPiezoAxis.rLastReqVoltage THEN
+			fbPITransaction.i_xExecute:= TRUE;
+			fbPITransaction.i_sCmd:= 'SVA';
+			fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+			fbPITransaction.i_sParam:=REAL_TO_STRING(iq_stPiezoAxis.rSetVoltage);
+			fbPITransaction.i_xExpectReply:= FALSE;
+			IF fbPITransaction.q_xDone THEN
+					a_ClearTrans();  (* to provide rising edge for execute *)
+					iStep := iStep + 10;
+			ELSIF fbPITransaction.q_xError THEN
+				a_ErrorMesg();
+				iStep := 9000;
+			END_IF
+		ELSE
+			iStep := iStep + 30; //Should only need to check error and setpoint if setting voltage
+		END_IF
+
+	40: (* Get Error Code, also resets current error *)
+	(* Response: integer error code *)
+			fbPITransaction.i_xExecute:= TRUE;
+			fbPITransaction.i_sCmd:= 'ERR?';
+		IF fbPITransaction.q_xDone THEN
+				iq_stPiezoAxis.iCurError := STRING_TO_INT(fbPITransaction.q_sResponseData);
+				IF iq_stPiezoAxis.iCurError <> 0 THEN
+					iq_stPiezoAxis.iLastError:= iq_stPiezoAxis.iCurError;
+				END_IF
+				a_ClearTrans();  (* to provide rising edge for execute *)
+				iStep := iStep + 10;
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+
+	50: (* Get Last Requested Piezo Voltage *)
+	(* Response: (float)$L *)
+			fbPITransaction.i_xExecute:= TRUE;
+			fbPITransaction.i_sCmd:= 'SVA?';
+			fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+		IF fbPITransaction.q_xDone THEN
+			iq_stPiezoAxis.rLastReqVoltage := STRING_TO_REAL(fbPITransaction.q_sResponseData);
+			//Check and reset attempts if it went through
+			a_ClearTrans();  (* to provide rising edge for execute *)
+			iStep := iStep + 10;
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+		
+	60: (* Get Actual Piezo Voltage *)
+	(* Response: (float)$L *)
+			fbPITransaction.i_xExecute:= TRUE;
+			fbPITransaction.i_sCmd:= 'VOL?';
+			// E-517 works differently, uses number rather than letter for axis
+			fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+		IF fbPITransaction.q_xDone THEN
+				iq_stPiezoAxis.rActVoltage := STRING_TO_REAL(fbPITransaction.q_sResponseData);
+				a_ClearTrans();  (* to provide rising edge for execute *)
+				iStep := 8000; (* Done *)
+		ELSIF fbPITransaction.q_xError THEN
+			a_ErrorMesg();
+			iStep := 9000;
+		END_IF
+		
+	8000: (* done *)
+		q_xDone := TRUE;
+		IF  i_xExecute = FALSE THEN
+			q_xDone:= FALSE;
+			iStep := 0;
+		END_IF
+
+	9000: (* Error *)
+		a_ClearTrans();  (* to provide rising edge for execute *)
+		IF fbPITransaction.q_xTimeout THEN
+			iStep:=10;//start over
+		ELSE
+		q_xError := TRUE;
+		iq_stPiezoAxis.xDriverError := TRUE;
+		END_IF	
+
+END_CASE
+
+//call transaction
+fbPITransaction(
+	iq_stSerialRXBuffer:= iq_stSerialRXBuffer, 
+	iq_stSerialTXBuffer:= iq_stSerialTXBuffer);
+
+iq_stPiezoAxis.xTimeout:=fbPITransaction.q_xTimeout;
+(* Rising edge trigger to take care of debugging history *)
+rtTransDone(CLK:= fbPITransaction.q_xDone);
+IF rtTransDone.Q THEN
+q_asLastSentStrings[i] := fbPITransaction.q_sLastSentString;
+q_asLastReceivedStrings[i] := fbPITransaction.q_sLastReceivedString;
+i := i + 1; 
+END_IF
+IF i = 51 THEN i := 1; END_IF
+```
+
+### FB_PI_E621_SerialDriver.a_ClearTrans: ST
+
+```vhdl
+(* Refactor this action to match your transaction *)
+fbPITransaction.i_xExecute := TRUE;
+fbPITransaction.i_sCmd:= ''; //Input args are Cmd, Axis and Param
+fbPITransaction.i_sAxis:= '';
+fbPITransaction.i_sParam:= '';
+fbPITransaction(
+	i_tTimeOut:= i_tTimeOut, 
+	iq_stSerialRXBuffer:= iq_stSerialRXBuffer,
+	iq_stSerialTXBuffer:= iq_stSerialTXBuffer );
+fbPITransaction.i_xExecute := FALSE;
+fbPITransaction(
+	i_tTimeOut:= i_tTimeOut, 
+	iq_stSerialRXBuffer:= iq_stSerialRXBuffer,
+	iq_stSerialTXBuffer:= iq_stSerialTXBuffer );
+fbPITransaction.i_xExpectReply:=TRUE;
+```
+
+### FB_PI_E621_SerialDriver.a_ErrorMesg: ST
+
+```vhdl
+fbFormatString( sformat:=sErrMesg, 
+	arg1:=F_INT(iStep), 
+	arg2:=F_STRING(fbPITransaction.q_sResult),
+	sOut => q_sResult);
+```
+
+### FB_PI_E621_SerialDriver.a_UnknownError: ST
+
+```vhdl
+q_sResult:= 'Unknown error';
+
+fbFormatString( sformat:=sErrMesg, 
+	arg1:=F_INT(iStep), 
+	arg2:=F_STRING(q_sResult), //Little silly, but have to do this because F_STRING requires read/write access
+	sOut => q_sResult);
+```
+
+
+Common/POUs/Helpers/FB_PI_E621_SerialTransaction.TcPOU (TcPlcObject)
+--------------------------------------------------------------------
+
+### FB_PI_E621_SerialTransaction: Declaration
+
+```vhdl
+FUNCTION_BLOCK FB_PI_E621_SerialTransaction
+VAR_INPUT
+	/// rising edge execute 
+	i_xExecute: BOOL;
+	/// Maximum wait time for reply 
+	i_tTimeOut: TIME := TIME#1s0ms;
+	// Command field
+	i_sCmd: STRING;
+	// Axis field
+	i_sAxis: STRING;
+	// Parameter field
+	i_sParam: STRING;
+	// Does command have a reply?  Default behavior is the same as the other drivers.
+	i_xExpectReply: BOOL := TRUE;
+END_VAR
+VAR_OUTPUT
+	q_xDone: BOOL;
+	q_sResponseData: STRING;
+	q_xError: BOOL;
+	q_xTimeout: BOOL;
+	q_sResult: STRING;
+	/// Last String Sent to Serial Device - for debugging 
+	q_sLastSentString: STRING;
+	/// Last String Received from Serial Device - for debugging 
+	q_sLastReceivedString: STRING;
+END_VAR
+VAR_IN_OUT
+	iq_stSerialRXBuffer: ComBuffer;
+	iq_stSerialTXBuffer: ComBuffer;
+END_VAR
+VAR
+	rtExecute: R_TRIG;
+	iStep: INT;
+	fbClearComBuffer: ClearComBuffer;
+	sSendString: STRING;
+	fbFormatString: FB_FormatString;
+	iChecksum: INT;
+	fbSendString: SendString;
+	fbReceiveString: ReceiveString;
+	sReceivedString: STRING;
+	tonTimeout: TON;
+	sRXStringForChecksum: STRING;
+	sReceiveStringWOChecksum: STRING;
+	sRXCheckSum: STRING;
+	sRXAddress: STRING;
+	sRXParmNum: STRING;
+END_VAR
+```
+
+### FB_PI_E621_SerialTransaction: ST
+
+```vhdl
+(* This function block performs serial transactions with a PI E-816 or compatible comm module *)
+
+(* rising edge trigger *)
+rtExecute(CLK:= i_xExecute);
+IF rtExecute.Q THEN
+	q_xDone	:= FALSE;
+	q_sResponseData := '';
+	q_xError := FALSE;
+	q_sResult:= '';
+	q_sLastSentString := '';
+	q_sLastReceivedString:= '';
+	iStep := 10;
+END_IF
+
+CASE iStep OF
+	0:
+		; (* idle *)
+
+	10: (* clear com buffers *)
+		fbClearComBuffer(Buffer:= iq_stSerialRXBuffer);
+		fbClearComBuffer(Buffer:= iq_stSerialTXBuffer);
+		(* build the send string *)
+		IF i_sParam = '' AND i_sAxis <> '' THEN //Axis but no parameter
+			fbFormatString( sFormat:= '%s %s$L', 
+				arg1:= F_STRING(i_sCmd),
+				arg2:= F_STRING(i_sAxis),
+				sOut=> sSendString);
+		ELSIF i_sParam <> '' AND i_sAxis = '' THEN //Parameter but no axis, global command
+			fbFormatString( sFormat:= '%s %s$L', 
+				arg1:= F_STRING(i_sCmd),
+				arg2:= F_STRING(i_sParam), //May not work for all commands, good enough for now
+				sOut=> sSendString);
+		ELSIF i_sParam = '' AND i_sAxis = '' THEN //Global Query/Command
+			fbFormatString( sFormat:= '%s$L', 
+			arg1:= F_STRING(i_sCmd),
+			sOut=> sSendString);
+		ELSE
+			fbFormatString( sFormat:= '%s %s %s$L', 
+				arg1:= F_STRING(i_sCmd),
+				arg2:= F_STRING(i_sAxis),
+				arg3:= F_STRING(i_sParam), //May not work for all commands, good enough for now
+				sOut=> sSendString);
+		END_IF
+		(* send it *)
+		fbSendString( SendString:= sSendString, TXbuffer:= iq_stSerialTXBuffer );
+		q_sLastSentString := sSendString;
+		iStep := iStep + 10;
+
+	20: (* Finish sending the String *)
+		IF fbSendString.Busy THEN
+			fbSendString( SendString:= sSendString, TXbuffer:= iq_stSerialTXBuffer );
+		ELSIF fbSendString.Error <> 0 THEN
+			q_sResult := CONCAT('In step 20 fbSendString resulted in error: ', INT_TO_STRING(fbSendString.Error));
+			iStep := 9000;
+		ELSIF NOT fbSendString.Busy THEN
+			IF i_xExpectReply THEN
+			iStep := iStep + 10;
+			ELSE //No reply expected, transaction complete
+			q_xDone:= TRUE;
+			q_sResult := 'Success.';
+			q_xTimeout := FALSE; //no timeout
+			iStep := 100;
+			END_IF
+		END_IF
+		(* Reset receive *)
+		fbReceiveString(
+			Reset:= TRUE,
+			ReceivedString:= sReceivedString,
+			RXbuffer:= iq_stSerialRXBuffer );
+		tonTimeout(IN:= FALSE);
+
+	30: (* Get reply, if there is one *)
+		fbReceiveString(
+			Prefix:= ,
+			Suffix:= '$L',
+			Timeout:= i_tTimeOut,
+			Reset:= FALSE,
+			ReceivedString:= sReceivedString,
+			RXbuffer:= iq_stSerialRXBuffer );
+		tonTimeout(IN:= TRUE, PT:= i_tTimeOut);
+		IF fbReceiveString.Error <> 0 AND fbReceiveString.Error <> 16#1008 THEN //16#1008 is timeout error
+			q_sResult := CONCAT('In step 30 fbReceiveString resulted in error: ', INT_TO_STRING(fbReceiveString.Error));
+			iStep := 9000;
+		ELSIF fbReceiveString.RxTimeout OR tonTimeout.Q THEN
+			q_sResult := 'Device failed to reply within timeout period';
+			q_xTimeout := TRUE;
+			iStep := 9000;
+		ELSIF fbReceiveString.StringReceived THEN
+			q_xTimeout := FALSE; //no timeout
+			q_sLastReceivedString := sReceivedString;
+			q_sResponseData := sReceivedString;
+			q_sResult := 'Success.';
+			q_xDone:= TRUE;
+			iStep := 100;
+		END_IF
+
+	100: (* done *)
+		IF  i_xExecute = FALSE THEN
+			q_xDone:= FALSE;
+			iStep := 0;
+		END_IF
+
+	9000:
+		q_xError := TRUE;
+		
+END_CASE
+```
+
+
+DUTs/ST_PiezoAxis.TcDUT (TcPlcObject)
+-------------------------------------
+
+### ST_PiezoAxis: Declaration
+
+```vhdl
+TYPE ST_PiezoAxis :
+STRUCT
+	(* IO *)
+		//Readback
+		sIdn				:	STRING; //Identity
+		iCurError			:	INT; //Current error code, should be 0 most of the time
+		iLastError			:	INT; //Last error code, for history
+		rActVoltage			:	REAL; //Actual voltage
+		rLastReqVoltage		:	REAL; //Last requested piezo voltage
+		//Control
+		rSetVoltage			:	REAL; //this parameter is set by the control loop/ voltage mode
+		sAxis				:   STRING :='A'; //Axis, e.g. A, B, C...A if single unit	
+		//Summaries
+		xTimeout	:	BOOL;
+		xDriverError		:	BOOL; //Summary of any driver errors
+	
+	(* Operation *)
+		xEnable	:	BOOL; //Enable control.
+		(* Note: Voltage mode and Idle mode overrides "DirectPiezoMode" of FB_PitchControl *)
+		xVoltageMode	:	BOOL; //Voltage mode gives direct access to piezo voltage, false means closed loop position acquisition (see FB_PitchControl for piezo and stepper separation)
+		xIdleMode	:	BOOL; //Use to put the piezo at half-stroke
+		rReqVoltage : REAL; //Requested piezo voltage in voltage mode
+		rReqAbsPos	:	LREAL; //Requested Position, latched at rising StartAbsMov
+		xStop	:	BOOL;	//Stops piezo and holds position
+	
+	
+	(* Control Parameters *)
+		rActPos	:	LREAL; //Encoder Readback
+		//Pitch piezo dmove range (urad)
+		rPiezoDmovRange		:	REAL := 1;
+		(*
+		stPIParams	:	ST_CTRL_PI_PARAMS := (
+			tCtrlCycleTime := T#0MS, 
+			tTaskCycleTime := T#0MS, 
+			tTn       := T#1S, 
+			fKp      := 0.25, 
+			fOutMaxLimit := 1, 
+			fOutMinLimit := -1, 
+			bARWOnIPartOnly := FALSE);
+	*)
+	(* Voltage ranges, come from specifications of the driver *)
+		UpperVoltage	:	REAL := 120; // E-816 has no software limits
+		LowerVoltage	:	REAL := 0; // E-816 has no software limits 
+END_STRUCT
+END_TYPE
+```
+
+
+GVLs/GVL_HOMS.TcGVL (TcPlcObject)
+---------------------------------
+
+### GVL_HOMS: Declaration
+
+```vhdl
+{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	nGANTRY_TOLERANCE_NM_DEFAULT : LINT := 50000; // default gantry tolerance in encoder counts = nm
+END_VAR
+```
+
+
+GVLs/GVL_SerialIO.TcGVL (TcPlcObject)
+-------------------------------------
+
+### GVL_SerialIO: Declaration
+
+```vhdl
+VAR_GLOBAL
+	//Better have your inputs and outputs!
+	Serial_P1_stComIn   AT %I*	:	EL6inData22B (*KL6inData22B*);
+	Serial_P1_stComOut  AT %Q*	:	EL6outData22B (*KL6outData22B*);
+	Serial_P1_SerialTXBuffer :ComBuffer;
+	Serial_P1_SerialRXBuffer :ComBuffer;	
+END_VAR
+```
+
+
+PlcTask.TcTTO (TcPlcObject)
+---------------------------
+
+
+POUs/FB_RunHOMS.TcPOU (TcPlcObject)
+-----------------------------------
+
+### FB_RunHOMS: Declaration
+
+```vhdl
+FUNCTION_BLOCK FB_RunHOMS
+VAR_INPUT
+	// Encoder Reference Values
+	nYupEncRef : ULINT;
+	nYdwnEncRef : ULINT;
+	nXupEncRef : ULINT;
+	nXdwnEncRef : ULINT;
+
+	// Gantry tolerances
+	nGantryTolY : LINT := GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+	nGantryTolX : LINT := GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+END_VAR
+VAR_OUTPUT
+	// Gantry coupling status
+	bGantryAlreadyCoupledY : BOOL;
+	bGantryAlreadyCoupledX : BOOL;
+	
+	// Current gantry difference
+	nCurrGantryY : LINT;
+	nCurrGantryX : LINT;
+END_VAR
+VAR_IN_OUT
+	// Motor Structs
+	stYup : DUT_MotionStage;
+	stYdwn : DUT_MotionStage;
+	stXup : DUT_MotionStage;
+	stXdwn : DUT_MotionStage;
+	stPitch : DUT_MotionStage;
+	stBender : DUT_MotionStage;
+
+	// Manual coupling Gantried Axes
+	bExecuteCoupleY : BOOL;
+	bExecuteCoupleX : BOOL;
+	bExecuteDecoupleY : BOOL;
+	bExecuteDecoupleX : BOOL;
+END_VAR
+VAR
+	// STO Button
+	bSTOEnable1 AT %I* : BOOL;
+	bSTOEnable2 AT %I* : BOOL;
+
+	// Encoders
+	stYupEnc AT %I* : ST_RenishawAbsEnc;
+	stYdwnEnc AT %I* : ST_RenishawAbsEnc;
+	
+	stXupEnc AT %I* : ST_RenishawAbsEnc;
+	stXdwnEnc AT %I* : ST_RenishawAbsEnc;
+
+	// Autocoupling Gantried Axes
+	fbAutoCoupleY : FB_GantryAutoCoupling;
+	fbAutoCoupleX : FB_GantryAutoCoupling;
+END_VAR
+```
+
+### FB_RunHOMS: ST
+
+```vhdl
+// Enable motors according to pytmc docs
+stYup.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+stYdwn.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+stXup.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+stXdwn.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+stPitch.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+stBender.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
+
+// Encoder Reference Values
+stYupEnc.Ref := nYupEncRef;
+stYdwnEnc.Ref := nYdwnEncRef;
+stXupEnc.Ref := nXupEncRef;
+stXdwnEnc.Ref := nXdwnEncRef;
+
+// Gantry Differences to monitor
+nCurrGantryY := ((ULINT_TO_LINT(stYupEnc.Count) - ULINT_TO_LINT(stYupEnc.Ref)) - (ULINT_TO_LINT(stYdwnEnc.Count) - ULINT_TO_LINT(stYdwnEnc.Ref)));
+nCurrGantryX := ((ULINT_TO_LINT(stXupEnc.Count) - ULINT_TO_LINT(stXupEnc.Ref)) - (ULINT_TO_LINT(stXdwnEnc.Count) - ULINT_TO_LINT(stXdwnEnc.Ref)));
+
+// Release the hounds!
+stYup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stYdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stXup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stXdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stPitch.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+
+// Start Autocoupling
+fbAutoCoupleY(nGantryTol:=nGantryTolY,
+	          Master:=stYup,
+			  MasterEnc:= stYupEnc,
+			  Slave:=stYdwn,
+			  SlaveEnc:=stYdwnEnc,
+			  bExecuteCouple:=bExecuteCoupleY,
+			  bExecuteDecouple:=bExecuteDecoupleY,
+			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledY);
+
+fbAutoCoupleX(nGantryTol:=nGantryTolX,
+	          Master:=stXup,
+			  MasterEnc:= stXupEnc,
+			  Slave:=stXdwn,
+			  SlaveEnc:=stXdwnEnc,
+			  bExecuteCouple:=bExecuteCoupleX,
+			  bExecuteDecouple:=bExecuteDecoupleX,
+			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);
+```
+
+
+POUs/Serial Comm/PiezoSerial.TcPOU (TcPlcObject)
+------------------------------------------------
+
+### PiezoSerial: Declaration
+
+```vhdl
+PROGRAM PiezoSerial
+VAR
+	//PI Serial
+	fbE621SerialDriverM1 : FB_PI_E621_SerialDriver;
+	piezo: ST_PiezoAxis;
+	rtInitParams	:	R_TRIG;
+	tonTimeoutRstM1	: TON := (PT:=T#2S); //For timeout reset
+	tonTimeoutRstM2	: TON := (PT:=T#2S); //For timeout reset
+END_VAR
+```
+
+### PiezoSerial: ST
+
+```vhdl
+//M1 Piezo E-621
+///////////////////////
+	fbE621SerialDriverM1.i_xExecute := TRUE;
+	fbE621SerialDriverM1.i_xExecute R= fbE621SerialDriverM1.q_xDone;
+	fbE621SerialDriverM1(
+		iq_stPiezoAxis:= piezo, 
+		iq_stSerialRXBuffer:= Serial_P1_SerialRXBuffer, 
+		iq_stSerialTXBuffer:= Serial_P1_SerialTXBuffer);
+```
+
+
+POUs/Serial Comm/P_Serial_Com.TcPOU (TcPlcObject)
+-------------------------------------------------
+
+### P_Serial_Com: Declaration
+
+```vhdl
+PROGRAM P_Serial_Com
+VAR
+	fbSerialLineControl_EL6001_P1: SerialLineControl;
+END_VAR
+```
+
+### P_Serial_Com: ST
+
+```vhdl
+//These are the global IOs...don't forget to copy your data into them
+
+(* EL6001 Serial port 0 com function *)
+fbSerialLineControl_EL6001_P1(
+	Mode:= SERIALLINEMODE_EL6_22B (*SERIALLINEMODE_KL6_22B_STANDARD*),
+	pComIn:= ADR(Serial_P1_stComIn),
+	pComOut:=ADR(Serial_P1_stComOut) ,
+	SizeComIn:= SIZEOF(Serial_P1_stComIn),
+	TxBuffer:= Serial_P1_SerialTXBuffer,
+	RxBuffer:= Serial_P1_SerialRXBuffer,
+	Error=> ,
+	ErrorID=> );
+```
+
+
+Version/Global_Version.TcGVL (TcPlcObject)
+------------------------------------------
+
+### Global_Version: Declaration
+
+```vhdl
+{attribute 'TcGenerated'}
+// This function has been automatically generated from the project information.
+VAR_GLOBAL CONSTANT
+	{attribute 'const_non_replaced'}
+	{attribute 'linkalways'}
+	stLibVersion_lcls_twincat_optics : ST_LibVersion := (iMajor := 0, iMinor := 0, iBuild := 0, iRevision := 0, sVersion := '0.0.0');
+END_VAR
+```
+
+
+Symbols
+-------
+
+    Constants.CompilerVersion : VERSION (4159296 64)
+    Constants.CompilerVersionNumeric : DWORD (4159424 32)
+    Constants.RuntimeVersion : VERSION (4159232 64)
+    Constants.RuntimeVersionNumeric : DWORD (4159392 32)
+    Constants.bFPUSupport : BOOL (4145256 8)
+    Constants.bLittleEndian : BOOL (4144952 8)
+    Constants.bSimulationMode : BOOL (4145248 8)
+    Constants.nPackMode : UINT (4159360 16)
+    Constants.nRegisterSize : WORD (4145264 16)
+    GVL.AmountOfInitializedTestSuites : UINT (4101232 16)
+    GVL.CurrentTestNameBeingCalled : Tc2_System.T_MaxString (4104448 2048)
+    GVL.CurrentTestSuiteBeingCalled : lcls_twincat_motion.TcUnit.I_TestSuite (4104384 64)
+    GVL.IgnoreCurrentTest : BOOL (4101224 8)
+    GVL.TcUnitRunner : lcls_twincat_motion.TcUnit.FB_TcUnitRunner (4101248 3136)
+    GVL.TestSuiteAddresses : lcls_twincat_motion.TcUnit.I_TestSuite (4125696 19200)
+    GVL.TestSuiteAssertAddresses : PVOID (4106496 19200)
+    GVL.TestSuiteAssertRegistered : BOOL (4101216 8)
+    GVL_Constants.MaxAmountOfAsserts : UINT (4144928 16)
+    GVL_Constants.MaxAmountOfTestSuites : UINT (4144896 16)
+    GVL_Constants.MaxAmountOfTestsForEachTestSuite : UINT (4144912 16)
+    GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT : LINT (4153472 64)
+    GVL_SerialIO.Serial_P1_SerialRXBuffer : Tc2_SerialCom.ComBuffer (4156720 2512)
+    GVL_SerialIO.Serial_P1_SerialTXBuffer : Tc2_SerialCom.ComBuffer (4154208 2512)
+    GVL_SerialIO.Serial_P1_stComIn : Tc2_SerialCom.EL6inData22B (4153824 192)
+    GVL_SerialIO.Serial_P1_stComOut : Tc2_SerialCom.EL6outData22B (4154016 192)
+    Global_Variables.ADSIGRP_DEVICE_DATA : UDINT (4097664 32)
+    Global_Variables.ADSIGRP_IOIMAGE_CLEARI : UDINT (4097568 32)
+    Global_Variables.ADSIGRP_IOIMAGE_CLEARO : UDINT (4097600 32)
+    Global_Variables.ADSIGRP_IOIMAGE_RISIZE : UDINT (4097440 32)
+    Global_Variables.ADSIGRP_IOIMAGE_ROSIZE : UDINT (4097536 32)
+    Global_Variables.ADSIGRP_IOIMAGE_RWIB : UDINT (4097376 32)
+    Global_Variables.ADSIGRP_IOIMAGE_RWIOB : UDINT (4097632 32)
+    Global_Variables.ADSIGRP_IOIMAGE_RWIX : UDINT (4097408 32)
+    Global_Variables.ADSIGRP_IOIMAGE_RWOB : UDINT (4097472 32)
+    Global_Variables.ADSIGRP_IOIMAGE_RWOX : UDINT (4097504 32)
+    Global_Variables.ADSIGRP_SYMNAME : UDINT (4096960 32)
+    Global_Variables.ADSIGRP_SYMNOTE : UDINT (4097344 32)
+    Global_Variables.ADSIGRP_SYMTAB : UDINT (4096928 32)
+    Global_Variables.ADSIGRP_SYMVAL : UDINT (4096992 32)
+    Global_Variables.ADSIGRP_SYM_DOWNLOAD : UDINT (4097248 32)
+    Global_Variables.ADSIGRP_SYM_HNDBYNAME : UDINT (4097024 32)
+    Global_Variables.ADSIGRP_SYM_INFOBYNAME : UDINT (4097152 32)
+    Global_Variables.ADSIGRP_SYM_INFOBYNAMEEX : UDINT (4097216 32)
+    Global_Variables.ADSIGRP_SYM_RELEASEHND : UDINT (4097120 32)
+    Global_Variables.ADSIGRP_SYM_UPLOAD : UDINT (4097280 32)
+    Global_Variables.ADSIGRP_SYM_UPLOADINFO : UDINT (4097312 32)
+    Global_Variables.ADSIGRP_SYM_VALBYHND : UDINT (4097088 32)
+    Global_Variables.ADSIGRP_SYM_VALBYNAME : UDINT (4097056 32)
+    Global_Variables.ADSIGRP_SYM_VERSION : UDINT (4097184 32)
+    Global_Variables.ADSIOFFS_DEVDATA_ADSSTATE : UDINT (4097696 32)
+    Global_Variables.ADSIOFFS_DEVDATA_DEVSTATE : UDINT (4097728 32)
+    Global_Variables.ADSLOG_MSGTYPE_ERROR : DWORD (4098784 32)
+    Global_Variables.ADSLOG_MSGTYPE_HINT : DWORD (4098720 32)
+    Global_Variables.ADSLOG_MSGTYPE_LOG : DWORD (4098816 32)
+    Global_Variables.ADSLOG_MSGTYPE_MSGBOX : DWORD (4098848 32)
+    Global_Variables.ADSLOG_MSGTYPE_RESOURCE : DWORD (4098880 32)
+    Global_Variables.ADSLOG_MSGTYPE_STRING : DWORD (4098912 32)
+    Global_Variables.ADSLOG_MSGTYPE_WARN : DWORD (4098752 32)
+    Global_Variables.ADSSTATE_CONFIG : UINT (4096832 16)
+    Global_Variables.ADSSTATE_ERROR : UINT (4096768 16)
+    Global_Variables.ADSSTATE_EXCEPTION : UINT (4096896 16)
+    Global_Variables.ADSSTATE_IDLE : UINT (4096608 16)
+    Global_Variables.ADSSTATE_INCOMPATIBLE : UINT (4096880 16)
+    Global_Variables.ADSSTATE_INIT : UINT (4096640 16)
+    Global_Variables.ADSSTATE_INVALID : UINT (4096592 16)
+    Global_Variables.ADSSTATE_LOADCFG : UINT (4096720 16)
+    Global_Variables.ADSSTATE_MAXSTATES : UINT (4096912 16)
+    Global_Variables.ADSSTATE_POWERFAILURE : UINT (4096736 16)
+    Global_Variables.ADSSTATE_POWERGOOD : UINT (4096752 16)
+    Global_Variables.ADSSTATE_RECONFIG : UINT (4096848 16)
+    Global_Variables.ADSSTATE_RESET : UINT (4096624 16)
+    Global_Variables.ADSSTATE_RESUME : UINT (4096816 16)
+    Global_Variables.ADSSTATE_RUN : UINT (4096672 16)
+    Global_Variables.ADSSTATE_SAVECFG : UINT (4096704 16)
+    Global_Variables.ADSSTATE_SHUTDOWN : UINT (4096784 16)
+    Global_Variables.ADSSTATE_START : UINT (4096656 16)
+    Global_Variables.ADSSTATE_STOP : UINT (4096688 16)
+    Global_Variables.ADSSTATE_STOPPING : UINT (4096864 16)
+    Global_Variables.ADSSTATE_SUSPEND : UINT (4096800 16)
+    Global_Variables.AMSPORT_EVENTLOG : UINT (4096304 16)
+    Global_Variables.AMSPORT_LOGGER : UINT (4096288 16)
+    Global_Variables.AMSPORT_R0_CAM : UINT (4096528 16)
+    Global_Variables.AMSPORT_R0_CAMTOOL : UINT (4096544 16)
+    Global_Variables.AMSPORT_R0_CNC : UINT (4096416 16)
+    Global_Variables.AMSPORT_R0_IO : UINT (4096336 16)
+    Global_Variables.AMSPORT_R0_ISG : UINT (4096400 16)
+    Global_Variables.AMSPORT_R0_LINE : UINT (4096432 16)
+    Global_Variables.AMSPORT_R0_NC : UINT (4096352 16)
+    Global_Variables.AMSPORT_R0_NCSAF : UINT (4096368 16)
+    Global_Variables.AMSPORT_R0_NCSVB : UINT (4096384 16)
+    Global_Variables.AMSPORT_R0_PLC : UINT (4096448 16)
+    Global_Variables.AMSPORT_R0_PLC_RTS1 : UINT (4096464 16)
+    Global_Variables.AMSPORT_R0_PLC_RTS2 : UINT (4096480 16)
+    Global_Variables.AMSPORT_R0_PLC_RTS3 : UINT (4096496 16)
+    Global_Variables.AMSPORT_R0_PLC_RTS4 : UINT (4096512 16)
+    Global_Variables.AMSPORT_R0_RTIME : UINT (4096320 16)
+    Global_Variables.AMSPORT_R3_SCOPESERVER : UINT (4096576 16)
+    Global_Variables.AMSPORT_R3_SYSSERV : UINT (4096560 16)
+    Global_Variables.BOOTDATAFLAGS_PERSISTENT_INVALID : BYTE (4098976 8)
+    Global_Variables.BOOTDATAFLAGS_PERSISTENT_LOADED : BYTE (4098968 8)
+    Global_Variables.BOOTDATAFLAGS_RETAIN_INVALID : BYTE (4098952 8)
+    Global_Variables.BOOTDATAFLAGS_RETAIN_LOADED : BYTE (4098944 8)
+    Global_Variables.BOOTDATAFLAGS_RETAIN_REQUESTED : BYTE (4098960 8)
+    Global_Variables.DEFAULT_ADS_TIMEOUT : TIME (4099712 32)
+    Global_Variables.FOPEN_MODEAPPEND : DWORD (4099072 32)
+    Global_Variables.FOPEN_MODEBINARY : DWORD (4099136 32)
+    Global_Variables.FOPEN_MODEPLUS : DWORD (4099104 32)
+    Global_Variables.FOPEN_MODEREAD : DWORD (4099008 32)
+    Global_Variables.FOPEN_MODETEXT : DWORD (4099168 32)
+    Global_Variables.FOPEN_MODEWRITE : DWORD (4099040 32)
+    Global_Variables.MAX_STRING_LENGTH : UDINT (4099744 32)
+    Global_Variables.PI : LREAL (4099648 64)
+    Global_Variables.SYSTEMSERVICE_CHANGENETID : UDINT (4098528 32)
+    Global_Variables.SYSTEMSERVICE_CLOSEHANDLE : UDINT (4097888 32)
+    Global_Variables.SYSTEMSERVICE_CREATEFILE : UDINT (4097856 32)
+    Global_Variables.SYSTEMSERVICE_FCLOSE : UDINT (4097952 32)
+    Global_Variables.SYSTEMSERVICE_FDELETE : UDINT (4098272 32)
+    Global_Variables.SYSTEMSERVICE_FEOF : UDINT (4098240 32)
+    Global_Variables.SYSTEMSERVICE_FGETS : UDINT (4098112 32)
+    Global_Variables.SYSTEMSERVICE_FOPEN : UDINT (4097920 32)
+    Global_Variables.SYSTEMSERVICE_FPRINTF : UDINT (4098208 32)
+    Global_Variables.SYSTEMSERVICE_FPUTS : UDINT (4098144 32)
+    Global_Variables.SYSTEMSERVICE_FREAD : UDINT (4097984 32)
+    Global_Variables.SYSTEMSERVICE_FRENAME : UDINT (4098304 32)
+    Global_Variables.SYSTEMSERVICE_FSCANF : UDINT (4098176 32)
+    Global_Variables.SYSTEMSERVICE_FSEEK : UDINT (4098048 32)
+    Global_Variables.SYSTEMSERVICE_FTELL : UDINT (4098080 32)
+    Global_Variables.SYSTEMSERVICE_FWRITE : UDINT (4098016 32)
+    Global_Variables.SYSTEMSERVICE_MKDIR : UDINT (4098336 32)
+    Global_Variables.SYSTEMSERVICE_OPENCREATE : UDINT (4097760 32)
+    Global_Variables.SYSTEMSERVICE_OPENREAD : UDINT (4097792 32)
+    Global_Variables.SYSTEMSERVICE_OPENWRITE : UDINT (4097824 32)
+    Global_Variables.SYSTEMSERVICE_REG_HKEYLOCALMACHINE : UDINT (4098400 32)
+    Global_Variables.SYSTEMSERVICE_RMDIR : UDINT (4098368 32)
+    Global_Variables.SYSTEMSERVICE_SENDEMAIL : UDINT (4098432 32)
+    Global_Variables.SYSTEMSERVICE_STARTPROCESS : UDINT (4098496 32)
+    Global_Variables.SYSTEMSERVICE_TIMESERVICES : UDINT (4098464 32)
+    Global_Variables.SYSTEMSTATEFLAGS_BSOD : BYTE (4098984 8)
+    Global_Variables.SYSTEMSTATEFLAGS_RTVIOLATION : BYTE (4098992 8)
+    Global_Variables.TCEVENTFLAG_AUTOFMTALL : WORD (4099504 16)
+    Global_Variables.TCEVENTFLAG_FMTSELF : WORD (4099440 16)
+    Global_Variables.TCEVENTFLAG_LOG : WORD (4099456 16)
+    Global_Variables.TCEVENTFLAG_MSGBOX : WORD (4099472 16)
+    Global_Variables.TCEVENTFLAG_PRIOCLASS : WORD (4099424 16)
+    Global_Variables.TCEVENTFLAG_SRCID : WORD (4099488 16)
+    Global_Variables.TCEVENTSTATE_CONFIRMED : WORD (4099568 16)
+    Global_Variables.TCEVENTSTATE_INVALID : WORD (4099520 16)
+    Global_Variables.TCEVENTSTATE_RESET : WORD (4099552 16)
+    Global_Variables.TCEVENTSTATE_RESETCON : WORD (4099584 16)
+    Global_Variables.TCEVENTSTATE_SIGNALED : WORD (4099536 16)
+    Global_Variables.TCEVENT_FMTPRGSIZE : INT (4099616 16)
+    Global_Variables.TCEVENT_SRCNAMESIZE : INT (4099600 16)
+    Global_Variables.TIMESERVICE_ADJUSTTIMETORTC : UDINT (4098656 32)
+    Global_Variables.TIMESERVICE_DATEANDTIME : UDINT (4098560 32)
+    Global_Variables.TIMESERVICE_RTCTIMEDIFF : UDINT (4098624 32)
+    Global_Variables.TIMESERVICE_SYSTEMTIMES : UDINT (4098592 32)
+    Global_Variables.TIMESERVICE_TIMEZONINFORMATION : UDINT (4098688 32)
+    Global_Variables.eWatchdogConfig : Tc2_System.E_WATCHDOG_TIME_CONFIG (4099632 16)
+    Global_Variables.nWatchdogTime : BYTE (4099000 8)
+    Global_Version.stLibVersion_Tc2_System : ST_LibVersion (4096000 288)
+    Global_Version.stLibVersion_Tc2_Utilities : ST_LibVersion (4100928 288)
+    Global_Version.stLibVersion_Tc3_Module : ST_LibVersion (4100288 288)
+    Global_Version.stLibVersion_TcUnit : ST_LibVersion (4144960 288)
+    Global_Version.stLibVersion_lcls_twincat_optics : ST_LibVersion (4153536 288)
+    TwinCAT_LicenseInfoVarList._LicenseInfo : PlcLicenseInfo (4159456 1024)
+    TwinCAT_SystemInfoVarList._AppInfo : PlcAppSystemInfo (4527808 2048)
+    TwinCAT_SystemInfoVarList._TaskInfo : PlcTaskSystemInfo (4529856 1024)
+    TwinCAT_SystemInfoVarList._TaskOid_PlcTask : OTCID (4530880 32)
+    TwinCAT_SystemInfoVarList._TaskPouOid_PlcTask : OTCID (4527776 32)
+    TwinCAT_SystemInfoVarList.__PlcTask : _Implicit_Task_Info (4530944 896)
+
+Boxes
+-----
+
+NC axes
+-------
+
+Links
+-----
+
+
+Pragma lint results
+-------------------
+```
+INFO:pytmc.bin.pragmalint:Total pragmas found: 4 Total linter errors: 0
+PLC Project (1): lcls_twincat_optics_plc
+========================================
+
+
+GVLs/GVL_HOMS.TcGVL (TcPlcObject)
+---------------------------------
+
+    - GVL_HOMS: Declaration - 1 pragmas
+
+
+Version/Global_Version.TcGVL (TcPlcObject)
+------------------------------------------
+
+    - Global_Version: Declaration - 3 pragmas
+
+```
