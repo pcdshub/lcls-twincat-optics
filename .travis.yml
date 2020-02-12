@@ -1,0 +1,26 @@
+language: python
+python: 3.7
+sudo: false
+
+env:
+  global:
+      # Doctr deploy key for pcdshub/lcls-twincat-optics
+      - secure: "lWQrdGr9GMk96tooHnPViOL+x+Qjg8vCrhBpMJxR585GX8sxH81PWcFOGcG4jMY3ZskEvg0bSwacvy3EunS9dnVcIB99qZ18J58ogXEMZkwTYC9cIqeT/r7FAd+IdcgYijB+dnzKzMcT7jExSPDez3rKlCcaT6QJB3XNWRvWFohugLtsAGnkSudbX6Jm8jTwwdN2ADlLfOJ9dGSEVA6cA0rxOyEwb2sUAPlRvaj+mrY0QWELGjoM/L6VsXBgSdjymiprqlTyGALmeENCPQSTYzWaKGuDnaxV8kuQcd8xzNnMepbDk2h7e3E4fupGj3P64CPoJHCB+/bUM9x6TVWme+iidewjOG5jvsrIHjO8PuSbky893SFIdy3kWUl6xBuEhM6TGHd2ebf3FgkJPacpsaAIC0786eKHgTaHwo4BXFRHi5G6N4ws49mp8PLl2v8sy//pYTDTQWvBBliyNw77d7sOq2luSVee5L+ONjd/oH8olWXFYD/q+f7gMwlcyaAQA+iLaTmgXZHf/gvnWRb9IaB+7mJGgjGPGWWZhuM6OPti0fuQ7sA1GPqQ0fzBnrBZSD2PxLI5i0w56YMZBCTxe9Hxi3cPY/rHfBDmASMhiKybaTX3pSn54APqPntmdmBSIOzySldqF8ICHUAJUwJrsYxklT01Qi7VOasBdrr+kV4="
+
+matrix:
+  include:
+    - name: Project summary
+      python: 3.7
+      env: TWINCAT_SUMMARY=1
+    - name: Pragma linting
+      python: 3.7
+      env: TWINCAT_PRAGMALINT=1
+    - name: Documentation building
+      python: 3.7
+      env: TWINCAT_BUILD_DOCS=1
+
+install:
+  # Import the helper scripts
+  - git clone --depth 1 git://github.com/pcdshub/pcds-ci-helpers.git
+  # Start the helper-script initialization + run based on environment variables
+  - source pcds-ci-helpers/travis/init.sh
