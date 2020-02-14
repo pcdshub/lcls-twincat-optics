@@ -28,7 +28,7 @@ VAR
 	fDiff : LREAL := 0;
 
 	{attribute 'pytmc' := '
-		ACTPOSARRAY
+		pv: ACTPOSARRAY
 		io: i
     '}
 	aEncActPos : ARRAY [1..1000] OF LREAL;
