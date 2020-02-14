@@ -7,6 +7,7 @@ VAR_IN_OUT
 	Stepper : DUT_MotionStage;
 END_VAR
 VAR_INPUT
+	lrCurrentSetpoint : LREAL; // SP written from Epics
 END_VAR
 VAR_OUTPUT
 	q_bError : BOOL;
@@ -29,7 +30,6 @@ VAR
 	rtSTO : R_TRIG;
 	lrOriginalPosRequest : LREAL; // Used for logging
 	lrLastSetpoint : LREAL; // Previous successfully achieved setpoint
-	lrCurrentSetpoint : LREAL; // Agrees with DUT_MotionStage.fPosition
 	fbMotionRequest : FB_MotionRequest;
 	fbMotionStage : FB_MotionStage;
 	bLimitHit : BOOL;
@@ -72,12 +72,11 @@ Fine pitch motion with the piezo will be initiated to finish closing the loop.
 The piezo mechanism can actuate ~ 180urad or 90um.
 
 *)
-lrCurrentSetpoint := Stepper.fPosition; // Current setpoint, written from Epics
 lrActPos := Stepper.stAxisStatus.fActPosition;
 
 IF bFirstPass THEN
 	// Set setpoint to current motor position
-	Stepper.fPosition := lrActPos;
+	lrCurrentSetpoint := lrActPos;
 END_IF
 
 // If we hit a limit during a move, we need to change the setpoint
@@ -87,17 +86,6 @@ IF ftLimitSwitch.Q THEN
 	bLimitHit := TRUE;
 	lrCurrentSetpoint := lrActPos;
 END_IF
-// If we hit the STO during a move, we also need to change the setpoint
-ftSTO(CLK:=Stepper.bHardwareEnable);
-IF ftSTO.Q THEN
-	bExecuteStepper := FALSE;
-	bSTOHit := TRUE;
-//	lrCurrentSetpoint := lrActPos;
-	// Unclear why I need the following, I would think FB_MotionRequest would set it from the input fPos:=lrCurrentSetpoint
-//	Pitch.Stepper.fPosition := lrActPos;
-END_IF
-// Watch for STO to release to reset stepper
-rtSTO(CLK:=Stepper.bHardwareEnable);
 
 // Left out Manual Mode Switch and Tweak FBs
 
@@ -207,14 +195,6 @@ CASE PC_State OF
 		PC_State := PCM_Init;
 	PCM_OtherError:
 		PC_State := PCM_Init;
-	PCM_STOHit:
-		IF rtSTO.Q THEN
-			bResetStepper := TRUE;
-			bExecuteStepper := FALSE; // Not sure why needed, should already be FALSE...
-			mcReset(Axis:=Stepper.Axis,
-				    Execute:=bResetStepper);
-			PC_State := PCM_Init;
-		END_IF
 END_CASE
 
 bFirstPass := FALSE;
@@ -250,8 +230,7 @@ fbPiezoControl(iq_Piezo:=Pitch.Piezo,
 // - Limit switches are hit and new setpoint the direction of the hit switch
 
 lrOriginalPosRequest := lrCurrentSetpoint;
-Stepper.fPosition := lrLastSetpoint;
-lrCurrentSetpoint := Stepper.fPosition;
+lrCurrentSetpoint := lrLastSetpoint;
 // Only want to log one warning about a bad position request
 IF lrOriginalPosRequest <> lrCurrentSetpoint THEN
 	// Log a warning

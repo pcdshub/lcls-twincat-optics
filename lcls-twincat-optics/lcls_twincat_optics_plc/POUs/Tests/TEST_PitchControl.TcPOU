@@ -42,8 +42,7 @@ VAR CONSTANT
     ForwardTestSP : LREAL := 1000;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[(*
-fActPosition := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition;
+        <ST><![CDATA[fActPosition := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition;
 
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitBackwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition > BwdLimPos;
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitForwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition < FwdLimPos;
@@ -124,9 +123,7 @@ END_IF
 8000:
 TEST_FINISHED_NAMED('PitchControlLimitSwitchTests');             
 
-END_CASE
-
-*)]]></ST>
+END_CASE]]></ST>
       </Implementation>
     </Method>
     <Method Name="StepperPiezoExchange" Id="{2ba91de8-e34c-4d3a-aea5-0bb97ec6666e}">
@@ -154,8 +151,7 @@ VAR CONSTANT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[(*
-fActPosition := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition;
+        <ST><![CDATA[fActPosition := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition;
 
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitBackwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition > BwdLimPos;
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitForwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition < FwdLimPos;
@@ -191,8 +187,7 @@ END_IF
 
 50: // Attempt to back off limit and succeed            
 
-END_CASE
-*)]]></ST>
+END_CASE]]></ST>
       </Implementation>
     </Method>
   </POU>

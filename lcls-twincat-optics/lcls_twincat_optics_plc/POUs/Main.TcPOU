@@ -12,7 +12,8 @@ VAR
 	ExpertMode : BOOL := FALSE;
 	PitchManualMode : BOOL := FALSE;
 	bPitchDone : BOOL;
-    TEST_PitchControl : TEST_PitchControl;
+	lrPitchSP : LREAL;
+//TEST_PitchControl : TEST_PitchControl;
 	// Debug
 	fbMotionStage : FB_MotionStage;
 	fbMotionRequest : FB_MotionRequest;
@@ -31,29 +32,16 @@ M1.bHardwareEnable;
 M1.fVelocity := 150.0;
 fbPitchControl(Pitch:=TestPitch,
 			   Stepper:=M1,
+			   lrCurrentSetpoint:=lrPitchSP,
 			   q_bDone=>bPitchDone,
 			   q_bBusy=>);
-(*
+IF NOT M1.bAllForwardEnable OR NOT M1.bAllBackwardEnable OR NOT M1.bHardwareEnable THEN
+	lrPitchSP := M1.stAxisStatus.fActPosition;
+END_IF
+
 //TcUnit.RUN();
 // Debug
-mcReset(Axis:=TestPitch.Stepper.Axis,
-	    Execute:=bResetStepper);
-lrActPos := TestPitch.Stepper.stAxisStatus.fActPosition;
-lrCurrentSetpoint := TestPitch.Stepper.fPosition;
-fbMotionRequest(stMotionStage:=TestPitch.Stepper,
-                bExecute:=bExecuteStepper,
-                bReset:=bResetStepper,
-                enumMotionRequest:=enumMotionRequest,
-                fPos:=lrCurrentSetpoint,
-                fVel:=TestPitch.Stepper.fVelocity,
-                fAcc:=TestPitch.Stepper.fAcceleration,
-                fDec:=TestPitch.Stepper.fDeceleration,
-                bError=>,
-                sErrorMessage=>,
-                bBusy=>,
-                bDone=>);
-fbMotionStage(stMotionStage:=TestPitch.Stepper);
-*)]]></ST>
+//fbMotionStage(stMotionStage:=M1);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
