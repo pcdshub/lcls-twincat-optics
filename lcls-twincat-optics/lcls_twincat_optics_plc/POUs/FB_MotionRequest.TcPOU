@@ -146,7 +146,7 @@ CASE nState OF
 END_CASE
 
 // Transition to the ERROR state if applicable
-IF bMyMove AND stMotionStage.bError THEN
+IF stMotionStage.bError THEN
     nState := ERROR;
     bError := TRUE;
     sErrorMessage := stMotionStage.sErrorMessage;

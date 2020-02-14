@@ -28,7 +28,7 @@ VAR_IN_OUT
 	stYdwn : DUT_MotionStage;
 	stXup : DUT_MotionStage;
 	stXdwn : DUT_MotionStage;
-	stPitch : HOMS_PitchMechanism;
+	stPitch : DUT_MotionStage;
 	stBender : DUT_MotionStage;
 
 	// Manual coupling Gantried Axes
@@ -69,7 +69,7 @@ stYup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stYdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stXup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stXdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
-stPitch.Stepper.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+stPitch.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 
 // Start Autocoupling

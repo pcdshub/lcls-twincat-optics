@@ -4,10 +4,6 @@
     <Declaration><![CDATA[TYPE HOMS_PitchMechanism :
 STRUCT
 	Piezo	:	ST_PiezoAxis;	//Piezo
-	{attribute 'pytmc' := '
-		pv: STEPPER
-	'}
-	Stepper	:	DUT_MotionStage; //Abstract pitch axis
 
 	(* Soft limits, egu urad *)
 	ReqPosLimHi	:	REAL;

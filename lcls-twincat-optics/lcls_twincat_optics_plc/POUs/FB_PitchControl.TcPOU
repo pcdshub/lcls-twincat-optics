@@ -4,6 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_PitchControl
 VAR_IN_OUT
     Pitch : HOMS_PitchMechanism;
+	Stepper : DUT_MotionStage;
 END_VAR
 VAR_INPUT
 END_VAR
@@ -71,23 +72,23 @@ Fine pitch motion with the piezo will be initiated to finish closing the loop.
 The piezo mechanism can actuate ~ 180urad or 90um.
 
 *)
-lrCurrentSetpoint := Pitch.Stepper.fPosition; // Current setpoint, written from Epics
-lrActPos := Pitch.Stepper.stAxisStatus.fActPosition;
+lrCurrentSetpoint := Stepper.fPosition; // Current setpoint, written from Epics
+lrActPos := Stepper.stAxisStatus.fActPosition;
 
 IF bFirstPass THEN
 	// Set setpoint to current motor position
-	Pitch.Stepper.fPosition := lrActPos;
+	Stepper.fPosition := lrActPos;
 END_IF
 
 // If we hit a limit during a move, we need to change the setpoint
-ftLimitSwitch(CLK:=Pitch.Stepper.bAllForwardEnable AND Pitch.Stepper.bAllBackwardEnable);
+ftLimitSwitch(CLK:=Stepper.bAllForwardEnable AND Stepper.bAllBackwardEnable);
 IF ftLimitSwitch.Q THEN
 	bExecuteStepper := FALSE;
 	bLimitHit := TRUE;
 	lrCurrentSetpoint := lrActPos;
 END_IF
 // If we hit the STO during a move, we also need to change the setpoint
-ftSTO(CLK:=Pitch.Stepper.bHardwareEnable);
+ftSTO(CLK:=Stepper.bHardwareEnable);
 IF ftSTO.Q THEN
 	bExecuteStepper := FALSE;
 	bSTOHit := TRUE;
@@ -96,7 +97,7 @@ IF ftSTO.Q THEN
 //	Pitch.Stepper.fPosition := lrActPos;
 END_IF
 // Watch for STO to release to reset stepper
-rtSTO(CLK:=Pitch.Stepper.bHardwareEnable);
+rtSTO(CLK:=Stepper.bHardwareEnable);
 
 // Left out Manual Mode Switch and Tweak FBs
 
@@ -111,13 +112,13 @@ CASE PC_State OF
 		// Waits for move requests and determines if they are valid
 		IF (lrLastSetpoint <> lrCurrentSetpoint) THEN // lrLastSetpoint initially set in PCM_Done
 			// Check for bad setpoints -> revert to previous setpoint
-			IF 	(lrCurrentSetpoint > Pitch.ReqPosLimHi) OR (lrCurrentSetpoint < Pitch.ReqPosLimLo) OR NOT Pitch.Stepper.bHardwareEnable THEN
+			IF 	(lrCurrentSetpoint > Pitch.ReqPosLimHi) OR (lrCurrentSetpoint < Pitch.ReqPosLimLo) OR NOT Stepper.bHardwareEnable THEN
 				// Outside range of limit switches or bHardwareEnable is FALSE
 				ACT_ResetSetpoint();
-			ELSIF lrCurrentSetpoint > lrLastSetpoint AND NOT Pitch.Stepper.bAllForwardEnable THEN
+			ELSIF lrCurrentSetpoint > lrLastSetpoint AND NOT Stepper.bAllForwardEnable THEN
 				// Forward move when on HL
 				ACT_ResetSetpoint();
-			ELSIF lrCurrentSetpoint < lrLastSetpoint AND NOT Pitch.Stepper.bAllBackwardEnable THEN
+			ELSIF lrCurrentSetpoint < lrLastSetpoint AND NOT Stepper.bAllBackwardEnable THEN
 				// Backward move when on LL
 				ACT_ResetSetpoint();
 			END_IF
@@ -170,7 +171,7 @@ CASE PC_State OF
 		ELSIF ftSTO.Q THEN
 			PC_State := PCM_STOHit;
 			lrPrevStepperPos := lrActPos;
-		ELSIF Pitch.Stepper.bError THEN
+		ELSIF Stepper.bError THEN
 			bExecuteStepper := FALSE;
 			PC_State := PCM_StepperError;
 			// Left out logging
@@ -200,7 +201,7 @@ CASE PC_State OF
 		// Move back to standby
 		PC_State := PCM_Standby;
 	PCM_StepperError:
-		Pitch.Stepper.bReset := TRUE; // set false again in PCM_Init
+		Stepper.bReset := TRUE; // set false again in PCM_Init
 		PC_State := PCM_Init;
 	PCM_PiezoError:
 		PC_State := PCM_Init;
@@ -210,7 +211,7 @@ CASE PC_State OF
 		IF rtSTO.Q THEN
 			bResetStepper := TRUE;
 			bExecuteStepper := FALSE; // Not sure why needed, should already be FALSE...
-			mcReset(Axis:=Pitch.Stepper.Axis,
+			mcReset(Axis:=Stepper.Axis,
 				    Execute:=bResetStepper);
 			PC_State := PCM_Init;
 		END_IF
@@ -218,19 +219,19 @@ END_CASE
 
 bFirstPass := FALSE;
 
-fbMotionRequest(stMotionStage:=Pitch.Stepper,
+fbMotionRequest(stMotionStage:=Stepper,
                 bExecute:=bExecuteStepper,
                 bReset:=bResetStepper,
                 enumMotionRequest:=enumMotionRequest,
                 fPos:=lrCurrentSetpoint,
-                fVel:=Pitch.Stepper.fVelocity,
-                fAcc:=Pitch.Stepper.fAcceleration,
-                fDec:=Pitch.Stepper.fDeceleration,
+                fVel:=Stepper.fVelocity,
+                fAcc:=Stepper.fAcceleration,
+                fDec:=Stepper.fDeceleration,
                 bError=>,
                 sErrorMessage=>,
                 bBusy=>,
                 bDone=>);
-fbMotionStage(stMotionStage:=Pitch.Stepper);
+fbMotionStage(stMotionStage:=Stepper);
 
 // Transfer to the Piezo
 Pitch.Piezo.rActPos := lrActPos;
@@ -238,8 +239,8 @@ Pitch.Piezo.rActPos := lrActPos;
 tonPiezoSettled();
 tonStepperHold();
 fbPiezoControl(iq_Piezo:=Pitch.Piezo,
-	           Enable_Positive:=Pitch.Stepper.bLimitForwardEnable,
-			   Enable_Negative:=Pitch.Stepper.bLimitBackwardEnable);]]></ST>
+	           Enable_Positive:=Stepper.bLimitForwardEnable,
+			   Enable_Negative:=Stepper.bLimitBackwardEnable);]]></ST>
     </Implementation>
     <Action Name="ACT_ResetSetpoint" Id="{0b95a558-7e3a-4f95-aac8-420be385c984}">
       <Implementation>
@@ -249,8 +250,8 @@ fbPiezoControl(iq_Piezo:=Pitch.Piezo,
 // - Limit switches are hit and new setpoint the direction of the hit switch
 
 lrOriginalPosRequest := lrCurrentSetpoint;
-Pitch.Stepper.fPosition := lrLastSetpoint;
-lrCurrentSetpoint := Pitch.Stepper.fPosition;
+Stepper.fPosition := lrLastSetpoint;
+lrCurrentSetpoint := Stepper.fPosition;
 // Only want to log one warning about a bad position request
 IF lrOriginalPosRequest <> lrCurrentSetpoint THEN
 	// Log a warning

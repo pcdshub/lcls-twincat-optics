@@ -8,6 +8,7 @@ VAR
 		                                ReqPosLimLo:=-2000,
 		                                diEncPosLimHi:=10768330,
 		                                diEncPosLimLo:=8141680);
+	M1 : DUT_MotionStage;
 	ExpertMode : BOOL := FALSE;
 	PitchManualMode : BOOL := FALSE;
 	bPitchDone : BOOL;
@@ -24,15 +25,15 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*
-TestPitch.Stepper.bLimitBackwardEnable;
-TestPitch.Stepper.bLimitForwardEnable;
-TestPitch.Stepper.bHardwareEnable;
-TestPitch.Stepper.fVelocity := 150.0;
+      <ST><![CDATA[M1.bLimitBackwardEnable;
+M1.bLimitForwardEnable;
+M1.bHardwareEnable;
+M1.fVelocity := 150.0;
 fbPitchControl(Pitch:=TestPitch,
+			   Stepper:=M1,
 			   q_bDone=>bPitchDone,
 			   q_bBusy=>);
-
+(*
 //TcUnit.RUN();
 // Debug
 mcReset(Axis:=TestPitch.Stepper.Axis,
