@@ -9,20 +9,10 @@ VAR
 		                                diEncPosLimHi:=10768330,
 		                                diEncPosLimLo:=8141680);
 	M1 : DUT_MotionStage;
-	ExpertMode : BOOL := FALSE;
-	PitchManualMode : BOOL := FALSE;
 	bPitchDone : BOOL;
-	lrPitchSP : LREAL;
-//TEST_PitchControl : TEST_PitchControl;
+//	TEST_PitchControl : TEST_PitchControl;
 	// Debug
 	fbMotionStage : FB_MotionStage;
-	fbMotionRequest : FB_MotionRequest;
-	bExecuteStepper : BOOL;
-	bResetStepper : BOOL;
-	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT;
-	lrCurrentSetpoint : LREAL;
-	lrActPos : LREAL;
-	mcReset : MC_Reset;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -32,11 +22,12 @@ M1.bHardwareEnable;
 M1.fVelocity := 150.0;
 fbPitchControl(Pitch:=TestPitch,
 			   Stepper:=M1,
-			   lrCurrentSetpoint:=lrPitchSP,
+			   lrCurrentSetpoint:=M1.fPosition,
 			   q_bDone=>bPitchDone,
 			   q_bBusy=>);
-IF NOT M1.bAllForwardEnable OR NOT M1.bAllBackwardEnable OR NOT M1.bHardwareEnable THEN
-	lrPitchSP := M1.stAxisStatus.fActPosition;
+
+IF NOT M1.bHardwareEnable THEN
+	M1.fPosition := M1.stAxisStatus.fActPosition;
 END_IF
 
 //TcUnit.RUN();

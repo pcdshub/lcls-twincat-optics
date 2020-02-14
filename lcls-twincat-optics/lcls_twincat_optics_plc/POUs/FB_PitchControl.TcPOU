@@ -39,7 +39,6 @@ VAR
 	bResetStepper : BOOL;
 	bExecuteStepper : BOOL;
 	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT; // Check on this - guessing it means to wait for move to complete before requesting another
-	mcReset : MC_Reset; // Used to clear error after STO hit and then released
 
 	// Piezo
 	tonPiezoSettled : TON := (PT:=T#2S);
@@ -74,11 +73,6 @@ The piezo mechanism can actuate ~ 180urad or 90um.
 *)
 lrActPos := Stepper.stAxisStatus.fActPosition;
 
-IF bFirstPass THEN
-	// Set setpoint to current motor position
-	lrCurrentSetpoint := lrActPos;
-END_IF
-
 // If we hit a limit during a move, we need to change the setpoint
 ftLimitSwitch(CLK:=Stepper.bAllForwardEnable AND Stepper.bAllBackwardEnable);
 IF ftLimitSwitch.Q THEN
@@ -92,11 +86,11 @@ END_IF
 // State Machine
 CASE PC_State OF
 	PCM_Init:
-		// Reset the stepper
-		bResetStepper := bFirstPass; // True on first cycle
+		lrCurrentSetpoint := lrActPos;
+		lrLastSetpoint := lrCurrentSetpoint;
+		lrPrevStepperPos := lrCurrentSetpoint;
 		PC_State := PCM_Standby;
 	PCM_Standby:
-	    bResetStepper := bFirstPass; // Should now be FALSE
 		// Waits for move requests and determines if they are valid
 		IF (lrLastSetpoint <> lrCurrentSetpoint) THEN // lrLastSetpoint initially set in PCM_Done
 			// Check for bad setpoints -> revert to previous setpoint
@@ -189,15 +183,12 @@ CASE PC_State OF
 		// Move back to standby
 		PC_State := PCM_Standby;
 	PCM_StepperError:
-		Stepper.bReset := TRUE; // set false again in PCM_Init
 		PC_State := PCM_Init;
 	PCM_PiezoError:
 		PC_State := PCM_Init;
 	PCM_OtherError:
 		PC_State := PCM_Init;
 END_CASE
-
-bFirstPass := FALSE;
 
 fbMotionRequest(stMotionStage:=Stepper,
                 bExecute:=bExecuteStepper,
