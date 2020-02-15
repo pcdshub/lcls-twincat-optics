@@ -13,7 +13,7 @@ VAR_IN_OUT
 	stMotionStage : DUT_MotionStage;
 END_VAR
 VAR
-	fbDataActPos : FB_LREALBuffer; // ActPoa Sat Acquisition FB
+	fbDataActPos : FB_LREALBuffer; // ActPos Data Acquisition FB
 	fbDataSetPos : FB_LREALBuffer; // SetPos Data Acquisition FB
 	bExecuteDataStorage : BOOL := TRUE; // Take data of both ActPos and SetPos
 	bNewEncArray : BOOL;

@@ -7,7 +7,7 @@ VAR_IN_OUT
 	Stepper : DUT_MotionStage;
 END_VAR
 VAR_INPUT
-	lrCurrentSetpoint : LREAL; // SP written from Epics
+	lrCurrentSetpoint : LREAL; // Setpoint: Epics writes to DUT_MotionStage which gets fed into this
 END_VAR
 VAR_OUTPUT
 	q_bError : BOOL;
@@ -26,19 +26,16 @@ VAR
     lrActPos : LREAL; // Actual Position of piezo mechanism
 	lrPrevStepperPos : LREAL; // Previous successfully achieved stepper position
 	ftLimitSwitch : F_TRIG;
-	ftSTO : F_TRIG;
-	rtSTO : R_TRIG;
 	lrOriginalPosRequest : LREAL; // Used for logging
 	lrLastSetpoint : LREAL; // Previous successfully achieved setpoint
 	fbMotionRequest : FB_MotionRequest;
 	fbMotionStage : FB_MotionStage;
 	bLimitHit : BOOL;
-	bSTOHit : BOOL;
 	tonStepperHold : TON := (PT:=T#100MS); // Timer to hold stepper position while the system relaxes
 	rSettledRange : REAL := 5.0; // Units = urad
 	bResetStepper : BOOL;
 	bExecuteStepper : BOOL;
-	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT; // Check on this - guessing it means to wait for move to complete before requesting another
+	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT; // Wait for move to complete before taking another request
 
 	// Piezo
 	tonPiezoSettled : TON := (PT:=T#2S);
@@ -47,7 +44,6 @@ VAR
 
 	// State Machine
 	PC_State : E_PitchControl := PCM_Init;
-	bFirstPass : BOOL := TRUE; // Set to FALSE after first pass, used for initialization
 	bCoarse50PiezoMove : BOOL;
 END_VAR]]></Declaration>
     <Implementation>
@@ -149,9 +145,6 @@ CASE PC_State OF
 		// If the coarse move is complete, finish position correction with the piezo
 		IF tonStepperHold.Q  OR ftLimitSwitch.Q THEN
 			PC_State := PCM_CoarseMoveCleanup;
-			lrPrevStepperPos := lrActPos;
-		ELSIF ftSTO.Q THEN
-			PC_State := PCM_STOHit;
 			lrPrevStepperPos := lrActPos;
 		ELSIF Stepper.bError THEN
 			bExecuteStepper := FALSE;
