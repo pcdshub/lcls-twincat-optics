@@ -19,8 +19,20 @@ VAR
 	bNewEncArray : BOOL;
 
 	fbStats : FB_BasicStats; // Calculate mean/standard deviation of ActPos
+	{attribute 'pytmc' := '
+		pv: MEAN
+		io: i
+    '}
 	fEncMean : LREAL;
+	{attribute 'pytmc' := '
+		pv: STDEV
+		io: i
+    '}
 	fEncStDev : LREAL;
+	{attribute 'pytmc' := '
+		pv: RMS
+		io: i
+    '}
 	fCurrRMSError : LREAL := 0;
 
 	nIndex : DINT;
