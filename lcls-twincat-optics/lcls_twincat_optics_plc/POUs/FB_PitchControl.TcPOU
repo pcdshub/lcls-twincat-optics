@@ -183,18 +183,6 @@ CASE PC_State OF
 		PC_State := PCM_Init;
 END_CASE
 
-fbMotionRequest(stMotionStage:=Stepper,
-                bExecute:=bExecuteStepper,
-                bReset:=bResetStepper,
-                enumMotionRequest:=enumMotionRequest,
-                fPos:=lrCurrentSetpoint,
-                fVel:=Stepper.fVelocity,
-                fAcc:=Stepper.fAcceleration,
-                fDec:=Stepper.fDeceleration,
-                bError=>,
-                sErrorMessage=>,
-                bBusy=>,
-                bDone=>);
 fbMotionStage(stMotionStage:=Stepper);
 
 // Transfer to the Piezo
