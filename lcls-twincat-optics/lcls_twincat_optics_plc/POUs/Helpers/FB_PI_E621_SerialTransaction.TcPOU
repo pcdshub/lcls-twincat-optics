@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <POU Name="FB_PI_E621_SerialTransaction" Id="{262af350-d94c-4def-8e0a-b40258768256}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_PI_E621_SerialTransaction
 VAR_INPUT
@@ -156,9 +156,5 @@ CASE iStep OF
 		
 END_CASE]]></ST>
     </Implementation>
-    <LineIds Name="FB_PI_E621_SerialTransaction">
-      <LineId Id="3" Count="104" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>
