@@ -9,9 +9,12 @@ VAR_INPUT
 	nXupEncRef : ULINT;
 	nXdwnEncRef : ULINT;
 
-	// Gantry tolerances
+	// Gantry Tolerances
 	nGantryTolY : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
 	nGantryTolX : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+
+	// Bender Included?
+	bBenderIncluded : BOOL;
 END_VAR
 VAR_OUTPUT
 	// Gantry coupling status
@@ -29,7 +32,7 @@ VAR_IN_OUT
 	stXup : DUT_MotionStage;
 	stXdwn : DUT_MotionStage;
 	stPitch : DUT_MotionStage;
-	stBender : DUT_MotionStage;
+	stBender : DUT_MotionStage; // Optional - not used on New Axilon Systems
 
 	// Manual coupling Gantried Axes
 	bExecuteCoupleY : BOOL;
@@ -70,7 +73,9 @@ stYdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stXup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stXdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stPitch.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
-stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+IF bBenderIncluded THEN
+	stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+END_IF
 
 // Start Autocoupling
 fbAutoCoupleY(nGantryTol:=nGantryTolY,
