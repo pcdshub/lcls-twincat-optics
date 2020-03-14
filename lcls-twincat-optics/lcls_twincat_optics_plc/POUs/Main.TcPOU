@@ -92,7 +92,7 @@ TESTWithBender.fbRunHOMS(stYup:=M1,
                          nCurrGantryX=>TESTWithBender.nCurrGantryX);
 fbBender(stBender:=M6,
 	     bSTOEnable1:=TESTWithBender.fbRunHOMS.bSTOEnable1,
-		 bSTOEnable2:=TESTWithBender.fbRunHOMS.bSTOEnable1);
+		 bSTOEnable2:=TESTWithBender.fbRunHOMS.bSTOEnable2);
 
 fbMotionStage_m1(stMotionStage:=M1);
 fbMotionStage_m2(stMotionStage:=M2);
