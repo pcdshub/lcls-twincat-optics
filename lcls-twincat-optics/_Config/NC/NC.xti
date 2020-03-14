@@ -19,5 +19,10 @@
 		<AxisFolder Name="TestAxes"/>
 		<Axis File="TestPitch_LimitSwitches.xti" Id="2"/>
 		<Axis File="Axis 1.xti" Id="1"/>
+		<Axis File="Axis 2.xti" Id="3"/>
+		<Axis File="Axis 3.xti" Id="4"/>
+		<Axis File="Axis 4.xti" Id="5"/>
+		<Axis File="Axis 5.xti" Id="6"/>
+		<Axis File="Axis 6.xti" Id="7"/>
 	</NC>
 </TcSmItem>

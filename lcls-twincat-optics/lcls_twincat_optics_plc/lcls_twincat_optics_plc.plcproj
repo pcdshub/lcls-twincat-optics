@@ -46,6 +46,9 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_Bender.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_PiezoControl.TcPOU">
       <SubType>Code</SubType>
     </Compile>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_Bender" Id="{d1d24e90-e8bb-4e37-9db9-9aec40d6deb9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Bender
+VAR_IN_OUT
+	stBender : DUT_MotionStage;
+	bSTOEnable1 : BOOL;
+	bSTOEnable2 : BOOL;
+END_VAR
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Simple FB to tie stBender.bHardwareEnable to STO
+// Originally part of FB_RunHOMS, but want to use this for all systems, not all of which have a bender motor
+stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

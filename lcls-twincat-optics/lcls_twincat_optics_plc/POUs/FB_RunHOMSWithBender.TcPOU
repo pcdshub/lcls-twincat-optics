@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_RunHOMSWithBender" Id="{5da7a337-7cbf-48fc-8f67-1355602efa04}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_RunHOMSWithBender EXTENDS FB_RunHOMS
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR_IN_OUT
+	stYup : DUT_MotionStage;
+	stYdwn : DUT_MotionStage;
+	stXup : DUT_MotionStage;
+	stXdwn : DUT_MotionStage;
+	stPitch : DUT_MotionStage;
+	stBender : DUT_MotionStage;
+
+	bExecuteCoupleY : BOOL;
+	bExecuteCoupleX : BOOL;
+	bExecuteDecoupleY : BOOL;
+	bExecuteDecoupleX : BOOL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SUPER^(stYup:=stYup,
+       stYdwn:=stYdwn,
+       stXup:=stXup,
+       stXdwn:=stXdwn,
+       stPitch:=stPitch,
+       bExecuteCoupleY:=bExecuteCoupleY,
+       bExecuteCoupleX:=bExecuteCoupleX,
+       bExecuteDecoupleY:=bExecuteDecoupleY,
+       bExecuteDecoupleX:=bExecuteDecoupleX);
+stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
