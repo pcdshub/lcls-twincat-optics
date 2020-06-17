@@ -4,35 +4,326 @@ PLC Project (1): lcls_twincat_optics_plc
     Project root: /home/travis/build/pcdshub/lcls-twincat-optics/lcls-twincat-optics
     Project path: lcls_twincat_optics_plc/lcls_twincat_optics_plc.plcproj
     TMC path:     lcls_twincat_optics_plc/lcls_twincat_optics_plc.tmc
-    AMS ID:       
-    IP Address:    (* based on AMS ID)
+    AMS ID:       172.21.148.227.1.1
+    IP Address:   172.21.148.227 (* based on AMS ID)
     Port:         851
 
     Source files:
-        1.) lcls_twincat_optics_plc/Common/POUs/Helpers/FB_PI_E621_SerialDriver.TcPOU
-        2.) lcls_twincat_optics_plc/Common/POUs/Helpers/FB_PI_E621_SerialTransaction.TcPOU
-        3.) lcls_twincat_optics_plc/DUTs/ST_PiezoAxis.TcDUT
-        4.) lcls_twincat_optics_plc/GVLs/GVL_HOMS.TcGVL
-        5.) lcls_twincat_optics_plc/GVLs/GVL_SerialIO.TcGVL
-        6.) lcls_twincat_optics_plc/PlcTask.TcTTO
-        7.) lcls_twincat_optics_plc/POUs/FB_RunHOMS.TcPOU
-        8.) lcls_twincat_optics_plc/POUs/Serial Comm/PiezoSerial.TcPOU
-        9.) lcls_twincat_optics_plc/POUs/Serial Comm/P_Serial_Com.TcPOU
-        10.) lcls_twincat_optics_plc/Version/Global_Version.TcGVL
+        1.) lcls_twincat_optics_plc/DUTs/DUT_HOMS.TcDUT
+        2.) lcls_twincat_optics_plc/DUTs/E_PiezoControl.TcDUT
+        3.) lcls_twincat_optics_plc/DUTs/E_PitchControl.TcDUT
+        4.) lcls_twincat_optics_plc/DUTs/HOMS_PitchMechanism.TcDUT
+        5.) lcls_twincat_optics_plc/DUTs/ST_PiezoAxis.TcDUT
+        6.) lcls_twincat_optics_plc/GVLs/GVL_Constants.TcGVL
+        7.) lcls_twincat_optics_plc/GVLs/GVL_TestStructs.TcGVL
+        8.) lcls_twincat_optics_plc/PlcTask.TcTTO
+        9.) lcls_twincat_optics_plc/POUs/FB_Bender.TcPOU
+        10.) lcls_twincat_optics_plc/POUs/FB_PiezoControl.TcPOU
+        11.) lcls_twincat_optics_plc/POUs/FB_PitchControl.TcPOU
+        12.) lcls_twincat_optics_plc/POUs/FB_RMSWatch.TcPOU
+        13.) lcls_twincat_optics_plc/POUs/FB_RunHOMS.TcPOU
+        14.) lcls_twincat_optics_plc/POUs/Helpers/FB_PI_E621_SerialDriver.TcPOU
+        15.) lcls_twincat_optics_plc/POUs/Helpers/FB_PI_E621_SerialTransaction.TcPOU
+        16.) lcls_twincat_optics_plc/POUs/Helpers/MC_SmoothMover.TcPOU
+        17.) lcls_twincat_optics_plc/POUs/Helpers/WithinRange.TcPOU
+        18.) lcls_twincat_optics_plc/POUs/Main.TcPOU
+        19.) lcls_twincat_optics_plc/POUs/Tests/TEST_PitchControl.TcPOU
+        20.) lcls_twincat_optics_plc/Version/Global_Version.TcGVL
 
     POUs:
-        1.) PiezoSerial
-        2.) P_Serial_Com
+        1.) FB_Bender
+        2.) FB_PI_E621_SerialDriver
+        3.) FB_PI_E621_SerialTransaction
+        4.) FB_PiezoControl
+        5.) FB_PitchControl
+        6.) FB_RMSWatch
+        7.) FB_RunHOMS
+        8.) MC_SmoothMover
+        9.) Main
+        10.) TEST_PitchControl
+        11.) WithinRange
 
     GVLs:
-        1.) GVL_HOMS
-        2.) GVL_SerialIO
+        1.) GVL_Constants
+        2.) GVL_TestStructs
         3.) Global_Version
 
-Common/POUs/Helpers/FB_PI_E621_SerialDriver.TcPOU (TcPlcObject)
----------------------------------------------------------------
+DUT: DUT_HOMS
+-------------
 
-### FB_PI_E621_SerialDriver: Declaration
+File: lcls_twincat_optics_plc/DUTs/DUT_HOMS.TcDUT
+
+```vhdl
+TYPE DUT_HOMS :
+STRUCT
+	// System initializiation
+	fbRunHOMS : FB_RunHOMS;
+
+	// Couple/Decouple motors
+	{attribute 'pytmc' := '
+		pv: COUPLE_Y
+		io: o
+	'}
+	bExecuteCoupleY : BOOL;
+	{attribute 'pytmc' := '
+		pv: DECOUPLE_Y
+		io: o
+	'}
+	bExecuteDecoupleY : BOOL;
+	{attribute 'pytmc' := '
+		pv: COUPLE_X
+		io: o
+	'}
+	bExecuteCoupleX : BOOL;
+	{attribute 'pytmc' := '
+		pv: DECOUPLE_X
+		io: o
+	'}
+	bExecuteDecoupleX : BOOL;
+
+	// Coupling status
+	{attribute 'pytmc' := '
+		pv: ALREADY_COUPLED_Y
+		io: i
+	'}
+	bGantryAlreadyCoupledY : BOOL;
+	{attribute 'pytmc' := '
+		pv: ALREADY_COUPLED_X
+		io: i
+	'}
+	bGantryAlreadyCoupledX : BOOL;
+
+	// Current gantry differences
+	nCurrGantryY : LINT; // encoder counts = nm
+	nCurrGantryX : LINT; // encoder counts = nm
+
+	// Convert gantry differences to um (smaller number) to readout in epics
+	{attribute 'pytmc' := '
+		pv: GANTRY_Y
+		field: EGU um
+		io: i
+	'}
+	fCurrGantryY_um : REAL; // Y Gantry difference in um
+	{attribute 'pytmc' := '
+		pv: GANTRY_X
+		field: EGU um
+		io: i
+	'}
+	fCurrGantryX_um : REAL; // X Gantry difference in um
+END_STRUCT
+END_TYPE
+```
+
+
+DUT: E_PiezoControl
+-------------------
+
+File: lcls_twincat_optics_plc/DUTs/E_PiezoControl.TcDUT
+
+```vhdl
+TYPE E_PiezoControl :
+(
+	//Piezo Control Machine
+	EPC_Idle := 0,
+	EPC_Init := 10,
+	EPC_MoveRequested  := 50,
+	EPC_MovingPositive := 100,
+	EPC_MovingNegative := 200,
+	EPC_MoveCompleted  := 350,
+	EPC_Error := 500
+);
+END_TYPE
+```
+
+
+DUT: E_PitchControl
+-------------------
+
+File: lcls_twincat_optics_plc/DUTs/E_PitchControl.TcDUT
+
+```vhdl
+TYPE E_PitchControl :
+(
+	//Pitch Control Machine
+	PCM_Init := 0,
+	PCM_Standby := 1,
+	PCM_MoveRequested := 10,
+	PCM_Coarse50Piezo	:= 20,
+	PCM_CoarseMove	:= 21,
+	PCM_CoarseMoveCleanup := 22,
+	PCM_FineMove	:= 30,
+	PCM_Halt		:= 50,
+	PCM_Done	:= 8000, //why is 8000 done? Where did this come from??
+	PCM_Error   := 9000, //Anything above 9000 is considered an error
+	PCM_StepperError	:= 9100,
+	PCM_PiezoError	:= 9200,
+	PCM_OtherError := 9300,
+	PCM_STOHit := 9400
+);
+END_TYPE
+```
+
+
+DUT: HOMS_PitchMechanism
+------------------------
+
+File: lcls_twincat_optics_plc/DUTs/HOMS_PitchMechanism.TcDUT
+
+```vhdl
+TYPE HOMS_PitchMechanism :
+STRUCT
+	Piezo	:	ST_PiezoAxis;	//Piezo
+
+	(* Soft limits, egu urad *)
+	ReqPosLimHi	:	REAL;
+	ReqPosLimLo	:	REAL;
+
+
+	(* Hard limits, egu INC *)
+	(* These are discovered during installation, and represent encoder ticks, unbiased *)
+	(* We changed to these when our pitch mechanism limit switches were insufficient for
+	good control. They had too much hysteresis/ lack of precision. At this point the limit
+	switches are ignored, and instead their function is carried out by these. *)
+	diEncPosLimHi	:	LINT;
+	diEncPosLimLo	:	LINT;
+	//Raw encoder count
+	diEncCnt	AT %I*	:	LINT;
+END_STRUCT
+END_TYPE
+```
+
+
+DUT: ST_PiezoAxis
+-----------------
+
+File: lcls_twincat_optics_plc/DUTs/ST_PiezoAxis.TcDUT
+
+```vhdl
+TYPE ST_PiezoAxis :
+STRUCT
+	(* IO *)
+		//Readback
+		sIdn				:	STRING; //Identity
+		iCurError			:	INT; //Current error code, should be 0 most of the time
+		iLastError			:	INT; //Last error code, for history
+		rActVoltage			:	REAL; //Actual voltage
+		rLastReqVoltage		:	REAL; //Last requested piezo voltage
+		//Control
+		rSetVoltage			:	REAL; //this parameter is set by the control loop/ voltage mode
+		sAxis				:   STRING :='A'; //Axis, e.g. A, B, C...A if single unit	
+		//Summaries
+		xTimeout	:	BOOL;
+		xDriverError		:	BOOL; //Summary of any driver errors
+	
+	(* Operation *)
+		xEnable	:	BOOL; //Enable control.
+		(* Note: Voltage mode and Idle mode overrides "DirectPiezoMode" of FB_PitchControl *)
+		xVoltageMode	:	BOOL; //Voltage mode gives direct access to piezo voltage, false means closed loop position acquisition (see FB_PitchControl for piezo and stepper separation)
+		xIdleMode	:	BOOL; //Use to put the piezo at half-stroke
+		rReqVoltage : REAL; //Requested piezo voltage in voltage mode
+		rReqAbsPos	:	LREAL; //Requested Position, latched at rising StartAbsMov
+		xStop	:	BOOL;	//Stops piezo and holds position
+	
+	
+	(* Control Parameters *)
+		rActPos	:	LREAL; //Encoder Readback
+		//Pitch piezo dmove range (urad)
+		rPiezoDmovRange		:	REAL := 1.0;
+		stPIParams	:	ST_CTRL_PI_PARAMS := (
+			tCtrlCycleTime := T#0MS,
+			tTaskCycleTime := T#0MS,
+			tTn       := T#200MS,
+			fKp      := 0.0005,
+			fOutMaxLimit := 1,
+			fOutMinLimit := -1,
+			bARWOnIPartOnly := FALSE);
+
+	(* Voltage ranges, come from specifications of the driver *)
+		UpperVoltage	:	REAL := GVL_Constants.cPiezoMaxVoltage; // E-816 has no software limits
+		LowerVoltage	:	REAL := GVL_Constants.cPiezoMinVoltage; // E-816 has no software limits
+END_STRUCT
+END_TYPE
+```
+
+
+GVL: GVL_Constants
+------------------
+
+File: lcls_twincat_optics_plc/GVLs/GVL_Constants.TcGVL
+
+```vhdl
+{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	nGANTRY_TOLERANCE_NM_DEFAULT : LINT := 50000; // default gantry tolerance in encoder counts = nm
+	cPiezoMaxVoltage	:	LREAL := 120; // in Volts
+	cPiezoMinVoltage	:	LREAL := -10; // in Volts
+	cPiezoRange : REAL := 60.0; // From Old HOMS_FEE Project, 90 um of piezo stroke, unsure what these units are
+END_VAR
+```
+
+
+GVL: GVL_TestStructs
+--------------------
+
+File: lcls_twincat_optics_plc/GVLs/GVL_TestStructs.TcGVL
+
+```vhdl
+{attribute 'qualified_only'}
+VAR_GLOBAL
+	TestPitch_LimitSwitches : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
+		                                              ReqPosLimLo:=-2000,
+		                                              diEncPosLimHi:=10768330,
+		                                              diEncPosLimLo:=8141680);
+END_VAR
+```
+
+
+GVL: Global_Version
+-------------------
+
+File: lcls_twincat_optics_plc/Version/Global_Version.TcGVL
+
+```vhdl
+{attribute 'TcGenerated'}
+// This function has been automatically generated from the project information.
+VAR_GLOBAL CONSTANT
+	{attribute 'const_non_replaced'}
+	{attribute 'linkalways'}
+	stLibVersion_lcls_twincat_optics : ST_LibVersion := (iMajor := 0, iMinor := 0, iBuild := 0, iRevision := 0, sVersion := '0.0.0');
+END_VAR
+```
+
+
+POU: FB_Bender
+--------------
+
+File: lcls_twincat_optics_plc/POUs/FB_Bender.TcPOU
+
+```vhdl
+FUNCTION_BLOCK FB_Bender
+VAR_IN_OUT
+	stBender : DUT_MotionStage;
+	bSTOEnable1 : BOOL;
+	bSTOEnable2 : BOOL;
+END_VAR
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+// Simple FB to tie stBender.bHardwareEnable to STO
+// Originally part of FB_RunHOMS, but want to use this for all systems, not all of which have a bender motor
+stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+
+END_FUNCTION_BLOCK
+```
+
+
+POU: FB_PI_E621_SerialDriver
+----------------------------
+
+File: lcls_twincat_optics_plc/POUs/Helpers/FB_PI_E621_SerialDriver.TcPOU
 
 ```vhdl
 FUNCTION_BLOCK FB_PI_E621_SerialDriver
@@ -67,11 +358,6 @@ VAR
 	sErrMesg : STRING := 'In step %d fbPITransaction failed with message: %s';
 	i		: INT := 1;
 END_VAR
-```
-
-### FB_PI_E621_SerialDriver: ST
-
-```vhdl
 (* S. Stubbs, 2-23-2017 *)
 (* This function block drives serial communication with a PI E-816 or compatible comm module. 
    Note this needs to be re-jiggered if the E-517 is used, uses number rather than letter for axis *)
@@ -247,11 +533,9 @@ q_asLastReceivedStrings[i] := fbPITransaction.q_sLastReceivedString;
 i := i + 1; 
 END_IF
 IF i = 51 THEN i := 1; END_IF
-```
 
-### FB_PI_E621_SerialDriver.a_ClearTrans: ST
-
-```vhdl
+END_FUNCTION_BLOCK
+ACTION a_ClearTrans:
 (* Refactor this action to match your transaction *)
 fbPITransaction.i_xExecute := TRUE;
 fbPITransaction.i_sCmd:= ''; //Input args are Cmd, Axis and Param
@@ -267,33 +551,28 @@ fbPITransaction(
 	iq_stSerialRXBuffer:= iq_stSerialRXBuffer,
 	iq_stSerialTXBuffer:= iq_stSerialTXBuffer );
 fbPITransaction.i_xExpectReply:=TRUE;
-```
-
-### FB_PI_E621_SerialDriver.a_ErrorMesg: ST
-
-```vhdl
+END_ACTION
+ACTION a_ErrorMesg:
 fbFormatString( sformat:=sErrMesg, 
 	arg1:=F_INT(iStep), 
 	arg2:=F_STRING(fbPITransaction.q_sResult),
 	sOut => q_sResult);
-```
-
-### FB_PI_E621_SerialDriver.a_UnknownError: ST
-
-```vhdl
+END_ACTION
+ACTION a_UnknownError:
 q_sResult:= 'Unknown error';
 
 fbFormatString( sformat:=sErrMesg, 
 	arg1:=F_INT(iStep), 
 	arg2:=F_STRING(q_sResult), //Little silly, but have to do this because F_STRING requires read/write access
 	sOut => q_sResult);
+END_ACTION
 ```
 
 
-Common/POUs/Helpers/FB_PI_E621_SerialTransaction.TcPOU (TcPlcObject)
---------------------------------------------------------------------
+POU: FB_PI_E621_SerialTransaction
+---------------------------------
 
-### FB_PI_E621_SerialTransaction: Declaration
+File: lcls_twincat_optics_plc/POUs/Helpers/FB_PI_E621_SerialTransaction.TcPOU
 
 ```vhdl
 FUNCTION_BLOCK FB_PI_E621_SerialTransaction
@@ -343,11 +622,6 @@ VAR
 	sRXAddress: STRING;
 	sRXParmNum: STRING;
 END_VAR
-```
-
-### FB_PI_E621_SerialTransaction: ST
-
-```vhdl
 (* This function block performs serial transactions with a PI E-816 or compatible comm module *)
 
 (* rising edge trigger *)
@@ -454,100 +728,517 @@ CASE iStep OF
 		q_xError := TRUE;
 		
 END_CASE
+
+END_FUNCTION_BLOCK
 ```
 
 
-DUTs/ST_PiezoAxis.TcDUT (TcPlcObject)
--------------------------------------
+POU: FB_PiezoControl
+--------------------
 
-### ST_PiezoAxis: Declaration
-
-```vhdl
-TYPE ST_PiezoAxis :
-STRUCT
-	(* IO *)
-		//Readback
-		sIdn				:	STRING; //Identity
-		iCurError			:	INT; //Current error code, should be 0 most of the time
-		iLastError			:	INT; //Last error code, for history
-		rActVoltage			:	REAL; //Actual voltage
-		rLastReqVoltage		:	REAL; //Last requested piezo voltage
-		//Control
-		rSetVoltage			:	REAL; //this parameter is set by the control loop/ voltage mode
-		sAxis				:   STRING :='A'; //Axis, e.g. A, B, C...A if single unit	
-		//Summaries
-		xTimeout	:	BOOL;
-		xDriverError		:	BOOL; //Summary of any driver errors
-	
-	(* Operation *)
-		xEnable	:	BOOL; //Enable control.
-		(* Note: Voltage mode and Idle mode overrides "DirectPiezoMode" of FB_PitchControl *)
-		xVoltageMode	:	BOOL; //Voltage mode gives direct access to piezo voltage, false means closed loop position acquisition (see FB_PitchControl for piezo and stepper separation)
-		xIdleMode	:	BOOL; //Use to put the piezo at half-stroke
-		rReqVoltage : REAL; //Requested piezo voltage in voltage mode
-		rReqAbsPos	:	LREAL; //Requested Position, latched at rising StartAbsMov
-		xStop	:	BOOL;	//Stops piezo and holds position
-	
-	
-	(* Control Parameters *)
-		rActPos	:	LREAL; //Encoder Readback
-		//Pitch piezo dmove range (urad)
-		rPiezoDmovRange		:	REAL := 1;
-		(*
-		stPIParams	:	ST_CTRL_PI_PARAMS := (
-			tCtrlCycleTime := T#0MS, 
-			tTaskCycleTime := T#0MS, 
-			tTn       := T#1S, 
-			fKp      := 0.25, 
-			fOutMaxLimit := 1, 
-			fOutMinLimit := -1, 
-			bARWOnIPartOnly := FALSE);
-	*)
-	(* Voltage ranges, come from specifications of the driver *)
-		UpperVoltage	:	REAL := 120; // E-816 has no software limits
-		LowerVoltage	:	REAL := 0; // E-816 has no software limits 
-END_STRUCT
-END_TYPE
-```
-
-
-GVLs/GVL_HOMS.TcGVL (TcPlcObject)
----------------------------------
-
-### GVL_HOMS: Declaration
+File: lcls_twincat_optics_plc/POUs/FB_PiezoControl.TcPOU
 
 ```vhdl
-{attribute 'qualified_only'}
-VAR_GLOBAL CONSTANT
-	nGANTRY_TOLERANCE_NM_DEFAULT : LINT := 50000; // default gantry tolerance in encoder counts = nm
+FUNCTION_BLOCK FB_PiezoControl
+VAR_IN_OUT
+	iq_Piezo	:	ST_PiezoAxis;
 END_VAR
+VAR_INPUT
+	xExecute	:	BOOL; //Rising edge being piezo motion
+	xReset      :   BOOL;
+	Enable_Positive : BOOL; //Reverse of Positive Limit Switch
+	Enable_Negative : BOOL; //Reverse of Negative Limit Switch
+END_VAR
+VAR_OUTPUT
+	xBusy	:	BOOL; //Busy remains true while piezo position is being adjusted
+	xDone	:	BOOL; //Reached target position
+	xError	:	BOOL; //General error
+	xLimited:	BOOL; //Piezo move was limited
+END_VAR
+VAR
+	E_State     : E_PiezoControl; //ENUM for Piezo Control State
+	rtStartMove : R_TRIG; //Rising Trigger for Execution
+	rtReset     : R_TRIG; //Rising Trigger for Error reset
+	rSetpoint   : REAL;   //Internal Storage of Setpoint
+	rReqVoltage	:	REAL; //requested voltage
+	rLLSV: REAL := 0;
+	rHLSV: REAL := 120;
+	fbPI: FB_CTRL_PI;
+	fbRamp: FB_CTRL_RAMP_GENERATOR_EXT;
+	// FB initialized flag
+	bInitialized: BOOL;
+	//Get cycle time for control FBs
+	fbGetCycleTime	:	FB_CTRL_GET_TASK_CYCLETIME;
+	tTaskCycleTime: TIME;
+	bCycleTimeValid: BOOL;
+	rtVoltMode: R_TRIG;
+	fOut: LREAL;
+	fPiezoBias: LREAL := 60;
+	fScale: REAL := -60;
+	tonPiezoDone: TON := (PT:=T#2S);
+	tonPiezoLimited: TON := (PT:=T#500MS);
+	xVoltageLimited: BOOL;
+	ftEnPos	:	F_TRIG;
+	ftEnNeg	:	F_TRIG;
+	rtEnPos	:	R_TRIG;
+	rtEnNeg	:	R_TRIG;
+	fOutLimitHolder	:	LREAL; //holds the limit value until restored
+	fOutHiLimHolder	:	LREAL; //holds the limit value until restored
+	fOutLoLimHolder	:	LREAL; //holds the limit value until restored
+	xFirstPass 	: 	BOOL := TRUE;
+END_VAR
+// FB Piezo Control
+
+//Triggers
+///////////////////////////////
+	rtStartMove(CLK:=xExecute);
+	rtReset(CLK:=iq_Piezo.xEnable);
+	rtVoltMode(CLK:=iq_Piezo.xVoltageMode);
+
+//Status bits
+///////////////////////////
+xBusy S= rtStartMove.Q;
+xDone R= rtStartMove.Q;
+	
+//Keep requested voltage to within limits
+iq_Piezo.rReqVoltage := LIMIT(iq_Piezo.LowerVoltage, iq_Piezo.rReqVoltage, iq_Piezo.UpperVoltage);
+
+//Limits
+(* These appear flipped, but in-fact are not *)
+ftEnPos(CLK:=Enable_Positive);
+ftEnNeg(CLK:=Enable_Negative);
+rtEnPos(CLK:=Enable_Positive);
+rtEnNeg(CLK:=Enable_Negative);
+IF xFirstPass THEN
+	//Want to hold the limits on first pass if a switch is hit.
+	(* When we move off the limit, we'll restore the init value (usually 1). This will be reset
+	to something less than 1 when the limit gets tripped again, because presumably the actual limit
+	would have been set at a value < 1 if the system had been runing.
+	We just need to hold the init value to make it past this edge case that is present at startup. *)
+	IF NOT Enable_Positive THEN fOutHiLimHolder := iq_Piezo.stPIParams.fOutMaxLimit; END_IF
+	IF NOT Enable_Negative THEN fOutLoLimHolder := iq_Piezo.stPIParams.fOutMinLimit; END_IF
+ELSE
+	IF ftEnPos.Q THEN
+		rLLSV := iq_Piezo.rSetVoltage;
+		fOutHiLimHolder := iq_Piezo.stPIParams.fOutMaxLimit;
+		iq_Piezo.stPIParams.fOutMaxLimit := fbPI.fOut;
+	ELSIF rtEnPos.Q THEN
+		rLLSV := iq_Piezo.LowerVoltage;
+		iq_Piezo.stPIParams.fOutMaxLimit := fOutHiLimHolder;
+	END_IF
+
+	IF ftEnNeg.Q THEN
+		rHLSV := iq_Piezo.rSetVoltage;
+		
+		fOutLoLimHolder := iq_Piezo.stPIParams.fOutMinLimit;
+		iq_Piezo.stPIParams.fOutMinLimit := fbPI.fOut;
+	ELSIF rtEnNeg.Q THEN
+		rHLSV := iq_Piezo.UpperVoltage;
+		iq_Piezo.stPIParams.fOutMinLimit := fOutLoLimHolder;
+	END_IF
+END_IF
+
+// Don't do anything until we're ready
+IF bInitialized THEN
+	// While the block is working, a new position may be requested, this is OK
+	IF xBusy THEN
+		fbPI.fSetpointValue := iq_Piezo.rReqAbsPos;
+	END_IF
+
+	(* The next chunk of code prevents the PI block from winding up.
+		First, when the PI block begins to request a voltage that is 
+		beyond the permitted range (this range is affected by the state
+		of limit switches/ or enable fwd/bwd), we latch the requested position.
+		Presumeably this position request  *)
+
+	//Select the PI block control mode
+	////////////////////////////////////////
+	IF iq_Piezo.xVoltageMode THEN
+		//Set PI block to idle
+		fbPI.eMode := eCTRL_MODE_PASSIVE;
+		rReqVoltage := iq_Piezo.rReqVoltage; //TODO add a ramp
+	ELSE
+		IF iq_Piezo.xIdleMode THEN
+			rReqVoltage := fScale * 0 + fPiezoBias;
+
+			fbPI.eMode := eCTRL_MODE_MANUAL;
+			ACT_Controller();
+			fbPI.bHold := TRUE;
+		ELSE
+			//Fout is connected to the piezo voltage control
+			rReqVoltage := fScale * fbPI.fOut + fPiezoBias;
+			fbPI.bHold := FALSE;
+			//Control mode is always active, so compensation takes over more smoothly
+			fbPI.eMode := eCTRL_MODE_ACTIVE;
+		END_IF		
+	
+	END_IF
+
+	ACT_Controller();
+
+	xVoltageLimited := rLLSV > rReqVoltage OR rHLSV < rReqVoltage;
+
+	//This is where the voltage request gets sent to the piezo driver
+	iq_Piezo.rSetVoltage := LIMIT(rLLSV, rReqVoltage, rHLSV);
+
+//Initialization
+ELSE
+	fbGetCycleTime( eMode   := eCTRL_MODE_ACTIVE,
+                tTaskCycleTime => tTaskCycleTime,
+                bCycleTimeValid => bCycleTimeValid);
+	IF bCycleTimeValid THEN
+		iq_Piezo.stPIParams.tTaskCycleTime := tTaskCycleTime;
+		iq_Piezo.stPIParams.tCtrlCycleTime := tTaskCycleTime;
+		bInitialized	:= TRUE;
+	END_IF
+
+END_IF
+
+tonPiezoDone.IN := WithinRange(ValA:=iq_Piezo.rActPos, Center:=iq_Piezo.rReqAbsPos, Range:=iq_Piezo.rPiezoDmovRange, Offset:=0) 
+					AND NOT rtStartMove.Q; //rtStartMove interrupts the timer, resetting it
+tonPiezoDone();
+
+tonPiezoLimited.IN := (fbPI.bARWactive OR xVoltageLimited) AND NOT rtStartMove.Q;
+tonPiezoLimited();
+
+xDone S= xBusy AND (tonPiezoDone.Q OR tonPiezoLimited.Q);
+xLimited := tonPiezoLimited.Q;
+
+xBusy R= xDone;
+
+xFirstPass := FALSE;
+
+END_FUNCTION_BLOCK
+ACTION ACT_CheckLimits:
+
+END_ACTION
+ACTION ACT_Controller:
+
+END_ACTION
 ```
 
 
-GVLs/GVL_SerialIO.TcGVL (TcPlcObject)
--------------------------------------
+POU: FB_PitchControl
+--------------------
 
-### GVL_SerialIO: Declaration
+File: lcls_twincat_optics_plc/POUs/FB_PitchControl.TcPOU
 
 ```vhdl
-VAR_GLOBAL
-	//Better have your inputs and outputs!
-	Serial_P1_stComIn   AT %I*	:	EL6inData22B (*KL6inData22B*);
-	Serial_P1_stComOut  AT %Q*	:	EL6outData22B (*KL6outData22B*);
-	Serial_P1_SerialTXBuffer :ComBuffer;
-	Serial_P1_SerialRXBuffer :ComBuffer;	
+FUNCTION_BLOCK FB_PitchControl
+VAR_IN_OUT
+    Pitch : HOMS_PitchMechanism;
+	Stepper : DUT_MotionStage;
 END_VAR
+VAR_INPUT
+	lrCurrentSetpoint : LREAL; // Setpoint: Epics writes to DUT_MotionStage which gets fed into this
+END_VAR
+VAR_OUTPUT
+	q_bError : BOOL;
+	q_bDone : BOOL;
+	q_bBusy : BOOL;
+END_VAR
+VAR
+	// Logging
+	stDiag : ST_fbDiagnostics;
+	fbFormatString : FB_FormatString;
+	{attribute 'instance-path'}
+	{attribute 'no_init'}
+	POUName : STRING; // Name of the POU for logging/error reporting
+
+	// Stepper Motion
+    lrActPos : LREAL; // Actual Position of piezo mechanism
+	lrPrevStepperPos : LREAL; // Previous successfully achieved stepper position
+	ftLimitSwitch : F_TRIG;
+	lrOriginalPosRequest : LREAL; // Used for logging
+	lrLastSetpoint : LREAL; // Previous successfully achieved setpoint
+	fbMotionRequest : FB_MotionRequest;
+	fbMotionStage : FB_MotionStage;
+	bLimitHit : BOOL;
+	tonStepperHold : TON := (PT:=T#100MS); // Timer to hold stepper position while the system relaxes
+	rSettledRange : REAL := 5.0; // Units = urad
+	bResetStepper : BOOL;
+	bExecuteStepper : BOOL;
+	enumMotionRequest : ENUM_MotionRequest := ENUM_MotionRequest.WAIT; // Wait for move to complete before taking another request
+
+	// Piezo
+	tonPiezoSettled : TON := (PT:=T#2S);
+	fbPiezoControl : FB_PiezoControl;
+	rtPiezoMoveDone : R_TRIG;
+
+	// State Machine
+	PC_State : E_PitchControl := PCM_Init;
+	bCoarse50PiezoMove : BOOL;
+END_VAR
+(* HOMS Pitch Control
+A. Wallace
+J. Sheppard - Updating to new lcls-twincat-motion API
+
+The HOMS Pitch mechanism consists of a stepper and piezo that work together to adjust
+the pitch of the mirror assembly.
+
+Pitch control state machine
+
+If the target position is beyond the range of the piezo mechanism,
+execute a coarse pitch move with the stepper. 
+The target of the coarse move shall be set to the requested position. 
+Once coarse motion has completed the coarse motion drive position 
+correction output shall be set to zero.
+
+Fine pitch motion with the piezo will be initiated to finish closing the loop.
+
+The piezo mechanism can actuate ~ 180urad or 90um.
+
+*)
+lrActPos := Stepper.stAxisStatus.fActPosition;
+
+// If we hit a limit during a move, we need to change the setpoint
+ftLimitSwitch(CLK:=Stepper.bAllForwardEnable AND Stepper.bAllBackwardEnable);
+IF ftLimitSwitch.Q THEN
+	bExecuteStepper := FALSE;
+	bLimitHit := TRUE;
+	lrCurrentSetpoint := lrActPos;
+END_IF
+
+// Left out Manual Mode Switch and Tweak FBs
+
+// State Machine
+CASE PC_State OF
+	PCM_Init:
+		lrCurrentSetpoint := lrActPos;
+		lrLastSetpoint := lrCurrentSetpoint;
+		lrPrevStepperPos := lrCurrentSetpoint;
+		PC_State := PCM_Standby;
+	PCM_Standby:
+		// Waits for move requests and determines if they are valid
+		IF (lrLastSetpoint <> lrCurrentSetpoint) THEN // lrLastSetpoint initially set in PCM_Done
+			// Check for bad setpoints -> revert to previous setpoint
+			IF 	(lrCurrentSetpoint > Pitch.ReqPosLimHi) OR (lrCurrentSetpoint < Pitch.ReqPosLimLo) OR NOT Stepper.bHardwareEnable THEN
+				// Outside range of limit switches or bHardwareEnable is FALSE
+				ACT_ResetSetpoint();
+			ELSIF lrCurrentSetpoint > lrLastSetpoint AND NOT Stepper.bAllForwardEnable THEN
+				// Forward move when on HL
+				ACT_ResetSetpoint();
+			ELSIF lrCurrentSetpoint < lrLastSetpoint AND NOT Stepper.bAllBackwardEnable THEN
+				// Backward move when on LL
+				ACT_ResetSetpoint();
+			END_IF
+			// If the current setpoint still differs from the prvious, we know the move is safe and OK to proceed
+			IF lrLastSetpoint <> lrCurrentSetpoint THEN
+				q_bDone := FALSE;
+				PC_State := PCM_MoveRequested;
+			END_IF
+		END_IF
+	PCM_MoveRequested:
+		// A move has been requested, is it within range of the piezo?
+		IF WithinRange(ValA:=lrCurrentSetpoint, Center:=lrPrevStepperPos, Range:=GVL_Constants.cPiezoRange, Offset:=0) THEN
+			// Move is within the nominal range of the piezo
+			fbFormatString.sFormat := 'Within range, fine move %f';
+			fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
+			fbFormatString(sOut=>stDiag.asResults[stDiag.resultIdx.IncVal()]);
+			PC_State := PCM_FineMove;
+		ELSE
+			// Out of range, head to coarse move
+			fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
+			fbFormatString.sFormat := 'OoR, using stepper %f';
+			fbFormatString(sOut=>stDiag.asResults[stDiag.resultIdx.IncVal()]);
+			PC_State := PCM_Coarse50Piezo;
+		END_IF
+	PCM_Coarse50Piezo:
+		// A coarse move uses the stepper to do a best-effort position
+		// First set the piezo to nominal 50% extension using idle mode
+		//////////////////////////////////////////////////////////////////////////////
+		Pitch.Piezo.xIdleMode := TRUE;
+		// Indicate we are doing the coarse 50% piezo move	
+		bCoarse50PiezoMove := TRUE;
+		// Wait for piezo to settle
+		tonPiezoSettled.IN := TRUE;
+		bCoarse50PiezoMove R= tonPiezoSettled.Q;
+		IF tonPiezoSettled.Q THEN
+			//Piezo has moved to 50% position, finish with the stepper
+			PC_State := PCM_CoarseMove;
+			tonPiezoSettled.IN := FALSE;
+		END_IF
+	PCM_CoarseMove: 
+		// With the piezo at a nominal 50% extension, move the stepper to requested position
+		bExecuteStepper := TRUE;
+		// Timer that waits to start until stepper is within range of the setpoint
+		tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=lrCurrentSetpoint, Range:=rSettledRange, Offset:=0);
+		tonStepperHold(); // call this here to reset Q just below on first cycle
+		// If the coarse move is complete, finish position correction with the piezo
+		IF tonStepperHold.Q  OR ftLimitSwitch.Q THEN
+			PC_State := PCM_CoarseMoveCleanup;
+			lrPrevStepperPos := lrActPos;
+		ELSIF Stepper.bError THEN
+			bExecuteStepper := FALSE;
+			PC_State := PCM_StepperError;
+			// Left out logging
+		END_IF
+	PCM_CoarseMoveCleanup:
+		bExecuteStepper := FALSE;
+		PC_State := PCM_FineMove;
+	PCM_FineMove:	
+		Pitch.Piezo.xIdleMode := FALSE;
+		fbPiezoControl.xExecute := TRUE;
+		IF bLimitHit THEN
+			Pitch.Piezo.rReqAbsPos := lrActPos;
+		ELSE
+			Pitch.Piezo.rReqAbsPos := lrCurrentSetpoint;
+		END_IF
+		rtPiezoMoveDone(CLK:=fbPiezoControl.xDone);
+		IF rtPiezoMoveDone.Q THEN
+			fbPiezoControl.xExecute := FALSE;
+			PC_State := PCM_Done;
+		END_IF
+	PCM_Done:
+		// Set the previously requested position here
+		lrLastSetpoint := lrCurrentSetpoint;
+		bLimitHit := FALSE;
+		// Indicate we're done
+		q_bDone	:= TRUE;
+		// Move back to standby
+		PC_State := PCM_Standby;
+	PCM_StepperError:
+		PC_State := PCM_Init;
+	PCM_PiezoError:
+		PC_State := PCM_Init;
+	PCM_OtherError:
+		PC_State := PCM_Init;
+END_CASE
+
+fbMotionStage(stMotionStage:=Stepper);
+
+// Transfer to the Piezo
+Pitch.Piezo.rActPos := lrActPos;
+
+tonPiezoSettled();
+tonStepperHold();
+fbPiezoControl(iq_Piezo:=Pitch.Piezo,
+	           Enable_Positive:=Stepper.bLimitForwardEnable,
+			   Enable_Negative:=Stepper.bLimitBackwardEnable);
+
+END_FUNCTION_BLOCK
+ACTION ACT_ResetSetpoint:
+// Action to reset the Setpoint to the previous value when:
+// - New setpoint outside range of soft limits
+// - bHardwareEnable is FALSE
+// - Limit switches are hit and new setpoint the direction of the hit switch
+
+lrOriginalPosRequest := lrCurrentSetpoint;
+lrCurrentSetpoint := lrLastSetpoint;
+// Only want to log one warning about a bad position request
+IF lrOriginalPosRequest <> lrCurrentSetpoint THEN
+	// Log a warning
+	fbFormatString.sFormat := 'Pitch req OoR fb (%s), reset within limits, %f';
+	fbFormatString.arg1 := F_STRING(POUName);
+	fbFormatString.arg2 := F_LREAL(lrOriginalPosRequest);
+	fbFormatString(sOut=>stDiag.asResults[stDiag.resultIdx.IncVal()]);
+	PC_State := PCM_Standby;
+END_IF
+END_ACTION
 ```
 
 
-PlcTask.TcTTO (TcPlcObject)
----------------------------
+POU: FB_RMSWatch
+----------------
+
+File: lcls_twincat_optics_plc/POUs/FB_RMSWatch.TcPOU
+
+```vhdl
+FUNCTION_BLOCK FB_RMSWatch
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	// RMS Error
+	fMaxRMSError : LREAL := 0;
+	fMinRMSError : LREAL := 1000; // start at something huge, FB will update with any smaller measured value
+END_VAR
+VAR_IN_OUT
+	stMotionStage : DUT_MotionStage;
+END_VAR
+VAR
+	fbDataActPos : FB_LREALBuffer; // ActPos Data Acquisition FB
+	fbDataSetPos : FB_LREALBuffer; // SetPos Data Acquisition FB
+	bExecuteDataStorage : BOOL := TRUE; // Take data of both ActPos and SetPos
+	bNewEncArray : BOOL;
+
+	fbStats : FB_BasicStats; // Calculate mean/standard deviation of ActPos
+	{attribute 'pytmc' := '
+		pv: MEAN
+		io: i
+    '}
+	fEncMean : LREAL;
+	{attribute 'pytmc' := '
+		pv: STDEV
+		io: i
+    '}
+	fEncStDev : LREAL;
+	{attribute 'pytmc' := '
+		pv: RMS
+		io: i
+    '}
+	fCurrRMSError : LREAL := 0;
+
+	nIndex : DINT;
+	fSum : LREAL := 0; // Just for calculating rms
+	fDiff : LREAL := 0;
+
+	{attribute 'pytmc' := '
+		pv: ACTPOSARRAY
+		io: i
+    '}
+	aEncActPos : ARRAY [1..1000] OF LREAL;
+	{attribute 'pytmc' := '
+		pv: SETPOSARRAY
+		io: i
+	'}
+	aEncSetPos : ARRAY [1..1000] OF LREAL;
+END_VAR
+// FB to store encoder positions in 1000 element arrays, compute RMS errors, and watch for min/max
+
+// Encoder Readback/Storage
+fbDataActPos(bExecute:=bExecuteDataStorage,
+           	 fInput:=stMotionStage.stAxisStatus.fActPosition,
+           	 arrOutput=>aEncActPos,
+             bNewArray=>bNewEncArray);
+
+fbDataSetPos(bExecute:=bExecuteDataStorage,
+           	 fInput:=stMotionStage.Axis.NcToPlc.SetPos,
+           	 arrOutput=>aEncSetPos);
+
+fbStats(aSignal:=aEncActPos,
+	    bAlwaysCalc:=TRUE,
+		fMean=>fEncMean,
+		fStDev=>fEncStDev);
+
+// Calculate RMS Error:
+If bNewEncArray THEN
+	fCurrRMSError := 0;
+	FOR nIndex := 2 TO 1000 DO
+		// First point in array stuck as 0 for some reason...
+		fDiff := aEncActPos[nIndex] - aEncSetPos[nIndex];
+		fSum := EXPT(fDiff, 2);
+		fCurrRMSError := fCurrRMSError + fSum;
+	END_FOR;
+	fCurrRMSError := fCurrRMSError / 999.0; // 1000 element array but ditched the first point
+	fCurrRMSError := SQRT(fCurrRMSError);
+	// Watch for max:
+	IF fCurrRMSError > fMaxRMSError THEN
+		fMaxRMSError := fCurrRMSError;
+	END_IF
+	// Watch for min:
+	IF fCurrRMSError < fMinRMSError THEN
+		fMinRMSError := fCurrRMSError;
+	END_IF
+END_IF
+
+END_FUNCTION_BLOCK
+```
 
 
-POUs/FB_RunHOMS.TcPOU (TcPlcObject)
------------------------------------
+POU: FB_RunHOMS
+---------------
 
-### FB_RunHOMS: Declaration
+File: lcls_twincat_optics_plc/POUs/FB_RunHOMS.TcPOU
 
 ```vhdl
 FUNCTION_BLOCK FB_RunHOMS
@@ -558,9 +1249,9 @@ VAR_INPUT
 	nXupEncRef : ULINT;
 	nXdwnEncRef : ULINT;
 
-	// Gantry tolerances
-	nGantryTolY : LINT := GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
-	nGantryTolX : LINT := GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+	// Gantry Tolerances
+	nGantryTolY : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+	nGantryTolX : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
 END_VAR
 VAR_OUTPUT
 	// Gantry coupling status
@@ -578,7 +1269,6 @@ VAR_IN_OUT
 	stXup : DUT_MotionStage;
 	stXdwn : DUT_MotionStage;
 	stPitch : DUT_MotionStage;
-	stBender : DUT_MotionStage;
 
 	// Manual coupling Gantried Axes
 	bExecuteCoupleY : BOOL;
@@ -602,19 +1292,6 @@ VAR
 	fbAutoCoupleY : FB_GantryAutoCoupling;
 	fbAutoCoupleX : FB_GantryAutoCoupling;
 END_VAR
-```
-
-### FB_RunHOMS: ST
-
-```vhdl
-// Enable motors according to pytmc docs
-stYup.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-stYdwn.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-stXup.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-stXdwn.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-stPitch.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-stBender.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-
 // Encoder Reference Values
 stYupEnc.Ref := nYupEncRef;
 stYdwnEnc.Ref := nYdwnEncRef;
@@ -631,7 +1308,6 @@ stYdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stXup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stXdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stPitch.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
-stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 
 // Start Autocoupling
 fbAutoCoupleY(nGantryTol:=nGantryTolY,
@@ -651,114 +1327,275 @@ fbAutoCoupleX(nGantryTol:=nGantryTolX,
 			  bExecuteCouple:=bExecuteCoupleX,
 			  bExecuteDecouple:=bExecuteDecoupleX,
 			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);
+
+END_FUNCTION_BLOCK
 ```
 
 
-POUs/Serial Comm/PiezoSerial.TcPOU (TcPlcObject)
-------------------------------------------------
+POU: MC_SmoothMover
+-------------------
 
-### PiezoSerial: Declaration
+File: lcls_twincat_optics_plc/POUs/Helpers/MC_SmoothMover.TcPOU
 
 ```vhdl
-PROGRAM PiezoSerial
+FUNCTION_BLOCK MC_SmoothMover
+VAR_IN_OUT
+	Axis	:	AXIS_REF;
+END_VAR
+VAR_INPUT
+	Velocity : LREAL;
+	ReqAbsPos : LREAL; //New requested position
+	Enable	:	BOOL; //While true the block will accept new positions and attempt to move to them if they are different
+	Execute	:	BOOL; //Will retry a move if the target position is the same
+END_VAR
+VAR_OUTPUT
+	Done	:	BOOL;
+	Busy	:	BOOL;
+	Error	:	BOOL;
+END_VAR
 VAR
-	//PI Serial
-	fbE621SerialDriverM1 : FB_PI_E621_SerialDriver;
-	piezo: ST_PiezoAxis;
-	rtInitParams	:	R_TRIG;
-	tonTimeoutRstM1	: TON := (PT:=T#2S); //For timeout reset
-	tonTimeoutRstM2	: TON := (PT:=T#2S); //For timeout reset
+	mcMoveAbsolute : ARRAY[1..2] OF MC_MoveAbsolute;
+	iI: INT;
+	imcBlockIndex: INT;
+	ReqAbsPosPrevious	: LREAL;
+	rtExecute: R_TRIG;
 END_VAR
+(* Smooth Mover
+2017-8-30
+A. Wallace
+
+Enable means the block will always aquire new positions as they are updated. Execute
+can be used to retry a move. Axis must be enabled by a power block.
+*)
+
+
+rtExecute(CLK:=Execute);
+
+IF ( (ReqAbsPos <> ReqAbsPosPrevious AND Enable) OR rtExecute.Q) THEN
+			mcMoveAbsolute[imcBlockIndex].Execute := FALSE;
+			imcBlockIndex := imcBlockIndex + 1;
+			IF imcBlockIndex >2 THEN imcBlockIndex := 1; END_IF
+			mcMoveAbsolute[imcBlockIndex].Position := ReqAbsPos;
+			mcMoveAbsolute[imcBlockIndex].Execute := TRUE;
+			ReqAbsPosPrevious := ReqAbsPos;
+		ELSIF mcMoveAbsolute[imcBlockIndex].Done OR 
+				mcMoveAbsolute[imcBlockIndex].CommandAborted OR 
+				mcMoveAbsolute[imcBlockIndex].Busy OR 
+				mcMoveAbsolute[imcBlockIndex].Error THEN
+			mcMoveAbsolute[imcBlockIndex].Execute := FALSE;
+		END_IF
+		
+FOR iI := 1 TO 2 DO
+	mcMoveAbsolute[iI](Axis := Axis, Velocity:=Velocity, BufferMode:=MC_Aborting);
+END_FOR
+
+Error := mcMoveAbsolute[1].Error OR mcMoveAbsolute[2].Error;
+Done S= mcMoveAbsolute[1].Done OR mcMoveAbsolute[2].Done;
+Busy := mcMoveAbsolute[1].Busy OR mcMoveAbsolute[2].Busy;
+Done R= Busy OR Error;
+
+END_FUNCTION_BLOCK
 ```
 
-### PiezoSerial: ST
+
+POU: Main
+---------
+
+File: lcls_twincat_optics_plc/POUs/Main.TcPOU
 
 ```vhdl
-//M1 Piezo E-621
-///////////////////////
-	fbE621SerialDriverM1.i_xExecute := TRUE;
-	fbE621SerialDriverM1.i_xExecute R= fbE621SerialDriverM1.q_xDone;
-	fbE621SerialDriverM1(
-		iq_stPiezoAxis:= piezo, 
-		iq_stSerialRXBuffer:= Serial_P1_SerialRXBuffer, 
-		iq_stSerialTXBuffer:= Serial_P1_SerialTXBuffer);
-```
-
-
-POUs/Serial Comm/P_Serial_Com.TcPOU (TcPlcObject)
--------------------------------------------------
-
-### P_Serial_Com: Declaration
-
-```vhdl
-PROGRAM P_Serial_Com
+PROGRAM Main
 VAR
-	fbSerialLineControl_EL6001_P1: SerialLineControl;
+	(*
+	// Test Pitch Control
+	fbPitchControl : FB_PitchControl;
+	TestPitch : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
+		                                ReqPosLimLo:=-2000,
+		                                diEncPosLimHi:=10768330,
+		                                diEncPosLimLo:=8141680);
+	M1 : DUT_MotionStage;
+	bPitchDone : BOOL;
+	*)
+
+	// Test Bender vs No Bender
+	TESTWithBender : DUT_HOMS;
+	M1 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+	M2 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+	M3 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+	M4 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+	M5 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+	M6 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+	fbBender : FB_Bender;
+
+	fbMotionStage_m1 : FB_MotionStage;
+	fbMotionStage_m2 : FB_MotionStage;
+	fbMotionStage_m3 : FB_MotionStage;
+	fbMotionStage_m4 : FB_MotionStage;
+	fbMotionStage_m6 : FB_MotionStage;
 END_VAR
+(*
+// Test Pitch Control
+M1.bLimitBackwardEnable;
+M1.bLimitForwardEnable;
+M1.bHardwareEnable;
+M1.fVelocity := 150.0;
+fbPitchControl(Pitch:=TestPitch,
+			   Stepper:=M1,
+			   lrCurrentSetpoint:=M1.fPosition,
+			   q_bDone=>bPitchDone,
+			   q_bBusy=>);
+IF NOT M1.bHardwareEnable THEN
+	M1.fPosition := M1.stAxisStatus.fActPosition;
+END_IF
+*)
+
+// Test Bender vs. No Bender:
+// M1L0
+M1.bLimitForwardEnable := TRUE;
+M1.bLimitBackwardEnable := TRUE;
+M1.bPowerSelf := TRUE;
+
+M2.bLimitForwardEnable := TRUE;
+M2.bLimitBackwardEnable := TRUE;
+M2.bPowerSelf := TRUE;
+
+M3.bLimitForwardEnable := TRUE;
+M3.bLimitBackwardEnable := TRUE;
+M3.bPowerSelf := TRUE;
+
+M4.bLimitForwardEnable := TRUE;
+M4.bLimitBackwardEnable := TRUE;
+M4.bPowerSelf := TRUE;
+
+M5.bLimitForwardEnable := TRUE;
+M5.bLimitBackwardEnable := TRUE;
+M5.bPowerSelf := TRUE;
+
+M6.bLimitForwardEnable := TRUE;
+M6.bLimitBackwardEnable := TRUE;
+M6.bPowerSelf := TRUE;
+TESTWithBender.fbRunHOMS(stYup:=M1,
+                         stYdwn:=M2,
+                         stXup:=M3,
+                         stXdwn:=M4,
+                         stPitch:=M5,
+	                     nYupEncRef:=0,
+                         nYdwnEncRef:=0,
+                         nXupEncRef:=0,
+                         nXdwnEncRef:=0,
+			             bExecuteCoupleY:=TESTWithBender.bExecuteCoupleY,
+                         bExecuteCoupleX:=TESTWithBender.bExecuteCoupleX,
+			             bExecuteDecoupleY:=TESTWithBender.bExecuteDecoupleY,
+                         bExecuteDecoupleX:=TESTWithBender.bExecuteDecoupleX,
+                         bGantryAlreadyCoupledY=>TESTWithBender.bGantryAlreadyCoupledY,
+                         bGantryAlreadyCoupledX=>TESTWithBender.bGantryAlreadyCoupledX,
+                         nCurrGantryY=>TESTWithBender.nCurrGantryY,
+                         nCurrGantryX=>TESTWithBender.nCurrGantryX);
+fbBender(stBender:=M6,
+	     bSTOEnable1:=TESTWithBender.fbRunHOMS.bSTOEnable1,
+		 bSTOEnable2:=TESTWithBender.fbRunHOMS.bSTOEnable2);
+
+fbMotionStage_m1(stMotionStage:=M1);
+fbMotionStage_m2(stMotionStage:=M2);
+fbMotionStage_m3(stMotionStage:=M3);
+fbMotionStage_m4(stMotionStage:=M4);
+fbMotionStage_m6(stMotionStage:=M6);
+
+END_PROGRAM
 ```
 
-### P_Serial_Com: ST
+
+POU: TEST_PitchControl
+----------------------
+
+File: lcls_twincat_optics_plc/POUs/Tests/TEST_PitchControl.TcPOU
 
 ```vhdl
-//These are the global IOs...don't forget to copy your data into them
+{attribute 'call_after_init'}
+FUNCTION_BLOCK TEST_PitchControl EXTENDS TcUnit.FB_TestSuite
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+LimitSwitches();
 
-(* EL6001 Serial port 0 com function *)
-fbSerialLineControl_EL6001_P1(
-	Mode:= SERIALLINEMODE_EL6_22B (*SERIALLINEMODE_KL6_22B_STANDARD*),
-	pComIn:= ADR(Serial_P1_stComIn),
-	pComOut:=ADR(Serial_P1_stComOut) ,
-	SizeComIn:= SIZEOF(Serial_P1_stComIn),
-	TxBuffer:= Serial_P1_SerialTXBuffer,
-	RxBuffer:= Serial_P1_SerialRXBuffer,
-	Error=> ,
-	ErrorID=> );
+END_FUNCTION_BLOCK
 ```
 
 
-Version/Global_Version.TcGVL (TcPlcObject)
-------------------------------------------
+POU: WithinRange
+----------------
 
-### Global_Version: Declaration
+File: lcls_twincat_optics_plc/POUs/Helpers/WithinRange.TcPOU
 
 ```vhdl
-{attribute 'TcGenerated'}
-// This function has been automatically generated from the project information.
-VAR_GLOBAL CONSTANT
-	{attribute 'const_non_replaced'}
-	{attribute 'linkalways'}
-	stLibVersion_lcls_twincat_optics : ST_LibVersion := (iMajor := 0, iMinor := 0, iBuild := 0, iRevision := 0, sVersion := '0.0.0');
+FUNCTION WithinRange : BOOL
+VAR_INPUT
+	ValA	:	REAL; //New position to evaluate
+	Center :	REAL; //Current position
+	Range : REAL; //Span of the range
+	Offset	:	REAL := 0; //Offset from center if the range is non-symetric
 END_VAR
+VAR
+END_VAR
+IF ValA < (Center + Offset - (Range/2) ) THEN
+	WithinRange := FALSE;
+ELSIF ValA > (Center + Offset + (Range/2) ) THEN
+	WithinRange := FALSE;
+ELSE
+	WithinRange := TRUE;
+END_IF
+
+END_FUNCTION
 ```
 
 
 Symbols
 -------
 
-    Constants.CompilerVersion : VERSION (4159296 64)
-    Constants.CompilerVersionNumeric : DWORD (4159424 32)
-    Constants.RuntimeVersion : VERSION (4159232 64)
-    Constants.RuntimeVersionNumeric : DWORD (4159392 32)
-    Constants.bFPUSupport : BOOL (4145256 8)
-    Constants.bLittleEndian : BOOL (4144952 8)
-    Constants.bSimulationMode : BOOL (4145248 8)
-    Constants.nPackMode : UINT (4159360 16)
-    Constants.nRegisterSize : WORD (4145264 16)
-    GVL.AmountOfInitializedTestSuites : UINT (4101232 16)
-    GVL.CurrentTestNameBeingCalled : Tc2_System.T_MaxString (4104448 2048)
-    GVL.CurrentTestSuiteBeingCalled : lcls_twincat_motion.TcUnit.I_TestSuite (4104384 64)
-    GVL.IgnoreCurrentTest : BOOL (4101224 8)
-    GVL.TcUnitRunner : lcls_twincat_motion.TcUnit.FB_TcUnitRunner (4101248 3136)
-    GVL.TestSuiteAddresses : lcls_twincat_motion.TcUnit.I_TestSuite (4125696 19200)
-    GVL.TestSuiteAssertAddresses : PVOID (4106496 19200)
-    GVL.TestSuiteAssertRegistered : BOOL (4101216 8)
-    GVL_Constants.MaxAmountOfAsserts : UINT (4144928 16)
-    GVL_Constants.MaxAmountOfTestSuites : UINT (4144896 16)
-    GVL_Constants.MaxAmountOfTestsForEachTestSuite : UINT (4144912 16)
-    GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT : LINT (4153472 64)
-    GVL_SerialIO.Serial_P1_SerialRXBuffer : Tc2_SerialCom.ComBuffer (4156720 2512)
-    GVL_SerialIO.Serial_P1_SerialTXBuffer : Tc2_SerialCom.ComBuffer (4154208 2512)
-    GVL_SerialIO.Serial_P1_stComIn : Tc2_SerialCom.EL6inData22B (4153824 192)
-    GVL_SerialIO.Serial_P1_stComOut : Tc2_SerialCom.EL6outData22B (4154016 192)
+    .TCPADS_MAXUDP_BUFFSIZE : UDINT (4339520 32)
+    Constants.CompilerVersion : VERSION (9367072 64)
+    Constants.CompilerVersionNumeric : DWORD (9367200 32)
+    Constants.RuntimeVersion : VERSION (9367008 64)
+    Constants.RuntimeVersionNumeric : DWORD (9367168 32)
+    Constants.bFPUSupport : BOOL (9367136 8)
+    Constants.bLittleEndian : BOOL (4343344 8)
+    Constants.bSimulationMode : BOOL (4343352 8)
+    Constants.nPackMode : UINT (9364208 16)
+    Constants.nRegisterSize : WORD (9364192 16)
+    DefaultGlobals.fTimeStamp : LREAL (4311360 64)
+    DefaultGlobals.stSys : LCLS_General.ST_System (4311264 88)
+    GVL.nLangId_OnlineMonitoring : DINT (4339936 32)
+    GVL_Constants.cPiezoMaxVoltage : LREAL (9364032 64)
+    GVL_Constants.cPiezoMinVoltage : LREAL (9364096 64)
+    GVL_Constants.cPiezoRange : REAL (9364160 32)
+    GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT : LINT (9363968 64)
+    GVL_INTERNAL.UNINITIALIZED_CLASS_GUID : GUID (4340288 128)
+    GVL_Logger.TCPADS_MAXUDP_BUFFSIZE : UDINT (4312256 32)
+    GVL_Logger.cLogHost : STRING(15) (4311424 128)
+    GVL_Logger.fbRootLogger : LCLS_General.FB_LogMessage (4312288 26944)
+    GVL_Logger.iLogPort : UINT (4302832 16)
+    GVL_Logger.sIpTidbit : STRING(6) (4311552 56)
+    GVL_Logger.sPlcHostname : STRING(80) (4311608 648)
+    GVL_Param_TcUnit.MaxNumberOfAsserts : UINT (4340720 16)
+    GVL_Param_TcUnit.MaxNumberOfTestSuites : UINT (4339728 16)
+    GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite : UINT (4340704 16)
+    GVL_TcUnit.AdsLogger : TcUnit.FB_ADSLogStringMessageFifoQueue (4359360 4128864)
+    GVL_TcUnit.CurrentTestNameBeingCalled : Tc2_System.T_MaxString (4341280 2048)
+    GVL_TcUnit.CurrentTestSuiteBeingCalled : POINTER TO TcUnit.FB_TestSuite (4341248 32)
+    GVL_TcUnit.IgnoreCurrentTest : BOOL (4302824 8)
+    GVL_TcUnit.NumberOfInitializedTestSuites : UINT (4343328 16)
+    GVL_TcUnit.TcUnitRunner : TcUnit.FB_TcUnitRunner (4340736 512)
+    GVL_TcUnit.TestSuiteAddresses : ARRAY[1..500] OF POINTER TO TcUnit.FB_TestSuite (4343360 16000)
+    GVL_TcUnit.TestSuiteIsRegistered : BOOL (4301112 8)
+    GVL_TestStructs.TestPitch_LimitSwitches : HOMS_PitchMechanism (9364224 2496)
+    GVL_TestStructs.TestPitch_LimitSwitches.diEncCnt : LINT (9366656 64)
+    Global_Constants.EMPTY_EVENT_CLASS : GUID (4339552 128)
+    Global_Constants.EMPTY_EVENT_ID : UDINT (4339680 32)
+    Global_Constants.EMPTY_SEVERITY : TcEventSeverity (4339712 16)
+    Global_Constants.SUCCESS_EVENT : TcEventEntry (4339744 192)
     Global_Variables.ADSIGRP_DEVICE_DATA : UDINT (4097664 32)
     Global_Variables.ADSIGRP_IOIMAGE_CLEARI : UDINT (4097568 32)
     Global_Variables.ADSIGRP_IOIMAGE_CLEARO : UDINT (4097600 32)
@@ -813,6 +1650,9 @@ Symbols
     Global_Variables.ADSSTATE_STOP : UINT (4096688 16)
     Global_Variables.ADSSTATE_STOPPING : UINT (4096864 16)
     Global_Variables.ADSSTATE_SUSPEND : UINT (4096800 16)
+    Global_Variables.AMSLOGGER_IGR_GENERAL : UDINT (4164608 32)
+    Global_Variables.AMSLOGGER_IOF_MODE : UDINT (4164640 32)
+    Global_Variables.AMSPORT_AMSLOGGER : UINT (4164672 16)
     Global_Variables.AMSPORT_EVENTLOG : UINT (4096304 16)
     Global_Variables.AMSPORT_LOGGER : UINT (4096288 16)
     Global_Variables.AMSPORT_R0_CAM : UINT (4096528 16)
@@ -837,21 +1677,84 @@ Symbols
     Global_Variables.BOOTDATAFLAGS_RETAIN_INVALID : BYTE (4098952 8)
     Global_Variables.BOOTDATAFLAGS_RETAIN_LOADED : BYTE (4098944 8)
     Global_Variables.BOOTDATAFLAGS_RETAIN_REQUESTED : BYTE (4098960 8)
+    Global_Variables.DATE_AND_TIME_SECPERDAY : DWORD (4177568 32)
+    Global_Variables.DATE_AND_TIME_SECPERWEEK : DWORD (4177600 32)
+    Global_Variables.DBG_OUTPUT_FILE : DWORD (4183872 32)
+    Global_Variables.DBG_OUTPUT_LOG : DWORD (4183840 32)
+    Global_Variables.DBG_OUTPUT_NONE : DWORD (4183808 32)
+    Global_Variables.DBG_OUTPUT_VISU : DWORD (4183904 32)
     Global_Variables.DEFAULT_ADS_TIMEOUT : TIME (4099712 32)
+    Global_Variables.DEFAULT_BACKLASHVALUE : LREAL (4310912 64)
+    Global_Variables.DEFAULT_CSV_FIELD_DOUBLE_QUOTE : BYTE (4163352 8)
+    Global_Variables.DEFAULT_CSV_FIELD_SEP : BYTE (4101376 8)
+    Global_Variables.DEFAULT_CSV_RECORD_SEP_CR : BYTE (4300144 8)
+    Global_Variables.DEFAULT_CSV_RECORD_SEP_LF : BYTE (4300152 8)
+    Global_Variables.DEFAULT_HOME_POSITION : LREAL (4310848 64)
+    Global_Variables.EMPTY_ARG_VALUE : Tc2_Utilities.T_Arg (4165248 96)
+    Global_Variables.EMPTY_GUID_REGSTRING : STRING(38) (4303272 312)
+    Global_Variables.EMPTY_GUID_STRING : STRING(36) (4302976 296)
+    Global_Variables.EMPTY_GUID_STRUCT : GUID (4302848 128)
+    Global_Variables.EMPTY_ROUTE_ENTRY : Tc2_Utilities.ST_AmsRouteEntry (4163360 1184)
+    Global_Variables.FLOATREC_EXP_IS_INF : INT (4164720 16)
+    Global_Variables.FLOATREC_EXP_IS_NAN : INT (4164704 16)
+    Global_Variables.FLOATREC_MAX_DIGITS : INT (4164736 16)
+    Global_Variables.FLOATREC_MAX_PRECISION : INT (4164752 16)
+    Global_Variables.FLOATREC_MIN_PRECISION : INT (4164768 16)
+    Global_Variables.FMTERR_ARGTYPEINVALID : DWORD (4165088 32)
+    Global_Variables.FMTERR_ASTERISKPOSITION : DWORD (4164864 32)
+    Global_Variables.FMTERR_DESTBUFFOVERFLOW : DWORD (4165184 32)
+    Global_Variables.FMTERR_FLAGPOSITION : DWORD (4164960 32)
+    Global_Variables.FMTERR_INSUFFICIENTARGS : DWORD (4165152 32)
+    Global_Variables.FMTERR_INVALIDPOINTERINPUT : DWORD (4165216 32)
+    Global_Variables.FMTERR_NOERROR : DWORD (4164800 32)
+    Global_Variables.FMTERR_PERCENTSIGNPOSITION : DWORD (4164832 32)
+    Global_Variables.FMTERR_PRECISIONDOTPOSITION : DWORD (4165024 32)
+    Global_Variables.FMTERR_PRECISIONVALUE : DWORD (4164928 32)
+    Global_Variables.FMTERR_TYPEFIELDVALUE : DWORD (4165056 32)
+    Global_Variables.FMTERR_UNACCEPTEDPARAMETER : DWORD (4165120 32)
+    Global_Variables.FMTERR_WIDTHPRECISIONVALPOS : DWORD (4164992 32)
+    Global_Variables.FMTERR_WIDTHVALUE : DWORD (4164896 32)
     Global_Variables.FOPEN_MODEAPPEND : DWORD (4099072 32)
     Global_Variables.FOPEN_MODEBINARY : DWORD (4099136 32)
     Global_Variables.FOPEN_MODEPLUS : DWORD (4099104 32)
     Global_Variables.FOPEN_MODEREAD : DWORD (4099008 32)
     Global_Variables.FOPEN_MODETEXT : DWORD (4099168 32)
     Global_Variables.FOPEN_MODEWRITE : DWORD (4099040 32)
+    Global_Variables.FORMAT_DECASC_CODES : ARRAY[0..9] OF BYTE (4165600 80)
+    Global_Variables.FORMAT_HEXASC_CODES : ARRAY[0..1] OF BYTE (4165344 256)
+    Global_Variables.FORMAT_MAX_ARGS : INT (4164688 16)
+    Global_Variables.GLOBAL_DCF77_PULSE_SPLIT : TIME (4101344 32)
+    Global_Variables.GLOBAL_DCF77_SEQUENCE_CHECK : BOOL (4101224 8)
+    Global_Variables.GLOBAL_FORMAT_HASH_PREFIX_TYPE : Tc2_Utilities.E_HashPrefixTypes (4101312 16)
+    Global_Variables.GLOBAL_SBCS_TABLE : Tc2_Utilities.E_SBCSType (4101328 16)
+    Global_Variables.HKEY_MAX_BINARY_DATA_SIZE : UDINT (4164576 32)
+    Global_Variables.IPHELPERAPI_ADAPTERSINFO : UDINT (4163040 32)
+    Global_Variables.IPHELPERAPI_IPADDRBYHOSTNAME : UDINT (4163072 32)
+    Global_Variables.MAX_ADAPTER_ADDRESS_LENGTH : UDINT (4162944 32)
+    Global_Variables.MAX_ADAPTER_DESCRIPTION_LENGTH : UDINT (4162912 32)
+    Global_Variables.MAX_ADAPTER_NAME_LENGTH : UDINT (4162880 32)
+    Global_Variables.MAX_AVERAGE_MEASURES : INT (4101232 16)
+    Global_Variables.MAX_LOCAL_ADAPTERS : UDINT (4163104 32)
+    Global_Variables.MAX_REMOTE_PCS : INT (4101392 16)
+    Global_Variables.MAX_ROUTE_ADDR_LEN : BYTE (4163328 8)
+    Global_Variables.MAX_ROUTE_NAME_LEN : BYTE (4101384 8)
+    Global_Variables.MAX_ROUTE_TRANSPORT : BYTE (4163344 8)
     Global_Variables.MAX_STRING_LENGTH : UDINT (4099744 32)
+    Global_Variables.MIN_ROUTE_TRANSPORT : BYTE (4163336 8)
     Global_Variables.PI : LREAL (4099648 64)
+    Global_Variables.ROUTE_FLAG_DYNAMIC : DWORD (4163264 32)
+    Global_Variables.ROUTE_FLAG_NOOVERRIDE : DWORD (4163296 32)
+    Global_Variables.ROUTE_FLAG_TEMPORARY : DWORD (4163232 32)
+    Global_Variables.SYSTEMSERVICE_ADDREMOTE : UDINT (4163136 32)
     Global_Variables.SYSTEMSERVICE_CHANGENETID : UDINT (4098528 32)
     Global_Variables.SYSTEMSERVICE_CLOSEHANDLE : UDINT (4097888 32)
     Global_Variables.SYSTEMSERVICE_CREATEFILE : UDINT (4097856 32)
+    Global_Variables.SYSTEMSERVICE_DELREMOTE : UDINT (4163168 32)
+    Global_Variables.SYSTEMSERVICE_ENUMREMOTE : UDINT (4163200 32)
     Global_Variables.SYSTEMSERVICE_FCLOSE : UDINT (4097952 32)
     Global_Variables.SYSTEMSERVICE_FDELETE : UDINT (4098272 32)
     Global_Variables.SYSTEMSERVICE_FEOF : UDINT (4098240 32)
+    Global_Variables.SYSTEMSERVICE_FFILEFIND : UDINT (4164544 32)
     Global_Variables.SYSTEMSERVICE_FGETS : UDINT (4098112 32)
     Global_Variables.SYSTEMSERVICE_FOPEN : UDINT (4097920 32)
     Global_Variables.SYSTEMSERVICE_FPRINTF : UDINT (4098208 32)
@@ -862,6 +1765,8 @@ Symbols
     Global_Variables.SYSTEMSERVICE_FSEEK : UDINT (4098048 32)
     Global_Variables.SYSTEMSERVICE_FTELL : UDINT (4098080 32)
     Global_Variables.SYSTEMSERVICE_FWRITE : UDINT (4098016 32)
+    Global_Variables.SYSTEMSERVICE_IPHELPERAPI : UDINT (4162976 32)
+    Global_Variables.SYSTEMSERVICE_IPHOSTNAME : UDINT (4163008 32)
     Global_Variables.SYSTEMSERVICE_MKDIR : UDINT (4098336 32)
     Global_Variables.SYSTEMSERVICE_OPENCREATE : UDINT (4097760 32)
     Global_Variables.SYSTEMSERVICE_OPENREAD : UDINT (4097792 32)
@@ -873,6 +1778,19 @@ Symbols
     Global_Variables.SYSTEMSERVICE_TIMESERVICES : UDINT (4098464 32)
     Global_Variables.SYSTEMSTATEFLAGS_BSOD : BYTE (4098984 8)
     Global_Variables.SYSTEMSTATEFLAGS_RTVIOLATION : BYTE (4098992 8)
+    Global_Variables.SYSTEMTIME_DATEDELTA_OFFSET : DWORD (4171936 32)
+    Global_Variables.SYSTEMTIME_DATE_AND_TIME_MAX : Tc2_Utilities.T_ULARGE_INTEGER (4172224 64)
+    Global_Variables.SYSTEMTIME_DATE_AND_TIME_MAX64 : ULINT (4172544 64)
+    Global_Variables.SYSTEMTIME_DATE_AND_TIME_MIN : Tc2_Utilities.T_ULARGE_INTEGER (4172160 64)
+    Global_Variables.SYSTEMTIME_DATE_AND_TIME_MIN64 : ULINT (4172480 64)
+    Global_Variables.SYSTEMTIME_MAX_MONTHDAYS : ARRAY[0..1] OF WORD (4171088 384)
+    Global_Variables.SYSTEMTIME_MAX_YEARSDAY : ARRAY[0..1] OF WORD (4171472 448)
+    Global_Variables.SYSTEMTIME_TICKSPERDAY : Tc2_Utilities.T_ULARGE_INTEGER (4172096 64)
+    Global_Variables.SYSTEMTIME_TICKSPERDAY64 : ULINT (4172416 64)
+    Global_Variables.SYSTEMTIME_TICKSPERMSEC : Tc2_Utilities.T_ULARGE_INTEGER (4171968 64)
+    Global_Variables.SYSTEMTIME_TICKSPERMSEC64 : ULINT (4172288 64)
+    Global_Variables.SYSTEMTIME_TICKSPERSEC : Tc2_Utilities.T_ULARGE_INTEGER (4172032 64)
+    Global_Variables.SYSTEMTIME_TICKSPERSEC64 : ULINT (4172352 64)
     Global_Variables.TCEVENTFLAG_AUTOFMTALL : WORD (4099504 16)
     Global_Variables.TCEVENTFLAG_FMTSELF : WORD (4099440 16)
     Global_Variables.TCEVENTFLAG_LOG : WORD (4099456 16)
@@ -891,19 +1809,104 @@ Symbols
     Global_Variables.TIMESERVICE_RTCTIMEDIFF : UDINT (4098624 32)
     Global_Variables.TIMESERVICE_SYSTEMTIMES : UDINT (4098592 32)
     Global_Variables.TIMESERVICE_TIMEZONINFORMATION : UDINT (4098688 32)
+    Global_Variables.TcMcGlobal : Tc2_MC2._TCMCGLOBAL (4303872 6976)
+    Global_Variables.WEST_EUROPE_TZI : Tc2_Utilities.ST_TimeZoneInformation (4172608 864)
     Global_Variables.eWatchdogConfig : Tc2_System.E_WATCHDOG_TIME_CONFIG (4099632 16)
     Global_Variables.nWatchdogTime : BYTE (4099000 8)
+    Global_Version.stLibVersion_Tc2_MC2 : ST_LibVersion (4303584 288)
+    Global_Version.stLibVersion_Tc2_Math : ST_LibVersion (4310976 288)
+    Global_Version.stLibVersion_Tc2_ModbusSrv : ST_LibVersion (4339232 288)
     Global_Version.stLibVersion_Tc2_System : ST_LibVersion (4096000 288)
-    Global_Version.stLibVersion_Tc2_Utilities : ST_LibVersion (4100928 288)
+    Global_Version.stLibVersion_Tc2_Utilities : ST_LibVersion (4100896 288)
+    Global_Version.stLibVersion_Tc3_EventLogger : ST_LibVersion (4340000 288)
+    Global_Version.stLibVersion_Tc3_JsonXml : ST_LibVersion (4340416 288)
     Global_Version.stLibVersion_Tc3_Module : ST_LibVersion (4100288 288)
-    Global_Version.stLibVersion_TcUnit : ST_LibVersion (4144960 288)
-    Global_Version.stLibVersion_lcls_twincat_optics : ST_LibVersion (4153536 288)
-    TwinCAT_LicenseInfoVarList._LicenseInfo : PlcLicenseInfo (4159456 1024)
-    TwinCAT_SystemInfoVarList._AppInfo : PlcAppSystemInfo (4527808 2048)
-    TwinCAT_SystemInfoVarList._TaskInfo : PlcTaskSystemInfo (4529856 1024)
-    TwinCAT_SystemInfoVarList._TaskOid_PlcTask : OTCID (4530880 32)
-    TwinCAT_SystemInfoVarList._TaskPouOid_PlcTask : OTCID (4527776 32)
-    TwinCAT_SystemInfoVarList.__PlcTask : _Implicit_Task_Info (4530944 896)
+    Global_Version.stLibVersion_TcUnit : ST_LibVersion (8488224 288)
+    Global_Version.stLibVersion_lcls_twincat_optics : ST_LibVersion (9366720 288)
+    LCLS_General.DefaultGlobals.stSys.I_EcatMaster1 : AMSNETID (4311304 48)
+    Main.M1 : lcls_twincat_motion.DUT_MotionStage (8532864 11264)
+    Main.M1.Axis.NcToPlc : NCTOPLC_AXIS_REF (8533952 2048)
+    Main.M1.Axis.PlcToNc : PLCTONC_AXIS_REF (8532928 1024)
+    Main.M1.bBrakeRelease : BOOL (8541912 8)
+    Main.M1.bHardwareEnable : BOOL (8541920 8)
+    Main.M1.bHome : BOOL (8541904 8)
+    Main.M1.bLimitBackwardEnable : BOOL (8541896 8)
+    Main.M1.bLimitForwardEnable : BOOL (8541888 8)
+    Main.M2 : lcls_twincat_motion.DUT_MotionStage (8544128 11264)
+    Main.M2.Axis.NcToPlc : NCTOPLC_AXIS_REF (8545216 2048)
+    Main.M2.Axis.PlcToNc : PLCTONC_AXIS_REF (8544192 1024)
+    Main.M2.bBrakeRelease : BOOL (8553176 8)
+    Main.M2.bHardwareEnable : BOOL (8553184 8)
+    Main.M2.bHome : BOOL (8553168 8)
+    Main.M2.bLimitBackwardEnable : BOOL (8553160 8)
+    Main.M2.bLimitForwardEnable : BOOL (8553152 8)
+    Main.M3 : lcls_twincat_motion.DUT_MotionStage (8555392 11264)
+    Main.M3.Axis.NcToPlc : NCTOPLC_AXIS_REF (8556480 2048)
+    Main.M3.Axis.PlcToNc : PLCTONC_AXIS_REF (8555456 1024)
+    Main.M3.bBrakeRelease : BOOL (8564440 8)
+    Main.M3.bHardwareEnable : BOOL (8564448 8)
+    Main.M3.bHome : BOOL (8564432 8)
+    Main.M3.bLimitBackwardEnable : BOOL (8564424 8)
+    Main.M3.bLimitForwardEnable : BOOL (8564416 8)
+    Main.M4 : lcls_twincat_motion.DUT_MotionStage (8566656 11264)
+    Main.M4.Axis.NcToPlc : NCTOPLC_AXIS_REF (8567744 2048)
+    Main.M4.Axis.PlcToNc : PLCTONC_AXIS_REF (8566720 1024)
+    Main.M4.bBrakeRelease : BOOL (8575704 8)
+    Main.M4.bHardwareEnable : BOOL (8575712 8)
+    Main.M4.bHome : BOOL (8575696 8)
+    Main.M4.bLimitBackwardEnable : BOOL (8575688 8)
+    Main.M4.bLimitForwardEnable : BOOL (8575680 8)
+    Main.M5 : lcls_twincat_motion.DUT_MotionStage (8577920 11264)
+    Main.M5.Axis.NcToPlc : NCTOPLC_AXIS_REF (8579008 2048)
+    Main.M5.Axis.PlcToNc : PLCTONC_AXIS_REF (8577984 1024)
+    Main.M5.bBrakeRelease : BOOL (8586968 8)
+    Main.M5.bHardwareEnable : BOOL (8586976 8)
+    Main.M5.bHome : BOOL (8586960 8)
+    Main.M5.bLimitBackwardEnable : BOOL (8586952 8)
+    Main.M5.bLimitForwardEnable : BOOL (8586944 8)
+    Main.M6 : lcls_twincat_motion.DUT_MotionStage (8589184 11264)
+    Main.M6.Axis.NcToPlc : NCTOPLC_AXIS_REF (8590272 2048)
+    Main.M6.Axis.PlcToNc : PLCTONC_AXIS_REF (8589248 1024)
+    Main.M6.bBrakeRelease : BOOL (8598232 8)
+    Main.M6.bHardwareEnable : BOOL (8598240 8)
+    Main.M6.bHome : BOOL (8598224 8)
+    Main.M6.bLimitBackwardEnable : BOOL (8598216 8)
+    Main.M6.bLimitForwardEnable : BOOL (8598208 8)
+    Main.TESTWithBender : DUT_HOMS (8512192 20672)
+    Main.TESTWithBender.fbRunHOMS.bSTOEnable1 : BOOL (8513120 8)
+    Main.TESTWithBender.fbRunHOMS.bSTOEnable2 : BOOL (8513128 8)
+    Main.TESTWithBender.fbRunHOMS.fbAutoCoupleX.gantry_diff_limit.PEnc.Count : ULINT (8523584 64)
+    Main.TESTWithBender.fbRunHOMS.fbAutoCoupleX.gantry_diff_limit.SEnc.Count : ULINT (8523712 64)
+    Main.TESTWithBender.fbRunHOMS.fbAutoCoupleY.gantry_diff_limit.PEnc.Count : ULINT (8514112 64)
+    Main.TESTWithBender.fbRunHOMS.fbAutoCoupleY.gantry_diff_limit.SEnc.Count : ULINT (8514240 64)
+    Main.TESTWithBender.fbRunHOMS.stXdwnEnc : lcls_twincat_motion.ST_RenishawAbsEnc (8513536 128)
+    Main.TESTWithBender.fbRunHOMS.stXupEnc : lcls_twincat_motion.ST_RenishawAbsEnc (8513408 128)
+    Main.TESTWithBender.fbRunHOMS.stYdwnEnc : lcls_twincat_motion.ST_RenishawAbsEnc (8513280 128)
+    Main.TESTWithBender.fbRunHOMS.stYupEnc : lcls_twincat_motion.ST_RenishawAbsEnc (8513152 128)
+    Main.fbBender : FB_Bender (8600448 128)
+    Main.fbMotionStage_m1 : lcls_twincat_motion.FB_MotionStage (8600576 152576)
+    Main.fbMotionStage_m1.fbDriveVirtual.MasterAxis.NcToPlc : NCTOPLC_AXIS_REF (8603072 2048)
+    Main.fbMotionStage_m1.fbDriveVirtual.MasterAxis.PlcToNc : PLCTONC_AXIS_REF (8602048 1024)
+    Main.fbMotionStage_m2 : lcls_twincat_motion.FB_MotionStage (8753152 152576)
+    Main.fbMotionStage_m2.fbDriveVirtual.MasterAxis.NcToPlc : NCTOPLC_AXIS_REF (8755648 2048)
+    Main.fbMotionStage_m2.fbDriveVirtual.MasterAxis.PlcToNc : PLCTONC_AXIS_REF (8754624 1024)
+    Main.fbMotionStage_m3 : lcls_twincat_motion.FB_MotionStage (8905728 152576)
+    Main.fbMotionStage_m3.fbDriveVirtual.MasterAxis.NcToPlc : NCTOPLC_AXIS_REF (8908224 2048)
+    Main.fbMotionStage_m3.fbDriveVirtual.MasterAxis.PlcToNc : PLCTONC_AXIS_REF (8907200 1024)
+    Main.fbMotionStage_m4 : lcls_twincat_motion.FB_MotionStage (9058304 152576)
+    Main.fbMotionStage_m4.fbDriveVirtual.MasterAxis.NcToPlc : NCTOPLC_AXIS_REF (9060800 2048)
+    Main.fbMotionStage_m4.fbDriveVirtual.MasterAxis.PlcToNc : PLCTONC_AXIS_REF (9059776 1024)
+    Main.fbMotionStage_m6 : lcls_twincat_motion.FB_MotionStage (9210880 152576)
+    Main.fbMotionStage_m6.fbDriveVirtual.MasterAxis.NcToPlc : NCTOPLC_AXIS_REF (9213376 2048)
+    Main.fbMotionStage_m6.fbDriveVirtual.MasterAxis.PlcToNc : PLCTONC_AXIS_REF (9212352 1024)
+    ParameterList.cSourceNameSize : UDINT (4339968 32)
+    TC_EVENTS.LCLSGeneralEventClass : ST_LCLSGeneralEventClass (9416512 960)
+    TwinCAT_LicenseInfoVarList._LicenseInfo : ARRAY[1..2] OF PlcLicenseInfo (9367232 2048)
+    TwinCAT_SystemInfoVarList._AppInfo : PlcAppSystemInfo (9369280 2048)
+    TwinCAT_SystemInfoVarList._TaskInfo : ARRAY[1..1] OF PlcTaskSystemInfo (9371328 1024)
+    TwinCAT_SystemInfoVarList._TaskOid_PlcTask : OTCID (9372384 32)
+    TwinCAT_SystemInfoVarList._TaskPouOid_PlcTask : OTCID (9372352 32)
+    TwinCAT_SystemInfoVarList.__PlcTask : _Implicit_Task_Info (9372416 704)
 
 Boxes
 -----
@@ -911,22 +1914,126 @@ Boxes
 NC axes
 -------
 
+    1.) 'Axis 1':
+        Id = 1
+        CreateSymbols = 'true'
+        AxisType = 1
+        OtherSettings:AllowMotionCmdToSlave = 'true'
+        Enc:EncType = 1
+
+    2.) 'TestPitch_LimitSwitches':
+        Id = 2
+        CreateSymbols = 'true'
+        AxisType = 1
+        AxisFolder = 'TestAxes'
+        OtherSettings:AllowMotionCmdToSlave = 'true'
+        Enc:EncType = 1
+
+    3.) 'Axis 2':
+        Id = 3
+        CreateSymbols = 'true'
+        AxisType = 1
+        OtherSettings:AllowMotionCmdToSlave = 'true'
+        Enc:EncType = 1
+
+    4.) 'Axis 3':
+        Id = 4
+        CreateSymbols = 'true'
+        AxisType = 1
+        OtherSettings:AllowMotionCmdToSlave = 'true'
+        Enc:EncType = 1
+
+    5.) 'Axis 4':
+        Id = 5
+        CreateSymbols = 'true'
+        AxisType = 1
+        OtherSettings:AllowMotionCmdToSlave = 'true'
+        Enc:EncType = 1
+
+    6.) 'Axis 5':
+        Id = 6
+        CreateSymbols = 'true'
+        AxisType = 1
+        OtherSettings:AllowMotionCmdToSlave = 'true'
+        Enc:EncType = 1
+
+    7.) 'Axis 6':
+        Id = 7
+        CreateSymbols = 'true'
+        AxisType = 1
+        OtherSettings:AllowMotionCmdToSlave = 'true'
+        Enc:EncType = 1
+
 Links
 -----
 
+    1.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Inputs^Main.M1.Axis.NcToPlc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 1', 'Outputs^ToPlc')
+    2.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Outputs^Main.M1.Axis.PlcToNc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 1', 'Inputs^FromPlc')
+    3.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Inputs^Main.M2.Axis.NcToPlc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 2', 'Outputs^ToPlc')
+    4.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Outputs^Main.M2.Axis.PlcToNc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 2', 'Inputs^FromPlc')
+    5.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Inputs^Main.M3.Axis.NcToPlc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 3', 'Outputs^ToPlc')
+    6.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Outputs^Main.M3.Axis.PlcToNc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 3', 'Inputs^FromPlc')
+    7.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Inputs^Main.M4.Axis.NcToPlc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 4', 'Outputs^ToPlc')
+    8.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Outputs^Main.M4.Axis.PlcToNc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 4', 'Inputs^FromPlc')
+    9.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Inputs^Main.M5.Axis.NcToPlc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 5', 'Outputs^ToPlc')
+    10.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Outputs^Main.M5.Axis.PlcToNc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 5', 'Inputs^FromPlc')
+    11.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Inputs^Main.M6.Axis.NcToPlc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 6', 'Outputs^ToPlc')
+    12.) A ('lcls_twincat_optics_plc Instance', 'PlcTask Outputs^Main.M6.Axis.PlcToNc')
+          B ('TINC^NC-Task 1 SAF^Axes^Axis 6', 'Inputs^FromPlc')
 
 Pragma lint results
 -------------------
 ```
-INFO:pytmc.bin.pragmalint:Total pragmas found: 4 Total linter errors: 0
+INFO:pytmc.bin.pragmalint:Total pragmas found: 21 Total linter errors: 0
 PLC Project (1): lcls_twincat_optics_plc
 ========================================
 
 
-GVLs/GVL_HOMS.TcGVL (TcPlcObject)
+DUTs/DUT_HOMS.TcDUT (TcPlcObject)
 ---------------------------------
 
-    - GVL_HOMS: Declaration - 1 pragmas
+    - DUT_HOMS: Declaration - 8 pragmas
+
+
+GVLs/GVL_Constants.TcGVL (TcPlcObject)
+--------------------------------------
+
+    - GVL_Constants: Declaration - 1 pragmas
+
+
+GVLs/GVL_TestStructs.TcGVL (TcPlcObject)
+----------------------------------------
+
+    - GVL_TestStructs: Declaration - 1 pragmas
+
+
+POUs/FB_PitchControl.TcPOU (TcPlcObject)
+----------------------------------------
+
+    - FB_PitchControl: Declaration - 2 pragmas
+
+
+POUs/FB_RMSWatch.TcPOU (TcPlcObject)
+------------------------------------
+
+    - FB_RMSWatch: Declaration - 5 pragmas
+
+
+POUs/Tests/TEST_PitchControl.TcPOU (TcPlcObject)
+------------------------------------------------
+
+    - TEST_PitchControl: Declaration - 1 pragmas
 
 
 Version/Global_Version.TcGVL (TcPlcObject)

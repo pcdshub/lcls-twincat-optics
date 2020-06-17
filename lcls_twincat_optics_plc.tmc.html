@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lcls_twincat_optics_plc.tmc &#8212; pcdshub/lcls-twincat-optics  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -35,13 +36,54 @@
 <h1>lcls_twincat_optics_plc.tmc<a class="headerlink" href="#lcls-twincat-optics-plc-tmc" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="records">
 <h2>Records<a class="headerlink" href="#records" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="s2">&quot;$(PREFIX)LCLSGeneral:LogHost_RBV&quot;</span> <span class="p">(</span><span class="n">waveform</span><span class="p">)</span>
+ <span class="s2">&quot;$(PREFIX)LCLSGeneral:LogHost&quot;</span> <span class="p">(</span><span class="n">waveform</span><span class="p">)</span>
+ <span class="s2">&quot;$(PREFIX)LCLSGeneral:LogPort&quot;</span> <span class="p">(</span><span class="n">longout</span><span class="p">)</span>
+ <span class="s2">&quot;$(PREFIX)LCLSGeneral:LogPort_RBV&quot;</span> <span class="p">(</span><span class="n">longin</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="epics-database">
 <h2>EPICS database<a class="headerlink" href="#epics-database" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>record(longin, &quot;$(PREFIX)LCLSGeneral:LogPort_RBV&quot;) {
+  field(DESC, &quot;The log host UDP port&quot;)
+  field(SCAN, &quot;I/O Intr&quot;)
+  field(PINI, &quot;1&quot;)
+  field(TSE, &quot;-2&quot;)
+  field(DTYP, &quot;asynInt32&quot;)
+  field(INP, &quot;@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Logger.iLogPort?&quot;)
+  info(archive, &quot;VAL&quot;)
+}
+
+record(longout, &quot;$(PREFIX)LCLSGeneral:LogPort&quot;) {
+  field(DESC, &quot;The log host UDP port&quot;)
+  field(DTYP, &quot;asynInt32&quot;)
+  field(OUT, &quot;@asyn($(PORT),0,1)ADSPORT=851/GVL_Logger.iLogPort=&quot;)
+  info(autosaveFields_pass0, &quot;VAL&quot;)
+  info(archive, &quot;VAL&quot;)
+}
+
+record(waveform, &quot;$(PREFIX)LCLSGeneral:LogHost_RBV&quot;) {
+  field(DESC, &quot;The log host IP address&quot;)
+  field(SCAN, &quot;I/O Intr&quot;)
+  field(PINI, &quot;1&quot;)
+  field(TSE, &quot;-2&quot;)
+  field(DTYP, &quot;asynInt8ArrayIn&quot;)
+  field(INP, &quot;@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Logger.cLogHost?&quot;)
+  field(FTVL, &quot;CHAR&quot;)
+  field(NELM, &quot;15&quot;)
+  info(archive, &quot;VAL&quot;)
+}
+
+record(waveform, &quot;$(PREFIX)LCLSGeneral:LogHost&quot;) {
+  field(DESC, &quot;The log host IP address&quot;)
+  field(DTYP, &quot;asynInt8ArrayOut&quot;)
+  field(INP, &quot;@asyn($(PORT),0,1)ADSPORT=851/GVL_Logger.cLogHost=&quot;)
+  field(FTVL, &quot;CHAR&quot;)
+  field(NELM, &quot;15&quot;)
+  info(autosaveFields_pass0, &quot;VAL&quot;)
+  info(archive, &quot;VAL&quot;)
+}```
 </pre></div>
 </div>
 </div>
@@ -108,7 +150,7 @@
       &copy;2019, SLAC National Accelerator Laboratory.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
