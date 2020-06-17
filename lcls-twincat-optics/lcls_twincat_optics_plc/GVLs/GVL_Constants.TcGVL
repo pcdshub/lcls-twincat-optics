@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <GVL Name="GVL_Constants" Id="{7aa67172-25b3-4e6c-90f4-628372b0226d}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	nGANTRY_TOLERANCE_NM_DEFAULT : LINT := 50000; // default gantry tolerance in encoder counts = nm
+	cPiezoMaxVoltage	:	LREAL := 120; // in Volts
+	cPiezoMinVoltage	:	LREAL := -10; // in Volts
+	cPiezoRange : REAL := 60.0; // From Old HOMS_FEE Project, 90 um of piezo stroke, unsure what these units are
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

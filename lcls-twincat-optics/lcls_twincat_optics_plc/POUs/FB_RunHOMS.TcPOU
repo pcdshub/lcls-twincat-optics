@@ -9,9 +9,9 @@ VAR_INPUT
 	nXupEncRef : ULINT;
 	nXdwnEncRef : ULINT;
 
-	// Gantry tolerances
-	nGantryTolY : LINT := GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
-	nGantryTolX : LINT := GVL_HOMS.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+	// Gantry Tolerances
+	nGantryTolY : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+	nGantryTolX : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
 END_VAR
 VAR_OUTPUT
 	// Gantry coupling status
@@ -29,7 +29,6 @@ VAR_IN_OUT
 	stXup : DUT_MotionStage;
 	stXdwn : DUT_MotionStage;
 	stPitch : DUT_MotionStage;
-	stBender : DUT_MotionStage;
 
 	// Manual coupling Gantried Axes
 	bExecuteCoupleY : BOOL;
@@ -54,15 +53,7 @@ VAR
 	fbAutoCoupleX : FB_GantryAutoCoupling;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// Enable motors according to pytmc docs
-stYup.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-stYdwn.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-stXup.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-stXdwn.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-stPitch.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-stBender.nEnableMode := ENUM_StageEnableMode.STAGE_ENABLE_ALWAYS;
-
-// Encoder Reference Values
+      <ST><![CDATA[// Encoder Reference Values
 stYupEnc.Ref := nYupEncRef;
 stYdwnEnc.Ref := nYdwnEncRef;
 stXupEnc.Ref := nXupEncRef;
@@ -78,7 +69,6 @@ stYdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stXup.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stXdwn.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 stPitch.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
-stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 
 // Start Autocoupling
 fbAutoCoupleY(nGantryTol:=nGantryTolY,

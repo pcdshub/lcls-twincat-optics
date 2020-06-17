@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <POU Name="FB_PI_E621_SerialDriver" Id="{70cebafc-4342-47f0-b840-ef59112aefde}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_PI_E621_SerialDriver
 VAR_INPUT
