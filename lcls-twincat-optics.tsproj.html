@@ -296,11 +296,12 @@ END_VAR
 <h2>GVL: Global_Version<a class="headerlink" href="#gvl-global-version" title="Permalink to this headline">¶</a></h2>
 <p>File: lcls_twincat_optics_plc/Version/Global_Version.TcGVL</p>
 <div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>{attribute &#39;TcGenerated&#39;}
+{attribute &#39;no-analysis&#39;}
+{attribute &#39;linkalways&#39;}
 // This function has been automatically generated from the project information.
 VAR_GLOBAL CONSTANT
 	{attribute &#39;const_non_replaced&#39;}
-	{attribute &#39;linkalways&#39;}
-	stLibVersion_lcls_twincat_optics : ST_LibVersion := (iMajor := 0, iMinor := 0, iBuild := 0, iRevision := 0, sVersion := &#39;0.0.0&#39;);
+	stLibVersion_lcls_twincat_optics : ST_LibVersion := (iMajor := 0, iMinor := 0, iBuild := 1, iRevision := 0, sVersion := &#39;0.0.1&#39;);
 END_VAR
 </pre></div>
 </div>
@@ -1975,7 +1976,7 @@ END_FUNCTION_BLOCK
 </div>
 <div class="section" id="pragma-lint-results">
 <h2>Pragma lint results<a class="headerlink" href="#pragma-lint-results" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INFO</span><span class="p">:</span><span class="n">pytmc</span><span class="o">.</span><span class="n">bin</span><span class="o">.</span><span class="n">pragmalint</span><span class="p">:</span><span class="n">Total</span> <span class="n">pragmas</span> <span class="n">found</span><span class="p">:</span> <span class="mi">21</span> <span class="n">Total</span> <span class="n">linter</span> <span class="n">errors</span><span class="p">:</span> <span class="mi">0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INFO</span><span class="p">:</span><span class="n">pytmc</span><span class="o">.</span><span class="n">bin</span><span class="o">.</span><span class="n">pragmalint</span><span class="p">:</span><span class="n">Total</span> <span class="n">pragmas</span> <span class="n">found</span><span class="p">:</span> <span class="mi">22</span> <span class="n">Total</span> <span class="n">linter</span> <span class="n">errors</span><span class="p">:</span> <span class="mi">0</span>
 <span class="n">PLC</span> <span class="n">Project</span> <span class="p">(</span><span class="mi">1</span><span class="p">):</span> <span class="n">lcls_twincat_optics_plc</span>
 <span class="o">========================================</span>
 
@@ -2019,7 +2020,7 @@ END_FUNCTION_BLOCK
 <span class="n">Version</span><span class="o">/</span><span class="n">Global_Version</span><span class="o">.</span><span class="n">TcGVL</span> <span class="p">(</span><span class="n">TcPlcObject</span><span class="p">)</span>
 <span class="o">------------------------------------------</span>
 
-    <span class="o">-</span> <span class="n">Global_Version</span><span class="p">:</span> <span class="n">Declaration</span> <span class="o">-</span> <span class="mi">3</span> <span class="n">pragmas</span>
+    <span class="o">-</span> <span class="n">Global_Version</span><span class="p">:</span> <span class="n">Declaration</span> <span class="o">-</span> <span class="mi">4</span> <span class="n">pragmas</span>
 </pre></div>
 </div>
 </div>
@@ -2106,7 +2107,7 @@ END_FUNCTION_BLOCK
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2019, SLAC National Accelerator Laboratory.
+      &copy;2020, SLAC National Accelerator Laboratory.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>

@@ -285,11 +285,12 @@ File: lcls_twincat_optics_plc/Version/Global_Version.TcGVL
 
 ```vhdl
 {attribute 'TcGenerated'}
+{attribute 'no-analysis'}
+{attribute 'linkalways'}
 // This function has been automatically generated from the project information.
 VAR_GLOBAL CONSTANT
 	{attribute 'const_non_replaced'}
-	{attribute 'linkalways'}
-	stLibVersion_lcls_twincat_optics : ST_LibVersion := (iMajor := 0, iMinor := 0, iBuild := 0, iRevision := 0, sVersion := '0.0.0');
+	stLibVersion_lcls_twincat_optics : ST_LibVersion := (iMajor := 0, iMinor := 0, iBuild := 1, iRevision := 0, sVersion := '0.0.1');
 END_VAR
 ```
 
@@ -1995,7 +1996,7 @@ Links
 Pragma lint results
 -------------------
 ```
-INFO:pytmc.bin.pragmalint:Total pragmas found: 21 Total linter errors: 0
+INFO:pytmc.bin.pragmalint:Total pragmas found: 22 Total linter errors: 0
 PLC Project (1): lcls_twincat_optics_plc
 ========================================
 
@@ -2039,6 +2040,6 @@ POUs/Tests/TEST_PitchControl.TcPOU (TcPlcObject)
 Version/Global_Version.TcGVL (TcPlcObject)
 ------------------------------------------
 
-    - Global_Version: Declaration - 3 pragmas
+    - Global_Version: Declaration - 4 pragmas
 
 ```
