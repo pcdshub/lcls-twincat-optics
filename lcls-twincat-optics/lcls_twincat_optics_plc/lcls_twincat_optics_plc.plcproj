@@ -15,9 +15,9 @@
     <LibraryReferences>{180c5325-4437-417e-ad15-a77988b43cc2}</LibraryReferences>
     <CombineIds>false</CombineIds>
     <Company>SLAC</Company>
-    <Released>false</Released>
+    <Released>true</Released>
     <Title>lcls-twincat-optics</Title>
-    <ProjectVersion>0.0.0</ProjectVersion>
+    <ProjectVersion>0.0.1</ProjectVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DUTs\DUT_HOMS.TcDUT">
