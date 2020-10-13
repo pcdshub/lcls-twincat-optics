@@ -1,0 +1,137 @@
+
+NC Settings
+-----------
+
+.. csv-table::
+    :header: Axis ID, Name
+    :align: center
+
+        1, Axis 1
+        2, TestPitch_LimitSwitches
+        3, Axis 2
+        4, Axis 3
+        5, Axis 4
+        6, Axis 5
+        7, Axis 6
+
+
+
+Axis 1: Axis 1
+^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: Setting, Value
+    :align: center
+
+    Axis ID, 1
+    Name, Axis 1
+    AxisType, 1
+    CreateSymbols, true
+    Enc:EncType, 1
+    Id, 1
+    OtherSettings:AllowMotionCmdToSlave, true
+
+
+
+Axis 2: TestPitch_LimitSwitches
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: Setting, Value
+    :align: center
+
+    Axis ID, 2
+    Name, TestPitch_LimitSwitches
+    AxisFolder, TestAxes
+    AxisType, 1
+    CreateSymbols, true
+    Enc:EncType, 1
+    Id, 2
+    OtherSettings:AllowMotionCmdToSlave, true
+
+
+
+Axis 3: Axis 2
+^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: Setting, Value
+    :align: center
+
+    Axis ID, 3
+    Name, Axis 2
+    AxisType, 1
+    CreateSymbols, true
+    Enc:EncType, 1
+    Id, 3
+    OtherSettings:AllowMotionCmdToSlave, true
+
+
+
+Axis 4: Axis 3
+^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: Setting, Value
+    :align: center
+
+    Axis ID, 4
+    Name, Axis 3
+    AxisType, 1
+    CreateSymbols, true
+    Enc:EncType, 1
+    Id, 4
+    OtherSettings:AllowMotionCmdToSlave, true
+
+
+
+Axis 5: Axis 4
+^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: Setting, Value
+    :align: center
+
+    Axis ID, 5
+    Name, Axis 4
+    AxisType, 1
+    CreateSymbols, true
+    Enc:EncType, 1
+    Id, 5
+    OtherSettings:AllowMotionCmdToSlave, true
+
+
+
+Axis 6: Axis 5
+^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: Setting, Value
+    :align: center
+
+    Axis ID, 6
+    Name, Axis 5
+    AxisType, 1
+    CreateSymbols, true
+    Enc:EncType, 1
+    Id, 6
+    OtherSettings:AllowMotionCmdToSlave, true
+
+
+
+Axis 7: Axis 6
+^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: Setting, Value
+    :align: center
+
+    Axis ID, 7
+    Name, Axis 6
+    AxisType, 1
+    CreateSymbols, true
+    Enc:EncType, 1
+    Id, 7
+    OtherSettings:AllowMotionCmdToSlave, true
+
+

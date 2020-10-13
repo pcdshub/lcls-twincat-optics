@@ -1,0 +1,20 @@
+
+Links
+-----
+
+.. csv-table::
+    :header: Owner A, Item A, Owner B, Item B
+    :align: center
+
+        lcls_twincat_optics_plc Instance, PlcTask Inputs^Main.M1.Axis.NcToPlc, TINC^NC-Task 1 SAF^Axes^Axis 1, Outputs^ToPlc
+        lcls_twincat_optics_plc Instance, PlcTask Inputs^Main.M2.Axis.NcToPlc, TINC^NC-Task 1 SAF^Axes^Axis 2, Outputs^ToPlc
+        lcls_twincat_optics_plc Instance, PlcTask Inputs^Main.M3.Axis.NcToPlc, TINC^NC-Task 1 SAF^Axes^Axis 3, Outputs^ToPlc
+        lcls_twincat_optics_plc Instance, PlcTask Inputs^Main.M4.Axis.NcToPlc, TINC^NC-Task 1 SAF^Axes^Axis 4, Outputs^ToPlc
+        lcls_twincat_optics_plc Instance, PlcTask Inputs^Main.M5.Axis.NcToPlc, TINC^NC-Task 1 SAF^Axes^Axis 5, Outputs^ToPlc
+        lcls_twincat_optics_plc Instance, PlcTask Inputs^Main.M6.Axis.NcToPlc, TINC^NC-Task 1 SAF^Axes^Axis 6, Outputs^ToPlc
+        lcls_twincat_optics_plc Instance, PlcTask Outputs^Main.M1.Axis.PlcToNc, TINC^NC-Task 1 SAF^Axes^Axis 1, Inputs^FromPlc
+        lcls_twincat_optics_plc Instance, PlcTask Outputs^Main.M2.Axis.PlcToNc, TINC^NC-Task 1 SAF^Axes^Axis 2, Inputs^FromPlc
+        lcls_twincat_optics_plc Instance, PlcTask Outputs^Main.M3.Axis.PlcToNc, TINC^NC-Task 1 SAF^Axes^Axis 3, Inputs^FromPlc
+        lcls_twincat_optics_plc Instance, PlcTask Outputs^Main.M4.Axis.PlcToNc, TINC^NC-Task 1 SAF^Axes^Axis 4, Inputs^FromPlc
+        lcls_twincat_optics_plc Instance, PlcTask Outputs^Main.M5.Axis.PlcToNc, TINC^NC-Task 1 SAF^Axes^Axis 5, Inputs^FromPlc
+        lcls_twincat_optics_plc Instance, PlcTask Outputs^Main.M6.Axis.PlcToNc, TINC^NC-Task 1 SAF^Axes^Axis 6, Inputs^FromPlc
