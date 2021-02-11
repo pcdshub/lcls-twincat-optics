@@ -38,6 +38,7 @@ Libraries
 
         LCLS General, SLAC, Unset, Unset
         lcls-twincat-motion, SLAC, Unset, Unset
+        PMPS, SLAC - LCLS, Unset, Unset
         Tc2_ControllerToolbox, Beckhoff Automation GmbH, Unset, 
         Tc2_MC2, Beckhoff Automation GmbH, Unset, 
         Tc2_SerialCom, Beckhoff Automation GmbH, Unset, 

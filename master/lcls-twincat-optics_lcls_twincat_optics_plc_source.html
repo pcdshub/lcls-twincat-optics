@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>DUTs &mdash; pcdshub/lcls-twincat-optics  documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="_static/doctr-versions-menu.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -51,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> pcdshub/lcls-twincat-optics
+            <a href="index.html" class="icon icon-home"> pcdshub/lcls-twincat-optics
           
 
           
@@ -113,6 +115,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#pous">POUs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#fb-bender">FB_Bender</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fb-mirrortwocoatingprotection">FB_MirrorTwoCoatingProtection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fb-pi-e621-serialdriver">FB_PI_E621_SerialDriver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fb-pi-e621-serialtransaction">FB_PI_E621_SerialTransaction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fb-piezocontrol">FB_PiezoControl</a></li>
@@ -165,6 +168,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -176,7 +181,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/lcls-twincat-optics_lcls_twincat_optics_plc_source.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -381,7 +386,7 @@ END_TYPE
 <span class="o">//</span> <span class="n">This</span> <span class="n">function</span> <span class="n">has</span> <span class="n">been</span> <span class="n">automatically</span> <span class="n">generated</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">project</span> <span class="n">information</span><span class="o">.</span>
 <span class="n">VAR_GLOBAL</span> <span class="n">CONSTANT</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;const_non_replaced&#39;</span><span class="p">}</span>
-    <span class="n">stLibVersion_lcls_twincat_optics</span> <span class="p">:</span> <span class="n">ST_LibVersion</span> <span class="o">:=</span> <span class="p">(</span><span class="n">iMajor</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iMinor</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iBuild</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">iRevision</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sVersion</span> <span class="o">:=</span> <span class="s1">&#39;0.0.2&#39;</span><span class="p">);</span>
+    <span class="n">stLibVersion_lcls_twincat_optics</span> <span class="p">:</span> <span class="n">ST_LibVersion</span> <span class="o">:=</span> <span class="p">(</span><span class="n">iMajor</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iMinor</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iBuild</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iRevision</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sVersion</span> <span class="o">:=</span> <span class="s1">&#39;0.0.0&#39;</span><span class="p">);</span>
 <span class="n">END_VAR</span>
 </pre></div>
 </div>
@@ -430,6 +435,66 @@ END_TYPE
 <span class="o">//</span> <span class="n">Simple</span> <span class="n">FB</span> <span class="n">to</span> <span class="n">tie</span> <span class="n">stBender</span><span class="o">.</span><span class="n">bHardwareEnable</span> <span class="n">to</span> <span class="n">STO</span>
 <span class="o">//</span> <span class="n">Originally</span> <span class="n">part</span> <span class="n">of</span> <span class="n">FB_RunHOMS</span><span class="p">,</span> <span class="n">but</span> <span class="n">want</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">systems</span><span class="p">,</span> <span class="ow">not</span> <span class="nb">all</span> <span class="n">of</span> <span class="n">which</span> <span class="n">have</span> <span class="n">a</span> <span class="n">bender</span> <span class="n">motor</span>
 <span class="n">stBender</span><span class="o">.</span><span class="n">bHardwareEnable</span> <span class="o">:=</span> <span class="n">bSTOEnable1</span> <span class="n">AND</span> <span class="n">bSTOEnable2</span><span class="p">;</span>
+
+<span class="n">END_FUNCTION_BLOCK</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fb-mirrortwocoatingprotection">
+<h2>FB_MirrorTwoCoatingProtection<a class="headerlink" href="#fb-mirrortwocoatingprotection" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_MirrorTwoCoatingProtection</span>
+<span class="n">VAR_INPUT</span>
+    <span class="n">nCurrentEncoderCount</span> <span class="p">:</span> <span class="n">UDINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Current</span> <span class="n">encoder</span> <span class="n">count</span>
+    <span class="n">neVRange</span> <span class="p">:</span> <span class="n">WORD</span><span class="p">;</span> <span class="o">//</span> <span class="n">Current</span> <span class="n">ev</span> <span class="nb">range</span> <span class="kn">from</span> <span class="nn">stCurrentBeamParams</span>
+
+    <span class="n">sDevName</span> <span class="p">:</span> <span class="n">STRING</span> <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="o">//</span> <span class="n">Device</span> <span class="n">name</span>
+
+    <span class="n">nUpperCoatingBoundary</span> <span class="p">:</span> <span class="n">UDINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Encoder</span> <span class="n">count</span> <span class="k">for</span> <span class="n">upper</span> <span class="n">boundary</span>
+    <span class="n">nUpperCoatingBitmask</span> <span class="p">:</span> <span class="n">WORD</span><span class="p">;</span> <span class="o">//</span> <span class="n">Bitmask</span> <span class="k">for</span> <span class="n">upper</span> <span class="n">coating</span>
+    <span class="n">sUpperCoatingType</span> <span class="p">:</span> <span class="n">STRING</span> <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="o">//</span> <span class="n">Type</span> <span class="n">of</span> <span class="n">coating</span>
+
+    <span class="n">nLowerCoatingBoundary</span> <span class="p">:</span> <span class="n">UDINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Encoder</span> <span class="n">count</span> <span class="k">for</span> <span class="n">lower</span> <span class="n">boundary</span>
+    <span class="n">nLowerCoatingBitMask</span> <span class="p">:</span> <span class="n">WORD</span><span class="p">;</span>
+    <span class="n">sLowerCoatingType</span> <span class="p">:</span> <span class="n">STRING</span> <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="o">//</span> <span class="n">Type</span> <span class="n">of</span> <span class="n">coating</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR_OUTPUT</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR_IN_OUT</span>
+    <span class="n">FFO</span> <span class="p">:</span> <span class="n">FB_HardwareFFOutput</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR</span>
+    <span class="n">ffUpperCoating</span><span class="p">:</span> <span class="n">FB_FastFault</span> <span class="o">:=</span> <span class="p">(</span>
+            <span class="n">i_xAutoReset</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">,</span>
+            <span class="n">i_TypeCode</span> <span class="o">:=</span> <span class="mi">16</span><span class="c1">#401);</span>
+    <span class="n">ffLowerCoating</span> <span class="p">:</span> <span class="n">FB_FastFault</span> <span class="o">:=</span> <span class="p">(</span>
+            <span class="n">i_xAutoReset</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">,</span>
+            <span class="n">i_TypeCode</span> <span class="o">:=</span> <span class="mi">16</span><span class="c1">#401);</span>
+
+    <span class="n">bInit</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+<span class="n">IF</span> <span class="n">NOT</span> <span class="n">bInit</span> <span class="n">THEN</span>
+    <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_Desc</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sUpperCoatingType</span><span class="p">,</span> <span class="s1">&#39; mirror coating incompatible with beam photon energy&#39;</span><span class="p">);</span>
+    <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_DevName</span> <span class="o">:=</span> <span class="n">sDevName</span><span class="p">;</span>
+
+    <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_Desc</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sLowerCoatingType</span><span class="p">,</span> <span class="s1">&#39; mirror coating incompatible with beam photon energy&#39;</span><span class="p">);</span>
+    <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_DevName</span> <span class="o">:=</span> <span class="n">sDevName</span><span class="p">;</span>
+
+    <span class="n">bInit</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+<span class="n">END_IF</span>
+
+<span class="n">IF</span> <span class="n">nCurrentEncoderCount</span> <span class="o">&lt;=</span> <span class="n">nLowerCoatingBoundary</span> <span class="n">THEN</span>
+    <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="p">(</span><span class="n">neVRange</span> <span class="n">AND</span> <span class="n">nLowerCoatingBitMask</span><span class="p">)</span> <span class="o">=</span> <span class="n">neVRange</span><span class="p">;</span>
+    <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_xOK</span>  <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+<span class="n">ELSIF</span> <span class="n">nCurrentEncoderCount</span> <span class="o">&gt;=</span> <span class="n">nUpperCoatingBoundary</span> <span class="n">THEN</span>
+    <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="p">(</span><span class="n">neVRange</span> <span class="n">AND</span> <span class="n">nUpperCoatingBitmask</span><span class="p">)</span> <span class="o">=</span> <span class="n">neVRange</span><span class="p">;</span>
+    <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+<span class="n">ELSE</span>
+    <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
+    <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
+<span class="n">END_IF</span>
+
+<span class="n">ffUpperCoating</span><span class="p">(</span><span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">);</span>
+<span class="n">ffLowerCoating</span><span class="p">(</span><span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">);</span>
 
 <span class="n">END_FUNCTION_BLOCK</span>
 </pre></div>
@@ -1634,35 +1699,28 @@ END_FUNCTION_BLOCK
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="lcls-twincat-optics_lcls_twincat_optics_plc_epics.html" class="btn btn-neutral float-left" title="Data Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="lcls-twincat-optics_lcls_twincat_optics_plc_epics.html" class="btn btn-neutral float-left" title="Data Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, SLAC National Accelerator Laboratory
+        &#169; Copyright 2021, SLAC National Accelerator Laboratory.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
