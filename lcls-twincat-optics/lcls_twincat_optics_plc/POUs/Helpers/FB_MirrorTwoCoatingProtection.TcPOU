@@ -16,7 +16,7 @@ VAR_INPUT
 	nLowerCoatingBitMask : WORD;
 	sLowerCoatingType : STRING := ''; // Type of coating
     
-    bAutoClear : BOOL; // Auto-clear these fast faults
+    bAutoClear : BOOL := TRUE; // Auto-clear these fast faults
 END_VAR
 VAR_OUTPUT
 END_VAR
