@@ -15,6 +15,8 @@ VAR_INPUT
 	nLowerCoatingBoundary : UDINT; // Encoder count for lower boundary
 	nLowerCoatingBitMask : WORD;
 	sLowerCoatingType : STRING := ''; // Type of coating
+    
+    bAutoClear : BOOL := TRUE; // Auto-clear these fast faults
 END_VAR
 VAR_OUTPUT
 END_VAR
@@ -54,16 +56,8 @@ ELSE
 	ffUpperCoating.i_xOK := FALSE;
 END_IF
 
-ffUpperCoating(io_fbFFHWO:=FFO);
-ffLowerCoating(io_fbFFHWO:=FFO);]]></ST>
+ffUpperCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
+ffLowerCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);]]></ST>
     </Implementation>
-    <LineIds Name="FB_MirrorTwoCoatingProtection">
-      <LineId Id="49" Count="0" />
-      <LineId Id="55" Count="5" />
-      <LineId Id="53" Count="1" />
-      <LineId Id="50" Count="0" />
-      <LineId Id="36" Count="11" />
-      <LineId Id="9" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>
