@@ -456,6 +456,8 @@ END_TYPE
     <span class="n">nLowerCoatingBoundary</span> <span class="p">:</span> <span class="n">UDINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Encoder</span> <span class="n">count</span> <span class="k">for</span> <span class="n">lower</span> <span class="n">boundary</span>
     <span class="n">nLowerCoatingBitMask</span> <span class="p">:</span> <span class="n">WORD</span><span class="p">;</span>
     <span class="n">sLowerCoatingType</span> <span class="p">:</span> <span class="n">STRING</span> <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="o">//</span> <span class="n">Type</span> <span class="n">of</span> <span class="n">coating</span>
+
+    <span class="n">bAutoClear</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span> <span class="o">//</span> <span class="n">Auto</span><span class="o">-</span><span class="n">clear</span> <span class="n">these</span> <span class="n">fast</span> <span class="n">faults</span>
 <span class="n">END_VAR</span>
 <span class="n">VAR_OUTPUT</span>
 <span class="n">END_VAR</span>
@@ -493,8 +495,8 @@ END_TYPE
     <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
 <span class="n">END_IF</span>
 
-<span class="n">ffUpperCoating</span><span class="p">(</span><span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">);</span>
-<span class="n">ffLowerCoating</span><span class="p">(</span><span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">);</span>
+<span class="n">ffUpperCoating</span><span class="p">(</span><span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">,</span> <span class="n">i_xAutoReset</span> <span class="o">:=</span> <span class="n">bAutoClear</span><span class="p">);</span>
+<span class="n">ffLowerCoating</span><span class="p">(</span><span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">,</span> <span class="n">i_xAutoReset</span> <span class="o">:=</span> <span class="n">bAutoClear</span><span class="p">);</span>
 
 <span class="n">END_FUNCTION_BLOCK</span>
 </pre></div>

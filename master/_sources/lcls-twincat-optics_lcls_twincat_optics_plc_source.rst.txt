@@ -286,6 +286,8 @@ FB_MirrorTwoCoatingProtection
     	nLowerCoatingBoundary : UDINT; // Encoder count for lower boundary
     	nLowerCoatingBitMask : WORD;
     	sLowerCoatingType : STRING := ''; // Type of coating
+        
+        bAutoClear : BOOL := TRUE; // Auto-clear these fast faults
     END_VAR
     VAR_OUTPUT
     END_VAR
@@ -323,8 +325,8 @@ FB_MirrorTwoCoatingProtection
     	ffUpperCoating.i_xOK := FALSE;
     END_IF
 
-    ffUpperCoating(io_fbFFHWO:=FFO);
-    ffLowerCoating(io_fbFFHWO:=FFO);
+    ffUpperCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
+    ffLowerCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
 
     END_FUNCTION_BLOCK
 
