@@ -1,0 +1,21 @@
+
+Pragmas
+-------
+
+.. csv-table::
+    :header: PLC Name, Total Pragmas, Errors
+    :align: center
+
+    :ref:`lcls_twincat_optics_plc <lcls_twincat_optics_plc_overview_pragmas>`, 21, 0
+
+
+.. _lcls_twincat_optics_plc_overview_pragmas:
+
+
+lcls_twincat_optics_plc
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Total pragmas found: 21
+Total linter errors: 0
+
+
