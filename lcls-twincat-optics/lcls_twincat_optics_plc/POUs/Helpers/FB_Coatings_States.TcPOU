@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_Coatings_States" Id="{c817b2bc-2641-4465-93f9-7480896c7067}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Coatings_States EXTENDS FB_PositionStateBase_WithPMPS
+VAR_INPUT
+	{attribute 'pytmc' := '
+        pv: SET
+        io: io
+    '}
+    enumSet: ENUM_Coating_States;
+    stCoating1: DUT_PositionState;
+    stCoating2: DUT_PositionState;
+    bStatesLock: BOOL;
+END_VAR
+VAR_OUTPUT
+	 {attribute 'pytmc' := '
+        pv: GET
+        io: i
+    '}
+    enumGet: ENUM_Coating_States;
+END_VAR
+VAR
+	 bInitState: BOOL :=TRUE;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bInitState THEN
+    bInitState := FALSE;
+	stCoating1.bUseRawCounts := TRUE;
+	stCoating2.bUseRawCounts := TRUE;
+	
+	stCoating1.bValid := TRUE;
+	stCoating2.bValid := TRUE;
+	
+	stCoating1.bMoveOk := TRUE;
+	stCoating2.bMoveOk := TRUE;
+	
+    arrStates[1] := stCoating1;
+    arrStates[2] := stCoating2;
+END_IF
+
+setState := enumSet;
+Exec();
+enumGet := getState;
+enumSet := setState;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

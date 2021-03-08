@@ -12,6 +12,18 @@ VAR_INPUT
 	// Gantry Tolerances
 	nGantryTolY : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
 	nGantryTolX : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+	
+	// PMPS States
+	nTransitionAssertionID: UDINT;
+    nUnknownAssertionID: UDINT;
+	sCoating1Type : STRING := ''; //Type of Material on Coating 1
+	nCoating1Position: UDINT; // Encoder Count Position of Coating 1
+	fCoating1Delta: LREAL;//Position Boundary delta in scaled position units
+	stCoating1BeamParams: ST_BeamParams:= PMPS_GVL.cst0RateBeam;; //Safe Beam Parameters for the first coating
+	sCoating2Type : STRING := '';// Type of Material on Coating 2
+	nCoating2Position: UDINT; // Encoder Count Position of Coating 2
+	fCoating2Delta: LREAL;//Position Boundary delta in scaled position units
+	stCoating2BeamParams: ST_BeamParams:= PMPS_GVL.cst0RateBeam; //Safe Beam Parameters for the second coating
 END_VAR
 VAR_OUTPUT
 	// Gantry coupling status
@@ -35,8 +47,20 @@ VAR_IN_OUT
 	bExecuteCoupleX : BOOL;
 	bExecuteDecoupleY : BOOL;
 	bExecuteDecoupleX : BOOL;
+	
+	// States PMPS
+	fbArbiter: FB_Arbiter;
+    fbFFHWO: FB_HardwareFFOutput;
 END_VAR
 VAR
+	// States Init
+	 bInit: BOOL :=TRUE;
+	 {attribute 'pytmc' := '
+        pv: COATING:STATE
+        io: i
+    '}
+    fbStates: FB_Coatings_States;
+	 
 	// STO Button
 	bSTOEnable1 AT %I* : BOOL;
 	bSTOEnable2 AT %I* : BOOL;
@@ -51,9 +75,40 @@ VAR
 	// Autocoupling Gantried Axes
 	fbAutoCoupleY : FB_GantryAutoCoupling;
 	fbAutoCoupleX : FB_GantryAutoCoupling;
+	fAccel: LREAL;
+END_VAR
+
+VAR CONSTANT
+    fVelocity: LREAL := 0.01;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// Encoder Reference Values
+      <ST><![CDATA[IF bInit THEN
+	bInit := FALSE;
+	
+	// First coating Material
+	fbStates.stCoating1.nRequestAssertionID := nTransitionAssertionID+1;
+	fbStates.stCoating1.sName := sCoating1Type;
+	fbStates.stCoating1.nEncoderCount := nCoating1Position;
+	fbStates.stCoating1.stBeamParams := stCoating1BeamParams;
+	fbStates.stCoating1.fVelocity := fVelocity;
+	fbStates.stCoating1.fDelta := fCoating1Delta;
+	fbStates.stCoating1.fAccel := fAccel;
+	fbStates.stCoating1.fDecel := fAccel;
+
+	//Second Coating Material
+	fbStates.stCoating2.nRequestAssertionID := nTransitionAssertionID+2;
+	fbStates.stCoating2.sName := sCoating2Type;
+	fbStates.stCoating2.nEncoderCount := nCoating2Position;
+	fbStates.stCoating2.stBeamParams := stCoating2BeamParams;
+	fbStates.stCoating2.fVelocity := fVelocity;
+	fbStates.stCoating2.fDelta := fCoating2Delta;
+	fbStates.stCoating2.fAccel := fAccel;
+	fbStates.stCoating2.fDecel := fAccel;
+END_IF
+
+
+
+// Encoder Reference Values
 stYupEnc.Ref := nYupEncRef;
 stYdwnEnc.Ref := nYdwnEncRef;
 stXupEnc.Ref := nXupEncRef;
@@ -87,7 +142,16 @@ fbAutoCoupleX(nGantryTol:=nGantryTolX,
 			  SlaveEnc:=stXdwnEnc,
 			  bExecuteCouple:=bExecuteCoupleX,
 			  bExecuteDecouple:=bExecuteDecoupleX,
-			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);]]></ST>
+			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);
+			  
+//Coatings States With PMPS
+fbStates(
+    fbArbiter:=fbArbiter,
+    fbFFHWO:=fbFFHWO,
+    nTransitionAssertionID:=nTransitionAssertionID,
+    nUnknownAssertionID:=nUnknownAssertionID,
+    stMotionStage:=stYup, // Y Gantry Master Axis
+    bEnable:=TRUE);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
