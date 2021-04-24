@@ -4,16 +4,16 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MirrorTwoCoatingProtection
 VAR_INPUT
 	nCurrentEncoderCount : UDINT; // Current encoder count
-	neVRange : WORD; // Current ev range from stCurrentBeamParams	
+	neVRange : DWORD; // Current ev range from stCurrentBeamParams	
 
 	sDevName : STRING := ''; // Device name	
 
 	nUpperCoatingBoundary : UDINT; // Encoder count for upper boundary
-	nUpperCoatingBitmask : WORD; // Bitmask for upper coating
+	nUpperCoatingBitmask : DWORD; // Bitmask for upper coating
 	sUpperCoatingType : STRING := ''; // Type of coating
 	
 	nLowerCoatingBoundary : UDINT; // Encoder count for lower boundary
-	nLowerCoatingBitMask : WORD;
+	nLowerCoatingBitMask : DWORD;
 	sLowerCoatingType : STRING := ''; // Type of coating
     
     bAutoClear : BOOL := TRUE; // Auto-clear these fast faults
