@@ -445,16 +445,16 @@ END_TYPE
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_MirrorTwoCoatingProtection</span>
 <span class="n">VAR_INPUT</span>
     <span class="n">nCurrentEncoderCount</span> <span class="p">:</span> <span class="n">UDINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Current</span> <span class="n">encoder</span> <span class="n">count</span>
-    <span class="n">neVRange</span> <span class="p">:</span> <span class="n">WORD</span><span class="p">;</span> <span class="o">//</span> <span class="n">Current</span> <span class="n">ev</span> <span class="nb">range</span> <span class="kn">from</span> <span class="nn">stCurrentBeamParams</span>
+    <span class="n">neVRange</span> <span class="p">:</span> <span class="n">DWORD</span><span class="p">;</span> <span class="o">//</span> <span class="n">Current</span> <span class="n">ev</span> <span class="nb">range</span> <span class="kn">from</span> <span class="nn">stCurrentBeamParams</span>
 
     <span class="n">sDevName</span> <span class="p">:</span> <span class="n">STRING</span> <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="o">//</span> <span class="n">Device</span> <span class="n">name</span>
 
     <span class="n">nUpperCoatingBoundary</span> <span class="p">:</span> <span class="n">UDINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Encoder</span> <span class="n">count</span> <span class="k">for</span> <span class="n">upper</span> <span class="n">boundary</span>
-    <span class="n">nUpperCoatingBitmask</span> <span class="p">:</span> <span class="n">WORD</span><span class="p">;</span> <span class="o">//</span> <span class="n">Bitmask</span> <span class="k">for</span> <span class="n">upper</span> <span class="n">coating</span>
+    <span class="n">nUpperCoatingBitmask</span> <span class="p">:</span> <span class="n">DWORD</span><span class="p">;</span> <span class="o">//</span> <span class="n">Bitmask</span> <span class="k">for</span> <span class="n">upper</span> <span class="n">coating</span>
     <span class="n">sUpperCoatingType</span> <span class="p">:</span> <span class="n">STRING</span> <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="o">//</span> <span class="n">Type</span> <span class="n">of</span> <span class="n">coating</span>
 
     <span class="n">nLowerCoatingBoundary</span> <span class="p">:</span> <span class="n">UDINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Encoder</span> <span class="n">count</span> <span class="k">for</span> <span class="n">lower</span> <span class="n">boundary</span>
-    <span class="n">nLowerCoatingBitMask</span> <span class="p">:</span> <span class="n">WORD</span><span class="p">;</span>
+    <span class="n">nLowerCoatingBitMask</span> <span class="p">:</span> <span class="n">DWORD</span><span class="p">;</span>
     <span class="n">sLowerCoatingType</span> <span class="p">:</span> <span class="n">STRING</span> <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="o">//</span> <span class="n">Type</span> <span class="n">of</span> <span class="n">coating</span>
 
     <span class="n">bAutoClear</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span> <span class="o">//</span> <span class="n">Auto</span><span class="o">-</span><span class="n">clear</span> <span class="n">these</span> <span class="n">fast</span> <span class="n">faults</span>
