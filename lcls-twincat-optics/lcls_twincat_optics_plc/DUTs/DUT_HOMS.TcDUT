@@ -32,11 +32,13 @@ STRUCT
 	{attribute 'pytmc' := '
 		pv: ALREADY_COUPLED_Y
 		io: i
+        field: ZSV MAJOR
 	'}
 	bGantryAlreadyCoupledY : BOOL;
 	{attribute 'pytmc' := '
 		pv: ALREADY_COUPLED_X
 		io: i
+        field: ZSV MAJOR
 	'}
 	bGantryAlreadyCoupledX : BOOL;
 
