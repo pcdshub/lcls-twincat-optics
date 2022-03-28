@@ -40,11 +40,13 @@ DUT_HOMS
     	{attribute 'pytmc' := '
     		pv: ALREADY_COUPLED_Y
     		io: i
+            field: ZSV MAJOR
     	'}
     	bGantryAlreadyCoupledY : BOOL;
     	{attribute 'pytmc' := '
     		pv: ALREADY_COUPLED_X
     		io: i
+            field: ZSV MAJOR
     	'}
     	bGantryAlreadyCoupledX : BOOL;
 
@@ -69,6 +71,11 @@ DUT_HOMS
     END_TYPE
 
 
+Related:
+    * `DUT_HOMS`_
+    * `FB_RunHOMS`_
+
+
 E_PiezoControl
 ^^^^^^^^^^^^^^
 
@@ -86,6 +93,8 @@ E_PiezoControl
     	EPC_Error := 500
     );
     END_TYPE
+
+
 
 
 E_PitchControl
@@ -114,6 +123,8 @@ E_PitchControl
     END_TYPE
 
 
+
+
 HOMS_PitchMechanism
 ^^^^^^^^^^^^^^^^^^^
 
@@ -139,6 +150,10 @@ HOMS_PitchMechanism
     	diEncCnt	AT %I*	:	LINT;
     END_STRUCT
     END_TYPE
+
+
+Related:
+    * `ST_PiezoAxis`_
 
 
 ST_PiezoAxis
@@ -192,6 +207,11 @@ ST_PiezoAxis
     END_TYPE
 
 
+Related:
+    * `FB_PitchControl`_
+    * `GVL_Constants`_
+
+
 GVLs
 ----
 
@@ -211,6 +231,8 @@ Global_Version
     END_VAR
 
 
+
+
 GVL_Constants
 ^^^^^^^^^^^^^
 
@@ -225,6 +247,8 @@ GVL_Constants
     END_VAR
 
 
+
+
 GVL_TestStructs
 ^^^^^^^^^^^^^^^
 
@@ -237,6 +261,10 @@ GVL_TestStructs
     		                                              diEncPosLimHi:=10768330,
     		                                              diEncPosLimLo:=8141680);
     END_VAR
+
+
+Related:
+    * `HOMS_PitchMechanism`_
 
 
 POUs
@@ -265,6 +293,10 @@ FB_Bender
     stBender.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 
     END_FUNCTION_BLOCK
+
+
+Related:
+    * `FB_RunHOMS`_
 
 
 FB_MirrorTwoCoatingProtection
@@ -329,6 +361,8 @@ FB_MirrorTwoCoatingProtection
     ffLowerCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
 
     END_FUNCTION_BLOCK
+
+
 
 
 FB_PI_E621_SerialDriver
@@ -545,6 +579,7 @@ FB_PI_E621_SerialDriver
     IF i = 51 THEN i := 1; END_IF
 
     END_FUNCTION_BLOCK
+
     ACTION a_ClearTrans:
     (* Refactor this action to match your transaction *)
     fbPITransaction.i_xExecute := TRUE;
@@ -562,12 +597,14 @@ FB_PI_E621_SerialDriver
     	iq_stSerialTXBuffer:= iq_stSerialTXBuffer );
     fbPITransaction.i_xExpectReply:=TRUE;
     END_ACTION
+
     ACTION a_ErrorMesg:
     fbFormatString( sformat:=sErrMesg, 
     	arg1:=F_INT(iStep), 
     	arg2:=F_STRING(fbPITransaction.q_sResult),
     	sOut => q_sResult);
     END_ACTION
+
     ACTION a_UnknownError:
     q_sResult:= 'Unknown error';
 
@@ -576,6 +613,11 @@ FB_PI_E621_SerialDriver
     	arg2:=F_STRING(q_sResult), //Little silly, but have to do this because F_STRING requires read/write access
     	sOut => q_sResult);
     END_ACTION
+
+
+Related:
+    * `FB_PI_E621_SerialTransaction`_
+    * `ST_PiezoAxis`_
 
 
 FB_PI_E621_SerialTransaction
@@ -738,6 +780,8 @@ FB_PI_E621_SerialTransaction
     END_CASE
 
     END_FUNCTION_BLOCK
+
+
 
 
 FB_PiezoControl
@@ -915,12 +959,20 @@ FB_PiezoControl
     xFirstPass := FALSE;
 
     END_FUNCTION_BLOCK
+
     ACTION ACT_CheckLimits:
 
     END_ACTION
+
     ACTION ACT_Controller:
 
     END_ACTION
+
+
+Related:
+    * `E_PiezoControl`_
+    * `ST_PiezoAxis`_
+    * `WithinRange`_
 
 
 FB_PitchControl
@@ -1121,6 +1173,7 @@ FB_PitchControl
     			   Enable_Negative:=Stepper.bLimitBackwardEnable);
 
     END_FUNCTION_BLOCK
+
     ACTION ACT_ResetSetpoint:
     // Action to reset the Setpoint to the previous value when:
     // - New setpoint outside range of soft limits
@@ -1139,6 +1192,14 @@ FB_PitchControl
     	PC_State := PCM_Standby;
     END_IF
     END_ACTION
+
+
+Related:
+    * `E_PitchControl`_
+    * `FB_PiezoControl`_
+    * `GVL_Constants`_
+    * `HOMS_PitchMechanism`_
+    * `WithinRange`_
 
 
 FB_RMSWatch
@@ -1236,6 +1297,8 @@ FB_RMSWatch
     END_FUNCTION_BLOCK
 
 
+
+
 FB_RunHOMS
 ^^^^^^^^^^
 
@@ -1329,6 +1392,10 @@ FB_RunHOMS
     			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);
 
     END_FUNCTION_BLOCK
+
+
+Related:
+    * `GVL_Constants`_
 
 
 Main
@@ -1436,6 +1503,13 @@ Main
     END_PROGRAM
 
 
+Related:
+    * `DUT_HOMS`_
+    * `FB_Bender`_
+    * `FB_PitchControl`_
+    * `HOMS_PitchMechanism`_
+
+
 MC_SmoothMover
 ^^^^^^^^^^^^^^
 
@@ -1500,6 +1574,8 @@ MC_SmoothMover
     END_FUNCTION_BLOCK
 
 
+
+
 TEST_PitchControl
 ^^^^^^^^^^^^^^^^^
 
@@ -1516,6 +1592,183 @@ TEST_PitchControl
     LimitSwitches();
 
     END_FUNCTION_BLOCK
+
+    METHOD LimitSwitches
+    VAR_INPUT
+        
+    END_VAR
+    VAR
+        fActPosition : LREAL;
+    	bPitchDone : BOOL;
+    END_VAR
+    VAR_INST
+        fbPitchControl : FB_PitchControl;
+
+    	ExpertMode : BOOL := FALSE;
+    	PitchManualMode : BOOL := FALSE;
+        
+        iStep : UINT := 0;
+        
+        rtDone : R_TRIG;
+        
+        tonHack : TON := (PT:=T#2s);
+        
+    END_VAR
+    VAR CONSTANT
+        BwdLimPos : LREAL := -500;
+        FwdLimPos : LREAL := 500;
+        
+        ForwardTestSP : LREAL := 1000;
+    END_VAR
+    fActPosition := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition;
+
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitBackwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition > BwdLimPos;
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitForwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition < FwdLimPos;
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bHardwareEnable := TRUE;
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fVelocity := 150.0;
+
+    fbPitchControl(Pitch:=GVL_TestStructs.TestPitch_LimitSwitches,
+    			   q_bDone=>bPitchDone,
+    			   q_bBusy=>);
+    rtDone(CLK:=bPitchDone);
+
+    tonHack(IN:=GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL);
+
+                   
+    TEST('PitchControlLimitSwitchTests');               
+    CASE iStep OF
+
+
+    0: // Set SP to 1000, hit a limit, and stop.
+    // Test failing, not as important with limit switches b/c if you hit the limit you will stop and won't be allowed to move forward until you manually reset the SP to within limits
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := ForwardTestSP;
+
+    TEST('Forward Limit Switch Stop');
+    IF fActPosition > FwdLimPos AND rtDone.Q THEN
+
+    //    AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
+    	AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL AND NOT GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bAllForwardEnable, 'Did not stop at forward limit');
+        TEST_FINISHED_NAMED('Forward Limit Switch Stop');
+        
+        iStep := 20;
+    END_IF
+
+
+    20: // Attempt to back off limit and succeed
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := FwdLimPos -1;
+
+    TEST('Forward Limit BO');
+    IF rtDone.Q THEN
+
+    //    AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition, 'Position not at back off position');
+        AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Position not at back off position');
+        TEST_FINISHED_NAMED('Forward Limit BO');
+        
+        iStep := 30;
+    END_IF
+
+
+    30: // Set SP to beyond bwd limit and stop
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := -1*ForwardTestSP;
+
+    TEST('Bwd Limit Switch Stop');
+    IF fActPosition > FwdLimPos AND rtDone.Q THEN
+
+        AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
+        
+        TEST_FINISHED_NAMED('Bwd Limit Switch Stop');
+        
+        iStep := 50;
+    END_IF
+
+    40: // Attempt to move again past bwd limit and be denied
+
+    50: // Attempt to back off limit and succeed
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := BwdLimPos +1;
+
+    TEST('Bwd Limit BO');
+    IF rtDone.Q THEN
+
+        AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Position not at back off position');
+        
+        TEST_FINISHED_NAMED('Bwd Limit BO');
+        
+        iStep := 8000;
+    END_IF
+
+    60:
+
+    8000:
+    TEST_FINISHED_NAMED('PitchControlLimitSwitchTests');             
+
+    END_CASE
+    END_METHOD
+
+    METHOD StepperPiezoExchange
+    VAR_INPUT
+        
+    END_VAR
+    VAR
+        fActPosition : LREAL;
+    END_VAR
+    VAR_INST
+        fbPitchControl : FB_PitchControl;
+
+    	ExpertMode : BOOL := FALSE;
+    	PitchManualMode : BOOL := FALSE;
+        
+        iStep : UINT := 0;
+        
+    END_VAR
+    VAR CONSTANT
+        BwdLimPos : LREAL := -500;
+        FwdLimPos : LREAL := 500;
+        
+        ForwardTestSP : LREAL := 1000;
+    END_VAR
+    fActPosition := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition;
+
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitBackwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition > BwdLimPos;
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitForwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition < FwdLimPos;
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bHardwareEnable := TRUE;
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fVelocity := 150.0;
+
+    fbPitchControl(Pitch:=GVL_TestStructs.TestPitch_LimitSwitches,
+    			   q_bDone=>,
+    			   q_bBusy=>);
+                   
+                   
+    CASE iStep OF
+
+
+    0: // Set SP to 1000, hit a limit, and stop.
+    GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition := ForwardTestSP;
+
+    TEST('Forward Limit Switch Stop');
+    IF fActPosition > FwdLimPos AND GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL THEN
+        AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL, 'Axis not at standstill');
+        AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
+        
+        TEST_FINISHED_NAMED('Forward Limit Switch Stop');
+    END_IF
+
+    10: // Attempt to move again past fwd limit and be denied
+
+    20: // Attempt to back off limit and succeed
+
+    30: // Set SP to beyond bwd limit and stop
+
+    40: // Attempt to move again past bwd limit and be denied
+
+    50: // Attempt to back off limit and succeed            
+
+    END_CASE
+    END_METHOD
+
+
+Related:
+    * `FB_PitchControl`_
+    * `GVL_TestStructs`_
 
 
 WithinRange
@@ -1541,4 +1794,6 @@ WithinRange
     END_IF
 
     END_FUNCTION
+
+
 
