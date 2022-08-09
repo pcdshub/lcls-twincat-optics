@@ -3,6 +3,9 @@
   <POU Name="FB_RMSWatch" Id="{7d0ac4a7-0c5c-406a-a694-5de5f07477d4}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_RMSWatch
 VAR_INPUT
+    EncScalingNum : LREAL;
+    EncScalingDenom : LREAL;
+    EncOffset : LREAL;
 END_VAR
 VAR_OUTPUT
 	// RMS Error
@@ -56,12 +59,12 @@ END_VAR
 
 // Encoder Readback/Storage
 fbDataActPos(bExecute:=bExecuteDataStorage,
-           	 fInput:=stMotionStage.stAxisStatus.fActPosition,
+           	 fInput:= ULINT_TO_LREAL(stMotionStage.nRawEncoderULINT),
            	 arrOutput=>aEncActPos,
              bNewArray=>bNewEncArray);
 
 fbDataSetPos(bExecute:=bExecuteDataStorage,
-           	 fInput:=stMotionStage.Axis.NcToPlc.SetPos,
+           	 fInput:=((stMotionStage.Axis.NcToPlc.SetPos - EncOffset) / (EncScalingNum / EncScalingDenom)),
            	 arrOutput=>aEncSetPos);
 
 fbStats(aSignal:=aEncActPos,
