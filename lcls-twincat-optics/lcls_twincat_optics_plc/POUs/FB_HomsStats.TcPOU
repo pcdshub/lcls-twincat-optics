@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_HomsStats" Id="{33be0616-40a1-4f3c-b4ac-66894bf0192b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HomsStats
+VAR_INPUT
+    homs : DUT_HOMS;
+    fbUpStreamY : DUT_MotionStage;
+    fbUpStreamX : DUT_MotionStage;
+
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    fEncYScale : LREAL;
+    fEncXScale : LREAL;
+
+    fbDataYGantryDiff : FB_LREALBuffer; // YGantry Data Acquisition FB
+    fbDataXGantryDiff : FB_LREALBuffer; // XGantry Data Acquisition FB
+    
+    
+    fbYGantryStats : FB_BasicStats; // Calculate mean/standard deviation of YGantryDiff
+    fbXGantryStats : FB_BasicStats; // Calculate mean/standard deviation of XGantryDiff
+    {attribute 'pytmc' := '
+		pv: YGANDIFFMEAN
+		io: i
+    '}
+	fYGantryDiffMean : LREAL;
+	{attribute 'pytmc' := '
+		pv: YGANDIFFSTDEV
+		io: i
+    '}
+	fYGantryDiffStDev : LREAL;
+        {attribute 'pytmc' := '
+		pv: XGANDIFFMEAN
+		io: i
+    '}
+	fXGantryDiffMean : LREAL;
+	{attribute 'pytmc' := '
+		pv: XGANDIFFSTDEV
+		io: i
+    '}
+	fXGantryDiffStDev : LREAL;
+    
+    bNewEncArray : BOOL;
+    
+    {attribute 'pytmc' := '
+		pv: YGANDIFFARRAY
+		io: i
+    '}
+	aYGantryDiff : ARRAY [1..1000] OF LREAL;
+	{attribute 'pytmc' := '
+		pv: XGANDIFFARRAY
+		io: i
+	'}
+	aXGantryDiff : ARRAY [1..1000] OF LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Ecn scale for end result stats
+fEncYScale := fbUpStreamY.stAxisParameters.fEncScaleFactorNumerator / fbUpstreamY.stAxisParameters.fEncScaleFactorDenominator;
+fEncXScale := fbUpStreamX.stAxisParameters.fEncScaleFactorNumerator / fbUpstreamX.stAxisParameters.fEncScaleFactorDenominator;
+
+// Gantry Diff Readback/Storage
+fbDataYGantryDiff(bExecute:=True,
+           	 fInput:= LINT_TO_LREAL(homs.nCurrGantryY),
+           	 arrOutput=>aYGantryDiff,
+             bNewArray=>bNewEncArray);
+             
+fbDataXGantryDiff(bExecute:=True,
+           	 fInput:= LINT_TO_LREAL(homs.nCurrGantryX),
+           	 arrOutput=>aXGantryDiff,
+             bNewArray=>bNewEncArray);
+             
+fbYGantryStats(aSignal:=aYGantryDiff,
+	    bAlwaysCalc:=TRUE,
+		fMean=>fYGantryDiffMean,
+		fStDev=>fYGantryDiffStDev);
+        
+fbXGantryStats(aSignal:=aXGantryDiff,
+	    bAlwaysCalc:=TRUE,
+		fMean=>fXGantryDiffMean,
+		fStDev=>fXGantryDiffStDev);
+
+//scale outputs to actual values       
+fYGantryDiffMean := fbYGantryStats.fMean * fEncYScale;
+fYGantryDiffStDev := fbYGantryStats.fStDev * fEncYScale;     
+             
+             ]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

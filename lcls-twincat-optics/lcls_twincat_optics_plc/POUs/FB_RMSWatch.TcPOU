@@ -3,9 +3,9 @@
   <POU Name="FB_RMSWatch" Id="{7d0ac4a7-0c5c-406a-a694-5de5f07477d4}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_RMSWatch
 VAR_INPUT
-    EncScalingNum : LREAL;
-    EncScalingDenom : LREAL;
-    EncOffset : LREAL;
+    EncScalingNum : LREAL := 1.0;
+    EncScalingDenom : LREAL := 1.0;
+    EncOffset : LREAL := 0;
 END_VAR
 VAR_OUTPUT
 	// RMS Error
