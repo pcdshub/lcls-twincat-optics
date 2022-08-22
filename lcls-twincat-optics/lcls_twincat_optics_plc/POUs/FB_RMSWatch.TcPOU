@@ -3,9 +3,6 @@
   <POU Name="FB_RMSWatch" Id="{7d0ac4a7-0c5c-406a-a694-5de5f07477d4}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_RMSWatch
 VAR_INPUT
-    EncScalingNum : LREAL := 1.0;
-    EncScalingDenom : LREAL := 1.0;
-    EncOffset : LREAL := 0;
 END_VAR
 VAR_OUTPUT
 	// RMS Error
@@ -16,7 +13,12 @@ VAR_IN_OUT
 	stMotionStage : DUT_MotionStage;
 END_VAR
 VAR
-	fbDataActPos : FB_LREALBuffer; // ActPos Data Acquisition FB
+    fEncScalingNum : LREAL := 1.0;
+    fEncScalingDenom : LREAL := 1.0;
+    fEncOffset : LREAL := 0;
+    fEncScale : LREAL := 1.0;
+    
+	fbDataEncPos : FB_LREALBuffer; // ActPos Data Acquisition FB
 	fbDataSetPos : FB_LREALBuffer; // SetPos Data Acquisition FB
 	bExecuteDataStorage : BOOL := TRUE; // Take data of both ActPos and SetPos
 	bNewEncArray : BOOL;
@@ -55,16 +57,21 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// FB to store encoder positions in 1000 element arrays, compute RMS errors, and watch for min/max
+      <ST><![CDATA[// Encoder Scaling 
+fEncScalingNum := stMotionStage.stAxisParameters.fEncScaleFactorNumerator;
+fEncScalingDenom := stMotionStage.stAxisParameters.fEncScaleFactorDenominator;
+fEncOffset := stMotionStage.stAxisParameters.fEncOffset;
+fEncScale := fEncScalingNum / fEncScalingDenom;
 
+// FB to store encoder positions in 1000 element arrays, compute RMS errors, and watch for min/max
 // Encoder Readback/Storage
-fbDataActPos(bExecute:=bExecuteDataStorage,
+fbDataEncPos(bExecute:=bExecuteDataStorage,
            	 fInput:= ULINT_TO_LREAL(stMotionStage.nRawEncoderULINT),
            	 arrOutput=>aEncActPos,
              bNewArray=>bNewEncArray);
 
 fbDataSetPos(bExecute:=bExecuteDataStorage,
-           	 fInput:=((stMotionStage.Axis.NcToPlc.SetPos - EncOffset) / (EncScalingNum / EncScalingDenom)),
+         	 fInput:=(stMotionStage.Axis.NcToPlc.SetPos - fEncOffset) / fEncScale,
            	 arrOutput=>aEncSetPos);
 
 fbStats(aSignal:=aEncActPos,
@@ -91,7 +98,14 @@ If bNewEncArray THEN
 	IF fCurrRMSError < fMinRMSError THEN
 		fMinRMSError := fCurrRMSError;
 	END_IF
-END_IF]]></ST>
+END_IF
+
+//Scale to Actual values
+fEncStDev := fEncStDev * fEncScale;
+fEncMean := fEncMean * fEncScale;
+fCurrRMSError := fCurrRMSError * fEncScale;
+fMaxRMSError := FMaxRMSError * fEncScale;
+fMinRMSError := FMinRMSError * fEncScale;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
