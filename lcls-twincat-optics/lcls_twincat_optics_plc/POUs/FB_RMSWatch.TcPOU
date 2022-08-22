@@ -98,14 +98,14 @@ If bNewEncArray THEN
 	IF fCurrRMSError < fMinRMSError THEN
 		fMinRMSError := fCurrRMSError;
 	END_IF
+    fCurrRMSError := fCurrRMSError * fEncScale;
+    fMaxRMSError := FMaxRMSError * fEncScale;
+    fMinRMSError := FMinRMSError * fEncScale;
 END_IF
 
 //Scale to Actual values
 fEncStDev := fEncStDev * fEncScale;
-fEncMean := fEncMean * fEncScale;
-fCurrRMSError := fCurrRMSError * fEncScale;
-fMaxRMSError := FMaxRMSError * fEncScale;
-fMinRMSError := FMinRMSError * fEncScale;]]></ST>
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

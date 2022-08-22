@@ -6,7 +6,6 @@ VAR_INPUT
     homs : DUT_HOMS;
     fbUpStreamY : DUT_MotionStage;
     fbUpStreamX : DUT_MotionStage;
-
 END_VAR
 VAR_OUTPUT
 END_VAR
@@ -16,7 +15,6 @@ VAR
 
     fbDataYGantryDiff : FB_LREALBuffer; // YGantry Data Acquisition FB
     fbDataXGantryDiff : FB_LREALBuffer; // XGantry Data Acquisition FB
-    
     
     fbYGantryStats : FB_BasicStats; // Calculate mean/standard deviation of YGantryDiff
     fbXGantryStats : FB_BasicStats; // Calculate mean/standard deviation of XGantryDiff
@@ -83,9 +81,9 @@ fbXGantryStats(aSignal:=aXGantryDiff,
 
 //scale outputs to actual values       
 fYGantryDiffMean := fbYGantryStats.fMean * fEncYScale;
-fYGantryDiffStDev := fbYGantryStats.fStDev * fEncYScale;     
-             
-             ]]></ST>
+fYGantryDiffStDev := fbYGantryStats.fStDev * fEncYScale;
+fXGantryDiffMean := fbXGantryStats.fMean * fEncXScale;
+fXGantryDiffStDev := fbXGantryStats.fStDev * fEncXScale;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
