@@ -14,6 +14,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/doctr-versions-menu.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -68,6 +69,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#pous">POUs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#fb-bender">FB_Bender</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fb-homsstats">FB_HomsStats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fb-mirrortwocoatingprotection">FB_MirrorTwoCoatingProtection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fb-pi-e621-serialdriver">FB_PI_E621_SerialDriver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fb-pi-e621-serialtransaction">FB_PI_E621_SerialTransaction</a></li>
@@ -108,9 +110,9 @@
            <div itemprop="articleBody">
              
   <section id="duts">
-<h1>DUTs<a class="headerlink" href="#duts" title="Permalink to this headline"></a></h1>
+<h1>DUTs<a class="headerlink" href="#duts" title="Permalink to this heading"></a></h1>
 <section id="dut-homs">
-<h2>DUT_HOMS<a class="headerlink" href="#dut-homs" title="Permalink to this headline"></a></h2>
+<h2>DUT_HOMS<a class="headerlink" href="#dut-homs" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">DUT_HOMS</span> <span class="p">:</span>
 <span class="n">STRUCT</span>
     <span class="o">//</span> <span class="n">System</span> <span class="n">initializiation</span>
@@ -182,7 +184,7 @@
 </dl>
 </section>
 <section id="e-piezocontrol">
-<h2>E_PiezoControl<a class="headerlink" href="#e-piezocontrol" title="Permalink to this headline"></a></h2>
+<h2>E_PiezoControl<a class="headerlink" href="#e-piezocontrol" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">E_PiezoControl</span> <span class="p">:</span>
 <span class="p">(</span>
     <span class="o">//</span><span class="n">Piezo</span> <span class="n">Control</span> <span class="n">Machine</span>
@@ -199,7 +201,7 @@
 </div>
 </section>
 <section id="e-pitchcontrol">
-<h2>E_PitchControl<a class="headerlink" href="#e-pitchcontrol" title="Permalink to this headline"></a></h2>
+<h2>E_PitchControl<a class="headerlink" href="#e-pitchcontrol" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>TYPE E_PitchControl :
 (
     //Pitch Control Machine
@@ -223,7 +225,7 @@ END_TYPE
 </div>
 </section>
 <section id="homs-pitchmechanism">
-<h2>HOMS_PitchMechanism<a class="headerlink" href="#homs-pitchmechanism" title="Permalink to this headline"></a></h2>
+<h2>HOMS_PitchMechanism<a class="headerlink" href="#homs-pitchmechanism" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">HOMS_PitchMechanism</span> <span class="p">:</span>
 <span class="n">STRUCT</span>
     <span class="n">Piezo</span>   <span class="p">:</span>       <span class="n">ST_PiezoAxis</span><span class="p">;</span>   <span class="o">//</span><span class="n">Piezo</span>
@@ -254,7 +256,7 @@ END_TYPE
 </dl>
 </section>
 <section id="st-piezoaxis">
-<h2>ST_PiezoAxis<a class="headerlink" href="#st-piezoaxis" title="Permalink to this headline"></a></h2>
+<h2>ST_PiezoAxis<a class="headerlink" href="#st-piezoaxis" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">ST_PiezoAxis</span> <span class="p">:</span>
 <span class="n">STRUCT</span>
     <span class="p">(</span><span class="o">*</span> <span class="n">IO</span> <span class="o">*</span><span class="p">)</span>
@@ -311,9 +313,9 @@ END_TYPE
 </section>
 </section>
 <section id="gvls">
-<h1>GVLs<a class="headerlink" href="#gvls" title="Permalink to this headline"></a></h1>
+<h1>GVLs<a class="headerlink" href="#gvls" title="Permalink to this heading"></a></h1>
 <section id="global-version">
-<h2>Global_Version<a class="headerlink" href="#global-version" title="Permalink to this headline"></a></h2>
+<h2>Global_Version<a class="headerlink" href="#global-version" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;TcGenerated&#39;</span><span class="p">}</span>
 <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;no-analysis&#39;</span><span class="p">}</span>
 <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;linkalways&#39;</span><span class="p">}</span>
@@ -326,7 +328,7 @@ END_TYPE
 </div>
 </section>
 <section id="gvl-constants">
-<h2>GVL_Constants<a class="headerlink" href="#gvl-constants" title="Permalink to this headline"></a></h2>
+<h2>GVL_Constants<a class="headerlink" href="#gvl-constants" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;qualified_only&#39;</span><span class="p">}</span>
 <span class="n">VAR_GLOBAL</span> <span class="n">CONSTANT</span>
     <span class="n">nGANTRY_TOLERANCE_NM_DEFAULT</span> <span class="p">:</span> <span class="n">LINT</span> <span class="o">:=</span> <span class="mi">50000</span><span class="p">;</span> <span class="o">//</span> <span class="n">default</span> <span class="n">gantry</span> <span class="n">tolerance</span> <span class="ow">in</span> <span class="n">encoder</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">nm</span>
@@ -338,7 +340,7 @@ END_TYPE
 </div>
 </section>
 <section id="gvl-teststructs">
-<h2>GVL_TestStructs<a class="headerlink" href="#gvl-teststructs" title="Permalink to this headline"></a></h2>
+<h2>GVL_TestStructs<a class="headerlink" href="#gvl-teststructs" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;qualified_only&#39;</span><span class="p">}</span>
 <span class="n">VAR_GLOBAL</span>
     <span class="n">TestPitch_LimitSwitches</span> <span class="p">:</span> <span class="n">HOMS_PitchMechanism</span> <span class="o">:=</span> <span class="p">(</span><span class="n">ReqPosLimHi</span><span class="o">:=</span><span class="mi">2000</span><span class="p">,</span>
@@ -357,9 +359,9 @@ END_TYPE
 </section>
 </section>
 <section id="pous">
-<h1>POUs<a class="headerlink" href="#pous" title="Permalink to this headline"></a></h1>
+<h1>POUs<a class="headerlink" href="#pous" title="Permalink to this heading"></a></h1>
 <section id="fb-bender">
-<h2>FB_Bender<a class="headerlink" href="#fb-bender" title="Permalink to this headline"></a></h2>
+<h2>FB_Bender<a class="headerlink" href="#fb-bender" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_Bender</span>
 <span class="n">VAR_IN_OUT</span>
     <span class="n">stBender</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
@@ -386,8 +388,102 @@ END_TYPE
 </dd>
 </dl>
 </section>
+<section id="fb-homsstats">
+<h2>FB_HomsStats<a class="headerlink" href="#fb-homsstats" title="Permalink to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_HomsStats</span>
+<span class="n">VAR_INPUT</span>
+    <span class="n">homs</span> <span class="p">:</span> <span class="n">DUT_HOMS</span><span class="p">;</span>
+    <span class="n">fbUpStreamY</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+    <span class="n">fbUpStreamX</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR_OUTPUT</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR</span>
+    <span class="n">fEncYScale</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
+    <span class="n">fEncXScale</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
+
+    <span class="n">fbDataYGantryDiff</span> <span class="p">:</span> <span class="n">FB_LREALBuffer</span><span class="p">;</span> <span class="o">//</span> <span class="n">YGantry</span> <span class="n">Data</span> <span class="n">Acquisition</span> <span class="n">FB</span>
+    <span class="n">fbDataXGantryDiff</span> <span class="p">:</span> <span class="n">FB_LREALBuffer</span><span class="p">;</span> <span class="o">//</span> <span class="n">XGantry</span> <span class="n">Data</span> <span class="n">Acquisition</span> <span class="n">FB</span>
+
+    <span class="n">fbYGantryStats</span> <span class="p">:</span> <span class="n">FB_BasicStats</span><span class="p">;</span> <span class="o">//</span> <span class="n">Calculate</span> <span class="n">mean</span><span class="o">/</span><span class="n">standard</span> <span class="n">deviation</span> <span class="n">of</span> <span class="n">YGantryDiff</span>
+    <span class="n">fbXGantryStats</span> <span class="p">:</span> <span class="n">FB_BasicStats</span><span class="p">;</span> <span class="o">//</span> <span class="n">Calculate</span> <span class="n">mean</span><span class="o">/</span><span class="n">standard</span> <span class="n">deviation</span> <span class="n">of</span> <span class="n">XGantryDiff</span>
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+            <span class="n">pv</span><span class="p">:</span> <span class="n">YGANDIFFMEAN</span>
+            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fYGantryDiffMean</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+            <span class="n">pv</span><span class="p">:</span> <span class="n">YGANDIFFSTDEV</span>
+            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fYGantryDiffStDev</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
+        <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+            <span class="n">pv</span><span class="p">:</span> <span class="n">XGANDIFFMEAN</span>
+            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fXGantryDiffMean</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+            <span class="n">pv</span><span class="p">:</span> <span class="n">XGANDIFFSTDEV</span>
+            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fXGantryDiffStDev</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
+
+    <span class="n">bNewEncArray</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
+
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+            <span class="n">pv</span><span class="p">:</span> <span class="n">YGANDIFFARRAY</span>
+            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">aYGantryDiff</span> <span class="p">:</span> <span class="n">ARRAY</span> <span class="p">[</span><span class="mf">1..1000</span><span class="p">]</span> <span class="n">OF</span> <span class="n">LREAL</span><span class="p">;</span>
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+            <span class="n">pv</span><span class="p">:</span> <span class="n">XGANDIFFARRAY</span>
+            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">aXGantryDiff</span> <span class="p">:</span> <span class="n">ARRAY</span> <span class="p">[</span><span class="mf">1..1000</span><span class="p">]</span> <span class="n">OF</span> <span class="n">LREAL</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+<span class="o">//</span> <span class="n">Ecn</span> <span class="n">scale</span> <span class="k">for</span> <span class="n">end</span> <span class="n">result</span> <span class="n">stats</span>
+<span class="n">fEncYScale</span> <span class="o">:=</span> <span class="n">fbUpStreamY</span><span class="o">.</span><span class="n">stAxisParameters</span><span class="o">.</span><span class="n">fEncScaleFactorNumerator</span> <span class="o">/</span> <span class="n">fbUpstreamY</span><span class="o">.</span><span class="n">stAxisParameters</span><span class="o">.</span><span class="n">fEncScaleFactorDenominator</span><span class="p">;</span>
+<span class="n">fEncXScale</span> <span class="o">:=</span> <span class="n">fbUpStreamX</span><span class="o">.</span><span class="n">stAxisParameters</span><span class="o">.</span><span class="n">fEncScaleFactorNumerator</span> <span class="o">/</span> <span class="n">fbUpstreamX</span><span class="o">.</span><span class="n">stAxisParameters</span><span class="o">.</span><span class="n">fEncScaleFactorDenominator</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="n">Gantry</span> <span class="n">Diff</span> <span class="n">Readback</span><span class="o">/</span><span class="n">Storage</span>
+<span class="n">fbDataYGantryDiff</span><span class="p">(</span><span class="n">bExecute</span><span class="o">:=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">fInput</span><span class="o">:=</span> <span class="n">LINT_TO_LREAL</span><span class="p">(</span><span class="n">homs</span><span class="o">.</span><span class="n">nCurrGantryY</span><span class="p">),</span>
+             <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aYGantryDiff</span><span class="p">,</span>
+             <span class="n">bNewArray</span><span class="o">=&gt;</span><span class="n">bNewEncArray</span><span class="p">);</span>
+
+<span class="n">fbDataXGantryDiff</span><span class="p">(</span><span class="n">bExecute</span><span class="o">:=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">fInput</span><span class="o">:=</span> <span class="n">LINT_TO_LREAL</span><span class="p">(</span><span class="n">homs</span><span class="o">.</span><span class="n">nCurrGantryX</span><span class="p">),</span>
+             <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aXGantryDiff</span><span class="p">,</span>
+             <span class="n">bNewArray</span><span class="o">=&gt;</span><span class="n">bNewEncArray</span><span class="p">);</span>
+
+<span class="n">fbYGantryStats</span><span class="p">(</span><span class="n">aSignal</span><span class="o">:=</span><span class="n">aYGantryDiff</span><span class="p">,</span>
+        <span class="n">bAlwaysCalc</span><span class="o">:=</span><span class="n">TRUE</span><span class="p">,</span>
+            <span class="n">fMean</span><span class="o">=&gt;</span><span class="n">fYGantryDiffMean</span><span class="p">,</span>
+            <span class="n">fStDev</span><span class="o">=&gt;</span><span class="n">fYGantryDiffStDev</span><span class="p">);</span>
+
+<span class="n">fbXGantryStats</span><span class="p">(</span><span class="n">aSignal</span><span class="o">:=</span><span class="n">aXGantryDiff</span><span class="p">,</span>
+        <span class="n">bAlwaysCalc</span><span class="o">:=</span><span class="n">TRUE</span><span class="p">,</span>
+            <span class="n">fMean</span><span class="o">=&gt;</span><span class="n">fXGantryDiffMean</span><span class="p">,</span>
+            <span class="n">fStDev</span><span class="o">=&gt;</span><span class="n">fXGantryDiffStDev</span><span class="p">);</span>
+
+<span class="o">//</span><span class="n">scale</span> <span class="n">outputs</span> <span class="n">to</span> <span class="n">actual</span> <span class="n">values</span>
+<span class="n">fYGantryDiffMean</span> <span class="o">:=</span> <span class="n">fbYGantryStats</span><span class="o">.</span><span class="n">fMean</span> <span class="o">*</span> <span class="n">fEncYScale</span><span class="p">;</span>
+<span class="n">fYGantryDiffStDev</span> <span class="o">:=</span> <span class="n">fbYGantryStats</span><span class="o">.</span><span class="n">fStDev</span> <span class="o">*</span> <span class="n">fEncYScale</span><span class="p">;</span>
+<span class="n">fXGantryDiffMean</span> <span class="o">:=</span> <span class="n">fbXGantryStats</span><span class="o">.</span><span class="n">fMean</span> <span class="o">*</span> <span class="n">fEncXScale</span><span class="p">;</span>
+<span class="n">fXGantryDiffStDev</span> <span class="o">:=</span> <span class="n">fbXGantryStats</span><span class="o">.</span><span class="n">fStDev</span> <span class="o">*</span> <span class="n">fEncXScale</span><span class="p">;</span>
+
+<span class="n">END_FUNCTION_BLOCK</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Related:</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#dut-homs">DUT_HOMS</a></p></li>
+</ul>
+</dd>
+</dl>
+</section>
 <section id="fb-mirrortwocoatingprotection">
-<h2>FB_MirrorTwoCoatingProtection<a class="headerlink" href="#fb-mirrortwocoatingprotection" title="Permalink to this headline"></a></h2>
+<h2>FB_MirrorTwoCoatingProtection<a class="headerlink" href="#fb-mirrortwocoatingprotection" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_MirrorTwoCoatingProtection</span>
 <span class="n">VAR_INPUT</span>
     <span class="n">nCurrentEncoderCount</span> <span class="p">:</span> <span class="n">UDINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Current</span> <span class="n">encoder</span> <span class="n">count</span>
@@ -449,7 +545,7 @@ END_TYPE
 </div>
 </section>
 <section id="fb-pi-e621-serialdriver">
-<h2>FB_PI_E621_SerialDriver<a class="headerlink" href="#fb-pi-e621-serialdriver" title="Permalink to this headline"></a></h2>
+<h2>FB_PI_E621_SerialDriver<a class="headerlink" href="#fb-pi-e621-serialdriver" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_PI_E621_SerialDriver
 VAR_INPUT
     /// rising edge execute
@@ -704,7 +800,7 @@ END_ACTION
 </dl>
 </section>
 <section id="fb-pi-e621-serialtransaction">
-<h2>FB_PI_E621_SerialTransaction<a class="headerlink" href="#fb-pi-e621-serialtransaction" title="Permalink to this headline"></a></h2>
+<h2>FB_PI_E621_SerialTransaction<a class="headerlink" href="#fb-pi-e621-serialtransaction" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_PI_E621_SerialTransaction
 VAR_INPUT
     /// rising edge execute
@@ -864,7 +960,7 @@ END_FUNCTION_BLOCK
 </div>
 </section>
 <section id="fb-piezocontrol">
-<h2>FB_PiezoControl<a class="headerlink" href="#fb-piezocontrol" title="Permalink to this headline"></a></h2>
+<h2>FB_PiezoControl<a class="headerlink" href="#fb-piezocontrol" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_PiezoControl</span>
 <span class="n">VAR_IN_OUT</span>
     <span class="n">iq_Piezo</span>        <span class="p">:</span>       <span class="n">ST_PiezoAxis</span><span class="p">;</span>
@@ -1055,7 +1151,7 @@ END_FUNCTION_BLOCK
 </dl>
 </section>
 <section id="fb-pitchcontrol">
-<h2>FB_PitchControl<a class="headerlink" href="#fb-pitchcontrol" title="Permalink to this headline"></a></h2>
+<h2>FB_PitchControl<a class="headerlink" href="#fb-pitchcontrol" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_PitchControl
 VAR_IN_OUT
     Pitch : HOMS_PitchMechanism;
@@ -1282,7 +1378,7 @@ END_ACTION
 </dl>
 </section>
 <section id="fb-rmswatch">
-<h2>FB_RMSWatch<a class="headerlink" href="#fb-rmswatch" title="Permalink to this headline"></a></h2>
+<h2>FB_RMSWatch<a class="headerlink" href="#fb-rmswatch" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_RMSWatch</span>
 <span class="n">VAR_INPUT</span>
 <span class="n">END_VAR</span>
@@ -1295,7 +1391,12 @@ END_ACTION
     <span class="n">stMotionStage</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
 <span class="n">END_VAR</span>
 <span class="n">VAR</span>
-    <span class="n">fbDataActPos</span> <span class="p">:</span> <span class="n">FB_LREALBuffer</span><span class="p">;</span> <span class="o">//</span> <span class="n">ActPos</span> <span class="n">Data</span> <span class="n">Acquisition</span> <span class="n">FB</span>
+    <span class="n">fEncScalingNum</span> <span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mf">1.0</span><span class="p">;</span>
+    <span class="n">fEncScalingDenom</span> <span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mf">1.0</span><span class="p">;</span>
+    <span class="n">fEncOffset</span> <span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">fEncScale</span> <span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mf">1.0</span><span class="p">;</span>
+
+    <span class="n">fbDataEncPos</span> <span class="p">:</span> <span class="n">FB_LREALBuffer</span><span class="p">;</span> <span class="o">//</span> <span class="n">ActPos</span> <span class="n">Data</span> <span class="n">Acquisition</span> <span class="n">FB</span>
     <span class="n">fbDataSetPos</span> <span class="p">:</span> <span class="n">FB_LREALBuffer</span><span class="p">;</span> <span class="o">//</span> <span class="n">SetPos</span> <span class="n">Data</span> <span class="n">Acquisition</span> <span class="n">FB</span>
     <span class="n">bExecuteDataStorage</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span> <span class="o">//</span> <span class="n">Take</span> <span class="n">data</span> <span class="n">of</span> <span class="n">both</span> <span class="n">ActPos</span> <span class="ow">and</span> <span class="n">SetPos</span>
     <span class="n">bNewEncArray</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
@@ -1332,16 +1433,21 @@ END_ACTION
     <span class="s1">&#39;}</span>
     <span class="n">aEncSetPos</span> <span class="p">:</span> <span class="n">ARRAY</span> <span class="p">[</span><span class="mf">1..1000</span><span class="p">]</span> <span class="n">OF</span> <span class="n">LREAL</span><span class="p">;</span>
 <span class="n">END_VAR</span>
-<span class="o">//</span> <span class="n">FB</span> <span class="n">to</span> <span class="n">store</span> <span class="n">encoder</span> <span class="n">positions</span> <span class="ow">in</span> <span class="mi">1000</span> <span class="n">element</span> <span class="n">arrays</span><span class="p">,</span> <span class="n">compute</span> <span class="n">RMS</span> <span class="n">errors</span><span class="p">,</span> <span class="ow">and</span> <span class="n">watch</span> <span class="k">for</span> <span class="nb">min</span><span class="o">/</span><span class="nb">max</span>
+<span class="o">//</span> <span class="n">Encoder</span> <span class="n">Scaling</span>
+<span class="n">fEncScalingNum</span> <span class="o">:=</span> <span class="n">stMotionStage</span><span class="o">.</span><span class="n">stAxisParameters</span><span class="o">.</span><span class="n">fEncScaleFactorNumerator</span><span class="p">;</span>
+<span class="n">fEncScalingDenom</span> <span class="o">:=</span> <span class="n">stMotionStage</span><span class="o">.</span><span class="n">stAxisParameters</span><span class="o">.</span><span class="n">fEncScaleFactorDenominator</span><span class="p">;</span>
+<span class="n">fEncOffset</span> <span class="o">:=</span> <span class="n">stMotionStage</span><span class="o">.</span><span class="n">stAxisParameters</span><span class="o">.</span><span class="n">fEncOffset</span><span class="p">;</span>
+<span class="n">fEncScale</span> <span class="o">:=</span> <span class="n">fEncScalingNum</span> <span class="o">/</span> <span class="n">fEncScalingDenom</span><span class="p">;</span>
 
+<span class="o">//</span> <span class="n">FB</span> <span class="n">to</span> <span class="n">store</span> <span class="n">encoder</span> <span class="n">positions</span> <span class="ow">in</span> <span class="mi">1000</span> <span class="n">element</span> <span class="n">arrays</span><span class="p">,</span> <span class="n">compute</span> <span class="n">RMS</span> <span class="n">errors</span><span class="p">,</span> <span class="ow">and</span> <span class="n">watch</span> <span class="k">for</span> <span class="nb">min</span><span class="o">/</span><span class="nb">max</span>
 <span class="o">//</span> <span class="n">Encoder</span> <span class="n">Readback</span><span class="o">/</span><span class="n">Storage</span>
-<span class="n">fbDataActPos</span><span class="p">(</span><span class="n">bExecute</span><span class="o">:=</span><span class="n">bExecuteDataStorage</span><span class="p">,</span>
-             <span class="n">fInput</span><span class="o">:=</span><span class="n">stMotionStage</span><span class="o">.</span><span class="n">stAxisStatus</span><span class="o">.</span><span class="n">fActPosition</span><span class="p">,</span>
+<span class="n">fbDataEncPos</span><span class="p">(</span><span class="n">bExecute</span><span class="o">:=</span><span class="n">bExecuteDataStorage</span><span class="p">,</span>
+             <span class="n">fInput</span><span class="o">:=</span> <span class="n">ULINT_TO_LREAL</span><span class="p">(</span><span class="n">stMotionStage</span><span class="o">.</span><span class="n">nRawEncoderULINT</span><span class="p">),</span>
              <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aEncActPos</span><span class="p">,</span>
              <span class="n">bNewArray</span><span class="o">=&gt;</span><span class="n">bNewEncArray</span><span class="p">);</span>
 
 <span class="n">fbDataSetPos</span><span class="p">(</span><span class="n">bExecute</span><span class="o">:=</span><span class="n">bExecuteDataStorage</span><span class="p">,</span>
-             <span class="n">fInput</span><span class="o">:=</span><span class="n">stMotionStage</span><span class="o">.</span><span class="n">Axis</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">SetPos</span><span class="p">,</span>
+             <span class="n">fInput</span><span class="o">:=</span><span class="p">(</span><span class="n">stMotionStage</span><span class="o">.</span><span class="n">Axis</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">SetPos</span> <span class="o">-</span> <span class="n">fEncOffset</span><span class="p">)</span> <span class="o">/</span> <span class="n">fEncScale</span><span class="p">,</span>
              <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aEncSetPos</span><span class="p">);</span>
 
 <span class="n">fbStats</span><span class="p">(</span><span class="n">aSignal</span><span class="o">:=</span><span class="n">aEncActPos</span><span class="p">,</span>
@@ -1368,14 +1474,20 @@ END_ACTION
     <span class="n">IF</span> <span class="n">fCurrRMSError</span> <span class="o">&lt;</span> <span class="n">fMinRMSError</span> <span class="n">THEN</span>
             <span class="n">fMinRMSError</span> <span class="o">:=</span> <span class="n">fCurrRMSError</span><span class="p">;</span>
     <span class="n">END_IF</span>
+    <span class="n">fCurrRMSError</span> <span class="o">:=</span> <span class="n">fCurrRMSError</span> <span class="o">*</span> <span class="n">fEncScale</span><span class="p">;</span>
+    <span class="n">fMaxRMSError</span> <span class="o">:=</span> <span class="n">FMaxRMSError</span> <span class="o">*</span> <span class="n">fEncScale</span><span class="p">;</span>
+    <span class="n">fMinRMSError</span> <span class="o">:=</span> <span class="n">FMinRMSError</span> <span class="o">*</span> <span class="n">fEncScale</span><span class="p">;</span>
 <span class="n">END_IF</span>
+
+<span class="o">//</span><span class="n">Scale</span> <span class="n">to</span> <span class="n">Actual</span> <span class="n">values</span>
+<span class="n">fEncStDev</span> <span class="o">:=</span> <span class="n">fEncStDev</span> <span class="o">*</span> <span class="n">fEncScale</span><span class="p">;</span>
 
 <span class="n">END_FUNCTION_BLOCK</span>
 </pre></div>
 </div>
 </section>
 <section id="fb-runhoms">
-<h2>FB_RunHOMS<a class="headerlink" href="#fb-runhoms" title="Permalink to this headline"></a></h2>
+<h2>FB_RunHOMS<a class="headerlink" href="#fb-runhoms" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_RunHOMS
 VAR_INPUT
     // Encoder Reference Values
@@ -1474,7 +1586,7 @@ END_FUNCTION_BLOCK
 </dl>
 </section>
 <section id="main">
-<h2>Main<a class="headerlink" href="#main" title="Permalink to this headline"></a></h2>
+<h2>Main<a class="headerlink" href="#main" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PROGRAM</span> <span class="n">Main</span>
 <span class="n">VAR</span>
     <span class="p">(</span><span class="o">*</span>
@@ -1586,7 +1698,7 @@ END_FUNCTION_BLOCK
 </dl>
 </section>
 <section id="mc-smoothmover">
-<h2>MC_SmoothMover<a class="headerlink" href="#mc-smoothmover" title="Permalink to this headline"></a></h2>
+<h2>MC_SmoothMover<a class="headerlink" href="#mc-smoothmover" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">MC_SmoothMover</span>
 <span class="n">VAR_IN_OUT</span>
     <span class="n">Axis</span>    <span class="p">:</span>       <span class="n">AXIS_REF</span><span class="p">;</span>
@@ -1648,7 +1760,7 @@ END_FUNCTION_BLOCK
 </div>
 </section>
 <section id="test-pitchcontrol">
-<h2>TEST_PitchControl<a class="headerlink" href="#test-pitchcontrol" title="Permalink to this headline"></a></h2>
+<h2>TEST_PitchControl<a class="headerlink" href="#test-pitchcontrol" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;call_after_init&#39;</span><span class="p">}</span>
 <span class="n">FUNCTION_BLOCK</span> <span class="n">TEST_PitchControl</span> <span class="n">EXTENDS</span> <span class="n">TcUnit</span><span class="o">.</span><span class="n">FB_TestSuite</span>
 <span class="n">VAR_INPUT</span>
@@ -1843,7 +1955,7 @@ END_FUNCTION_BLOCK
 </dl>
 </section>
 <section id="withinrange">
-<h2>WithinRange<a class="headerlink" href="#withinrange" title="Permalink to this headline"></a></h2>
+<h2>WithinRange<a class="headerlink" href="#withinrange" title="Permalink to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION</span> <span class="n">WithinRange</span> <span class="p">:</span> <span class="n">BOOL</span>
 <span class="n">VAR_INPUT</span>
     <span class="n">ValA</span>    <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">New</span> <span class="n">position</span> <span class="n">to</span> <span class="n">evaluate</span>

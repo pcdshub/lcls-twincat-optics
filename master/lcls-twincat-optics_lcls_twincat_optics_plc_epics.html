@@ -14,6 +14,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/doctr-versions-menu.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -92,9 +93,9 @@
            <div itemprop="articleBody">
              
   <section id="data-types">
-<h1>Data Types<a class="headerlink" href="#data-types" title="Permalink to this headline"></a></h1>
+<h1>Data Types<a class="headerlink" href="#data-types" title="Permalink to this heading"></a></h1>
 <section id="dut-homs">
-<h2>DUT_HOMS<a class="headerlink" href="#dut-homs" title="Permalink to this headline"></a></h2>
+<h2>DUT_HOMS<a class="headerlink" href="#dut-homs" title="Permalink to this heading"></a></h2>
 <table class="docutils align-center">
 <colgroup>
 <col style="width: 25%" />
@@ -114,6 +115,7 @@
 <td><p>bi</p></td>
 <td><p>$(SYMBOL).bGantryAlreadyCoupledX</p></td>
 <td><div class="line-block">
+<div class="line">field: ZSV MAJOR</div>
 <div class="line">io: input</div>
 </div>
 </td>
@@ -122,6 +124,7 @@
 <td><p>bi</p></td>
 <td><p>$(SYMBOL).bGantryAlreadyCoupledY</p></td>
 <td><div class="line-block">
+<div class="line">field: ZSV MAJOR</div>
 <div class="line">io: input</div>
 </div>
 </td>
@@ -212,7 +215,7 @@
 </table>
 </section>
 <section id="lcls-general-fb-logmessage">
-<h2>LCLS_General.FB_LogMessage<a class="headerlink" href="#lcls-general-fb-logmessage" title="Permalink to this headline"></a></h2>
+<h2>LCLS_General.FB_LogMessage<a class="headerlink" href="#lcls-general-fb-logmessage" title="Permalink to this heading"></a></h2>
 <table class="docutils align-center">
 <colgroup>
 <col style="width: 25%" />
@@ -256,7 +259,7 @@
 </table>
 </section>
 <section id="lcls-twincat-motion-dut-motionstage">
-<h2>lcls_twincat_motion.DUT_MotionStage<a class="headerlink" href="#lcls-twincat-motion-dut-motionstage" title="Permalink to this headline"></a></h2>
+<h2>lcls_twincat_motion.DUT_MotionStage<a class="headerlink" href="#lcls-twincat-motion-dut-motionstage" title="Permalink to this heading"></a></h2>
 <table class="docutils align-center">
 <colgroup>
 <col style="width: 25%" />
@@ -316,8 +319,8 @@
 <td><p>bi</p></td>
 <td><p>TRUE if in the middle of a command</p></td>
 <td><div class="line-block">
-<div class="line">field: ONAM FALSE</div>
-<div class="line">field: ZNAM TRUE</div>
+<div class="line">field: ONAM TRUE</div>
+<div class="line">field: ZNAM FALSE</div>
 <div class="line">io: input</div>
 </div>
 </td>
@@ -326,8 +329,8 @@
 <td><p>bi</p></td>
 <td><p>TRUE if command finished successfully</p></td>
 <td><div class="line-block">
-<div class="line">field: ONAM FALSE</div>
-<div class="line">field: ZNAM TRUE</div>
+<div class="line">field: ONAM TRUE</div>
+<div class="line">field: ZNAM FALSE</div>
 <div class="line">io: input</div>
 </div>
 </td>
@@ -356,19 +359,20 @@
 <td><p>bi</p></td>
 <td><p>TRUE if done enabling</p></td>
 <td><div class="line-block">
-<div class="line">field: ONAM FALSE</div>
-<div class="line">field: ZNAM TRUE</div>
+<div class="line">field: ONAM TRUE</div>
+<div class="line">field: ZNAM FALSE</div>
 <div class="line">io: input</div>
 </div>
 </td>
 </tr>
 <tr class="row-odd"><td><p>$(PREFIX):PLC:bError_RBV</p></td>
 <td><p>bi</p></td>
-<td><p>TRUE if we</p></td>
+<td><p>TRUE if we are in an error state</p></td>
 <td><div class="line-block">
-<div class="line">field: ONAM FALSE</div>
-<div class="line">field: ZNAM TRUE</div>
+<div class="line">field: ONAM TRUE</div>
+<div class="line">field: ZNAM FALSE</div>
 <div class="line">io: input</div>
+<div class="line">update: 100hz notify</div>
 </div>
 </td>
 </tr>
@@ -536,9 +540,29 @@
 <td><p>bi</p></td>
 <td><p>TRUE if safe to start a move</p></td>
 <td><div class="line-block">
-<div class="line">field: ONAM FALSE</div>
-<div class="line">field: ZNAM TRUE</div>
+<div class="line">field: ONAM TRUE</div>
+<div class="line">field: ZNAM FALSE</div>
 <div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):PLC:bUserEnable</p></td>
+<td><p>bo</p></td>
+<td><p>Used to disable power entirely for an axis</p></td>
+<td><div class="line-block">
+<div class="line">field: ONAM ENABLE</div>
+<div class="line">field: ZNAM DISABLE</div>
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:bUserEnable_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>Used to disable power entirely for an axis</p></td>
+<td><div class="line-block">
+<div class="line">field: ONAM ENABLE</div>
+<div class="line">field: ZNAM DISABLE</div>
+<div class="line">io: output</div>
 </div>
 </td>
 </tr>
@@ -590,7 +614,15 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:fPosition</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:fPosDiff_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Position lag difference</p></td>
+<td><div class="line-block">
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:fPosition</p></td>
 <td><p>ao</p></td>
 <td><p>Used internally and by the IOC as the set position</p></td>
 <td><div class="line-block">
@@ -598,7 +630,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:fPosition_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:fPosition_RBV</p></td>
 <td><p>ai</p></td>
 <td><p>Used internally and by the IOC as the set position</p></td>
 <td><div class="line-block">
@@ -606,7 +638,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:fVelocity</p></td>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:fVelocity</p></td>
 <td><p>ao</p></td>
 <td><p>Used internally and by the IOC to set velocity</p></td>
 <td><div class="line-block">
@@ -614,7 +646,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:fVelocity_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:fVelocity_RBV</p></td>
 <td><p>ai</p></td>
 <td><p>Used internally and by the IOC to set velocity</p></td>
 <td><div class="line-block">
@@ -622,7 +654,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:nBrakeMode_RBV</p></td>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:nBrakeMode_RBV</p></td>
 <td><p>mbbi</p></td>
 <td><p>Describes when the brake will be released</p></td>
 <td><div class="line-block">
@@ -630,7 +662,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:nCmdData</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:nCmdData</p></td>
 <td><p>longout</p></td>
 <td><p>Used internally and by the IOC to pass extra args</p></td>
 <td><div class="line-block">
@@ -638,7 +670,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:nCmdData_RBV</p></td>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:nCmdData_RBV</p></td>
 <td><p>longin</p></td>
 <td><p>Used internally and by the IOC to pass extra args</p></td>
 <td><div class="line-block">
@@ -646,7 +678,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:nCommand</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:nCommand</p></td>
 <td><p>longout</p></td>
 <td><p>Used internally and by the IOC to pick move type</p></td>
 <td><div class="line-block">
@@ -654,7 +686,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:nCommand_RBV</p></td>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:nCommand_RBV</p></td>
 <td><p>longin</p></td>
 <td><p>Used internally and by the IOC to pick move type</p></td>
 <td><div class="line-block">
@@ -662,7 +694,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:nEnableMode_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:nEnableMode_RBV</p></td>
 <td><p>mbbi</p></td>
 <td><p>Describes when the axis will automatically get power</p></td>
 <td><div class="line-block">
@@ -670,7 +702,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:nEncoderCount_RBV</p></td>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:nEncoderCount_RBV</p></td>
 <td><p>longin</p></td>
 <td><p>Count from encoder hardware</p></td>
 <td><div class="line-block">
@@ -678,15 +710,16 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:nErrorId_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:nErrorId_RBV</p></td>
 <td><p>longin</p></td>
 <td><p>Error code if nonzero</p></td>
 <td><div class="line-block">
 <div class="line">io: input</div>
+<div class="line">update: 100hz notify</div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:nHomingMode_RBV</p></td>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:nHomingMode_RBV</p></td>
 <td><p>mbbi</p></td>
 <td><p>Describes our homing strategy</p></td>
 <td><div class="line-block">
@@ -694,7 +727,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:nMotionAxisID_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:nMotionAxisID_RBV</p></td>
 <td><p>longin</p></td>
 <td><p>Unique ID assigned to each axis in the NC</p></td>
 <td><div class="line-block">
@@ -702,15 +735,16 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:sErrorMessage_RBV</p></td>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:sErrorMessage_RBV</p></td>
 <td><p>waveform</p></td>
 <td><p>Message to identify the error state</p></td>
 <td><div class="line-block">
 <div class="line">io: input</div>
+<div class="line">update: 100hz notify</div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:sName_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:sName_RBV</p></td>
 <td><p>waveform</p></td>
 <td><p>PLC program name</p></td>
 <td><div class="line-block">
@@ -722,7 +756,7 @@
 </table>
 </section>
 <section id="lcls-twincat-motion-dut-positionstate">
-<h2>lcls_twincat_motion.DUT_PositionState<a class="headerlink" href="#lcls-twincat-motion-dut-positionstate" title="Permalink to this headline"></a></h2>
+<h2>lcls_twincat_motion.DUT_PositionState<a class="headerlink" href="#lcls-twincat-motion-dut-positionstate" title="Permalink to this heading"></a></h2>
 <table class="docutils align-center">
 <colgroup>
 <col style="width: 25%" />
@@ -870,7 +904,7 @@
 </table>
 </section>
 <section id="pmps-st-beamparams">
-<h2>PMPS.ST_BeamParams<a class="headerlink" href="#pmps-st-beamparams" title="Permalink to this headline"></a></h2>
+<h2>PMPS.ST_BeamParams<a class="headerlink" href="#pmps-st-beamparams" title="Permalink to this heading"></a></h2>
 <table class="docutils align-center">
 <colgroup>
 <col style="width: 25%" />
@@ -943,7 +977,7 @@
 </table>
 </section>
 <section id="pmps-st-pmps-aperture">
-<h2>PMPS.ST_PMPS_Aperture<a class="headerlink" href="#pmps-st-pmps-aperture" title="Permalink to this headline"></a></h2>
+<h2>PMPS.ST_PMPS_Aperture<a class="headerlink" href="#pmps-st-pmps-aperture" title="Permalink to this heading"></a></h2>
 <table class="docutils align-center">
 <colgroup>
 <col style="width: 25%" />
@@ -989,7 +1023,7 @@
 </table>
 </section>
 <section id="st-pmps-aperture-io">
-<h2>ST_PMPS_Aperture_IO<a class="headerlink" href="#st-pmps-aperture-io" title="Permalink to this headline"></a></h2>
+<h2>ST_PMPS_Aperture_IO<a class="headerlink" href="#st-pmps-aperture-io" title="Permalink to this heading"></a></h2>
 <table class="docutils align-center">
 <colgroup>
 <col style="width: 25%" />
@@ -1036,7 +1070,7 @@
 </section>
 </section>
 <section id="database-records">
-<h1>Database Records<a class="headerlink" href="#database-records" title="Permalink to this headline"></a></h1>
+<h1>Database Records<a class="headerlink" href="#database-records" title="Permalink to this heading"></a></h1>
 <table class="docutils align-center">
 <colgroup>
 <col style="width: 25%" />
@@ -1378,65 +1412,6 @@
 <tr class="row-even"><td><p>$(PREFIX)RequestedBP:Veto_RBV</p></td>
 <td><p>waveform</p></td>
 <td><p>PMPS_GVL.stRequestedBeamParameters.aVetoDevices</p></td>
-<td><div class="line-block">
-<div class="line">archive: 1s monitor</div>
-<div class="line">io: input</div>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><td><p>$(PREFIX)SafeBeamCnst:Cohort_RBV</p></td>
-<td><p>longin</p></td>
-<td><p>Cohort inc on each arb cycle</p></td>
-<td><div class="line-block">
-<div class="line">archive: 1s monitor</div>
-<div class="line">io: input</div>
-</div>
-</td>
-</tr>
-<tr class="row-even"><td><p>$(PREFIX)SafeBeamCnst:PhotonEnergyRanges_RBV</p></td>
-<td><p>longin</p></td>
-<td><p>Safe beam constant</p></td>
-<td><div class="line-block">
-<div class="line">archive: 1s monitor</div>
-<div class="line">field: EGU eV</div>
-<div class="line">io: input</div>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><td><p>$(PREFIX)SafeBeamCnst:Rate_RBV</p></td>
-<td><p>longin</p></td>
-<td><p>Safe beam constant</p></td>
-<td><div class="line-block">
-<div class="line">archive: 1s monitor</div>
-<div class="line">field: EGU Hz</div>
-<div class="line">io: input</div>
-</div>
-</td>
-</tr>
-<tr class="row-even"><td><p>$(PREFIX)SafeBeamCnst:Transmission_RBV</p></td>
-<td><p>ai</p></td>
-<td><p>Safe beam constant</p></td>
-<td><div class="line-block">
-<div class="line">archive: 1s monitor</div>
-<div class="line">field: HOPR 1</div>
-<div class="line">field: LOPR 0</div>
-<div class="line">field: PREC 2</div>
-<div class="line">io: input</div>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><td><p>$(PREFIX)SafeBeamCnst:Valid_RBV</p></td>
-<td><p>bi</p></td>
-<td><p>Safe beam constant</p></td>
-<td><div class="line-block">
-<div class="line">archive: 1s monitor</div>
-<div class="line">io: input</div>
-</div>
-</td>
-</tr>
-<tr class="row-even"><td><p>$(PREFIX)SafeBeamCnst:Veto_RBV</p></td>
-<td><p>waveform</p></td>
-<td><p>Safe beam constant</p></td>
 <td><div class="line-block">
 <div class="line">archive: 1s monitor</div>
 <div class="line">io: input</div>

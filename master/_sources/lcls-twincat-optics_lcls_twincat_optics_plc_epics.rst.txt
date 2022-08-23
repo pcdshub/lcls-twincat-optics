@@ -18,13 +18,15 @@ DUT_HOMS
     * - $(PREFIX):ALREADY_COUPLED_X_RBV
       - bi
       - $(SYMBOL).bGantryAlreadyCoupledX
-      - | io: input
+      - | field: ZSV MAJOR
+        | io: input
 
 
     * - $(PREFIX):ALREADY_COUPLED_Y_RBV
       - bi
       - $(SYMBOL).bGantryAlreadyCoupledY
-      - | io: input
+      - | field: ZSV MAJOR
+        | io: input
 
 
     * - $(PREFIX):COUPLE_X
@@ -166,16 +168,16 @@ lcls_twincat_motion.DUT_MotionStage
     * - $(PREFIX):PLC:bBusy_RBV
       - bi
       - TRUE if in the middle of a command
-      - | field: ONAM FALSE
-        | field: ZNAM TRUE
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
         | io: input
 
 
     * - $(PREFIX):PLC:bDone_RBV
       - bi
       - TRUE if command finished successfully
-      - | field: ONAM FALSE
-        | field: ZNAM TRUE
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
         | io: input
 
 
@@ -198,17 +200,18 @@ lcls_twincat_motion.DUT_MotionStage
     * - $(PREFIX):PLC:bEnableDone_RBV
       - bi
       - TRUE if done enabling
-      - | field: ONAM FALSE
-        | field: ZNAM TRUE
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
         | io: input
 
 
     * - $(PREFIX):PLC:bError_RBV
       - bi
-      - TRUE if we
-      - | field: ONAM FALSE
-        | field: ZNAM TRUE
+      - TRUE if we are in an error state
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
         | io: input
+        | update: 100hz notify
 
 
     * - $(PREFIX):PLC:bExecute
@@ -340,9 +343,25 @@ lcls_twincat_motion.DUT_MotionStage
     * - $(PREFIX):PLC:bSafetyReady_RBV
       - bi
       - TRUE if safe to start a move
-      - | field: ONAM FALSE
-        | field: ZNAM TRUE
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
         | io: input
+
+
+    * - $(PREFIX):PLC:bUserEnable
+      - bo
+      - Used to disable power entirely for an axis
+      - | field: ONAM ENABLE
+        | field: ZNAM DISABLE
+        | io: output
+
+
+    * - $(PREFIX):PLC:bUserEnable_RBV
+      - bi
+      - Used to disable power entirely for an axis
+      - | field: ONAM ENABLE
+        | field: ZNAM DISABLE
+        | io: output
 
 
     * - $(PREFIX):PLC:fAcceleration
@@ -379,6 +398,12 @@ lcls_twincat_motion.DUT_MotionStage
       - ai
       - Used internally and by the IOC to pick home position
       - | io: output
+
+
+    * - $(PREFIX):PLC:fPosDiff_RBV
+      - ai
+      - Position lag difference
+      - | io: input
 
 
     * - $(PREFIX):PLC:fPosition
@@ -451,6 +476,7 @@ lcls_twincat_motion.DUT_MotionStage
       - longin
       - Error code if nonzero
       - | io: input
+        | update: 100hz notify
 
 
     * - $(PREFIX):PLC:nHomingMode_RBV
@@ -469,6 +495,7 @@ lcls_twincat_motion.DUT_MotionStage
       - waveform
       - Message to identify the error state
       - | io: input
+        | update: 100hz notify
 
 
     * - $(PREFIX):PLC:sName_RBV
@@ -587,7 +614,7 @@ lcls_twincat_motion.DUT_PositionState
       - | io: output
 
 
-                                      
+                                       
 PMPS.ST_BeamParams
 ^^^^^^^^^^^^^^^^^^
 
@@ -974,53 +1001,6 @@ Database Records
     * - $(PREFIX)RequestedBP:Veto_RBV
       - waveform
       - PMPS_GVL.stRequestedBeamParameters.aVetoDevices
-      - | archive: 1s monitor
-        | io: input
-
-
-    * - $(PREFIX)SafeBeamCnst:Cohort_RBV
-      - longin
-      - Cohort inc on each arb cycle
-      - | archive: 1s monitor
-        | io: input
-
-
-    * - $(PREFIX)SafeBeamCnst:PhotonEnergyRanges_RBV
-      - longin
-      - Safe beam constant
-      - | archive: 1s monitor
-        | field: EGU eV
-        | io: input
-
-
-    * - $(PREFIX)SafeBeamCnst:Rate_RBV
-      - longin
-      - Safe beam constant
-      - | archive: 1s monitor
-        | field: EGU Hz
-        | io: input
-
-
-    * - $(PREFIX)SafeBeamCnst:Transmission_RBV
-      - ai
-      - Safe beam constant
-      - | archive: 1s monitor
-        | field: HOPR 1
-        | field: LOPR 0
-        | field: PREC 2
-        | io: input
-
-
-    * - $(PREFIX)SafeBeamCnst:Valid_RBV
-      - bi
-      - Safe beam constant
-      - | archive: 1s monitor
-        | io: input
-
-
-    * - $(PREFIX)SafeBeamCnst:Veto_RBV
-      - waveform
-      - Safe beam constant
       - | archive: 1s monitor
         | io: input
 
