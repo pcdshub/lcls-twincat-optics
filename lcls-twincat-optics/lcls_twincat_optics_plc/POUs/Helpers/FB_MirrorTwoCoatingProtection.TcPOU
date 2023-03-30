@@ -18,7 +18,7 @@ VAR_INPUT
 
     bAutoClear : BOOL := TRUE; // Auto-clear these fast faults
 
-    bRefreshCoatingBps : BOOL; // Trigger a re-read of the JSON Beam Parameters
+    bRefreshCoatingBPs : BOOL; // Trigger a re-read of the JSON Beam Parameters
 
 END_VAR
 VAR_OUTPUT
@@ -33,8 +33,8 @@ VAR
     ffLowerCoating : FB_FastFault := (
         i_xAutoReset := FALSE,
         i_TypeCode := 16#401);
-    sFfBeamParamMismatch : STRING := ' mirror coating incompatible with beam photon energy';
-    sFfBeamParamNotLoaded : STRING := ' mirror coating beam parameters not loaded';
+    sFFBeamParamMismatch : STRING := ' mirror coating incompatible with beam photon energy';
+    sFFBeamParamNotLoaded : STRING := ' mirror coating beam parameters not loaded';
     nRefreshAttempts : INT := 0;
 
     aDbStateParams : ARRAY[0..1] OF ST_DbStateParams;
@@ -70,7 +70,7 @@ END_VAR
 
     bInit := TRUE;
     bExecute := TRUE;
-ELSIF PMPS_GVL.BP_jsonDoc > nJSONLoaded and bRefreshCoatingBps THEN
+ELSIF PMPS_GVL.BP_jsonDoc > nJSONLoaded and bRefreshCoatingBPs THEN
     bExecute := TRUE;
     nRefreshAttempts := nRefreshAttempts + 1;
 END_IF
@@ -82,8 +82,8 @@ fbGetCoatingBPs(bExecute := bExecute,
     arrStates := aDbStateParams);
 
 IF aDbStateParams[0].bBeamParamsLoaded and aDbStateParams[1].bBeamParamsLoaded THEN
-    ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFfBeamParamMismatch);
-    ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFfBeamParamMismatch);
+    ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFFBeamParamMismatch);
+    ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFFBeamParamMismatch);
 
     nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
     nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
@@ -99,8 +99,8 @@ IF aDbStateParams[0].bBeamParamsLoaded and aDbStateParams[1].bBeamParamsLoaded T
         ffUpperCoating.i_xOK := FALSE;
     END_IF
 ELSE
-        ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFfBeamParamNotLoaded);
-        ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFfBeamParamNotLoaded);
+        ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFFBeamParamNotLoaded);
+        ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFFBeamParamNotLoaded);
         ffUpperCoating.i_xOK := FALSE;
         ffLowerCoating.i_xOK := FALSE;
 
