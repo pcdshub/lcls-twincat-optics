@@ -77,6 +77,7 @@ END_IF
 rtReadJsonDoc(CLK:=bReadPmpsDb);
 IF rtReadJsonDoc.Q THEN
     bExecute := TRUE;
+    nRefreshAttempts := nRefreshAttempts + 1;
 END_IF
 
 fbGetCoatingBPs(bExecute := bExecute,
@@ -116,9 +117,7 @@ ELSE
 END_IF
 
 ffUpperCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
-ffLowerCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
-
-bExecute := FALSE;]]></ST>
+ffLowerCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
