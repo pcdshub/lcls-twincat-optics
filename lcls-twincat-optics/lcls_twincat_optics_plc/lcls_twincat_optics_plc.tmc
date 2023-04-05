@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{7DB8AF1B-2D1F-F942-81E9-838BE62C5001}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{FD684324-A181-4BA5-9140-1FCE14988BF3}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name GUID="{18071995-0000-0000-0000-000000000041}" TcBaseType="true" HideSubItems="true" CName="AmsNetId">AMSNETID</Name>
@@ -18824,7 +18824,7 @@ contributing fast faults, unless the FFO is currently vetoed.
       <SubItem>
         <Name>Width</Name>
         <Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
-        <Comment> distance between horizontal slits (x)</Comment>
+        <Comment>distance between horizontal slits (x)</Comment>
         <BitSize>32</BitSize>
         <BitOffs>0</BitOffs>
         <Properties>
@@ -18839,7 +18839,7 @@ contributing fast faults, unless the FFO is currently vetoed.
       <SubItem>
         <Name>Height</Name>
         <Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
-        <Comment> distance between vertical slits (y)</Comment>
+        <Comment>distance between vertical slits (y)</Comment>
         <BitSize>32</BitSize>
         <BitOffs>32</BitOffs>
         <Properties>
@@ -18854,7 +18854,7 @@ contributing fast faults, unless the FFO is currently vetoed.
       <SubItem>
         <Name>xOK</Name>
         <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
-        <Comment> status of aperture, false if error or in motion</Comment>
+        <Comment>status of aperture, false if error or in motion</Comment>
         <BitSize>8</BitSize>
         <BitOffs>64</BitOffs>
         <Properties>
@@ -42882,7 +42882,7 @@ External Setpoint Generation:
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2023-03-30T09:41:08</Value>
+          <Value>2023-04-05T14:24:17</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>

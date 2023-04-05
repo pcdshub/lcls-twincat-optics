@@ -18,7 +18,9 @@ VAR_INPUT
 
     bAutoClear : BOOL := TRUE; // Auto-clear these fast faults
 
-    bRefreshCoatingBPs : BOOL; // Trigger a re-read of the JSON Beam Parameters
+    bReadPmpsDb : BOOL; // Trigger a re-read of the JSON Beam Parameters
+    rtReadJsonDoc : R_TRIG;
+    ftReadJsonDocDone : F_TRIG;
 
 END_VAR
 VAR_OUTPUT
@@ -51,7 +53,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF PMPS_GVL.BP_jsonDoc > nJSONLoaded and NOT bInit THEN
+      <ST><![CDATA[IF NOT bInit THEN
     ffUpperCoating.i_DevName := sDevName;
     ffLowerCoating.i_DevName := sDevName;
 
@@ -69,10 +71,12 @@ END_VAR
     END_FOR
 
     bInit := TRUE;
+//
+END_IF
+
+rtReadJsonDoc(CLK:=bReadPmpsDb);
+IF rtReadJsonDoc.Q THEN
     bExecute := TRUE;
-ELSIF PMPS_GVL.BP_jsonDoc > nJSONLoaded and bRefreshCoatingBPs THEN
-    bExecute := TRUE;
-    nRefreshAttempts := nRefreshAttempts + 1;
 END_IF
 
 fbGetCoatingBPs(bExecute := bExecute,
@@ -80,6 +84,11 @@ fbGetCoatingBPs(bExecute := bExecute,
     sDeviceName:=sDevName,
     io_fbFFHWO:=FFO,
     arrStates := aDbStateParams);
+
+ftReadJsonDocDone(CLK:=fbGetCoatingBPs.bBusy);
+IF ftReadJsonDocDone.Q THEN
+    bExecute := FALSE;
+END_IF
 
 IF aDbStateParams[0].bBeamParamsLoaded and aDbStateParams[1].bBeamParamsLoaded THEN
     ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFFBeamParamMismatch);
