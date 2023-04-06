@@ -38,7 +38,6 @@ VAR
     aDbStateParams : ARRAY[0..1] OF ST_DbStateParams;
     fbGetCoatingBPs : FB_JsonDocToSafeBP;
     ftReadJsonDocDone : F_TRIG;
-    bExecute : BOOL;
     bBPsLoaded : BOOL := FALSE;
 
     nUpperCoatingBitmask : DWORD := 0;
