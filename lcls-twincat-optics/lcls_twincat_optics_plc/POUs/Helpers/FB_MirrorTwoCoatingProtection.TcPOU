@@ -81,7 +81,7 @@ fbGetCoatingBPs(bExecute := bReadPmpsDB,
 
 ftReadJsonDocDone(CLK:=fbGetCoatingBPs.bBusy);
 
-IF ftReadJsonDocDone.Q THEN
+IF ftReadJsonDocDone.Q AND NOT fbGetCoatingBps.bError THEN
     bBPsLoaded := TRUE;
 END_IF
 
