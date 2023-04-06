@@ -19,9 +19,6 @@ VAR_INPUT
     bAutoClear : BOOL := TRUE; // Auto-clear these fast faults
 
     bReadPmpsDb : BOOL; // Trigger a re-read of the JSON Beam Parameters
-    rtReadJsonDoc : R_TRIG;
-    ftReadJsonDocDone : F_TRIG;
-
 END_VAR
 VAR_OUTPUT
 END_VAR
@@ -37,16 +34,16 @@ VAR
         i_TypeCode := 16#401);
     sFFBeamParamMismatch : STRING := ' mirror coating incompatible with beam photon energy';
     sFFBeamParamNotLoaded : STRING := ' mirror coating beam parameters not loaded';
-    nRefreshAttempts : INT := 0;
 
     aDbStateParams : ARRAY[0..1] OF ST_DbStateParams;
     fbGetCoatingBPs : FB_JsonDocToSafeBP;
-
+    ftReadJsonDocDone : F_TRIG;
     bExecute : BOOL;
-    nJSONLoaded : UXINT := 16#00;
+    bBPsLoaded : BOOL := FALSE;
 
     nUpperCoatingBitmask : DWORD := 0;
     nLowerCoatingBitMask : DWORD := 0;
+
     i : INT;
     sDevState : STRING  := '';
     bInit : BOOL;
@@ -69,51 +66,48 @@ END_VAR
         aDbStateParams[i].sPmpsState := sDevState;
         sDevState := '';
     END_FOR
-
     bInit := TRUE;
-//
 END_IF
 
-rtReadJsonDoc(CLK:=bReadPmpsDb);
-IF rtReadJsonDoc.Q THEN
-    bExecute := TRUE;
-    nRefreshAttempts := nRefreshAttempts + 1;
+IF bReadPmpsDB THEN
+    bBPsLoaded := FALSE;
 END_IF
 
-fbGetCoatingBPs(bExecute := bExecute,
+fbGetCoatingBPs(bExecute := bReadPmpsDB,
     jsonDoc := PMPS_GVL.BP_jsonDoc,
     sDeviceName:=sDevName,
     io_fbFFHWO:=FFO,
     arrStates := aDbStateParams);
 
 ftReadJsonDocDone(CLK:=fbGetCoatingBPs.bBusy);
+
 IF ftReadJsonDocDone.Q THEN
-    bExecute := FALSE;
+    bBPsLoaded := TRUE;
 END_IF
 
-IF aDbStateParams[0].bBeamParamsLoaded and aDbStateParams[1].bBeamParamsLoaded THEN
+IF bBPsLoaded THEN
     ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFFBeamParamMismatch);
     ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFFBeamParamMismatch);
 
     nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
     nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
-
-    IF nCurrentEncoderCount <= nLowerCoatingBoundary THEN
-        ffLowerCoating.i_xOK := (neVRange AND nLowerCoatingBitMask) = neVRange;
-        ffUpperCoating.i_xOK  := TRUE;
-    ELSIF nCurrentEncoderCount >= nUpperCoatingBoundary THEN
-         ffUpperCoating.i_xOK := (neVRange AND nUpperCoatingBitmask) = neVRange;
-        ffLowerCoating.i_xOK := TRUE;
-    ELSE
-        ffLowerCoating.i_xOK := FALSE;
-        ffUpperCoating.i_xOK := FALSE;
-    END_IF
 ELSE
-        ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFFBeamParamNotLoaded);
-        ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFFBeamParamNotLoaded);
-        ffUpperCoating.i_xOK := FALSE;
-        ffLowerCoating.i_xOK := FALSE;
+    ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFFBeamParamNotLoaded);
+    ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFFBeamParamNotLoaded);
 
+    nUpperCoatingBitmask := 0;
+    nLowerCoatingBitMask := 0;
+END_IF
+
+IF nCurrentEncoderCount <= nLowerCoatingBoundary THEN
+    ffLowerCoating.i_xOK := (neVRange AND nLowerCoatingBitMask) = neVRange;
+    ffUpperCoating.i_xOK  := TRUE;
+ELSIF nCurrentEncoderCount >= nUpperCoatingBoundary THEN
+    ffUpperCoating.i_xOK := (neVRange AND nUpperCoatingBitmask) = neVRange;
+    ffLowerCoating.i_xOK := TRUE;
+ELSE
+    ffLowerCoating.i_xOK := FALSE;
+    ffUpperCoating.i_xOK := FALSE;
 END_IF
 
 ffUpperCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
