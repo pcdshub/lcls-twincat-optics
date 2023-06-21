@@ -17,7 +17,7 @@
     <Company>SLAC</Company>
     <Released>false</Released>
     <Title>lcls-twincat-optics</Title>
-    <ProjectVersion>0.0.0</ProjectVersion>
+    <ProjectVersion>0.6.0</ProjectVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DUTs\DUT_HOMS.TcDUT">
