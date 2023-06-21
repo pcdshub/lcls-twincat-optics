@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{D33D3BD6-30E9-97FB-3A9D-EC2F76318875}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{9A25EA2E-5D95-A7FF-7649-D48D723D578B}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="LCLS_General">ST_System</Name>
@@ -45321,19 +45321,23 @@ External Setpoint Generation:
               </SubItem>
               <SubItem>
                 <Name>.iMinor</Name>
-                <Value>0</Value>
+                <Value>6</Value>
               </SubItem>
               <SubItem>
                 <Name>.iBuild</Name>
-                <Value>0</Value>
+                <Value>1</Value>
               </SubItem>
               <SubItem>
                 <Name>.iRevision</Name>
                 <Value>0</Value>
               </SubItem>
               <SubItem>
+                <Name>.nFlags</Name>
+                <Value>0</Value>
+              </SubItem>
+              <SubItem>
                 <Name>.sVersion</Name>
-                <String>0.0.0</String>
+                <String>0.6.1</String>
               </SubItem>
             </Default>
             <Properties>
@@ -45756,7 +45760,7 @@ External Setpoint Generation:
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2023-06-21T10:48:49</Value>
+          <Value>2023-06-21T11:16:31</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
