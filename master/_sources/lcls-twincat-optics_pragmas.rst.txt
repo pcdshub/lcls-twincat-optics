@@ -6,7 +6,7 @@ Pragmas
     :header: PLC Name, Total Pragmas, Errors
     :align: center
 
-    :ref:`lcls_twincat_optics_plc <lcls_twincat_optics_plc_overview_pragmas>`, 27, 0
+    :ref:`lcls_twincat_optics_plc <lcls_twincat_optics_plc_overview_pragmas>`, 28, 0
 
 
 .. _lcls_twincat_optics_plc_overview_pragmas:
@@ -15,7 +15,7 @@ Pragmas
 lcls_twincat_optics_plc
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Total pragmas found: 27
+Total pragmas found: 28
 Total linter errors: 0
 
 

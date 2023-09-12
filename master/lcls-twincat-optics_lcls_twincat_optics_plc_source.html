@@ -11,12 +11,12 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/docs-versions-menu.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/docs-versions-menu.js?v=3d6a1aea"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -46,6 +46,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_pragmas.html">Pragmas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_nc.html">NC Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_ethercat.html">Box Hierarchy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_boxes.html">Boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_links.html">Links</a></li>
 </ul>
@@ -114,9 +115,9 @@
            <div itemprop="articleBody">
              
   <section id="duts">
-<h1>DUTs<a class="headerlink" href="#duts" title="Permalink to this heading"></a></h1>
+<h1>DUTs<a class="headerlink" href="#duts" title="Link to this heading"></a></h1>
 <section id="dut-homs">
-<h2>DUT_HOMS<a class="headerlink" href="#dut-homs" title="Permalink to this heading"></a></h2>
+<h2>DUT_HOMS<a class="headerlink" href="#dut-homs" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">DUT_HOMS</span> <span class="p">:</span>
 <span class="n">STRUCT</span>
     <span class="o">//</span> <span class="n">System</span> <span class="n">initializiation</span>
@@ -188,7 +189,7 @@
 </dl>
 </section>
 <section id="e-piezocontrol">
-<h2>E_PiezoControl<a class="headerlink" href="#e-piezocontrol" title="Permalink to this heading"></a></h2>
+<h2>E_PiezoControl<a class="headerlink" href="#e-piezocontrol" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">E_PiezoControl</span> <span class="p">:</span>
 <span class="p">(</span>
     <span class="o">//</span><span class="n">Piezo</span> <span class="n">Control</span> <span class="n">Machine</span>
@@ -205,7 +206,7 @@
 </div>
 </section>
 <section id="e-pitchcontrol">
-<h2>E_PitchControl<a class="headerlink" href="#e-pitchcontrol" title="Permalink to this heading"></a></h2>
+<h2>E_PitchControl<a class="headerlink" href="#e-pitchcontrol" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>TYPE E_PitchControl :
 (
     //Pitch Control Machine
@@ -229,7 +230,7 @@ END_TYPE
 </div>
 </section>
 <section id="homs-pitchmechanism">
-<h2>HOMS_PitchMechanism<a class="headerlink" href="#homs-pitchmechanism" title="Permalink to this heading"></a></h2>
+<h2>HOMS_PitchMechanism<a class="headerlink" href="#homs-pitchmechanism" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">HOMS_PitchMechanism</span> <span class="p">:</span>
 <span class="n">STRUCT</span>
     <span class="n">Piezo</span>   <span class="p">:</span>       <span class="n">ST_PiezoAxis</span><span class="p">;</span>   <span class="o">//</span><span class="n">Piezo</span>
@@ -260,7 +261,7 @@ END_TYPE
 </dl>
 </section>
 <section id="st-piezoaxis">
-<h2>ST_PiezoAxis<a class="headerlink" href="#st-piezoaxis" title="Permalink to this heading"></a></h2>
+<h2>ST_PiezoAxis<a class="headerlink" href="#st-piezoaxis" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">ST_PiezoAxis</span> <span class="p">:</span>
 <span class="n">STRUCT</span>
     <span class="p">(</span><span class="o">*</span> <span class="n">IO</span> <span class="o">*</span><span class="p">)</span>
@@ -317,21 +318,22 @@ END_TYPE
 </section>
 </section>
 <section id="gvls">
-<h1>GVLs<a class="headerlink" href="#gvls" title="Permalink to this heading"></a></h1>
+<h1>GVLs<a class="headerlink" href="#gvls" title="Link to this heading"></a></h1>
 <section id="global-version">
-<h2>Global_Version<a class="headerlink" href="#global-version" title="Permalink to this heading"></a></h2>
+<h2>Global_Version<a class="headerlink" href="#global-version" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;TcGenerated&#39;</span><span class="p">}</span>
+<span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;no-analysis&#39;</span><span class="p">}</span>
+<span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;linkalways&#39;</span><span class="p">}</span>
 <span class="o">//</span> <span class="n">This</span> <span class="n">function</span> <span class="n">has</span> <span class="n">been</span> <span class="n">automatically</span> <span class="n">generated</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">project</span> <span class="n">information</span><span class="o">.</span>
 <span class="n">VAR_GLOBAL</span> <span class="n">CONSTANT</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;const_non_replaced&#39;</span><span class="p">}</span>
-    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;linkalways&#39;</span><span class="p">}</span>
-    <span class="n">stLibVersion_lcls_twincat_optics</span> <span class="p">:</span> <span class="n">ST_LibVersion</span> <span class="o">:=</span> <span class="p">(</span><span class="n">iMajor</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iMinor</span> <span class="o">:=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">iBuild</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iRevision</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sVersion</span> <span class="o">:=</span> <span class="s1">&#39;0.5.0&#39;</span><span class="p">);</span>
+    <span class="n">stLibVersion_lcls_twincat_optics</span> <span class="p">:</span> <span class="n">ST_LibVersion</span> <span class="o">:=</span> <span class="p">(</span><span class="n">iMajor</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iMinor</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iBuild</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iRevision</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nFlags</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sVersion</span> <span class="o">:=</span> <span class="s1">&#39;0.0.0&#39;</span><span class="p">);</span>
 <span class="n">END_VAR</span>
 </pre></div>
 </div>
 </section>
 <section id="gvl-constants">
-<h2>GVL_Constants<a class="headerlink" href="#gvl-constants" title="Permalink to this heading"></a></h2>
+<h2>GVL_Constants<a class="headerlink" href="#gvl-constants" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;qualified_only&#39;</span><span class="p">}</span>
 <span class="n">VAR_GLOBAL</span> <span class="n">CONSTANT</span>
     <span class="n">nGANTRY_TOLERANCE_NM_DEFAULT</span> <span class="p">:</span> <span class="n">LINT</span> <span class="o">:=</span> <span class="mi">50000</span><span class="p">;</span> <span class="o">//</span> <span class="n">default</span> <span class="n">gantry</span> <span class="n">tolerance</span> <span class="ow">in</span> <span class="n">encoder</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">nm</span>
@@ -343,7 +345,7 @@ END_TYPE
 </div>
 </section>
 <section id="gvl-teststructs">
-<h2>GVL_TestStructs<a class="headerlink" href="#gvl-teststructs" title="Permalink to this heading"></a></h2>
+<h2>GVL_TestStructs<a class="headerlink" href="#gvl-teststructs" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;qualified_only&#39;</span><span class="p">}</span>
 <span class="n">VAR_GLOBAL</span>
     <span class="n">TestPitch_LimitSwitches</span> <span class="p">:</span> <span class="n">HOMS_PitchMechanism</span> <span class="o">:=</span> <span class="p">(</span><span class="n">ReqPosLimHi</span><span class="o">:=</span><span class="mi">2000</span><span class="p">,</span>
@@ -362,9 +364,9 @@ END_TYPE
 </section>
 </section>
 <section id="pous">
-<h1>POUs<a class="headerlink" href="#pous" title="Permalink to this heading"></a></h1>
+<h1>POUs<a class="headerlink" href="#pous" title="Link to this heading"></a></h1>
 <section id="fb-bender">
-<h2>FB_Bender<a class="headerlink" href="#fb-bender" title="Permalink to this heading"></a></h2>
+<h2>FB_Bender<a class="headerlink" href="#fb-bender" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_Bender</span>
 <span class="n">VAR_IN_OUT</span>
     <span class="n">stBender</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
@@ -392,7 +394,7 @@ END_TYPE
 </dl>
 </section>
 <section id="fb-homsstats">
-<h2>FB_HomsStats<a class="headerlink" href="#fb-homsstats" title="Permalink to this heading"></a></h2>
+<h2>FB_HomsStats<a class="headerlink" href="#fb-homsstats" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_HomsStats</span>
 <span class="n">VAR_INPUT</span>
     <span class="n">homs</span> <span class="p">:</span> <span class="n">DUT_HOMS</span><span class="p">;</span>
@@ -486,7 +488,7 @@ END_TYPE
 </dl>
 </section>
 <section id="fb-mirrortwocoatingprotection">
-<h2>FB_MirrorTwoCoatingProtection<a class="headerlink" href="#fb-mirrortwocoatingprotection" title="Permalink to this heading"></a></h2>
+<h2>FB_MirrorTwoCoatingProtection<a class="headerlink" href="#fb-mirrortwocoatingprotection" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_MirrorTwoCoatingProtection</span>
 <span class="n">VAR_INPUT</span>
     <span class="n">nCurrentEncoderCount</span> <span class="p">:</span> <span class="n">UDINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Current</span> <span class="n">encoder</span> <span class="n">count</span>
@@ -601,7 +603,7 @@ END_TYPE
 </div>
 </section>
 <section id="fb-pi-e621-serialdriver">
-<h2>FB_PI_E621_SerialDriver<a class="headerlink" href="#fb-pi-e621-serialdriver" title="Permalink to this heading"></a></h2>
+<h2>FB_PI_E621_SerialDriver<a class="headerlink" href="#fb-pi-e621-serialdriver" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_PI_E621_SerialDriver
 VAR_INPUT
     /// rising edge execute
@@ -613,7 +615,7 @@ END_VAR
 VAR_OUTPUT
     q_xDone: BOOL;
     q_xError: BOOL;
-    q_sResult: STRING(255);
+    q_sResult: T_MaxString;
     /// Last Strings Sent to Serial Device - for debugging
     q_asLastSentStrings: ARRAY[1..50] OF STRING;
     /// Last Strings Received from Serial Device - for debugging
@@ -656,142 +658,142 @@ IF rtExecute.Q THEN
 //  i_xReset := FALSE;
     a_ClearTrans();  (* to provide rising edge for execute *)
     IF iq_stPiezoAxis.sIdn= &#39;&#39; THEN (* Should only need to check identity once *)
-            iStep := 5;
+        iStep := 5;
     ELSE
-            iStep := 10;
+        iStep := 10;
     END_IF
 END_IF
 
 
 CASE iStep OF
     0: (* idle *)
-            ;
+        ;
 
     (* Commands *)
     5: (* Get Identity *)
-                    fbPITransaction.i_xExecute:= TRUE;
-                    fbPITransaction.i_sCmd:= &#39;*IDN?&#39;;
-            IF fbPITransaction.q_xDone THEN
-                            iq_stPiezoAxis.sIdn := fbPITransaction.q_sResponseData; //Hello I am a piezo
-                            a_ClearTrans();  (* to provide rising edge for execute *)
-                            iStep := 10;
-            ELSIF fbPITransaction.q_xError THEN
-                    a_ErrorMesg();
-                    iStep := 9000;
-            END_IF
+            fbPITransaction.i_xExecute:= TRUE;
+            fbPITransaction.i_sCmd:= &#39;*IDN?&#39;;
+        IF fbPITransaction.q_xDone THEN
+                iq_stPiezoAxis.sIdn := fbPITransaction.q_sResponseData; //Hello I am a piezo
+                a_ClearTrans();  (* to provide rising edge for execute *)
+                iStep := 10;
+        ELSIF fbPITransaction.q_xError THEN
+            a_ErrorMesg();
+            iStep := 9000;
+        END_IF
 
     10: (* Check Servo Mode
-            To use manual voltage servo mode must be off *)
-            (* Response: 0$L or 1$L *)
-            fbPITransaction.i_xExecute:= TRUE;
-            fbPITransaction.i_sCmd:= &#39;SVO?&#39;;
-            fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
-            IF fbPITransaction.q_xDone THEN
-                    IF FIND(&#39;1&#39;,fbPITransaction.q_sResponseData) &lt;&gt; 0 THEN //Iff in servo mode, turn it off
-                            a_ClearTrans();  (* to provide rising edge for execute *)
-                            iStep := iStep + 10;
-                    ELSE
-                            a_ClearTrans();
-                            iStep := iStep + 20;  //Skip setting servo mode
-                    END_IF
-            ELSIF fbPITransaction.q_xError THEN
-                    a_ErrorMesg();
-                    iStep := 9000;
+        To use manual voltage servo mode must be off *)
+        (* Response: 0$L or 1$L *)
+        fbPITransaction.i_xExecute:= TRUE;
+        fbPITransaction.i_sCmd:= &#39;SVO?&#39;;
+        fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+        IF fbPITransaction.q_xDone THEN
+            IF FIND(&#39;1&#39;,fbPITransaction.q_sResponseData) &lt;&gt; 0 THEN //Iff in servo mode, turn it off
+                a_ClearTrans();  (* to provide rising edge for execute *)
+                iStep := iStep + 10;
+            ELSE
+                a_ClearTrans();
+                iStep := iStep + 20;  //Skip setting servo mode
             END_IF
+        ELSIF fbPITransaction.q_xError THEN
+            a_ErrorMesg();
+            iStep := 9000;
+        END_IF
 
     20: (* Set Servo Mode *)
+        fbPITransaction.i_xExecute:= TRUE;
+        fbPITransaction.i_sCmd:= &#39;SVO&#39;;
+        fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+        fbPITransaction.i_sParam:= &#39;0&#39;;
+        fbPITransaction.i_xExpectReply:= FALSE;
+        IF fbPITransaction.q_xDone THEN
+            a_ClearTrans();  (* to provide rising edge for execute *)
+            iStep := iStep + 10;
+        ELSIF fbPITransaction.q_xError THEN
+            a_ErrorMesg();
+            iStep := 9000;
+        END_IF
+
+    30: (* Set Voltage, only if needed *)
+        IF iq_stPiezoAxis.rSetVoltage &lt;&gt; iq_stPiezoAxis.rLastReqVoltage THEN
             fbPITransaction.i_xExecute:= TRUE;
-            fbPITransaction.i_sCmd:= &#39;SVO&#39;;
+            fbPITransaction.i_sCmd:= &#39;SVA&#39;;
             fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
-            fbPITransaction.i_sParam:= &#39;0&#39;;
+            fbPITransaction.i_sParam:=REAL_TO_STRING(iq_stPiezoAxis.rSetVoltage);
             fbPITransaction.i_xExpectReply:= FALSE;
             IF fbPITransaction.q_xDone THEN
                     a_ClearTrans();  (* to provide rising edge for execute *)
                     iStep := iStep + 10;
             ELSIF fbPITransaction.q_xError THEN
-                    a_ErrorMesg();
-                    iStep := 9000;
+                a_ErrorMesg();
+                iStep := 9000;
             END_IF
-
-    30: (* Set Voltage, only if needed *)
-            IF iq_stPiezoAxis.rSetVoltage &lt;&gt; iq_stPiezoAxis.rLastReqVoltage THEN
-                    fbPITransaction.i_xExecute:= TRUE;
-                    fbPITransaction.i_sCmd:= &#39;SVA&#39;;
-                    fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
-                    fbPITransaction.i_sParam:=REAL_TO_STRING(iq_stPiezoAxis.rSetVoltage);
-                    fbPITransaction.i_xExpectReply:= FALSE;
-                    IF fbPITransaction.q_xDone THEN
-                                    a_ClearTrans();  (* to provide rising edge for execute *)
-                                    iStep := iStep + 10;
-                    ELSIF fbPITransaction.q_xError THEN
-                            a_ErrorMesg();
-                            iStep := 9000;
-                    END_IF
-            ELSE
-                    iStep := iStep + 30; //Should only need to check error and setpoint if setting voltage
-            END_IF
+        ELSE
+            iStep := iStep + 30; //Should only need to check error and setpoint if setting voltage
+        END_IF
 
     40: (* Get Error Code, also resets current error *)
     (* Response: integer error code *)
-                    fbPITransaction.i_xExecute:= TRUE;
-                    fbPITransaction.i_sCmd:= &#39;ERR?&#39;;
-            IF fbPITransaction.q_xDone THEN
-                            iq_stPiezoAxis.iCurError := STRING_TO_INT(fbPITransaction.q_sResponseData);
-                            IF iq_stPiezoAxis.iCurError &lt;&gt; 0 THEN
-                                    iq_stPiezoAxis.iLastError:= iq_stPiezoAxis.iCurError;
-                            END_IF
-                            a_ClearTrans();  (* to provide rising edge for execute *)
-                            iStep := iStep + 10;
-            ELSIF fbPITransaction.q_xError THEN
-                    a_ErrorMesg();
-                    iStep := 9000;
-            END_IF
+            fbPITransaction.i_xExecute:= TRUE;
+            fbPITransaction.i_sCmd:= &#39;ERR?&#39;;
+        IF fbPITransaction.q_xDone THEN
+                iq_stPiezoAxis.iCurError := STRING_TO_INT(fbPITransaction.q_sResponseData);
+                IF iq_stPiezoAxis.iCurError &lt;&gt; 0 THEN
+                    iq_stPiezoAxis.iLastError:= iq_stPiezoAxis.iCurError;
+                END_IF
+                a_ClearTrans();  (* to provide rising edge for execute *)
+                iStep := iStep + 10;
+        ELSIF fbPITransaction.q_xError THEN
+            a_ErrorMesg();
+            iStep := 9000;
+        END_IF
 
     50: (* Get Last Requested Piezo Voltage *)
     (* Response: (float)$L *)
-                    fbPITransaction.i_xExecute:= TRUE;
-                    fbPITransaction.i_sCmd:= &#39;SVA?&#39;;
-                    fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
-            IF fbPITransaction.q_xDone THEN
-                    iq_stPiezoAxis.rLastReqVoltage := STRING_TO_REAL(fbPITransaction.q_sResponseData);
-                    //Check and reset attempts if it went through
-                    a_ClearTrans();  (* to provide rising edge for execute *)
-                    iStep := iStep + 10;
-            ELSIF fbPITransaction.q_xError THEN
-                    a_ErrorMesg();
-                    iStep := 9000;
-            END_IF
+            fbPITransaction.i_xExecute:= TRUE;
+            fbPITransaction.i_sCmd:= &#39;SVA?&#39;;
+            fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+        IF fbPITransaction.q_xDone THEN
+            iq_stPiezoAxis.rLastReqVoltage := STRING_TO_REAL(fbPITransaction.q_sResponseData);
+            //Check and reset attempts if it went through
+            a_ClearTrans();  (* to provide rising edge for execute *)
+            iStep := iStep + 10;
+        ELSIF fbPITransaction.q_xError THEN
+            a_ErrorMesg();
+            iStep := 9000;
+        END_IF
 
     60: (* Get Actual Piezo Voltage *)
     (* Response: (float)$L *)
-                    fbPITransaction.i_xExecute:= TRUE;
-                    fbPITransaction.i_sCmd:= &#39;VOL?&#39;;
-                    // E-517 works differently, uses number rather than letter for axis
-                    fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
-            IF fbPITransaction.q_xDone THEN
-                            iq_stPiezoAxis.rActVoltage := STRING_TO_REAL(fbPITransaction.q_sResponseData);
-                            a_ClearTrans();  (* to provide rising edge for execute *)
-                            iStep := 8000; (* Done *)
-            ELSIF fbPITransaction.q_xError THEN
-                    a_ErrorMesg();
-                    iStep := 9000;
-            END_IF
+            fbPITransaction.i_xExecute:= TRUE;
+            fbPITransaction.i_sCmd:= &#39;VOL?&#39;;
+            // E-517 works differently, uses number rather than letter for axis
+            fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
+        IF fbPITransaction.q_xDone THEN
+                iq_stPiezoAxis.rActVoltage := STRING_TO_REAL(fbPITransaction.q_sResponseData);
+                a_ClearTrans();  (* to provide rising edge for execute *)
+                iStep := 8000; (* Done *)
+        ELSIF fbPITransaction.q_xError THEN
+            a_ErrorMesg();
+            iStep := 9000;
+        END_IF
 
     8000: (* done *)
-            q_xDone := TRUE;
-            IF  i_xExecute = FALSE THEN
-                    q_xDone:= FALSE;
-                    iStep := 0;
-            END_IF
+        q_xDone := TRUE;
+        IF  i_xExecute = FALSE THEN
+            q_xDone:= FALSE;
+            iStep := 0;
+        END_IF
 
     9000: (* Error *)
-            a_ClearTrans();  (* to provide rising edge for execute *)
-            IF fbPITransaction.q_xTimeout THEN
-                    iStep:=10;//start over
-            ELSE
-            q_xError := TRUE;
-            iq_stPiezoAxis.xDriverError := TRUE;
-            END_IF
+        a_ClearTrans();  (* to provide rising edge for execute *)
+        IF fbPITransaction.q_xTimeout THEN
+            iStep:=10;//start over
+        ELSE
+        q_xError := TRUE;
+        iq_stPiezoAxis.xDriverError := TRUE;
+        END_IF
 
 END_CASE
 
@@ -856,7 +858,7 @@ END_ACTION
 </dl>
 </section>
 <section id="fb-pi-e621-serialtransaction">
-<h2>FB_PI_E621_SerialTransaction<a class="headerlink" href="#fb-pi-e621-serialtransaction" title="Permalink to this heading"></a></h2>
+<h2>FB_PI_E621_SerialTransaction<a class="headerlink" href="#fb-pi-e621-serialtransaction" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_PI_E621_SerialTransaction
 VAR_INPUT
     /// rising edge execute
@@ -864,11 +866,11 @@ VAR_INPUT
     /// Maximum wait time for reply
     i_tTimeOut: TIME := TIME#1s0ms;
     // Command field
-    i_sCmd: STRING;
+    i_sCmd: T_MaxString;
     // Axis field
-    i_sAxis: STRING;
+    i_sAxis: T_MaxString;
     // Parameter field
-    i_sParam: STRING;
+    i_sParam: T_MaxString;
     // Does command have a reply?  Default behavior is the same as the other drivers.
     i_xExpectReply: BOOL := TRUE;
 END_VAR
@@ -877,7 +879,7 @@ VAR_OUTPUT
     q_sResponseData: STRING;
     q_xError: BOOL;
     q_xTimeout: BOOL;
-    q_sResult: STRING;
+    q_sResult: T_MaxString;
     /// Last String Sent to Serial Device - for debugging
     q_sLastSentString: STRING;
     /// Last String Received from Serial Device - for debugging
@@ -920,94 +922,94 @@ END_IF
 
 CASE iStep OF
     0:
-            ; (* idle *)
+        ; (* idle *)
 
     10: (* clear com buffers *)
-            fbClearComBuffer(Buffer:= iq_stSerialRXBuffer);
-            fbClearComBuffer(Buffer:= iq_stSerialTXBuffer);
-            (* build the send string *)
-            IF i_sParam = &#39;&#39; AND i_sAxis &lt;&gt; &#39;&#39; THEN //Axis but no parameter
-                    fbFormatString( sFormat:= &#39;%s %s$L&#39;,
-                            arg1:= F_STRING(i_sCmd),
-                            arg2:= F_STRING(i_sAxis),
-                            sOut=&gt; sSendString);
-            ELSIF i_sParam &lt;&gt; &#39;&#39; AND i_sAxis = &#39;&#39; THEN //Parameter but no axis, global command
-                    fbFormatString( sFormat:= &#39;%s %s$L&#39;,
-                            arg1:= F_STRING(i_sCmd),
-                            arg2:= F_STRING(i_sParam), //May not work for all commands, good enough for now
-                            sOut=&gt; sSendString);
-            ELSIF i_sParam = &#39;&#39; AND i_sAxis = &#39;&#39; THEN //Global Query/Command
-                    fbFormatString( sFormat:= &#39;%s$L&#39;,
-                    arg1:= F_STRING(i_sCmd),
-                    sOut=&gt; sSendString);
-            ELSE
-                    fbFormatString( sFormat:= &#39;%s %s %s$L&#39;,
-                            arg1:= F_STRING(i_sCmd),
-                            arg2:= F_STRING(i_sAxis),
-                            arg3:= F_STRING(i_sParam), //May not work for all commands, good enough for now
-                            sOut=&gt; sSendString);
-            END_IF
-            (* send it *)
-            fbSendString( SendString:= sSendString, TXbuffer:= iq_stSerialTXBuffer );
-            q_sLastSentString := sSendString;
-            iStep := iStep + 10;
+        fbClearComBuffer(Buffer:= iq_stSerialRXBuffer);
+        fbClearComBuffer(Buffer:= iq_stSerialTXBuffer);
+        (* build the send string *)
+        IF i_sParam = &#39;&#39; AND i_sAxis &lt;&gt; &#39;&#39; THEN //Axis but no parameter
+            fbFormatString( sFormat:= &#39;%s %s$L&#39;,
+                arg1:= F_STRING(i_sCmd),
+                arg2:= F_STRING(i_sAxis),
+                sOut=&gt; sSendString);
+        ELSIF i_sParam &lt;&gt; &#39;&#39; AND i_sAxis = &#39;&#39; THEN //Parameter but no axis, global command
+            fbFormatString( sFormat:= &#39;%s %s$L&#39;,
+                arg1:= F_STRING(i_sCmd),
+                arg2:= F_STRING(i_sParam), //May not work for all commands, good enough for now
+                sOut=&gt; sSendString);
+        ELSIF i_sParam = &#39;&#39; AND i_sAxis = &#39;&#39; THEN //Global Query/Command
+            fbFormatString( sFormat:= &#39;%s$L&#39;,
+            arg1:= F_STRING(i_sCmd),
+            sOut=&gt; sSendString);
+        ELSE
+            fbFormatString( sFormat:= &#39;%s %s %s$L&#39;,
+                arg1:= F_STRING(i_sCmd),
+                arg2:= F_STRING(i_sAxis),
+                arg3:= F_STRING(i_sParam), //May not work for all commands, good enough for now
+                sOut=&gt; sSendString);
+        END_IF
+        (* send it *)
+        fbSendString( SendString:= sSendString, TXbuffer:= iq_stSerialTXBuffer );
+        q_sLastSentString := sSendString;
+        iStep := iStep + 10;
 
     20: (* Finish sending the String *)
-            IF fbSendString.Busy THEN
-                    fbSendString( SendString:= sSendString, TXbuffer:= iq_stSerialTXBuffer );
-            ELSIF fbSendString.Error &lt;&gt; 0 THEN
-                    q_sResult := CONCAT(&#39;In step 20 fbSendString resulted in error: &#39;, INT_TO_STRING(fbSendString.Error));
-                    iStep := 9000;
-            ELSIF NOT fbSendString.Busy THEN
-                    IF i_xExpectReply THEN
-                    iStep := iStep + 10;
-                    ELSE //No reply expected, transaction complete
-                    q_xDone:= TRUE;
-                    q_sResult := &#39;Success.&#39;;
-                    q_xTimeout := FALSE; //no timeout
-                    iStep := 100;
-                    END_IF
+        IF fbSendString.Busy THEN
+            fbSendString( SendString:= sSendString, TXbuffer:= iq_stSerialTXBuffer );
+        ELSIF fbSendString.Error &lt;&gt; 0 THEN
+            q_sResult := CONCAT(&#39;In step 20 fbSendString resulted in error: &#39;, INT_TO_STRING(fbSendString.Error));
+            iStep := 9000;
+        ELSIF NOT fbSendString.Busy THEN
+            IF i_xExpectReply THEN
+            iStep := iStep + 10;
+            ELSE //No reply expected, transaction complete
+            q_xDone:= TRUE;
+            q_sResult := &#39;Success.&#39;;
+            q_xTimeout := FALSE; //no timeout
+            iStep := 100;
             END_IF
-            (* Reset receive *)
-            fbReceiveString(
-                    Reset:= TRUE,
-                    ReceivedString:= sReceivedString,
-                    RXbuffer:= iq_stSerialRXBuffer );
-            tonTimeout(IN:= FALSE);
+        END_IF
+        (* Reset receive *)
+        fbReceiveString(
+            Reset:= TRUE,
+            ReceivedString:= sReceivedString,
+            RXbuffer:= iq_stSerialRXBuffer );
+        tonTimeout(IN:= FALSE);
 
     30: (* Get reply, if there is one *)
-            fbReceiveString(
-                    Prefix:= ,
-                    Suffix:= &#39;$L&#39;,
-                    Timeout:= i_tTimeOut,
-                    Reset:= FALSE,
-                    ReceivedString:= sReceivedString,
-                    RXbuffer:= iq_stSerialRXBuffer );
-            tonTimeout(IN:= TRUE, PT:= i_tTimeOut);
-            IF fbReceiveString.Error &lt;&gt; 0 AND fbReceiveString.Error &lt;&gt; 16#1008 THEN //16#1008 is timeout error
-                    q_sResult := CONCAT(&#39;In step 30 fbReceiveString resulted in error: &#39;, INT_TO_STRING(fbReceiveString.Error));
-                    iStep := 9000;
-            ELSIF fbReceiveString.RxTimeout OR tonTimeout.Q THEN
-                    q_sResult := &#39;Device failed to reply within timeout period&#39;;
-                    q_xTimeout := TRUE;
-                    iStep := 9000;
-            ELSIF fbReceiveString.StringReceived THEN
-                    q_xTimeout := FALSE; //no timeout
-                    q_sLastReceivedString := sReceivedString;
-                    q_sResponseData := sReceivedString;
-                    q_sResult := &#39;Success.&#39;;
-                    q_xDone:= TRUE;
-                    iStep := 100;
-            END_IF
+        fbReceiveString(
+            Prefix:= ,
+            Suffix:= &#39;$L&#39;,
+            Timeout:= i_tTimeOut,
+            Reset:= FALSE,
+            ReceivedString:= sReceivedString,
+            RXbuffer:= iq_stSerialRXBuffer );
+        tonTimeout(IN:= TRUE, PT:= i_tTimeOut);
+        IF fbReceiveString.Error &lt;&gt; 0 AND fbReceiveString.Error &lt;&gt; 16#1008 THEN //16#1008 is timeout error
+            q_sResult := CONCAT(&#39;In step 30 fbReceiveString resulted in error: &#39;, INT_TO_STRING(fbReceiveString.Error));
+            iStep := 9000;
+        ELSIF fbReceiveString.RxTimeout OR tonTimeout.Q THEN
+            q_sResult := &#39;Device failed to reply within timeout period&#39;;
+            q_xTimeout := TRUE;
+            iStep := 9000;
+        ELSIF fbReceiveString.StringReceived THEN
+            q_xTimeout := FALSE; //no timeout
+            q_sLastReceivedString := sReceivedString;
+            q_sResponseData := sReceivedString;
+            q_sResult := &#39;Success.&#39;;
+            q_xDone:= TRUE;
+            iStep := 100;
+        END_IF
 
     100: (* done *)
-            IF  i_xExecute = FALSE THEN
-                    q_xDone:= FALSE;
-                    iStep := 0;
-            END_IF
+        IF  i_xExecute = FALSE THEN
+            q_xDone:= FALSE;
+            iStep := 0;
+        END_IF
 
     9000:
-            q_xError := TRUE;
+        q_xError := TRUE;
 
 END_CASE
 
@@ -1016,7 +1018,7 @@ END_FUNCTION_BLOCK
 </div>
 </section>
 <section id="fb-piezocontrol">
-<h2>FB_PiezoControl<a class="headerlink" href="#fb-piezocontrol" title="Permalink to this heading"></a></h2>
+<h2>FB_PiezoControl<a class="headerlink" href="#fb-piezocontrol" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_PiezoControl</span>
 <span class="n">VAR_IN_OUT</span>
     <span class="n">iq_Piezo</span>        <span class="p">:</span>       <span class="n">ST_PiezoAxis</span><span class="p">;</span>
@@ -1207,7 +1209,7 @@ END_FUNCTION_BLOCK
 </dl>
 </section>
 <section id="fb-pitchcontrol">
-<h2>FB_PitchControl<a class="headerlink" href="#fb-pitchcontrol" title="Permalink to this heading"></a></h2>
+<h2>FB_PitchControl<a class="headerlink" href="#fb-pitchcontrol" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_PitchControl
 VAR_IN_OUT
     Pitch : HOMS_PitchMechanism;
@@ -1227,7 +1229,7 @@ VAR
     fbFormatString : FB_FormatString;
     {attribute &#39;instance-path&#39;}
     {attribute &#39;no_init&#39;}
-    POUName : STRING; // Name of the POU for logging/error reporting
+    POUName : T_MaxString; // Name of the POU for logging/error reporting
 
     // Stepper Motion
     lrActPos : LREAL; // Actual Position of piezo mechanism
@@ -1288,105 +1290,105 @@ END_IF
 // State Machine
 CASE PC_State OF
     PCM_Init:
-            lrCurrentSetpoint := lrActPos;
-            lrLastSetpoint := lrCurrentSetpoint;
-            lrPrevStepperPos := lrCurrentSetpoint;
-            PC_State := PCM_Standby;
+        lrCurrentSetpoint := lrActPos;
+        lrLastSetpoint := lrCurrentSetpoint;
+        lrPrevStepperPos := lrCurrentSetpoint;
+        PC_State := PCM_Standby;
     PCM_Standby:
-            // Waits for move requests and determines if they are valid
-            IF (lrLastSetpoint &lt;&gt; lrCurrentSetpoint) THEN // lrLastSetpoint initially set in PCM_Done
-                    // Check for bad setpoints -&gt; revert to previous setpoint
-                    IF      (lrCurrentSetpoint &gt; Pitch.ReqPosLimHi) OR (lrCurrentSetpoint &lt; Pitch.ReqPosLimLo) OR NOT Stepper.bHardwareEnable THEN
-                            // Outside range of limit switches or bHardwareEnable is FALSE
-                            ACT_ResetSetpoint();
-                    ELSIF lrCurrentSetpoint &gt; lrLastSetpoint AND NOT Stepper.bAllForwardEnable THEN
-                            // Forward move when on HL
-                            ACT_ResetSetpoint();
-                    ELSIF lrCurrentSetpoint &lt; lrLastSetpoint AND NOT Stepper.bAllBackwardEnable THEN
-                            // Backward move when on LL
-                            ACT_ResetSetpoint();
-                    END_IF
-                    // If the current setpoint still differs from the prvious, we know the move is safe and OK to proceed
-                    IF lrLastSetpoint &lt;&gt; lrCurrentSetpoint THEN
-                            q_bDone := FALSE;
-                            PC_State := PCM_MoveRequested;
-                    END_IF
+        // Waits for move requests and determines if they are valid
+        IF (lrLastSetpoint &lt;&gt; lrCurrentSetpoint) THEN // lrLastSetpoint initially set in PCM_Done
+            // Check for bad setpoints -&gt; revert to previous setpoint
+            IF      (lrCurrentSetpoint &gt; Pitch.ReqPosLimHi) OR (lrCurrentSetpoint &lt; Pitch.ReqPosLimLo) OR NOT Stepper.bHardwareEnable THEN
+                // Outside range of limit switches or bHardwareEnable is FALSE
+                ACT_ResetSetpoint();
+            ELSIF lrCurrentSetpoint &gt; lrLastSetpoint AND NOT Stepper.bAllForwardEnable THEN
+                // Forward move when on HL
+                ACT_ResetSetpoint();
+            ELSIF lrCurrentSetpoint &lt; lrLastSetpoint AND NOT Stepper.bAllBackwardEnable THEN
+                // Backward move when on LL
+                ACT_ResetSetpoint();
             END_IF
+            // If the current setpoint still differs from the prvious, we know the move is safe and OK to proceed
+            IF lrLastSetpoint &lt;&gt; lrCurrentSetpoint THEN
+                q_bDone := FALSE;
+                PC_State := PCM_MoveRequested;
+            END_IF
+        END_IF
     PCM_MoveRequested:
-            // A move has been requested, is it within range of the piezo?
-            IF WithinRange(ValA:=lrCurrentSetpoint, Center:=lrPrevStepperPos, Range:=GVL_Constants.cPiezoRange, Offset:=0) THEN
-                    // Move is within the nominal range of the piezo
-                    fbFormatString.sFormat := &#39;Within range, fine move %f&#39;;
-                    fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
-                    fbFormatString(sOut=&gt;stDiag.asResults[stDiag.resultIdx.IncVal()]);
-                    PC_State := PCM_FineMove;
-            ELSE
-                    // Out of range, head to coarse move
-                    fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
-                    fbFormatString.sFormat := &#39;OoR, using stepper %f&#39;;
-                    fbFormatString(sOut=&gt;stDiag.asResults[stDiag.resultIdx.IncVal()]);
-                    PC_State := PCM_Coarse50Piezo;
-            END_IF
-    PCM_Coarse50Piezo:
-            // A coarse move uses the stepper to do a best-effort position
-            // First set the piezo to nominal 50% extension using idle mode
-            //////////////////////////////////////////////////////////////////////////////
-            Pitch.Piezo.xIdleMode := TRUE;
-            // Indicate we are doing the coarse 50% piezo move
-            bCoarse50PiezoMove := TRUE;
-            // Wait for piezo to settle
-            tonPiezoSettled.IN := TRUE;
-            bCoarse50PiezoMove R= tonPiezoSettled.Q;
-            IF tonPiezoSettled.Q THEN
-                    //Piezo has moved to 50% position, finish with the stepper
-                    PC_State := PCM_CoarseMove;
-                    tonPiezoSettled.IN := FALSE;
-            END_IF
-    PCM_CoarseMove:
-            // With the piezo at a nominal 50% extension, move the stepper to requested position
-            bExecuteStepper := TRUE;
-            // Timer that waits to start until stepper is within range of the setpoint
-            tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=lrCurrentSetpoint, Range:=rSettledRange, Offset:=0);
-            tonStepperHold(); // call this here to reset Q just below on first cycle
-            // If the coarse move is complete, finish position correction with the piezo
-            IF tonStepperHold.Q  OR ftLimitSwitch.Q THEN
-                    PC_State := PCM_CoarseMoveCleanup;
-                    lrPrevStepperPos := lrActPos;
-            ELSIF Stepper.bError THEN
-                    bExecuteStepper := FALSE;
-                    PC_State := PCM_StepperError;
-                    // Left out logging
-            END_IF
-    PCM_CoarseMoveCleanup:
-            bExecuteStepper := FALSE;
+        // A move has been requested, is it within range of the piezo?
+        IF WithinRange(ValA:=lrCurrentSetpoint, Center:=lrPrevStepperPos, Range:=GVL_Constants.cPiezoRange, Offset:=0) THEN
+            // Move is within the nominal range of the piezo
+            fbFormatString.sFormat := &#39;Within range, fine move %f&#39;;
+            fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
+            fbFormatString(sOut=&gt;stDiag.asResults[stDiag.resultIdx.IncVal()]);
             PC_State := PCM_FineMove;
+        ELSE
+            // Out of range, head to coarse move
+            fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
+            fbFormatString.sFormat := &#39;OoR, using stepper %f&#39;;
+            fbFormatString(sOut=&gt;stDiag.asResults[stDiag.resultIdx.IncVal()]);
+            PC_State := PCM_Coarse50Piezo;
+        END_IF
+    PCM_Coarse50Piezo:
+        // A coarse move uses the stepper to do a best-effort position
+        // First set the piezo to nominal 50% extension using idle mode
+        //////////////////////////////////////////////////////////////////////////////
+        Pitch.Piezo.xIdleMode := TRUE;
+        // Indicate we are doing the coarse 50% piezo move
+        bCoarse50PiezoMove := TRUE;
+        // Wait for piezo to settle
+        tonPiezoSettled.IN := TRUE;
+        bCoarse50PiezoMove R= tonPiezoSettled.Q;
+        IF tonPiezoSettled.Q THEN
+            //Piezo has moved to 50% position, finish with the stepper
+            PC_State := PCM_CoarseMove;
+            tonPiezoSettled.IN := FALSE;
+        END_IF
+    PCM_CoarseMove:
+        // With the piezo at a nominal 50% extension, move the stepper to requested position
+        bExecuteStepper := TRUE;
+        // Timer that waits to start until stepper is within range of the setpoint
+        tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=lrCurrentSetpoint, Range:=rSettledRange, Offset:=0);
+        tonStepperHold(); // call this here to reset Q just below on first cycle
+        // If the coarse move is complete, finish position correction with the piezo
+        IF tonStepperHold.Q  OR ftLimitSwitch.Q THEN
+            PC_State := PCM_CoarseMoveCleanup;
+            lrPrevStepperPos := lrActPos;
+        ELSIF Stepper.bError THEN
+            bExecuteStepper := FALSE;
+            PC_State := PCM_StepperError;
+            // Left out logging
+        END_IF
+    PCM_CoarseMoveCleanup:
+        bExecuteStepper := FALSE;
+        PC_State := PCM_FineMove;
     PCM_FineMove:
-            Pitch.Piezo.xIdleMode := FALSE;
-            fbPiezoControl.xExecute := TRUE;
-            IF bLimitHit THEN
-                    Pitch.Piezo.rReqAbsPos := lrActPos;
-            ELSE
-                    Pitch.Piezo.rReqAbsPos := lrCurrentSetpoint;
-            END_IF
-            rtPiezoMoveDone(CLK:=fbPiezoControl.xDone);
-            IF rtPiezoMoveDone.Q THEN
-                    fbPiezoControl.xExecute := FALSE;
-                    PC_State := PCM_Done;
-            END_IF
+        Pitch.Piezo.xIdleMode := FALSE;
+        fbPiezoControl.xExecute := TRUE;
+        IF bLimitHit THEN
+            Pitch.Piezo.rReqAbsPos := lrActPos;
+        ELSE
+            Pitch.Piezo.rReqAbsPos := lrCurrentSetpoint;
+        END_IF
+        rtPiezoMoveDone(CLK:=fbPiezoControl.xDone);
+        IF rtPiezoMoveDone.Q THEN
+            fbPiezoControl.xExecute := FALSE;
+            PC_State := PCM_Done;
+        END_IF
     PCM_Done:
-            // Set the previously requested position here
-            lrLastSetpoint := lrCurrentSetpoint;
-            bLimitHit := FALSE;
-            // Indicate we&#39;re done
-            q_bDone := TRUE;
-            // Move back to standby
-            PC_State := PCM_Standby;
+        // Set the previously requested position here
+        lrLastSetpoint := lrCurrentSetpoint;
+        bLimitHit := FALSE;
+        // Indicate we&#39;re done
+        q_bDone     := TRUE;
+        // Move back to standby
+        PC_State := PCM_Standby;
     PCM_StepperError:
-            PC_State := PCM_Init;
+        PC_State := PCM_Init;
     PCM_PiezoError:
-            PC_State := PCM_Init;
+        PC_State := PCM_Init;
     PCM_OtherError:
-            PC_State := PCM_Init;
+        PC_State := PCM_Init;
 END_CASE
 
 fbMotionStage(stMotionStage:=Stepper);
@@ -1398,7 +1400,7 @@ tonPiezoSettled();
 tonStepperHold();
 fbPiezoControl(iq_Piezo:=Pitch.Piezo,
                Enable_Positive:=Stepper.bLimitForwardEnable,
-                       Enable_Negative:=Stepper.bLimitBackwardEnable);
+               Enable_Negative:=Stepper.bLimitBackwardEnable);
 
 END_FUNCTION_BLOCK
 
@@ -1434,7 +1436,7 @@ END_ACTION
 </dl>
 </section>
 <section id="fb-rmswatch">
-<h2>FB_RMSWatch<a class="headerlink" href="#fb-rmswatch" title="Permalink to this heading"></a></h2>
+<h2>FB_RMSWatch<a class="headerlink" href="#fb-rmswatch" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_RMSWatch</span>
 <span class="n">VAR_INPUT</span>
 <span class="n">END_VAR</span>
@@ -1543,7 +1545,7 @@ END_ACTION
 </div>
 </section>
 <section id="fb-runhoms">
-<h2>FB_RunHOMS<a class="headerlink" href="#fb-runhoms" title="Permalink to this heading"></a></h2>
+<h2>FB_RunHOMS<a class="headerlink" href="#fb-runhoms" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_RunHOMS
 VAR_INPUT
     // Encoder Reference Values
@@ -1642,7 +1644,7 @@ END_FUNCTION_BLOCK
 </dl>
 </section>
 <section id="main">
-<h2>Main<a class="headerlink" href="#main" title="Permalink to this heading"></a></h2>
+<h2>Main<a class="headerlink" href="#main" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PROGRAM</span> <span class="n">Main</span>
 <span class="n">VAR</span>
     <span class="p">(</span><span class="o">*</span>
@@ -1754,7 +1756,7 @@ END_FUNCTION_BLOCK
 </dl>
 </section>
 <section id="mc-smoothmover">
-<h2>MC_SmoothMover<a class="headerlink" href="#mc-smoothmover" title="Permalink to this heading"></a></h2>
+<h2>MC_SmoothMover<a class="headerlink" href="#mc-smoothmover" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">MC_SmoothMover</span>
 <span class="n">VAR_IN_OUT</span>
     <span class="n">Axis</span>    <span class="p">:</span>       <span class="n">AXIS_REF</span><span class="p">;</span>
@@ -1816,7 +1818,7 @@ END_FUNCTION_BLOCK
 </div>
 </section>
 <section id="test-pitchcontrol">
-<h2>TEST_PitchControl<a class="headerlink" href="#test-pitchcontrol" title="Permalink to this heading"></a></h2>
+<h2>TEST_PitchControl<a class="headerlink" href="#test-pitchcontrol" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;call_after_init&#39;</span><span class="p">}</span>
 <span class="n">FUNCTION_BLOCK</span> <span class="n">TEST_PitchControl</span> <span class="n">EXTENDS</span> <span class="n">TcUnit</span><span class="o">.</span><span class="n">FB_TestSuite</span>
 <span class="n">VAR_INPUT</span>
@@ -2011,7 +2013,7 @@ END_FUNCTION_BLOCK
 </dl>
 </section>
 <section id="withinrange">
-<h2>WithinRange<a class="headerlink" href="#withinrange" title="Permalink to this heading"></a></h2>
+<h2>WithinRange<a class="headerlink" href="#withinrange" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION</span> <span class="n">WithinRange</span> <span class="p">:</span> <span class="n">BOOL</span>
 <span class="n">VAR_INPUT</span>
     <span class="n">ValA</span>    <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">New</span> <span class="n">position</span> <span class="n">to</span> <span class="n">evaluate</span>

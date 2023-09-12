@@ -111,7 +111,7 @@ LCLS_General.DUT_EPS
 
     * - $(PREFIX):sFlagDesc_RBV
       - waveform
-      - of nFlag variable, using
+      - semicolon-delimited nFlag variable
       - | io: input
 
 
@@ -542,7 +542,7 @@ lcls_twincat_motion.DUT_MotionStage
 
     * - $(PREFIX):PLC:stEPSBackwardEnable:sFlagDesc_RBV
       - waveform
-      - of nFlag variable, using
+      - semicolon-delimited nFlag variable
       - | io: input
 
 
@@ -560,7 +560,7 @@ lcls_twincat_motion.DUT_MotionStage
 
     * - $(PREFIX):PLC:stEPSForwardEnable:sFlagDesc_RBV
       - waveform
-      - of nFlag variable, using
+      - semicolon-delimited nFlag variable
       - | io: input
 
 
@@ -578,7 +578,7 @@ lcls_twincat_motion.DUT_MotionStage
 
     * - $(PREFIX):PLC:stEPSPowerEnable:sFlagDesc_RBV
       - waveform
-      - of nFlag variable, using
+      - semicolon-delimited nFlag variable
       - | io: input
 
 

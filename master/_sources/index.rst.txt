@@ -7,6 +7,7 @@ lcls-twincat-optics
 
     lcls-twincat-optics_pragmas
     lcls-twincat-optics_nc
+    lcls-twincat-optics_ethercat
     lcls-twincat-optics_boxes
     lcls-twincat-optics_links
 
