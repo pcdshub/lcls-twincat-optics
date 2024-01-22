@@ -20,7 +20,7 @@ VAR_INPUT
 
     bReadPmpsDb : BOOL; // Trigger a re-read of the JSON Beam Parameters
 
-    bUsePmpsDb : BOOL := FALSE; // Set TRUE to lookup Beam Parameteres via DB.
+    bUsePmpsDb : BOOL := FALSE; // Set TRUE to lookup Beam Parameters via DB.
 END_VAR
 VAR_OUTPUT
 END_VAR
