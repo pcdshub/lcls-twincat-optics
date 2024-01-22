@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_MirrorTwoCoatingProtection" Id="{e481ed92-d77f-4692-a2ea-e5f1d2863716}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MirrorTwoCoatingProtection
 VAR_INPUT
@@ -28,12 +28,16 @@ END_VAR
 VAR
     ffUpperCoating: FB_FastFault := (
         i_xAutoReset := FALSE,
-        i_TypeCode := 16#401);
+        i_TypeCode := 16#401,
+        i_Desc := ' mirror coating incompatible with beam photon energy');
     ffLowerCoating : FB_FastFault := (
         i_xAutoReset := FALSE,
-        i_TypeCode := 16#401);
-    sFFBeamParamMismatch : STRING := ' mirror coating incompatible with beam photon energy';
-    sFFBeamParamNotLoaded : STRING := ' mirror coating beam parameters not loaded';
+        i_TypeCode := 16#401,
+        i_Desc := ' mirror coating incompatible with beam photon energy');
+    ffBeamParamsNotLoaded : FB_FastFault := (
+        i_xAutoReset := TRUE,
+        i_TypeCode := 16#488,
+        i_Desc := ' mirror coating beam parameters not loaded');
 
     aDbStateParams : ARRAY[0..1] OF ST_DbStateParams;
     fbGetCoatingBPs : FB_JsonDocToSafeBP;
@@ -84,19 +88,9 @@ IF ftReadJsonDocDone.Q AND NOT fbGetCoatingBps.bError THEN
     bBPsLoaded := TRUE;
 END_IF
 
-IF bBPsLoaded THEN
-    ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFFBeamParamMismatch);
-    ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFFBeamParamMismatch);
 
-    nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
-    nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
-ELSE
-    ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFFBeamParamNotLoaded);
-    ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFFBeamParamNotLoaded);
-
-    nUpperCoatingBitmask := 0;
-    nLowerCoatingBitMask := 0;
-END_IF
+nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
+nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
 
 IF nCurrentEncoderCount <= nLowerCoatingBoundary THEN
     ffLowerCoating.i_xOK := (neVRange AND nLowerCoatingBitMask) = neVRange;
@@ -109,8 +103,11 @@ ELSE
     ffUpperCoating.i_xOK := FALSE;
 END_IF
 
+ffBeamParamsNotLoaded.i_xOK := bBPsLoaded;
+
 ffUpperCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
-ffLowerCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);]]></ST>
+ffLowerCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
+ffBeamParamsNotLoaded(io_fbFFHWO:=FFO);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
