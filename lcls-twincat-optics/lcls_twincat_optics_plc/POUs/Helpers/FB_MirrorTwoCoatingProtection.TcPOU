@@ -88,9 +88,10 @@ IF ftReadJsonDocDone.Q AND NOT fbGetCoatingBps.bError THEN
     bBPsLoaded := TRUE;
 END_IF
 
-
-nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
-nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
+IF bBPsLoaded THEN
+    nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
+    nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
+END_IF
 
 IF nCurrentEncoderCount <= nLowerCoatingBoundary THEN
     ffLowerCoating.i_xOK := (neVRange AND nLowerCoatingBitMask) = neVRange;
