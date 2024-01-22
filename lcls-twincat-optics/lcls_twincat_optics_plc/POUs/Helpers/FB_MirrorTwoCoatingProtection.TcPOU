@@ -19,6 +19,8 @@ VAR_INPUT
     bAutoClear : BOOL := TRUE; // Auto-clear these fast faults
 
     bReadPmpsDb : BOOL; // Trigger a re-read of the JSON Beam Parameters
+
+    bUsePmpsDb : BOOL := FALSE;
 END_VAR
 VAR_OUTPUT
 END_VAR
@@ -56,41 +58,46 @@ END_VAR
       <ST><![CDATA[IF NOT bInit THEN
     ffUpperCoating.i_DevName := sDevName;
     ffLowerCoating.i_DevName := sDevName;
-
-    FOR i:=0 to 1 BY 1 DO
-        sDevState := CONCAT(sDevState, sDevName);
-        sDevState := CONCAT(sDevState, '-');
-        CASE i OF
-        0:
-            sDevState := CONCAT(sDevState, sUpperCoatingType);
-        1:
-            sDevState := CONCAT(sDevState, sLowerCoatingType);
-        END_CASE
-        aDbStateParams[i].sPmpsState := sDevState;
-        sDevState := '';
-    END_FOR
+    IF bUsePmpsDb THEN
+        FOR i:=0 to 1 BY 1 DO
+            sDevState := CONCAT(sDevState, sDevName);
+            sDevState := CONCAT(sDevState, '-');
+            CASE i OF
+            0:
+                sDevState := CONCAT(sDevState, sUpperCoatingType);
+            1:
+                sDevState := CONCAT(sDevState, sLowerCoatingType);
+            END_CASE
+            aDbStateParams[i].sPmpsState := sDevState;
+            sDevState := '';
+        END_FOR
+    ELSE
+        bBPsLoaded := TRUE;
+    END_IF
     bInit := TRUE;
 END_IF
 
-IF bReadPmpsDB THEN
-    bBPsLoaded := FALSE;
-END_IF
+IF bUsePmpsDb THEN
+    IF bReadPmpsDB THEN
+        bBPsLoaded := FALSE;
+    END_IF
 
-fbGetCoatingBPs(bExecute := bReadPmpsDB,
-    jsonDoc := PMPS_GVL.BP_jsonDoc,
-    sDeviceName:=sDevName,
-    io_fbFFHWO:=FFO,
-    arrStates := aDbStateParams);
+    fbGetCoatingBPs(bExecute := bReadPmpsDB,
+        jsonDoc := PMPS_GVL.BP_jsonDoc,
+        sDeviceName:=sDevName,
+        io_fbFFHWO:=FFO,
+        arrStates := aDbStateParams);
 
-ftReadJsonDocDone(CLK:=fbGetCoatingBPs.bBusy);
+    ftReadJsonDocDone(CLK:=fbGetCoatingBPs.bBusy);
 
-IF ftReadJsonDocDone.Q AND NOT fbGetCoatingBps.bError THEN
-    bBPsLoaded := TRUE;
-END_IF
+    IF ftReadJsonDocDone.Q AND NOT fbGetCoatingBps.bError THEN
+        bBPsLoaded := TRUE;
+    END_IF
 
-IF bBPsLoaded THEN
-    nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
-    nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
+    IF bBPsLoaded THEN
+        nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
+        nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
+    END_IF
 END_IF
 
 IF nCurrentEncoderCount <= nLowerCoatingBoundary THEN
