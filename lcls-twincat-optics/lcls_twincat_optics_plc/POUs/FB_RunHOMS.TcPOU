@@ -3,54 +3,54 @@
   <POU Name="FB_RunHOMS" Id="{ee7498ff-903e-47a0-a649-7587adeefcee}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_RunHOMS
 VAR_INPUT
-	// Encoder Reference Values
-	nYupEncRef : ULINT;
-	nYdwnEncRef : ULINT;
-	nXupEncRef : ULINT;
-	nXdwnEncRef : ULINT;
+    // Encoder Reference Values
+    nYupEncRef : ULINT;
+    nYdwnEncRef : ULINT;
+    nXupEncRef : ULINT;
+    nXdwnEncRef : ULINT;
 
-	// Gantry Tolerances
-	nGantryTolY : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
-	nGantryTolX : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+    // Gantry Tolerances
+    nGantryTolY : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+    nGantryTolX : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
 END_VAR
 VAR_OUTPUT
-	// Gantry coupling status
-	bGantryAlreadyCoupledY : BOOL;
-	bGantryAlreadyCoupledX : BOOL;
-	
-	// Current gantry difference
-	nCurrGantryY : LINT;
-	nCurrGantryX : LINT;
+    // Gantry coupling status
+    bGantryAlreadyCoupledY : BOOL;
+    bGantryAlreadyCoupledX : BOOL;
+
+    // Current gantry difference
+    nCurrGantryY : LINT;
+    nCurrGantryX : LINT;
 END_VAR
 VAR_IN_OUT
-	// Motor Structs
-	stYup : DUT_MotionStage;
-	stYdwn : DUT_MotionStage;
-	stXup : DUT_MotionStage;
-	stXdwn : DUT_MotionStage;
-	stPitch : DUT_MotionStage;
+    // Motor Structs
+    stYup : DUT_MotionStage;
+    stYdwn : DUT_MotionStage;
+    stXup : DUT_MotionStage;
+    stXdwn : DUT_MotionStage;
+    stPitch : DUT_MotionStage;
 
-	// Manual coupling Gantried Axes
-	bExecuteCoupleY : BOOL;
-	bExecuteCoupleX : BOOL;
-	bExecuteDecoupleY : BOOL;
-	bExecuteDecoupleX : BOOL;
+    // Manual coupling Gantried Axes
+    bExecuteCoupleY : BOOL;
+    bExecuteCoupleX : BOOL;
+    bExecuteDecoupleY : BOOL;
+    bExecuteDecoupleX : BOOL;
 END_VAR
 VAR
-	// STO Button
-	bSTOEnable1 AT %I* : BOOL;
-	bSTOEnable2 AT %I* : BOOL;
+    // STO Button
+    bSTOEnable1 AT %I* : BOOL;
+    bSTOEnable2 AT %I* : BOOL;
 
-	// Encoders
-	stYupEnc AT %I* : ST_RenishawAbsEnc;
-	stYdwnEnc AT %I* : ST_RenishawAbsEnc;
-	
-	stXupEnc AT %I* : ST_RenishawAbsEnc;
-	stXdwnEnc AT %I* : ST_RenishawAbsEnc;
+    // Encoders
+    stYupEnc AT %I* : ST_RenishawAbsEnc;
+    stYdwnEnc AT %I* : ST_RenishawAbsEnc;
 
-	// Autocoupling Gantried Axes
-	fbAutoCoupleY : FB_GantryAutoCoupling;
-	fbAutoCoupleX : FB_GantryAutoCoupling;
+    stXupEnc AT %I* : ST_RenishawAbsEnc;
+    stXdwnEnc AT %I* : ST_RenishawAbsEnc;
+
+    // Autocoupling Gantried Axes
+    fbAutoCoupleY : FB_GantryAutoCoupling;
+    fbAutoCoupleX : FB_GantryAutoCoupling;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Encoder Reference Values
@@ -72,22 +72,22 @@ stPitch.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 
 // Start Autocoupling
 fbAutoCoupleY(nGantryTol:=nGantryTolY,
-	          Master:=stYup,
-			  MasterEnc:= stYupEnc,
-			  Slave:=stYdwn,
-			  SlaveEnc:=stYdwnEnc,
-			  bExecuteCouple:=bExecuteCoupleY,
-			  bExecuteDecouple:=bExecuteDecoupleY,
-			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledY);
+              Master:=stYup,
+              MasterEnc:= stYupEnc,
+              Slave:=stYdwn,
+              SlaveEnc:=stYdwnEnc,
+              bExecuteCouple:=bExecuteCoupleY,
+              bExecuteDecouple:=bExecuteDecoupleY,
+              bGantryAlreadyCoupled=>bGantryAlreadyCoupledY);
 
 fbAutoCoupleX(nGantryTol:=nGantryTolX,
-	          Master:=stXup,
-			  MasterEnc:= stXupEnc,
-			  Slave:=stXdwn,
-			  SlaveEnc:=stXdwnEnc,
-			  bExecuteCouple:=bExecuteCoupleX,
-			  bExecuteDecouple:=bExecuteDecoupleX,
-			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);]]></ST>
+              Master:=stXup,
+              MasterEnc:= stXupEnc,
+              Slave:=stXdwn,
+              SlaveEnc:=stXdwnEnc,
+              bExecuteCouple:=bExecuteCoupleX,
+              bExecuteDecouple:=bExecuteDecoupleX,
+              bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

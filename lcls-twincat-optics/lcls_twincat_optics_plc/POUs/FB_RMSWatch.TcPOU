@@ -5,59 +5,59 @@
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
-	// RMS Error
-	fMaxRMSError : LREAL := 0;
-	fMinRMSError : LREAL := 1000; // start at something huge, FB will update with any smaller measured value
+    // RMS Error
+    fMaxRMSError : LREAL := 0;
+    fMinRMSError : LREAL := 1000; // start at something huge, FB will update with any smaller measured value
 END_VAR
 VAR_IN_OUT
-	stMotionStage : DUT_MotionStage;
+    stMotionStage : DUT_MotionStage;
 END_VAR
 VAR
     fEncScalingNum : LREAL := 1.0;
     fEncScalingDenom : LREAL := 1.0;
     fEncOffset : LREAL := 0;
     fEncScale : LREAL := 1.0;
-    
-	fbDataEncPos : FB_LREALBuffer; // ActPos Data Acquisition FB
-	fbDataSetPos : FB_LREALBuffer; // SetPos Data Acquisition FB
-	bExecuteDataStorage : BOOL := TRUE; // Take data of both ActPos and SetPos
-	bNewEncArray : BOOL;
 
-	fbStats : FB_BasicStats; // Calculate mean/standard deviation of ActPos
-	{attribute 'pytmc' := '
-		pv: MEAN
-		io: i
-    '}
-	fEncMean : LREAL;
-	{attribute 'pytmc' := '
-		pv: STDEV
-		io: i
-    '}
-	fEncStDev : LREAL;
-	{attribute 'pytmc' := '
-		pv: RMS
-		io: i
-    '}
-	fCurrRMSError : LREAL := 0;
+    fbDataEncPos : FB_LREALBuffer; // ActPos Data Acquisition FB
+    fbDataSetPos : FB_LREALBuffer; // SetPos Data Acquisition FB
+    bExecuteDataStorage : BOOL := TRUE; // Take data of both ActPos and SetPos
+    bNewEncArray : BOOL;
 
-	nIndex : DINT;
-	fSum : LREAL := 0; // Just for calculating rms
-	fDiff : LREAL := 0;
-
-	{attribute 'pytmc' := '
-		pv: ACTPOSARRAY
-		io: i
+    fbStats : FB_BasicStats; // Calculate mean/standard deviation of ActPos
+    {attribute 'pytmc' := '
+        pv: MEAN
+        io: i
     '}
-	aEncActPos : ARRAY [1..1000] OF LREAL;
-	{attribute 'pytmc' := '
-		pv: SETPOSARRAY
-		io: i
-	'}
-	aEncSetPos : ARRAY [1..1000] OF LREAL;
+    fEncMean : LREAL;
+    {attribute 'pytmc' := '
+        pv: STDEV
+        io: i
+    '}
+    fEncStDev : LREAL;
+    {attribute 'pytmc' := '
+        pv: RMS
+        io: i
+    '}
+    fCurrRMSError : LREAL := 0;
+
+    nIndex : DINT;
+    fSum : LREAL := 0; // Just for calculating rms
+    fDiff : LREAL := 0;
+
+    {attribute 'pytmc' := '
+        pv: ACTPOSARRAY
+        io: i
+    '}
+    aEncActPos : ARRAY [1..1000] OF LREAL;
+    {attribute 'pytmc' := '
+        pv: SETPOSARRAY
+        io: i
+    '}
+    aEncSetPos : ARRAY [1..1000] OF LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// Encoder Scaling 
+      <ST><![CDATA[// Encoder Scaling
 fEncScalingNum := stMotionStage.stAxisParameters.fEncScaleFactorNumerator;
 fEncScalingDenom := stMotionStage.stAxisParameters.fEncScaleFactorDenominator;
 fEncOffset := stMotionStage.stAxisParameters.fEncOffset;
@@ -66,38 +66,38 @@ fEncScale := fEncScalingNum / fEncScalingDenom;
 // FB to store encoder positions in 1000 element arrays, compute RMS errors, and watch for min/max
 // Encoder Readback/Storage
 fbDataEncPos(bExecute:=bExecuteDataStorage,
-           	 fInput:= ULINT_TO_LREAL(stMotionStage.nRawEncoderULINT),
-           	 arrOutput=>aEncActPos,
+                fInput:= ULINT_TO_LREAL(stMotionStage.nRawEncoderULINT),
+                arrOutput=>aEncActPos,
              bNewArray=>bNewEncArray);
 
 fbDataSetPos(bExecute:=bExecuteDataStorage,
-         	 fInput:=(stMotionStage.Axis.NcToPlc.SetPos - fEncOffset) / fEncScale,
-           	 arrOutput=>aEncSetPos);
+              fInput:=(stMotionStage.Axis.NcToPlc.SetPos - fEncOffset) / fEncScale,
+                arrOutput=>aEncSetPos);
 
 fbStats(aSignal:=aEncActPos,
-	    bAlwaysCalc:=TRUE,
-		fMean=>fEncMean,
-		fStDev=>fEncStDev);
+        bAlwaysCalc:=TRUE,
+        fMean=>fEncMean,
+        fStDev=>fEncStDev);
 
 // Calculate RMS Error:
 If bNewEncArray THEN
-	fCurrRMSError := 0;
-	FOR nIndex := 2 TO 1000 DO
-		// First point in array stuck as 0 for some reason...
-		fDiff := aEncActPos[nIndex] - aEncSetPos[nIndex];
-		fSum := EXPT(fDiff, 2);
-		fCurrRMSError := fCurrRMSError + fSum;
-	END_FOR;
-	fCurrRMSError := fCurrRMSError / 999.0; // 1000 element array but ditched the first point
-	fCurrRMSError := SQRT(fCurrRMSError);
-	// Watch for max:
-	IF fCurrRMSError > fMaxRMSError THEN
-		fMaxRMSError := fCurrRMSError;
-	END_IF
-	// Watch for min:
-	IF fCurrRMSError < fMinRMSError THEN
-		fMinRMSError := fCurrRMSError;
-	END_IF
+    fCurrRMSError := 0;
+    FOR nIndex := 2 TO 1000 DO
+        // First point in array stuck as 0 for some reason...
+        fDiff := aEncActPos[nIndex] - aEncSetPos[nIndex];
+        fSum := EXPT(fDiff, 2);
+        fCurrRMSError := fCurrRMSError + fSum;
+    END_FOR;
+    fCurrRMSError := fCurrRMSError / 999.0; // 1000 element array but ditched the first point
+    fCurrRMSError := SQRT(fCurrRMSError);
+    // Watch for max:
+    IF fCurrRMSError > fMaxRMSError THEN
+        fMaxRMSError := fCurrRMSError;
+    END_IF
+    // Watch for min:
+    IF fCurrRMSError < fMinRMSError THEN
+        fMinRMSError := fCurrRMSError;
+    END_IF
     fCurrRMSError := fCurrRMSError * fEncScale;
     fMaxRMSError := FMaxRMSError * fEncScale;
     fMinRMSError := FMinRMSError * fEncScale;

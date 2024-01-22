@@ -15,42 +15,42 @@ VAR
 
     fbDataYGantryDiff : FB_LREALBuffer; // YGantry Data Acquisition FB
     fbDataXGantryDiff : FB_LREALBuffer; // XGantry Data Acquisition FB
-    
+
     fbYGantryStats : FB_BasicStats; // Calculate mean/standard deviation of YGantryDiff
     fbXGantryStats : FB_BasicStats; // Calculate mean/standard deviation of XGantryDiff
     {attribute 'pytmc' := '
-		pv: YGANDIFFMEAN
-		io: i
+        pv: YGANDIFFMEAN
+        io: i
     '}
-	fYGantryDiffMean : LREAL;
-	{attribute 'pytmc' := '
-		pv: YGANDIFFSTDEV
-		io: i
-    '}
-	fYGantryDiffStDev : LREAL;
-        {attribute 'pytmc' := '
-		pv: XGANDIFFMEAN
-		io: i
-    '}
-	fXGantryDiffMean : LREAL;
-	{attribute 'pytmc' := '
-		pv: XGANDIFFSTDEV
-		io: i
-    '}
-	fXGantryDiffStDev : LREAL;
-    
-    bNewEncArray : BOOL;
-    
+    fYGantryDiffMean : LREAL;
     {attribute 'pytmc' := '
-		pv: YGANDIFFARRAY
-		io: i
+        pv: YGANDIFFSTDEV
+        io: i
     '}
-	aYGantryDiff : ARRAY [1..1000] OF LREAL;
-	{attribute 'pytmc' := '
-		pv: XGANDIFFARRAY
-		io: i
-	'}
-	aXGantryDiff : ARRAY [1..1000] OF LREAL;
+    fYGantryDiffStDev : LREAL;
+        {attribute 'pytmc' := '
+        pv: XGANDIFFMEAN
+        io: i
+    '}
+    fXGantryDiffMean : LREAL;
+    {attribute 'pytmc' := '
+        pv: XGANDIFFSTDEV
+        io: i
+    '}
+    fXGantryDiffStDev : LREAL;
+
+    bNewEncArray : BOOL;
+
+    {attribute 'pytmc' := '
+        pv: YGANDIFFARRAY
+        io: i
+    '}
+    aYGantryDiff : ARRAY [1..1000] OF LREAL;
+    {attribute 'pytmc' := '
+        pv: XGANDIFFARRAY
+        io: i
+    '}
+    aXGantryDiff : ARRAY [1..1000] OF LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -60,26 +60,26 @@ fEncXScale := fbUpStreamX.stAxisParameters.fEncScaleFactorNumerator / fbUpstream
 
 // Gantry Diff Readback/Storage
 fbDataYGantryDiff(bExecute:=True,
-           	 fInput:= LINT_TO_LREAL(homs.nCurrGantryY),
-           	 arrOutput=>aYGantryDiff,
+                fInput:= LINT_TO_LREAL(homs.nCurrGantryY),
+                arrOutput=>aYGantryDiff,
              bNewArray=>bNewEncArray);
-             
-fbDataXGantryDiff(bExecute:=True,
-           	 fInput:= LINT_TO_LREAL(homs.nCurrGantryX),
-           	 arrOutput=>aXGantryDiff,
-             bNewArray=>bNewEncArray);
-             
-fbYGantryStats(aSignal:=aYGantryDiff,
-	    bAlwaysCalc:=TRUE,
-		fMean=>fYGantryDiffMean,
-		fStDev=>fYGantryDiffStDev);
-        
-fbXGantryStats(aSignal:=aXGantryDiff,
-	    bAlwaysCalc:=TRUE,
-		fMean=>fXGantryDiffMean,
-		fStDev=>fXGantryDiffStDev);
 
-//scale outputs to actual values       
+fbDataXGantryDiff(bExecute:=True,
+                fInput:= LINT_TO_LREAL(homs.nCurrGantryX),
+                arrOutput=>aXGantryDiff,
+             bNewArray=>bNewEncArray);
+
+fbYGantryStats(aSignal:=aYGantryDiff,
+        bAlwaysCalc:=TRUE,
+        fMean=>fYGantryDiffMean,
+        fStDev=>fYGantryDiffStDev);
+
+fbXGantryStats(aSignal:=aXGantryDiff,
+        bAlwaysCalc:=TRUE,
+        fMean=>fXGantryDiffMean,
+        fStDev=>fXGantryDiffStDev);
+
+//scale outputs to actual values
 fYGantryDiffMean := fbYGantryStats.fMean * fEncYScale;
 fYGantryDiffStDev := fbYGantryStats.fStDev * fEncYScale;
 fXGantryDiffMean := fbXGantryStats.fMean * fEncXScale;

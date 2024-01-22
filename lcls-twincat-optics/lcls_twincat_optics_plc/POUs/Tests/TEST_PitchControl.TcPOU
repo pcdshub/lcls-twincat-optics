@@ -16,29 +16,29 @@ END_VAR
     <Method Name="LimitSwitches" Id="{cfe4231f-d115-4318-b321-c7df49f7961e}">
       <Declaration><![CDATA[METHOD LimitSwitches
 VAR_INPUT
-    
+
 END_VAR
 VAR
     fActPosition : LREAL;
-	bPitchDone : BOOL;
+    bPitchDone : BOOL;
 END_VAR
 VAR_INST
     fbPitchControl : FB_PitchControl;
 
-	ExpertMode : BOOL := FALSE;
-	PitchManualMode : BOOL := FALSE;
-    
+    ExpertMode : BOOL := FALSE;
+    PitchManualMode : BOOL := FALSE;
+
     iStep : UINT := 0;
-    
+
     rtDone : R_TRIG;
-    
+
     tonHack : TON := (PT:=T#2s);
-    
+
 END_VAR
 VAR CONSTANT
     BwdLimPos : LREAL := -500;
     FwdLimPos : LREAL := 500;
-    
+
     ForwardTestSP : LREAL := 1000;
 END_VAR]]></Declaration>
       <Implementation>
@@ -50,14 +50,14 @@ GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bHardwareEnable := TRUE;
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fVelocity := 150.0;
 
 fbPitchControl(Pitch:=GVL_TestStructs.TestPitch_LimitSwitches,
-			   q_bDone=>bPitchDone,
-			   q_bBusy=>);
+               q_bDone=>bPitchDone,
+               q_bBusy=>);
 rtDone(CLK:=bPitchDone);
 
 tonHack(IN:=GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL);
 
-               
-TEST('PitchControlLimitSwitchTests');               
+
+TEST('PitchControlLimitSwitchTests');
 CASE iStep OF
 
 
@@ -69,9 +69,9 @@ TEST('Forward Limit Switch Stop');
 IF fActPosition > FwdLimPos AND rtDone.Q THEN
 
 //    AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
-	AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL AND NOT GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bAllForwardEnable, 'Did not stop at forward limit');
+    AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL AND NOT GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bAllForwardEnable, 'Did not stop at forward limit');
     TEST_FINISHED_NAMED('Forward Limit Switch Stop');
-    
+
     iStep := 20;
 END_IF
 
@@ -85,7 +85,7 @@ IF rtDone.Q THEN
 //    AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition, 'Position not at back off position');
     AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Position not at back off position');
     TEST_FINISHED_NAMED('Forward Limit BO');
-    
+
     iStep := 30;
 END_IF
 
@@ -97,9 +97,9 @@ TEST('Bwd Limit Switch Stop');
 IF fActPosition > FwdLimPos AND rtDone.Q THEN
 
     AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
-    
+
     TEST_FINISHED_NAMED('Bwd Limit Switch Stop');
-    
+
     iStep := 50;
 END_IF
 
@@ -112,16 +112,16 @@ TEST('Bwd Limit BO');
 IF rtDone.Q THEN
 
     AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Position not at back off position');
-    
+
     TEST_FINISHED_NAMED('Bwd Limit BO');
-    
+
     iStep := 8000;
 END_IF
 
 60:
 
 8000:
-TEST_FINISHED_NAMED('PitchControlLimitSwitchTests');             
+TEST_FINISHED_NAMED('PitchControlLimitSwitchTests');
 
 END_CASE]]></ST>
       </Implementation>
@@ -129,7 +129,7 @@ END_CASE]]></ST>
     <Method Name="StepperPiezoExchange" Id="{2ba91de8-e34c-4d3a-aea5-0bb97ec6666e}">
       <Declaration><![CDATA[METHOD StepperPiezoExchange
 VAR_INPUT
-    
+
 END_VAR
 VAR
     fActPosition : LREAL;
@@ -137,16 +137,16 @@ END_VAR
 VAR_INST
     fbPitchControl : FB_PitchControl;
 
-	ExpertMode : BOOL := FALSE;
-	PitchManualMode : BOOL := FALSE;
-    
+    ExpertMode : BOOL := FALSE;
+    PitchManualMode : BOOL := FALSE;
+
     iStep : UINT := 0;
-    
+
 END_VAR
 VAR CONSTANT
     BwdLimPos : LREAL := -500;
     FwdLimPos : LREAL := 500;
-    
+
     ForwardTestSP : LREAL := 1000;
 END_VAR
 ]]></Declaration>
@@ -159,10 +159,10 @@ GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bHardwareEnable := TRUE;
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fVelocity := 150.0;
 
 fbPitchControl(Pitch:=GVL_TestStructs.TestPitch_LimitSwitches,
-			   q_bDone=>,
-			   q_bBusy=>);
-               
-               
+               q_bDone=>,
+               q_bBusy=>);
+
+
 CASE iStep OF
 
 
@@ -173,7 +173,7 @@ TEST('Forward Limit Switch Stop');
 IF fActPosition > FwdLimPos AND GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL THEN
     AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL, 'Axis not at standstill');
     AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
-    
+
     TEST_FINISHED_NAMED('Forward Limit Switch Stop');
 END_IF
 
@@ -185,7 +185,7 @@ END_IF
 
 40: // Attempt to move again past bwd limit and be denied
 
-50: // Attempt to back off limit and succeed            
+50: // Attempt to back off limit and succeed
 
 END_CASE]]></ST>
       </Implementation>

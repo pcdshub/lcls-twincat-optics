@@ -3,32 +3,32 @@
   <POU Name="Main" Id="{bced800e-adc0-4347-8ec8-808d3a0afec0}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Main
 VAR
-	(*
-	// Test Pitch Control
-	fbPitchControl : FB_PitchControl;
-	TestPitch : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
-		                                ReqPosLimLo:=-2000,
-		                                diEncPosLimHi:=10768330,
-		                                diEncPosLimLo:=8141680);
-	M1 : DUT_MotionStage;
-	bPitchDone : BOOL;
-	*)
+    (*
+    // Test Pitch Control
+    fbPitchControl : FB_PitchControl;
+    TestPitch : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
+                                        ReqPosLimLo:=-2000,
+                                        diEncPosLimHi:=10768330,
+                                        diEncPosLimLo:=8141680);
+    M1 : DUT_MotionStage;
+    bPitchDone : BOOL;
+    *)
 
-	// Test Bender vs No Bender
-	TESTWithBender : DUT_HOMS;
-	M1 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-	M2 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-	M3 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-	M4 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-	M5 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-	M6 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-	fbBender : FB_Bender;
+    // Test Bender vs No Bender
+    TESTWithBender : DUT_HOMS;
+    M1 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M2 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M3 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M4 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M5 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M6 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    fbBender : FB_Bender;
 
-	fbMotionStage_m1 : FB_MotionStage;
-	fbMotionStage_m2 : FB_MotionStage;
-	fbMotionStage_m3 : FB_MotionStage;
-	fbMotionStage_m4 : FB_MotionStage;
-	fbMotionStage_m6 : FB_MotionStage;
+    fbMotionStage_m1 : FB_MotionStage;
+    fbMotionStage_m2 : FB_MotionStage;
+    fbMotionStage_m3 : FB_MotionStage;
+    fbMotionStage_m4 : FB_MotionStage;
+    fbMotionStage_m6 : FB_MotionStage;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -39,12 +39,12 @@ M1.bLimitForwardEnable;
 M1.bHardwareEnable;
 M1.fVelocity := 150.0;
 fbPitchControl(Pitch:=TestPitch,
-			   Stepper:=M1,
-			   lrCurrentSetpoint:=M1.fPosition,
-			   q_bDone=>bPitchDone,
-			   q_bBusy=>);
+               Stepper:=M1,
+               lrCurrentSetpoint:=M1.fPosition,
+               q_bDone=>bPitchDone,
+               q_bBusy=>);
 IF NOT M1.bHardwareEnable THEN
-	M1.fPosition := M1.stAxisStatus.fActPosition;
+    M1.fPosition := M1.stAxisStatus.fActPosition;
 END_IF
 *)
 
@@ -78,21 +78,21 @@ TESTWithBender.fbRunHOMS(stYup:=M1,
                          stXup:=M3,
                          stXdwn:=M4,
                          stPitch:=M5,
-	                     nYupEncRef:=0,
+                         nYupEncRef:=0,
                          nYdwnEncRef:=0,
                          nXupEncRef:=0,
                          nXdwnEncRef:=0,
-			             bExecuteCoupleY:=TESTWithBender.bExecuteCoupleY,
+                         bExecuteCoupleY:=TESTWithBender.bExecuteCoupleY,
                          bExecuteCoupleX:=TESTWithBender.bExecuteCoupleX,
-			             bExecuteDecoupleY:=TESTWithBender.bExecuteDecoupleY,
+                         bExecuteDecoupleY:=TESTWithBender.bExecuteDecoupleY,
                          bExecuteDecoupleX:=TESTWithBender.bExecuteDecoupleX,
                          bGantryAlreadyCoupledY=>TESTWithBender.bGantryAlreadyCoupledY,
                          bGantryAlreadyCoupledX=>TESTWithBender.bGantryAlreadyCoupledX,
                          nCurrGantryY=>TESTWithBender.nCurrGantryY,
                          nCurrGantryX=>TESTWithBender.nCurrGantryX);
 fbBender(stBender:=M6,
-	     bSTOEnable1:=TESTWithBender.fbRunHOMS.bSTOEnable1,
-		 bSTOEnable2:=TESTWithBender.fbRunHOMS.bSTOEnable2);
+         bSTOEnable1:=TESTWithBender.fbRunHOMS.bSTOEnable1,
+         bSTOEnable2:=TESTWithBender.fbRunHOMS.bSTOEnable2);
 
 fbMotionStage_m1(stMotionStage:=M1);
 fbMotionStage_m2(stMotionStage:=M2);
