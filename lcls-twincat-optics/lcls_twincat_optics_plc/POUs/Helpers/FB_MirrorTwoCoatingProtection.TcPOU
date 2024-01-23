@@ -21,6 +21,10 @@ VAR_INPUT
     bReadPmpsDb : BOOL; // Trigger a re-read of the JSON Beam Parameters
 
     bUsePmpsDb : BOOL := FALSE; // Set TRUE to lookup Beam Parameters via DB.
+
+    nUpperCoatingBitmask : DWORD := 0;
+
+    nLowerCoatingBitMask : DWORD := 0;
 END_VAR
 VAR_OUTPUT
 END_VAR
@@ -45,9 +49,6 @@ VAR
     fbGetCoatingBPs : FB_JsonDocToSafeBP;
     ftReadJsonDocDone : F_TRIG;
     bBPsLoaded : BOOL := FALSE;
-
-    nUpperCoatingBitmask : DWORD := 0;
-    nLowerCoatingBitMask : DWORD := 0;
 
     i : INT;
     sDevState : STRING  := '';
