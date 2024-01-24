@@ -103,9 +103,9 @@
       <DefaultResolution>LCLS General, * (SLAC)</DefaultResolution>
       <Namespace>LCLS_General</Namespace>
     </PlaceholderReference>
-    <PlaceholderReference Include="lcls-twincat-motion">
-      <DefaultResolution>lcls-twincat-motion, * (SLAC)</DefaultResolution>
-      <Namespace>lcls_twincat_motion</Namespace>
+    <PlaceholderReference Include="lcls-twincat-motion-nrw">
+      <DefaultResolution>lcls-twincat-motion-nrw, * (SLAC)</DefaultResolution>
+      <Namespace>lcls_twincat_motion_nrw</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="PMPS">
       <DefaultResolution>PMPS, * (SLAC - LCLS)</DefaultResolution>
@@ -152,9 +152,6 @@
   <ItemGroup>
     <PlaceholderResolution Include="LCLS General">
       <Resolution>LCLS General, * (SLAC)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="lcls-twincat-motion">
-      <Resolution>lcls-twincat-motion, * (SLAC)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="PMPS">
       <Resolution>PMPS, * (SLAC - LCLS)</Resolution>
