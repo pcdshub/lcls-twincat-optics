@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_RMSWatch" Id="{7d0ac4a7-0c5c-406a-a694-5de5f07477d4}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_RMSWatch
 VAR_INPUT
@@ -10,7 +10,7 @@ VAR_OUTPUT
     fMinRMSError : LREAL := 1000; // start at something huge, FB will update with any smaller measured value
 END_VAR
 VAR_IN_OUT
-    stMotionStage : DUT_MotionStage;
+    stMotionStage : ST_MotionStage;
 END_VAR
 VAR
     fEncScalingNum : LREAL := 1.0;

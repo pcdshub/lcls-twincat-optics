@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_RunHOMS" Id="{ee7498ff-903e-47a0-a649-7587adeefcee}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_RunHOMS
 VAR_INPUT
@@ -24,11 +24,11 @@ VAR_OUTPUT
 END_VAR
 VAR_IN_OUT
     // Motor Structs
-    stYup : DUT_MotionStage;
-    stYdwn : DUT_MotionStage;
-    stXup : DUT_MotionStage;
-    stXdwn : DUT_MotionStage;
-    stPitch : DUT_MotionStage;
+    stYup : ST_MotionStage;
+    stYdwn : ST_MotionStage;
+    stXup : ST_MotionStage;
+    stXdwn : ST_MotionStage;
+    stPitch : ST_MotionStage;
 
     // Manual coupling Gantried Axes
     bExecuteCoupleY : BOOL;

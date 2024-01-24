@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Main" Id="{bced800e-adc0-4347-8ec8-808d3a0afec0}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Main
 VAR
@@ -10,18 +10,18 @@ VAR
                                         ReqPosLimLo:=-2000,
                                         diEncPosLimHi:=10768330,
                                         diEncPosLimLo:=8141680);
-    M1 : DUT_MotionStage;
+    M1 : ST_MotionStage;
     bPitchDone : BOOL;
     *)
 
     // Test Bender vs No Bender
     TESTWithBender : DUT_HOMS;
-    M1 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    M2 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    M3 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    M4 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    M5 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    M6 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M1 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M2 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M3 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M4 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M5 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+    M6 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
     fbBender : FB_Bender;
 
     fbMotionStage_m1 : FB_MotionStage;

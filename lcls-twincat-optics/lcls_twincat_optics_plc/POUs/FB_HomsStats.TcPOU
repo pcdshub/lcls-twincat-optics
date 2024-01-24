@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_HomsStats" Id="{33be0616-40a1-4f3c-b4ac-66894bf0192b}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_HomsStats
 VAR_INPUT
     homs : DUT_HOMS;
-    fbUpStreamY : DUT_MotionStage;
-    fbUpStreamX : DUT_MotionStage;
+    fbUpStreamY : ST_MotionStage;
+    fbUpStreamX : ST_MotionStage;
 END_VAR
 VAR_OUTPUT
 END_VAR
