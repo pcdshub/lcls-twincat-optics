@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Axilon_Cooling_1f1p" Id="{ade20f58-ec40-4d7d-8948-8ddaa5604148}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Axilon_Cooling_1f1p
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+    // Mirrors with 1 Cooling Flow Meter and 1 Pressure Meter
+    {attribute 'pytmc' := '
+        pv: FWM:1
+        field: EGU lpm
+        field: HIGH 2.3
+        field: HIHI 3.0
+        field: LOW 1.7
+        field: LOLO 1.5
+        io: i
+    '}
+    fFlow_1_val : LREAL;
+
+    {attribute 'pytmc' := '
+        pv: PRSM:1
+        field: EGU bar
+        field: LOW 0.1
+        io: i
+    '}
+    fPress_1_val : LREAL;
+END_VAR
+VAR
+    fFlow_1 : FB_AnalogInput;
+    fPress_1 : FB_AnalogInput;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+fFlow_1(iTermBits:=15, fTermMax:=5.0427, fTermMin:=0.050472);
+fFlow_1_val := fFlow_1.fReal;
+
+fPress_1(iTermBits:=15, fTermMax:=4.0, fTermMin:=0);
+fPress_1_val := fPress_1.fReal;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
