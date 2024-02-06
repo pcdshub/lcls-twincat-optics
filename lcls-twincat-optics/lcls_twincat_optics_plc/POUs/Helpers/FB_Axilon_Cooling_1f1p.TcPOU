@@ -26,17 +26,16 @@ VAR_OUTPUT
     fPress_1_val : LREAL;
 END_VAR
 VAR
-    fFlow_1 : FB_AnalogInput;
-    fPress_1 : FB_AnalogInput;
+    fbFlow_1 : FB_AnalogInput;
+    fbPress_1 : FB_AnalogInput;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-fFlow_1(iTermBits:=15, fTermMax:=5.0427, fTermMin:=0.050472);
-fFlow_1_val := fFlow_1.fReal;
+      <ST><![CDATA[fbFlow_1(iTermBits:=15, fTermMax:=5.0427, fTermMin:=0.050472);
+fFlow_1_val := fbFlow_1.fReal;
 
-fPress_1(iTermBits:=15, fTermMax:=4.0, fTermMin:=0);
-fPress_1_val := fPress_1.fReal;]]></ST>
+fbPress_1(iTermBits:=15, fTermMax:=4.0, fTermMin:=0);
+fPress_1_val := fbPress_1.fReal;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
