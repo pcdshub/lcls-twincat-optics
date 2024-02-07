@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DUTs &mdash; pcdshub/lcls-twincat-optics  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/tree.css?v=837a00b9" />
+      <link rel="stylesheet" type="text/css" href="_static/width.css?v=ab210c7a" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,7 +50,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_pragmas.html">Pragmas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_nc.html">NC Settings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_ethercat.html">Box Hierarchy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_ethercat.html">EtherCAT Terminals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_boxes.html">Boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lcls-twincat-optics_links.html">Links</a></li>
 </ul>
@@ -73,6 +77,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#pous">POUs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fb-axilon-cooling-1f1p">FB_Axilon_Cooling_1f1p</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fb-axilon-cooling-2f1p">FB_Axilon_Cooling_2f1p</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fb-bender">FB_Bender</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fb-homsstats">FB_HomsStats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fb-mirrortwocoatingprotection">FB_MirrorTwoCoatingProtection</a></li>
@@ -125,36 +131,36 @@
 
     <span class="o">//</span> <span class="n">Couple</span><span class="o">/</span><span class="n">Decouple</span> <span class="n">motors</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">COUPLE_Y</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">o</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">COUPLE_Y</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">o</span>
     <span class="s1">&#39;}</span>
     <span class="n">bExecuteCoupleY</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">DECOUPLE_Y</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">o</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">DECOUPLE_Y</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">o</span>
     <span class="s1">&#39;}</span>
     <span class="n">bExecuteDecoupleY</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">COUPLE_X</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">o</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">COUPLE_X</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">o</span>
     <span class="s1">&#39;}</span>
     <span class="n">bExecuteCoupleX</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">DECOUPLE_X</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">o</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">DECOUPLE_X</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">o</span>
     <span class="s1">&#39;}</span>
     <span class="n">bExecuteDecoupleX</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
 
     <span class="o">//</span> <span class="n">Coupling</span> <span class="n">status</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">ALREADY_COUPLED_Y</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">ALREADY_COUPLED_Y</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
         <span class="n">field</span><span class="p">:</span> <span class="n">ZSV</span> <span class="n">MAJOR</span>
     <span class="s1">&#39;}</span>
     <span class="n">bGantryAlreadyCoupledY</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">ALREADY_COUPLED_X</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">ALREADY_COUPLED_X</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
         <span class="n">field</span><span class="p">:</span> <span class="n">ZSV</span> <span class="n">MAJOR</span>
     <span class="s1">&#39;}</span>
     <span class="n">bGantryAlreadyCoupledX</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
@@ -165,15 +171,15 @@
 
     <span class="o">//</span> <span class="n">Convert</span> <span class="n">gantry</span> <span class="n">differences</span> <span class="n">to</span> <span class="n">um</span> <span class="p">(</span><span class="n">smaller</span> <span class="n">number</span><span class="p">)</span> <span class="n">to</span> <span class="n">readout</span> <span class="ow">in</span> <span class="n">epics</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">GANTRY_Y</span>
-            <span class="n">field</span><span class="p">:</span> <span class="n">EGU</span> <span class="n">um</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">GANTRY_Y</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">EGU</span> <span class="n">um</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">fCurrGantryY_um</span> <span class="p">:</span> <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span> <span class="n">Y</span> <span class="n">Gantry</span> <span class="n">difference</span> <span class="ow">in</span> <span class="n">um</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">GANTRY_X</span>
-            <span class="n">field</span><span class="p">:</span> <span class="n">EGU</span> <span class="n">um</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">GANTRY_X</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">EGU</span> <span class="n">um</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">fCurrGantryX_um</span> <span class="p">:</span> <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span> <span class="n">X</span> <span class="n">Gantry</span> <span class="n">difference</span> <span class="ow">in</span> <span class="n">um</span>
 <span class="n">END_STRUCT</span>
@@ -265,45 +271,45 @@ END_TYPE
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TYPE</span> <span class="n">ST_PiezoAxis</span> <span class="p">:</span>
 <span class="n">STRUCT</span>
     <span class="p">(</span><span class="o">*</span> <span class="n">IO</span> <span class="o">*</span><span class="p">)</span>
-            <span class="o">//</span><span class="n">Readback</span>
-            <span class="n">sIdn</span>                            <span class="p">:</span>       <span class="n">STRING</span><span class="p">;</span> <span class="o">//</span><span class="n">Identity</span>
-            <span class="n">iCurError</span>                       <span class="p">:</span>       <span class="n">INT</span><span class="p">;</span> <span class="o">//</span><span class="n">Current</span> <span class="n">error</span> <span class="n">code</span><span class="p">,</span> <span class="n">should</span> <span class="n">be</span> <span class="mi">0</span> <span class="n">most</span> <span class="n">of</span> <span class="n">the</span> <span class="n">time</span>
-            <span class="n">iLastError</span>                      <span class="p">:</span>       <span class="n">INT</span><span class="p">;</span> <span class="o">//</span><span class="n">Last</span> <span class="n">error</span> <span class="n">code</span><span class="p">,</span> <span class="k">for</span> <span class="n">history</span>
-            <span class="n">rActVoltage</span>                     <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Actual</span> <span class="n">voltage</span>
-            <span class="n">rLastReqVoltage</span>         <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Last</span> <span class="n">requested</span> <span class="n">piezo</span> <span class="n">voltage</span>
-            <span class="o">//</span><span class="n">Control</span>
-            <span class="n">rSetVoltage</span>                     <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">this</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">by</span> <span class="n">the</span> <span class="n">control</span> <span class="n">loop</span><span class="o">/</span> <span class="n">voltage</span> <span class="n">mode</span>
-            <span class="n">sAxis</span>                           <span class="p">:</span>   <span class="n">STRING</span> <span class="o">:=</span><span class="s1">&#39;A&#39;</span><span class="p">;</span> <span class="o">//</span><span class="n">Axis</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">...</span><span class="n">A</span> <span class="k">if</span> <span class="n">single</span> <span class="n">unit</span>
-            <span class="o">//</span><span class="n">Summaries</span>
-            <span class="n">xTimeout</span>        <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span>
-            <span class="n">xDriverError</span>            <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span> <span class="o">//</span><span class="n">Summary</span> <span class="n">of</span> <span class="nb">any</span> <span class="n">driver</span> <span class="n">errors</span>
+        <span class="o">//</span><span class="n">Readback</span>
+        <span class="n">sIdn</span>                                <span class="p">:</span>       <span class="n">STRING</span><span class="p">;</span> <span class="o">//</span><span class="n">Identity</span>
+        <span class="n">iCurError</span>                   <span class="p">:</span>       <span class="n">INT</span><span class="p">;</span> <span class="o">//</span><span class="n">Current</span> <span class="n">error</span> <span class="n">code</span><span class="p">,</span> <span class="n">should</span> <span class="n">be</span> <span class="mi">0</span> <span class="n">most</span> <span class="n">of</span> <span class="n">the</span> <span class="n">time</span>
+        <span class="n">iLastError</span>                  <span class="p">:</span>       <span class="n">INT</span><span class="p">;</span> <span class="o">//</span><span class="n">Last</span> <span class="n">error</span> <span class="n">code</span><span class="p">,</span> <span class="k">for</span> <span class="n">history</span>
+        <span class="n">rActVoltage</span>                 <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Actual</span> <span class="n">voltage</span>
+        <span class="n">rLastReqVoltage</span>             <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Last</span> <span class="n">requested</span> <span class="n">piezo</span> <span class="n">voltage</span>
+        <span class="o">//</span><span class="n">Control</span>
+        <span class="n">rSetVoltage</span>                 <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">this</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">by</span> <span class="n">the</span> <span class="n">control</span> <span class="n">loop</span><span class="o">/</span> <span class="n">voltage</span> <span class="n">mode</span>
+        <span class="n">sAxis</span>                               <span class="p">:</span>   <span class="n">STRING</span> <span class="o">:=</span><span class="s1">&#39;A&#39;</span><span class="p">;</span> <span class="o">//</span><span class="n">Axis</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">...</span><span class="n">A</span> <span class="k">if</span> <span class="n">single</span> <span class="n">unit</span>
+        <span class="o">//</span><span class="n">Summaries</span>
+        <span class="n">xTimeout</span>    <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span>
+        <span class="n">xDriverError</span>                <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span> <span class="o">//</span><span class="n">Summary</span> <span class="n">of</span> <span class="nb">any</span> <span class="n">driver</span> <span class="n">errors</span>
 
     <span class="p">(</span><span class="o">*</span> <span class="n">Operation</span> <span class="o">*</span><span class="p">)</span>
-            <span class="n">xEnable</span> <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span> <span class="o">//</span><span class="n">Enable</span> <span class="n">control</span><span class="o">.</span>
-            <span class="p">(</span><span class="o">*</span> <span class="n">Note</span><span class="p">:</span> <span class="n">Voltage</span> <span class="n">mode</span> <span class="ow">and</span> <span class="n">Idle</span> <span class="n">mode</span> <span class="n">overrides</span> <span class="s2">&quot;DirectPiezoMode&quot;</span> <span class="n">of</span> <span class="n">FB_PitchControl</span> <span class="o">*</span><span class="p">)</span>
-            <span class="n">xVoltageMode</span>    <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span> <span class="o">//</span><span class="n">Voltage</span> <span class="n">mode</span> <span class="n">gives</span> <span class="n">direct</span> <span class="n">access</span> <span class="n">to</span> <span class="n">piezo</span> <span class="n">voltage</span><span class="p">,</span> <span class="n">false</span> <span class="n">means</span> <span class="n">closed</span> <span class="n">loop</span> <span class="n">position</span> <span class="n">acquisition</span> <span class="p">(</span><span class="n">see</span> <span class="n">FB_PitchControl</span> <span class="k">for</span> <span class="n">piezo</span> <span class="ow">and</span> <span class="n">stepper</span> <span class="n">separation</span><span class="p">)</span>
-            <span class="n">xIdleMode</span>       <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span> <span class="o">//</span><span class="n">Use</span> <span class="n">to</span> <span class="n">put</span> <span class="n">the</span> <span class="n">piezo</span> <span class="n">at</span> <span class="n">half</span><span class="o">-</span><span class="n">stroke</span>
-            <span class="n">rReqVoltage</span> <span class="p">:</span> <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Requested</span> <span class="n">piezo</span> <span class="n">voltage</span> <span class="ow">in</span> <span class="n">voltage</span> <span class="n">mode</span>
-            <span class="n">rReqAbsPos</span>      <span class="p">:</span>       <span class="n">LREAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Requested</span> <span class="n">Position</span><span class="p">,</span> <span class="n">latched</span> <span class="n">at</span> <span class="n">rising</span> <span class="n">StartAbsMov</span>
-            <span class="n">xStop</span>   <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span>   <span class="o">//</span><span class="n">Stops</span> <span class="n">piezo</span> <span class="ow">and</span> <span class="n">holds</span> <span class="n">position</span>
+        <span class="n">xEnable</span>     <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span> <span class="o">//</span><span class="n">Enable</span> <span class="n">control</span><span class="o">.</span>
+        <span class="p">(</span><span class="o">*</span> <span class="n">Note</span><span class="p">:</span> <span class="n">Voltage</span> <span class="n">mode</span> <span class="ow">and</span> <span class="n">Idle</span> <span class="n">mode</span> <span class="n">overrides</span> <span class="s2">&quot;DirectPiezoMode&quot;</span> <span class="n">of</span> <span class="n">FB_PitchControl</span> <span class="o">*</span><span class="p">)</span>
+        <span class="n">xVoltageMode</span>        <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span> <span class="o">//</span><span class="n">Voltage</span> <span class="n">mode</span> <span class="n">gives</span> <span class="n">direct</span> <span class="n">access</span> <span class="n">to</span> <span class="n">piezo</span> <span class="n">voltage</span><span class="p">,</span> <span class="n">false</span> <span class="n">means</span> <span class="n">closed</span> <span class="n">loop</span> <span class="n">position</span> <span class="n">acquisition</span> <span class="p">(</span><span class="n">see</span> <span class="n">FB_PitchControl</span> <span class="k">for</span> <span class="n">piezo</span> <span class="ow">and</span> <span class="n">stepper</span> <span class="n">separation</span><span class="p">)</span>
+        <span class="n">xIdleMode</span>   <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span> <span class="o">//</span><span class="n">Use</span> <span class="n">to</span> <span class="n">put</span> <span class="n">the</span> <span class="n">piezo</span> <span class="n">at</span> <span class="n">half</span><span class="o">-</span><span class="n">stroke</span>
+        <span class="n">rReqVoltage</span> <span class="p">:</span> <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Requested</span> <span class="n">piezo</span> <span class="n">voltage</span> <span class="ow">in</span> <span class="n">voltage</span> <span class="n">mode</span>
+        <span class="n">rReqAbsPos</span>  <span class="p">:</span>       <span class="n">LREAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Requested</span> <span class="n">Position</span><span class="p">,</span> <span class="n">latched</span> <span class="n">at</span> <span class="n">rising</span> <span class="n">StartAbsMov</span>
+        <span class="n">xStop</span>       <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span>   <span class="o">//</span><span class="n">Stops</span> <span class="n">piezo</span> <span class="ow">and</span> <span class="n">holds</span> <span class="n">position</span>
 
 
     <span class="p">(</span><span class="o">*</span> <span class="n">Control</span> <span class="n">Parameters</span> <span class="o">*</span><span class="p">)</span>
-            <span class="n">rActPos</span> <span class="p">:</span>       <span class="n">LREAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Encoder</span> <span class="n">Readback</span>
-            <span class="o">//</span><span class="n">Pitch</span> <span class="n">piezo</span> <span class="n">dmove</span> <span class="nb">range</span> <span class="p">(</span><span class="n">urad</span><span class="p">)</span>
-            <span class="n">rPiezoDmovRange</span>         <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="mf">1.0</span><span class="p">;</span>
-            <span class="n">stPIParams</span>      <span class="p">:</span>       <span class="n">ST_CTRL_PI_PARAMS</span> <span class="o">:=</span> <span class="p">(</span>
-                    <span class="n">tCtrlCycleTime</span> <span class="o">:=</span> <span class="n">T</span><span class="c1">#0MS,</span>
-                    <span class="n">tTaskCycleTime</span> <span class="o">:=</span> <span class="n">T</span><span class="c1">#0MS,</span>
-                    <span class="n">tTn</span>       <span class="o">:=</span> <span class="n">T</span><span class="c1">#200MS,</span>
-                    <span class="n">fKp</span>      <span class="o">:=</span> <span class="mf">0.0005</span><span class="p">,</span>
-                    <span class="n">fOutMaxLimit</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">,</span>
-                    <span class="n">fOutMinLimit</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                    <span class="n">bARWOnIPartOnly</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">);</span>
+        <span class="n">rActPos</span>     <span class="p">:</span>       <span class="n">LREAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Encoder</span> <span class="n">Readback</span>
+        <span class="o">//</span><span class="n">Pitch</span> <span class="n">piezo</span> <span class="n">dmove</span> <span class="nb">range</span> <span class="p">(</span><span class="n">urad</span><span class="p">)</span>
+        <span class="n">rPiezoDmovRange</span>             <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="mf">1.0</span><span class="p">;</span>
+        <span class="n">stPIParams</span>  <span class="p">:</span>       <span class="n">ST_CTRL_PI_PARAMS</span> <span class="o">:=</span> <span class="p">(</span>
+            <span class="n">tCtrlCycleTime</span> <span class="o">:=</span> <span class="n">T</span><span class="c1">#0MS,</span>
+            <span class="n">tTaskCycleTime</span> <span class="o">:=</span> <span class="n">T</span><span class="c1">#0MS,</span>
+            <span class="n">tTn</span>       <span class="o">:=</span> <span class="n">T</span><span class="c1">#200MS,</span>
+            <span class="n">fKp</span>      <span class="o">:=</span> <span class="mf">0.0005</span><span class="p">,</span>
+            <span class="n">fOutMaxLimit</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">fOutMinLimit</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">bARWOnIPartOnly</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">);</span>
 
     <span class="p">(</span><span class="o">*</span> <span class="n">Voltage</span> <span class="n">ranges</span><span class="p">,</span> <span class="n">come</span> <span class="kn">from</span> <span class="nn">specifications</span> <span class="n">of</span> <span class="n">the</span> <span class="n">driver</span> <span class="o">*</span><span class="p">)</span>
-            <span class="n">UpperVoltage</span>    <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="n">GVL_Constants</span><span class="o">.</span><span class="n">cPiezoMaxVoltage</span><span class="p">;</span> <span class="o">//</span> <span class="n">E</span><span class="o">-</span><span class="mi">816</span> <span class="n">has</span> <span class="n">no</span> <span class="n">software</span> <span class="n">limits</span>
-            <span class="n">LowerVoltage</span>    <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="n">GVL_Constants</span><span class="o">.</span><span class="n">cPiezoMinVoltage</span><span class="p">;</span> <span class="o">//</span> <span class="n">E</span><span class="o">-</span><span class="mi">816</span> <span class="n">has</span> <span class="n">no</span> <span class="n">software</span> <span class="n">limits</span>
+        <span class="n">UpperVoltage</span>        <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="n">GVL_Constants</span><span class="o">.</span><span class="n">cPiezoMaxVoltage</span><span class="p">;</span> <span class="o">//</span> <span class="n">E</span><span class="o">-</span><span class="mi">816</span> <span class="n">has</span> <span class="n">no</span> <span class="n">software</span> <span class="n">limits</span>
+        <span class="n">LowerVoltage</span>        <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="n">GVL_Constants</span><span class="o">.</span><span class="n">cPiezoMinVoltage</span><span class="p">;</span> <span class="o">//</span> <span class="n">E</span><span class="o">-</span><span class="mi">816</span> <span class="n">has</span> <span class="n">no</span> <span class="n">software</span> <span class="n">limits</span>
 <span class="n">END_STRUCT</span>
 <span class="n">END_TYPE</span>
 </pre></div>
@@ -349,9 +355,9 @@ END_TYPE
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;qualified_only&#39;</span><span class="p">}</span>
 <span class="n">VAR_GLOBAL</span>
     <span class="n">TestPitch_LimitSwitches</span> <span class="p">:</span> <span class="n">HOMS_PitchMechanism</span> <span class="o">:=</span> <span class="p">(</span><span class="n">ReqPosLimHi</span><span class="o">:=</span><span class="mi">2000</span><span class="p">,</span>
-                                                          <span class="n">ReqPosLimLo</span><span class="o">:=-</span><span class="mi">2000</span><span class="p">,</span>
-                                                          <span class="n">diEncPosLimHi</span><span class="o">:=</span><span class="mi">10768330</span><span class="p">,</span>
-                                                          <span class="n">diEncPosLimLo</span><span class="o">:=</span><span class="mi">8141680</span><span class="p">);</span>
+                                                      <span class="n">ReqPosLimLo</span><span class="o">:=-</span><span class="mi">2000</span><span class="p">,</span>
+                                                      <span class="n">diEncPosLimHi</span><span class="o">:=</span><span class="mi">10768330</span><span class="p">,</span>
+                                                      <span class="n">diEncPosLimLo</span><span class="o">:=</span><span class="mi">8141680</span><span class="p">);</span>
 <span class="n">END_VAR</span>
 </pre></div>
 </div>
@@ -365,11 +371,96 @@ END_TYPE
 </section>
 <section id="pous">
 <h1>POUs<a class="headerlink" href="#pous" title="Link to this heading"></a></h1>
+<section id="fb-axilon-cooling-1f1p">
+<h2>FB_Axilon_Cooling_1f1p<a class="headerlink" href="#fb-axilon-cooling-1f1p" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_Axilon_Cooling_1f1p</span>
+<span class="n">VAR_INPUT</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR_OUTPUT</span>
+    <span class="o">//</span> <span class="n">Mirrors</span> <span class="k">with</span> <span class="mi">1</span> <span class="n">Cooling</span> <span class="n">Flow</span> <span class="n">Meter</span> <span class="ow">and</span> <span class="mi">1</span> <span class="n">Pressure</span> <span class="n">Meter</span>
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">FWM</span><span class="p">:</span><span class="mi">1</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">EGU</span> <span class="n">lpm</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">HIGH</span> <span class="mf">2.3</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">HIHI</span> <span class="mf">3.0</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">LOW</span> <span class="mf">1.7</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">LOLO</span> <span class="mf">1.5</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">LSV</span> <span class="n">MINOR</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">LLSV</span> <span class="n">MAJOR</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">HSV</span> <span class="n">MINOR</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">HHSV</span> <span class="n">MAJOR</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fFlow_1_val</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
+
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">PRSM</span><span class="p">:</span><span class="mi">1</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">EGU</span> <span class="n">bar</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">LOW</span> <span class="mf">0.1</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">LSV</span> <span class="n">MAJOR</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fPress_1_val</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR</span>
+    <span class="n">fbFlow_1</span> <span class="p">:</span> <span class="n">FB_AnalogInput</span><span class="p">;</span>
+    <span class="n">fbPress_1</span> <span class="p">:</span> <span class="n">FB_AnalogInput</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+<span class="n">fbFlow_1</span><span class="p">(</span><span class="n">iTermBits</span><span class="o">:=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fTermMax</span><span class="o">:=</span><span class="mf">5.0427</span><span class="p">,</span> <span class="n">fTermMin</span><span class="o">:=</span><span class="mf">0.050472</span><span class="p">);</span>
+<span class="n">fFlow_1_val</span> <span class="o">:=</span> <span class="n">fbFlow_1</span><span class="o">.</span><span class="n">fReal</span><span class="p">;</span>
+
+<span class="n">fbPress_1</span><span class="p">(</span><span class="n">iTermBits</span><span class="o">:=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fTermMax</span><span class="o">:=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">fTermMin</span><span class="o">:=</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">fPress_1_val</span> <span class="o">:=</span> <span class="n">fbPress_1</span><span class="o">.</span><span class="n">fReal</span><span class="p">;</span>
+
+<span class="n">END_FUNCTION_BLOCK</span>
+</pre></div>
+</div>
+</section>
+<section id="fb-axilon-cooling-2f1p">
+<h2>FB_Axilon_Cooling_2f1p<a class="headerlink" href="#fb-axilon-cooling-2f1p" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_Axilon_Cooling_2f1p</span> <span class="n">EXTENDS</span> <span class="n">FB_Axilon_Cooling_1f1p</span>
+<span class="o">//</span> <span class="n">Mirrors</span> <span class="k">with</span> <span class="mi">2</span> <span class="n">Cooling</span> <span class="n">Flow</span> <span class="n">Meters</span> <span class="ow">and</span> <span class="mi">1</span> <span class="n">Pressure</span> <span class="n">Meter</span>
+<span class="n">VAR_INPUT</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR_OUTPUT</span>
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">FWM</span><span class="p">:</span><span class="mi">2</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">EGU</span> <span class="n">lpm</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">HIGH</span> <span class="mf">2.3</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">HIHI</span> <span class="mf">3.0</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">LOW</span> <span class="mf">1.7</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">LOLO</span> <span class="mf">1.5</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">LSV</span> <span class="n">MINOR</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">LLSV</span> <span class="n">MAJOR</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">HSV</span> <span class="n">MINOR</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">HHSV</span> <span class="n">MAJOR</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fFlow_2_val</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+<span class="n">VAR</span>
+    <span class="n">fbFlow_2</span> <span class="p">:</span> <span class="n">FB_AnalogInput</span><span class="p">;</span>
+<span class="n">END_VAR</span>
+<span class="n">fbFlow_2</span><span class="p">(</span><span class="n">iTermBits</span><span class="o">:=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fTermMax</span><span class="o">:=</span><span class="mf">5.0427</span><span class="p">,</span> <span class="n">fTermMin</span><span class="o">:=</span><span class="mf">0.050472</span><span class="p">);</span>
+<span class="n">fFlow_2_val</span> <span class="o">:=</span> <span class="n">fbFlow_2</span><span class="o">.</span><span class="n">fReal</span><span class="p">;</span>
+
+<span class="n">SUPER</span><span class="o">^</span><span class="p">();</span>
+
+<span class="n">END_FUNCTION_BLOCK</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Related:</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#fb-axilon-cooling-1f1p">FB_Axilon_Cooling_1f1p</a></p></li>
+</ul>
+</dd>
+</dl>
+</section>
 <section id="fb-bender">
 <h2>FB_Bender<a class="headerlink" href="#fb-bender" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_Bender</span>
 <span class="n">VAR_IN_OUT</span>
-    <span class="n">stBender</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+    <span class="n">stBender</span> <span class="p">:</span> <span class="n">ST_MotionStage</span><span class="p">;</span>
     <span class="n">bSTOEnable1</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
     <span class="n">bSTOEnable2</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
 <span class="n">END_VAR</span>
@@ -398,8 +489,8 @@ END_TYPE
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_HomsStats</span>
 <span class="n">VAR_INPUT</span>
     <span class="n">homs</span> <span class="p">:</span> <span class="n">DUT_HOMS</span><span class="p">;</span>
-    <span class="n">fbUpStreamY</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
-    <span class="n">fbUpStreamX</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+    <span class="n">fbUpStreamY</span> <span class="p">:</span> <span class="n">ST_MotionStage</span><span class="p">;</span>
+    <span class="n">fbUpStreamX</span> <span class="p">:</span> <span class="n">ST_MotionStage</span><span class="p">;</span>
 <span class="n">END_VAR</span>
 <span class="n">VAR_OUTPUT</span>
 <span class="n">END_VAR</span>
@@ -413,36 +504,36 @@ END_TYPE
     <span class="n">fbYGantryStats</span> <span class="p">:</span> <span class="n">FB_BasicStats</span><span class="p">;</span> <span class="o">//</span> <span class="n">Calculate</span> <span class="n">mean</span><span class="o">/</span><span class="n">standard</span> <span class="n">deviation</span> <span class="n">of</span> <span class="n">YGantryDiff</span>
     <span class="n">fbXGantryStats</span> <span class="p">:</span> <span class="n">FB_BasicStats</span><span class="p">;</span> <span class="o">//</span> <span class="n">Calculate</span> <span class="n">mean</span><span class="o">/</span><span class="n">standard</span> <span class="n">deviation</span> <span class="n">of</span> <span class="n">XGantryDiff</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">YGANDIFFMEAN</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">YGANDIFFMEAN</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">fYGantryDiffMean</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">YGANDIFFSTDEV</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">YGANDIFFSTDEV</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">fYGantryDiffStDev</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
         <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">XGANDIFFMEAN</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">XGANDIFFMEAN</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">fXGantryDiffMean</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">XGANDIFFSTDEV</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">XGANDIFFSTDEV</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">fXGantryDiffStDev</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
 
     <span class="n">bNewEncArray</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
 
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">YGANDIFFARRAY</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">YGANDIFFARRAY</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">aYGantryDiff</span> <span class="p">:</span> <span class="n">ARRAY</span> <span class="p">[</span><span class="mf">1..1000</span><span class="p">]</span> <span class="n">OF</span> <span class="n">LREAL</span><span class="p">;</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">XGANDIFFARRAY</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">XGANDIFFARRAY</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">aXGantryDiff</span> <span class="p">:</span> <span class="n">ARRAY</span> <span class="p">[</span><span class="mf">1..1000</span><span class="p">]</span> <span class="n">OF</span> <span class="n">LREAL</span><span class="p">;</span>
 <span class="n">END_VAR</span>
@@ -452,24 +543,24 @@ END_TYPE
 
 <span class="o">//</span> <span class="n">Gantry</span> <span class="n">Diff</span> <span class="n">Readback</span><span class="o">/</span><span class="n">Storage</span>
 <span class="n">fbDataYGantryDiff</span><span class="p">(</span><span class="n">bExecute</span><span class="o">:=</span><span class="kc">True</span><span class="p">,</span>
-             <span class="n">fInput</span><span class="o">:=</span> <span class="n">LINT_TO_LREAL</span><span class="p">(</span><span class="n">homs</span><span class="o">.</span><span class="n">nCurrGantryY</span><span class="p">),</span>
-             <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aYGantryDiff</span><span class="p">,</span>
+                <span class="n">fInput</span><span class="o">:=</span> <span class="n">LINT_TO_LREAL</span><span class="p">(</span><span class="n">homs</span><span class="o">.</span><span class="n">nCurrGantryY</span><span class="p">),</span>
+                <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aYGantryDiff</span><span class="p">,</span>
              <span class="n">bNewArray</span><span class="o">=&gt;</span><span class="n">bNewEncArray</span><span class="p">);</span>
 
 <span class="n">fbDataXGantryDiff</span><span class="p">(</span><span class="n">bExecute</span><span class="o">:=</span><span class="kc">True</span><span class="p">,</span>
-             <span class="n">fInput</span><span class="o">:=</span> <span class="n">LINT_TO_LREAL</span><span class="p">(</span><span class="n">homs</span><span class="o">.</span><span class="n">nCurrGantryX</span><span class="p">),</span>
-             <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aXGantryDiff</span><span class="p">,</span>
+                <span class="n">fInput</span><span class="o">:=</span> <span class="n">LINT_TO_LREAL</span><span class="p">(</span><span class="n">homs</span><span class="o">.</span><span class="n">nCurrGantryX</span><span class="p">),</span>
+                <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aXGantryDiff</span><span class="p">,</span>
              <span class="n">bNewArray</span><span class="o">=&gt;</span><span class="n">bNewEncArray</span><span class="p">);</span>
 
 <span class="n">fbYGantryStats</span><span class="p">(</span><span class="n">aSignal</span><span class="o">:=</span><span class="n">aYGantryDiff</span><span class="p">,</span>
         <span class="n">bAlwaysCalc</span><span class="o">:=</span><span class="n">TRUE</span><span class="p">,</span>
-            <span class="n">fMean</span><span class="o">=&gt;</span><span class="n">fYGantryDiffMean</span><span class="p">,</span>
-            <span class="n">fStDev</span><span class="o">=&gt;</span><span class="n">fYGantryDiffStDev</span><span class="p">);</span>
+        <span class="n">fMean</span><span class="o">=&gt;</span><span class="n">fYGantryDiffMean</span><span class="p">,</span>
+        <span class="n">fStDev</span><span class="o">=&gt;</span><span class="n">fYGantryDiffStDev</span><span class="p">);</span>
 
 <span class="n">fbXGantryStats</span><span class="p">(</span><span class="n">aSignal</span><span class="o">:=</span><span class="n">aXGantryDiff</span><span class="p">,</span>
         <span class="n">bAlwaysCalc</span><span class="o">:=</span><span class="n">TRUE</span><span class="p">,</span>
-            <span class="n">fMean</span><span class="o">=&gt;</span><span class="n">fXGantryDiffMean</span><span class="p">,</span>
-            <span class="n">fStDev</span><span class="o">=&gt;</span><span class="n">fXGantryDiffStDev</span><span class="p">);</span>
+        <span class="n">fMean</span><span class="o">=&gt;</span><span class="n">fXGantryDiffMean</span><span class="p">,</span>
+        <span class="n">fStDev</span><span class="o">=&gt;</span><span class="n">fXGantryDiffStDev</span><span class="p">);</span>
 
 <span class="o">//</span><span class="n">scale</span> <span class="n">outputs</span> <span class="n">to</span> <span class="n">actual</span> <span class="n">values</span>
 <span class="n">fYGantryDiffMean</span> <span class="o">:=</span> <span class="n">fbYGantryStats</span><span class="o">.</span><span class="n">fMean</span> <span class="o">*</span> <span class="n">fEncYScale</span><span class="p">;</span>
@@ -507,6 +598,12 @@ END_TYPE
     <span class="n">bAutoClear</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span> <span class="o">//</span> <span class="n">Auto</span><span class="o">-</span><span class="n">clear</span> <span class="n">these</span> <span class="n">fast</span> <span class="n">faults</span>
 
     <span class="n">bReadPmpsDb</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span> <span class="o">//</span> <span class="n">Trigger</span> <span class="n">a</span> <span class="n">re</span><span class="o">-</span><span class="n">read</span> <span class="n">of</span> <span class="n">the</span> <span class="n">JSON</span> <span class="n">Beam</span> <span class="n">Parameters</span>
+
+    <span class="n">bUsePmpsDb</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span> <span class="o">//</span> <span class="n">Set</span> <span class="n">TRUE</span> <span class="n">to</span> <span class="n">lookup</span> <span class="n">Beam</span> <span class="n">Parameters</span> <span class="n">via</span> <span class="n">DB</span><span class="o">.</span>
+
+    <span class="n">nUpperCoatingBitmask</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">nLowerCoatingBitMask</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">END_VAR</span>
 <span class="n">VAR_OUTPUT</span>
 <span class="n">END_VAR</span>
@@ -516,20 +613,21 @@ END_TYPE
 <span class="n">VAR</span>
     <span class="n">ffUpperCoating</span><span class="p">:</span> <span class="n">FB_FastFault</span> <span class="o">:=</span> <span class="p">(</span>
         <span class="n">i_xAutoReset</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">,</span>
-        <span class="n">i_TypeCode</span> <span class="o">:=</span> <span class="mi">16</span><span class="c1">#401);</span>
+        <span class="n">i_TypeCode</span> <span class="o">:=</span> <span class="mi">16</span><span class="c1">#401,</span>
+        <span class="n">i_Desc</span> <span class="o">:=</span> <span class="s1">&#39; mirror coating incompatible with beam photon energy&#39;</span><span class="p">);</span>
     <span class="n">ffLowerCoating</span> <span class="p">:</span> <span class="n">FB_FastFault</span> <span class="o">:=</span> <span class="p">(</span>
         <span class="n">i_xAutoReset</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">,</span>
-        <span class="n">i_TypeCode</span> <span class="o">:=</span> <span class="mi">16</span><span class="c1">#401);</span>
-    <span class="n">sFFBeamParamMismatch</span> <span class="p">:</span> <span class="n">STRING</span> <span class="o">:=</span> <span class="s1">&#39; mirror coating incompatible with beam photon energy&#39;</span><span class="p">;</span>
-    <span class="n">sFFBeamParamNotLoaded</span> <span class="p">:</span> <span class="n">STRING</span> <span class="o">:=</span> <span class="s1">&#39; mirror coating beam parameters not loaded&#39;</span><span class="p">;</span>
+        <span class="n">i_TypeCode</span> <span class="o">:=</span> <span class="mi">16</span><span class="c1">#401,</span>
+        <span class="n">i_Desc</span> <span class="o">:=</span> <span class="s1">&#39; mirror coating incompatible with beam photon energy&#39;</span><span class="p">);</span>
+    <span class="n">ffBeamParamsNotLoaded</span> <span class="p">:</span> <span class="n">FB_FastFault</span> <span class="o">:=</span> <span class="p">(</span>
+        <span class="n">i_xAutoReset</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">,</span>
+        <span class="n">i_TypeCode</span> <span class="o">:=</span> <span class="mi">16</span><span class="c1">#488,</span>
+        <span class="n">i_Desc</span> <span class="o">:=</span> <span class="s1">&#39; mirror coating beam parameters not loaded&#39;</span><span class="p">);</span>
 
     <span class="n">aDbStateParams</span> <span class="p">:</span> <span class="n">ARRAY</span><span class="p">[</span><span class="mf">0..1</span><span class="p">]</span> <span class="n">OF</span> <span class="n">ST_DbStateParams</span><span class="p">;</span>
     <span class="n">fbGetCoatingBPs</span> <span class="p">:</span> <span class="n">FB_JsonDocToSafeBP</span><span class="p">;</span>
     <span class="n">ftReadJsonDocDone</span> <span class="p">:</span> <span class="n">F_TRIG</span><span class="p">;</span>
     <span class="n">bBPsLoaded</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
-
-    <span class="n">nUpperCoatingBitmask</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">nLowerCoatingBitMask</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
 
     <span class="n">i</span> <span class="p">:</span> <span class="n">INT</span><span class="p">;</span>
     <span class="n">sDevState</span> <span class="p">:</span> <span class="n">STRING</span>  <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
@@ -538,50 +636,46 @@ END_TYPE
 <span class="n">IF</span> <span class="n">NOT</span> <span class="n">bInit</span> <span class="n">THEN</span>
     <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_DevName</span> <span class="o">:=</span> <span class="n">sDevName</span><span class="p">;</span>
     <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_DevName</span> <span class="o">:=</span> <span class="n">sDevName</span><span class="p">;</span>
-
-    <span class="n">FOR</span> <span class="n">i</span><span class="o">:=</span><span class="mi">0</span> <span class="n">to</span> <span class="mi">1</span> <span class="n">BY</span> <span class="mi">1</span> <span class="n">DO</span>
-        <span class="n">sDevState</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sDevState</span><span class="p">,</span> <span class="n">sDevName</span><span class="p">);</span>
-        <span class="n">sDevState</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sDevState</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">);</span>
-        <span class="n">CASE</span> <span class="n">i</span> <span class="n">OF</span>
-        <span class="mi">0</span><span class="p">:</span>
-            <span class="n">sDevState</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sDevState</span><span class="p">,</span> <span class="n">sUpperCoatingType</span><span class="p">);</span>
-        <span class="mi">1</span><span class="p">:</span>
-            <span class="n">sDevState</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sDevState</span><span class="p">,</span> <span class="n">sLowerCoatingType</span><span class="p">);</span>
-        <span class="n">END_CASE</span>
-        <span class="n">aDbStateParams</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sPmpsState</span> <span class="o">:=</span> <span class="n">sDevState</span><span class="p">;</span>
-        <span class="n">sDevState</span> <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-    <span class="n">END_FOR</span>
+    <span class="n">IF</span> <span class="n">bUsePmpsDb</span> <span class="n">THEN</span>
+        <span class="n">FOR</span> <span class="n">i</span><span class="o">:=</span><span class="mi">0</span> <span class="n">to</span> <span class="mi">1</span> <span class="n">BY</span> <span class="mi">1</span> <span class="n">DO</span>
+            <span class="n">sDevState</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sDevState</span><span class="p">,</span> <span class="n">sDevName</span><span class="p">);</span>
+            <span class="n">sDevState</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sDevState</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">);</span>
+            <span class="n">CASE</span> <span class="n">i</span> <span class="n">OF</span>
+            <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sDevState</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sDevState</span><span class="p">,</span> <span class="n">sUpperCoatingType</span><span class="p">);</span>
+            <span class="mi">1</span><span class="p">:</span>
+                <span class="n">sDevState</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sDevState</span><span class="p">,</span> <span class="n">sLowerCoatingType</span><span class="p">);</span>
+            <span class="n">END_CASE</span>
+            <span class="n">aDbStateParams</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sPmpsState</span> <span class="o">:=</span> <span class="n">sDevState</span><span class="p">;</span>
+            <span class="n">sDevState</span> <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+        <span class="n">END_FOR</span>
+    <span class="n">ELSE</span>
+        <span class="n">bBPsLoaded</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+    <span class="n">END_IF</span>
     <span class="n">bInit</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
 <span class="n">END_IF</span>
 
-<span class="n">IF</span> <span class="n">bReadPmpsDB</span> <span class="n">THEN</span>
-    <span class="n">bBPsLoaded</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
-<span class="n">END_IF</span>
+<span class="n">IF</span> <span class="n">bUsePmpsDb</span> <span class="n">THEN</span>
+    <span class="n">IF</span> <span class="n">bReadPmpsDB</span> <span class="n">THEN</span>
+        <span class="n">bBPsLoaded</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
+    <span class="n">END_IF</span>
 
-<span class="n">fbGetCoatingBPs</span><span class="p">(</span><span class="n">bExecute</span> <span class="o">:=</span> <span class="n">bReadPmpsDB</span><span class="p">,</span>
-    <span class="n">jsonDoc</span> <span class="o">:=</span> <span class="n">PMPS_GVL</span><span class="o">.</span><span class="n">BP_jsonDoc</span><span class="p">,</span>
-    <span class="n">sDeviceName</span><span class="o">:=</span><span class="n">sDevName</span><span class="p">,</span>
-    <span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">,</span>
-    <span class="n">arrStates</span> <span class="o">:=</span> <span class="n">aDbStateParams</span><span class="p">);</span>
+    <span class="n">fbGetCoatingBPs</span><span class="p">(</span><span class="n">bExecute</span> <span class="o">:=</span> <span class="n">bReadPmpsDB</span><span class="p">,</span>
+        <span class="n">jsonDoc</span> <span class="o">:=</span> <span class="n">PMPS_GVL</span><span class="o">.</span><span class="n">BP_jsonDoc</span><span class="p">,</span>
+        <span class="n">sDeviceName</span><span class="o">:=</span><span class="n">sDevName</span><span class="p">,</span>
+        <span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">,</span>
+        <span class="n">arrStates</span> <span class="o">:=</span> <span class="n">aDbStateParams</span><span class="p">);</span>
 
-<span class="n">ftReadJsonDocDone</span><span class="p">(</span><span class="n">CLK</span><span class="o">:=</span><span class="n">fbGetCoatingBPs</span><span class="o">.</span><span class="n">bBusy</span><span class="p">);</span>
+    <span class="n">ftReadJsonDocDone</span><span class="p">(</span><span class="n">CLK</span><span class="o">:=</span><span class="n">fbGetCoatingBPs</span><span class="o">.</span><span class="n">bBusy</span><span class="p">);</span>
 
-<span class="n">IF</span> <span class="n">ftReadJsonDocDone</span><span class="o">.</span><span class="n">Q</span> <span class="n">AND</span> <span class="n">NOT</span> <span class="n">fbGetCoatingBps</span><span class="o">.</span><span class="n">bError</span> <span class="n">THEN</span>
-    <span class="n">bBPsLoaded</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
-<span class="n">END_IF</span>
+    <span class="n">IF</span> <span class="n">ftReadJsonDocDone</span><span class="o">.</span><span class="n">Q</span> <span class="n">AND</span> <span class="n">NOT</span> <span class="n">fbGetCoatingBps</span><span class="o">.</span><span class="n">bError</span> <span class="n">THEN</span>
+        <span class="n">bBPsLoaded</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+    <span class="n">END_IF</span>
 
-<span class="n">IF</span> <span class="n">bBPsLoaded</span> <span class="n">THEN</span>
-    <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_Desc</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sUpperCoatingType</span><span class="p">,</span> <span class="n">sFFBeamParamMismatch</span><span class="p">);</span>
-    <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_Desc</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sLowerCoatingType</span><span class="p">,</span> <span class="n">sFFBeamParamMismatch</span><span class="p">);</span>
-
-    <span class="n">nUpperCoatingBitmask</span> <span class="o">:=</span> <span class="n">aDbStateParams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stBeamParams</span><span class="o">.</span><span class="n">neVRange</span><span class="p">;</span>
-    <span class="n">nLowerCoatingBitMask</span> <span class="o">:=</span> <span class="n">aDbStateParams</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stBeamParams</span><span class="o">.</span><span class="n">neVRange</span><span class="p">;</span>
-<span class="n">ELSE</span>
-    <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_Desc</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sUpperCoatingType</span><span class="p">,</span> <span class="n">sFFBeamParamNotLoaded</span><span class="p">);</span>
-    <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_Desc</span> <span class="o">:=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="n">sLowerCoatingType</span><span class="p">,</span> <span class="n">sFFBeamParamNotLoaded</span><span class="p">);</span>
-
-    <span class="n">nUpperCoatingBitmask</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">nLowerCoatingBitMask</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">IF</span> <span class="n">bBPsLoaded</span> <span class="n">THEN</span>
+        <span class="n">nUpperCoatingBitmask</span> <span class="o">:=</span> <span class="n">aDbStateParams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stBeamParams</span><span class="o">.</span><span class="n">neVRange</span><span class="p">;</span>
+        <span class="n">nLowerCoatingBitMask</span> <span class="o">:=</span> <span class="n">aDbStateParams</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stBeamParams</span><span class="o">.</span><span class="n">neVRange</span><span class="p">;</span>
+    <span class="n">END_IF</span>
 <span class="n">END_IF</span>
 
 <span class="n">IF</span> <span class="n">nCurrentEncoderCount</span> <span class="o">&lt;=</span> <span class="n">nLowerCoatingBoundary</span> <span class="n">THEN</span>
@@ -595,8 +689,11 @@ END_TYPE
     <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
 <span class="n">END_IF</span>
 
+<span class="n">ffBeamParamsNotLoaded</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="n">bBPsLoaded</span><span class="p">;</span>
+
 <span class="n">ffUpperCoating</span><span class="p">(</span><span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">,</span> <span class="n">i_xAutoReset</span> <span class="o">:=</span> <span class="n">bAutoClear</span><span class="p">);</span>
 <span class="n">ffLowerCoating</span><span class="p">(</span><span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">,</span> <span class="n">i_xAutoReset</span> <span class="o">:=</span> <span class="n">bAutoClear</span><span class="p">);</span>
+<span class="n">ffBeamParamsNotLoaded</span><span class="p">(</span><span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">);</span>
 
 <span class="n">END_FUNCTION_BLOCK</span>
 </pre></div>
@@ -1099,22 +1196,22 @@ END_FUNCTION_BLOCK
     <span class="n">IF</span> <span class="n">NOT</span> <span class="n">Enable_Negative</span> <span class="n">THEN</span> <span class="n">fOutLoLimHolder</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMinLimit</span><span class="p">;</span> <span class="n">END_IF</span>
 <span class="n">ELSE</span>
     <span class="n">IF</span> <span class="n">ftEnPos</span><span class="o">.</span><span class="n">Q</span> <span class="n">THEN</span>
-            <span class="n">rLLSV</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rSetVoltage</span><span class="p">;</span>
-            <span class="n">fOutHiLimHolder</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMaxLimit</span><span class="p">;</span>
-            <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMaxLimit</span> <span class="o">:=</span> <span class="n">fbPI</span><span class="o">.</span><span class="n">fOut</span><span class="p">;</span>
+        <span class="n">rLLSV</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rSetVoltage</span><span class="p">;</span>
+        <span class="n">fOutHiLimHolder</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMaxLimit</span><span class="p">;</span>
+        <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMaxLimit</span> <span class="o">:=</span> <span class="n">fbPI</span><span class="o">.</span><span class="n">fOut</span><span class="p">;</span>
     <span class="n">ELSIF</span> <span class="n">rtEnPos</span><span class="o">.</span><span class="n">Q</span> <span class="n">THEN</span>
-            <span class="n">rLLSV</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">LowerVoltage</span><span class="p">;</span>
-            <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMaxLimit</span> <span class="o">:=</span> <span class="n">fOutHiLimHolder</span><span class="p">;</span>
+        <span class="n">rLLSV</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">LowerVoltage</span><span class="p">;</span>
+        <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMaxLimit</span> <span class="o">:=</span> <span class="n">fOutHiLimHolder</span><span class="p">;</span>
     <span class="n">END_IF</span>
 
     <span class="n">IF</span> <span class="n">ftEnNeg</span><span class="o">.</span><span class="n">Q</span> <span class="n">THEN</span>
-            <span class="n">rHLSV</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rSetVoltage</span><span class="p">;</span>
+        <span class="n">rHLSV</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rSetVoltage</span><span class="p">;</span>
 
-            <span class="n">fOutLoLimHolder</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMinLimit</span><span class="p">;</span>
-            <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMinLimit</span> <span class="o">:=</span> <span class="n">fbPI</span><span class="o">.</span><span class="n">fOut</span><span class="p">;</span>
+        <span class="n">fOutLoLimHolder</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMinLimit</span><span class="p">;</span>
+        <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMinLimit</span> <span class="o">:=</span> <span class="n">fbPI</span><span class="o">.</span><span class="n">fOut</span><span class="p">;</span>
     <span class="n">ELSIF</span> <span class="n">rtEnNeg</span><span class="o">.</span><span class="n">Q</span> <span class="n">THEN</span>
-            <span class="n">rHLSV</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">UpperVoltage</span><span class="p">;</span>
-            <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMinLimit</span> <span class="o">:=</span> <span class="n">fOutLoLimHolder</span><span class="p">;</span>
+        <span class="n">rHLSV</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">UpperVoltage</span><span class="p">;</span>
+        <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">fOutMinLimit</span> <span class="o">:=</span> <span class="n">fOutLoLimHolder</span><span class="p">;</span>
     <span class="n">END_IF</span>
 <span class="n">END_IF</span>
 
@@ -1122,35 +1219,35 @@ END_FUNCTION_BLOCK
 <span class="n">IF</span> <span class="n">bInitialized</span> <span class="n">THEN</span>
     <span class="o">//</span> <span class="n">While</span> <span class="n">the</span> <span class="n">block</span> <span class="ow">is</span> <span class="n">working</span><span class="p">,</span> <span class="n">a</span> <span class="n">new</span> <span class="n">position</span> <span class="n">may</span> <span class="n">be</span> <span class="n">requested</span><span class="p">,</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">OK</span>
     <span class="n">IF</span> <span class="n">xBusy</span> <span class="n">THEN</span>
-            <span class="n">fbPI</span><span class="o">.</span><span class="n">fSetpointValue</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rReqAbsPos</span><span class="p">;</span>
+        <span class="n">fbPI</span><span class="o">.</span><span class="n">fSetpointValue</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rReqAbsPos</span><span class="p">;</span>
     <span class="n">END_IF</span>
 
     <span class="p">(</span><span class="o">*</span> <span class="n">The</span> <span class="nb">next</span> <span class="n">chunk</span> <span class="n">of</span> <span class="n">code</span> <span class="n">prevents</span> <span class="n">the</span> <span class="n">PI</span> <span class="n">block</span> <span class="kn">from</span> <span class="nn">winding</span> <span class="n">up</span><span class="o">.</span>
-            <span class="n">First</span><span class="p">,</span> <span class="n">when</span> <span class="n">the</span> <span class="n">PI</span> <span class="n">block</span> <span class="n">begins</span> <span class="n">to</span> <span class="n">request</span> <span class="n">a</span> <span class="n">voltage</span> <span class="n">that</span> <span class="ow">is</span>
-            <span class="n">beyond</span> <span class="n">the</span> <span class="n">permitted</span> <span class="nb">range</span> <span class="p">(</span><span class="n">this</span> <span class="nb">range</span> <span class="ow">is</span> <span class="n">affected</span> <span class="n">by</span> <span class="n">the</span> <span class="n">state</span>
-            <span class="n">of</span> <span class="n">limit</span> <span class="n">switches</span><span class="o">/</span> <span class="ow">or</span> <span class="n">enable</span> <span class="n">fwd</span><span class="o">/</span><span class="n">bwd</span><span class="p">),</span> <span class="n">we</span> <span class="n">latch</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">position</span><span class="o">.</span>
-            <span class="n">Presumeably</span> <span class="n">this</span> <span class="n">position</span> <span class="n">request</span>  <span class="o">*</span><span class="p">)</span>
+        <span class="n">First</span><span class="p">,</span> <span class="n">when</span> <span class="n">the</span> <span class="n">PI</span> <span class="n">block</span> <span class="n">begins</span> <span class="n">to</span> <span class="n">request</span> <span class="n">a</span> <span class="n">voltage</span> <span class="n">that</span> <span class="ow">is</span>
+        <span class="n">beyond</span> <span class="n">the</span> <span class="n">permitted</span> <span class="nb">range</span> <span class="p">(</span><span class="n">this</span> <span class="nb">range</span> <span class="ow">is</span> <span class="n">affected</span> <span class="n">by</span> <span class="n">the</span> <span class="n">state</span>
+        <span class="n">of</span> <span class="n">limit</span> <span class="n">switches</span><span class="o">/</span> <span class="ow">or</span> <span class="n">enable</span> <span class="n">fwd</span><span class="o">/</span><span class="n">bwd</span><span class="p">),</span> <span class="n">we</span> <span class="n">latch</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">position</span><span class="o">.</span>
+        <span class="n">Presumeably</span> <span class="n">this</span> <span class="n">position</span> <span class="n">request</span>  <span class="o">*</span><span class="p">)</span>
 
     <span class="o">//</span><span class="n">Select</span> <span class="n">the</span> <span class="n">PI</span> <span class="n">block</span> <span class="n">control</span> <span class="n">mode</span>
     <span class="o">////////////////////////////////////////</span>
     <span class="n">IF</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">xVoltageMode</span> <span class="n">THEN</span>
-            <span class="o">//</span><span class="n">Set</span> <span class="n">PI</span> <span class="n">block</span> <span class="n">to</span> <span class="n">idle</span>
-            <span class="n">fbPI</span><span class="o">.</span><span class="n">eMode</span> <span class="o">:=</span> <span class="n">eCTRL_MODE_PASSIVE</span><span class="p">;</span>
-            <span class="n">rReqVoltage</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rReqVoltage</span><span class="p">;</span> <span class="o">//</span><span class="n">TODO</span> <span class="n">add</span> <span class="n">a</span> <span class="n">ramp</span>
+        <span class="o">//</span><span class="n">Set</span> <span class="n">PI</span> <span class="n">block</span> <span class="n">to</span> <span class="n">idle</span>
+        <span class="n">fbPI</span><span class="o">.</span><span class="n">eMode</span> <span class="o">:=</span> <span class="n">eCTRL_MODE_PASSIVE</span><span class="p">;</span>
+        <span class="n">rReqVoltage</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rReqVoltage</span><span class="p">;</span> <span class="o">//</span><span class="n">TODO</span> <span class="n">add</span> <span class="n">a</span> <span class="n">ramp</span>
     <span class="n">ELSE</span>
-            <span class="n">IF</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">xIdleMode</span> <span class="n">THEN</span>
-                    <span class="n">rReqVoltage</span> <span class="o">:=</span> <span class="n">fScale</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">fPiezoBias</span><span class="p">;</span>
+        <span class="n">IF</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">xIdleMode</span> <span class="n">THEN</span>
+            <span class="n">rReqVoltage</span> <span class="o">:=</span> <span class="n">fScale</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">fPiezoBias</span><span class="p">;</span>
 
-                    <span class="n">fbPI</span><span class="o">.</span><span class="n">eMode</span> <span class="o">:=</span> <span class="n">eCTRL_MODE_MANUAL</span><span class="p">;</span>
-                    <span class="n">ACT_Controller</span><span class="p">();</span>
-                    <span class="n">fbPI</span><span class="o">.</span><span class="n">bHold</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
-            <span class="n">ELSE</span>
-                    <span class="o">//</span><span class="n">Fout</span> <span class="ow">is</span> <span class="n">connected</span> <span class="n">to</span> <span class="n">the</span> <span class="n">piezo</span> <span class="n">voltage</span> <span class="n">control</span>
-                    <span class="n">rReqVoltage</span> <span class="o">:=</span> <span class="n">fScale</span> <span class="o">*</span> <span class="n">fbPI</span><span class="o">.</span><span class="n">fOut</span> <span class="o">+</span> <span class="n">fPiezoBias</span><span class="p">;</span>
-                    <span class="n">fbPI</span><span class="o">.</span><span class="n">bHold</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
-                    <span class="o">//</span><span class="n">Control</span> <span class="n">mode</span> <span class="ow">is</span> <span class="n">always</span> <span class="n">active</span><span class="p">,</span> <span class="n">so</span> <span class="n">compensation</span> <span class="n">takes</span> <span class="n">over</span> <span class="n">more</span> <span class="n">smoothly</span>
-                    <span class="n">fbPI</span><span class="o">.</span><span class="n">eMode</span> <span class="o">:=</span> <span class="n">eCTRL_MODE_ACTIVE</span><span class="p">;</span>
-            <span class="n">END_IF</span>
+            <span class="n">fbPI</span><span class="o">.</span><span class="n">eMode</span> <span class="o">:=</span> <span class="n">eCTRL_MODE_MANUAL</span><span class="p">;</span>
+            <span class="n">ACT_Controller</span><span class="p">();</span>
+            <span class="n">fbPI</span><span class="o">.</span><span class="n">bHold</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+        <span class="n">ELSE</span>
+            <span class="o">//</span><span class="n">Fout</span> <span class="ow">is</span> <span class="n">connected</span> <span class="n">to</span> <span class="n">the</span> <span class="n">piezo</span> <span class="n">voltage</span> <span class="n">control</span>
+            <span class="n">rReqVoltage</span> <span class="o">:=</span> <span class="n">fScale</span> <span class="o">*</span> <span class="n">fbPI</span><span class="o">.</span><span class="n">fOut</span> <span class="o">+</span> <span class="n">fPiezoBias</span><span class="p">;</span>
+            <span class="n">fbPI</span><span class="o">.</span><span class="n">bHold</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
+            <span class="o">//</span><span class="n">Control</span> <span class="n">mode</span> <span class="ow">is</span> <span class="n">always</span> <span class="n">active</span><span class="p">,</span> <span class="n">so</span> <span class="n">compensation</span> <span class="n">takes</span> <span class="n">over</span> <span class="n">more</span> <span class="n">smoothly</span>
+            <span class="n">fbPI</span><span class="o">.</span><span class="n">eMode</span> <span class="o">:=</span> <span class="n">eCTRL_MODE_ACTIVE</span><span class="p">;</span>
+        <span class="n">END_IF</span>
 
     <span class="n">END_IF</span>
 
@@ -1167,15 +1264,15 @@ END_FUNCTION_BLOCK
                 <span class="n">tTaskCycleTime</span> <span class="o">=&gt;</span> <span class="n">tTaskCycleTime</span><span class="p">,</span>
                 <span class="n">bCycleTimeValid</span> <span class="o">=&gt;</span> <span class="n">bCycleTimeValid</span><span class="p">);</span>
     <span class="n">IF</span> <span class="n">bCycleTimeValid</span> <span class="n">THEN</span>
-            <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">tTaskCycleTime</span> <span class="o">:=</span> <span class="n">tTaskCycleTime</span><span class="p">;</span>
-            <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">tCtrlCycleTime</span> <span class="o">:=</span> <span class="n">tTaskCycleTime</span><span class="p">;</span>
-            <span class="n">bInitialized</span>    <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+        <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">tTaskCycleTime</span> <span class="o">:=</span> <span class="n">tTaskCycleTime</span><span class="p">;</span>
+        <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">stPIParams</span><span class="o">.</span><span class="n">tCtrlCycleTime</span> <span class="o">:=</span> <span class="n">tTaskCycleTime</span><span class="p">;</span>
+        <span class="n">bInitialized</span>        <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
     <span class="n">END_IF</span>
 
 <span class="n">END_IF</span>
 
 <span class="n">tonPiezoDone</span><span class="o">.</span><span class="n">IN</span> <span class="o">:=</span> <span class="n">WithinRange</span><span class="p">(</span><span class="n">ValA</span><span class="o">:=</span><span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rActPos</span><span class="p">,</span> <span class="n">Center</span><span class="o">:=</span><span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rReqAbsPos</span><span class="p">,</span> <span class="n">Range</span><span class="o">:=</span><span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rPiezoDmovRange</span><span class="p">,</span> <span class="n">Offset</span><span class="o">:=</span><span class="mi">0</span><span class="p">)</span>
-                                    <span class="n">AND</span> <span class="n">NOT</span> <span class="n">rtStartMove</span><span class="o">.</span><span class="n">Q</span><span class="p">;</span> <span class="o">//</span><span class="n">rtStartMove</span> <span class="n">interrupts</span> <span class="n">the</span> <span class="n">timer</span><span class="p">,</span> <span class="n">resetting</span> <span class="n">it</span>
+                    <span class="n">AND</span> <span class="n">NOT</span> <span class="n">rtStartMove</span><span class="o">.</span><span class="n">Q</span><span class="p">;</span> <span class="o">//</span><span class="n">rtStartMove</span> <span class="n">interrupts</span> <span class="n">the</span> <span class="n">timer</span><span class="p">,</span> <span class="n">resetting</span> <span class="n">it</span>
 <span class="n">tonPiezoDone</span><span class="p">();</span>
 
 <span class="n">tonPiezoLimited</span><span class="o">.</span><span class="n">IN</span> <span class="o">:=</span> <span class="p">(</span><span class="n">fbPI</span><span class="o">.</span><span class="n">bARWactive</span> <span class="n">OR</span> <span class="n">xVoltageLimited</span><span class="p">)</span> <span class="n">AND</span> <span class="n">NOT</span> <span class="n">rtStartMove</span><span class="o">.</span><span class="n">Q</span><span class="p">;</span>
@@ -1213,10 +1310,10 @@ END_FUNCTION_BLOCK
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FUNCTION_BLOCK FB_PitchControl
 VAR_IN_OUT
     Pitch : HOMS_PitchMechanism;
-    Stepper : DUT_MotionStage;
+    Stepper : ST_MotionStage;
 END_VAR
 VAR_INPUT
-    lrCurrentSetpoint : LREAL; // Setpoint: Epics writes to DUT_MotionStage which gets fed into this
+    lrCurrentSetpoint : LREAL; // Setpoint: Epics writes to ST_MotionStage which gets fed into this
 END_VAR
 VAR_OUTPUT
     q_bError : BOOL;
@@ -1446,7 +1543,7 @@ END_ACTION
     <span class="n">fMinRMSError</span> <span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mi">1000</span><span class="p">;</span> <span class="o">//</span> <span class="n">start</span> <span class="n">at</span> <span class="n">something</span> <span class="n">huge</span><span class="p">,</span> <span class="n">FB</span> <span class="n">will</span> <span class="n">update</span> <span class="k">with</span> <span class="nb">any</span> <span class="n">smaller</span> <span class="n">measured</span> <span class="n">value</span>
 <span class="n">END_VAR</span>
 <span class="n">VAR_IN_OUT</span>
-    <span class="n">stMotionStage</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+    <span class="n">stMotionStage</span> <span class="p">:</span> <span class="n">ST_MotionStage</span><span class="p">;</span>
 <span class="n">END_VAR</span>
 <span class="n">VAR</span>
     <span class="n">fEncScalingNum</span> <span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mf">1.0</span><span class="p">;</span>
@@ -1461,18 +1558,18 @@ END_ACTION
 
     <span class="n">fbStats</span> <span class="p">:</span> <span class="n">FB_BasicStats</span><span class="p">;</span> <span class="o">//</span> <span class="n">Calculate</span> <span class="n">mean</span><span class="o">/</span><span class="n">standard</span> <span class="n">deviation</span> <span class="n">of</span> <span class="n">ActPos</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">MEAN</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">MEAN</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">fEncMean</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">STDEV</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">STDEV</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">fEncStDev</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">RMS</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">RMS</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">fCurrRMSError</span> <span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
 
@@ -1481,13 +1578,13 @@ END_ACTION
     <span class="n">fDiff</span> <span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
 
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">ACTPOSARRAY</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">ACTPOSARRAY</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">aEncActPos</span> <span class="p">:</span> <span class="n">ARRAY</span> <span class="p">[</span><span class="mf">1..1000</span><span class="p">]</span> <span class="n">OF</span> <span class="n">LREAL</span><span class="p">;</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
-            <span class="n">pv</span><span class="p">:</span> <span class="n">SETPOSARRAY</span>
-            <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">SETPOSARRAY</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">aEncSetPos</span> <span class="p">:</span> <span class="n">ARRAY</span> <span class="p">[</span><span class="mf">1..1000</span><span class="p">]</span> <span class="n">OF</span> <span class="n">LREAL</span><span class="p">;</span>
 <span class="n">END_VAR</span>
@@ -1500,37 +1597,37 @@ END_ACTION
 <span class="o">//</span> <span class="n">FB</span> <span class="n">to</span> <span class="n">store</span> <span class="n">encoder</span> <span class="n">positions</span> <span class="ow">in</span> <span class="mi">1000</span> <span class="n">element</span> <span class="n">arrays</span><span class="p">,</span> <span class="n">compute</span> <span class="n">RMS</span> <span class="n">errors</span><span class="p">,</span> <span class="ow">and</span> <span class="n">watch</span> <span class="k">for</span> <span class="nb">min</span><span class="o">/</span><span class="nb">max</span>
 <span class="o">//</span> <span class="n">Encoder</span> <span class="n">Readback</span><span class="o">/</span><span class="n">Storage</span>
 <span class="n">fbDataEncPos</span><span class="p">(</span><span class="n">bExecute</span><span class="o">:=</span><span class="n">bExecuteDataStorage</span><span class="p">,</span>
-             <span class="n">fInput</span><span class="o">:=</span> <span class="n">ULINT_TO_LREAL</span><span class="p">(</span><span class="n">stMotionStage</span><span class="o">.</span><span class="n">nRawEncoderULINT</span><span class="p">),</span>
-             <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aEncActPos</span><span class="p">,</span>
+                <span class="n">fInput</span><span class="o">:=</span> <span class="n">ULINT_TO_LREAL</span><span class="p">(</span><span class="n">stMotionStage</span><span class="o">.</span><span class="n">nRawEncoderULINT</span><span class="p">),</span>
+                <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aEncActPos</span><span class="p">,</span>
              <span class="n">bNewArray</span><span class="o">=&gt;</span><span class="n">bNewEncArray</span><span class="p">);</span>
 
 <span class="n">fbDataSetPos</span><span class="p">(</span><span class="n">bExecute</span><span class="o">:=</span><span class="n">bExecuteDataStorage</span><span class="p">,</span>
-             <span class="n">fInput</span><span class="o">:=</span><span class="p">(</span><span class="n">stMotionStage</span><span class="o">.</span><span class="n">Axis</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">SetPos</span> <span class="o">-</span> <span class="n">fEncOffset</span><span class="p">)</span> <span class="o">/</span> <span class="n">fEncScale</span><span class="p">,</span>
-             <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aEncSetPos</span><span class="p">);</span>
+              <span class="n">fInput</span><span class="o">:=</span><span class="p">(</span><span class="n">stMotionStage</span><span class="o">.</span><span class="n">Axis</span><span class="o">.</span><span class="n">NcToPlc</span><span class="o">.</span><span class="n">SetPos</span> <span class="o">-</span> <span class="n">fEncOffset</span><span class="p">)</span> <span class="o">/</span> <span class="n">fEncScale</span><span class="p">,</span>
+                <span class="n">arrOutput</span><span class="o">=&gt;</span><span class="n">aEncSetPos</span><span class="p">);</span>
 
 <span class="n">fbStats</span><span class="p">(</span><span class="n">aSignal</span><span class="o">:=</span><span class="n">aEncActPos</span><span class="p">,</span>
         <span class="n">bAlwaysCalc</span><span class="o">:=</span><span class="n">TRUE</span><span class="p">,</span>
-            <span class="n">fMean</span><span class="o">=&gt;</span><span class="n">fEncMean</span><span class="p">,</span>
-            <span class="n">fStDev</span><span class="o">=&gt;</span><span class="n">fEncStDev</span><span class="p">);</span>
+        <span class="n">fMean</span><span class="o">=&gt;</span><span class="n">fEncMean</span><span class="p">,</span>
+        <span class="n">fStDev</span><span class="o">=&gt;</span><span class="n">fEncStDev</span><span class="p">);</span>
 
 <span class="o">//</span> <span class="n">Calculate</span> <span class="n">RMS</span> <span class="n">Error</span><span class="p">:</span>
 <span class="n">If</span> <span class="n">bNewEncArray</span> <span class="n">THEN</span>
     <span class="n">fCurrRMSError</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="n">FOR</span> <span class="n">nIndex</span> <span class="o">:=</span> <span class="mi">2</span> <span class="n">TO</span> <span class="mi">1000</span> <span class="n">DO</span>
-            <span class="o">//</span> <span class="n">First</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">array</span> <span class="n">stuck</span> <span class="k">as</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">some</span> <span class="n">reason</span><span class="o">...</span>
-            <span class="n">fDiff</span> <span class="o">:=</span> <span class="n">aEncActPos</span><span class="p">[</span><span class="n">nIndex</span><span class="p">]</span> <span class="o">-</span> <span class="n">aEncSetPos</span><span class="p">[</span><span class="n">nIndex</span><span class="p">];</span>
-            <span class="n">fSum</span> <span class="o">:=</span> <span class="n">EXPT</span><span class="p">(</span><span class="n">fDiff</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-            <span class="n">fCurrRMSError</span> <span class="o">:=</span> <span class="n">fCurrRMSError</span> <span class="o">+</span> <span class="n">fSum</span><span class="p">;</span>
+        <span class="o">//</span> <span class="n">First</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">array</span> <span class="n">stuck</span> <span class="k">as</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">some</span> <span class="n">reason</span><span class="o">...</span>
+        <span class="n">fDiff</span> <span class="o">:=</span> <span class="n">aEncActPos</span><span class="p">[</span><span class="n">nIndex</span><span class="p">]</span> <span class="o">-</span> <span class="n">aEncSetPos</span><span class="p">[</span><span class="n">nIndex</span><span class="p">];</span>
+        <span class="n">fSum</span> <span class="o">:=</span> <span class="n">EXPT</span><span class="p">(</span><span class="n">fDiff</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="n">fCurrRMSError</span> <span class="o">:=</span> <span class="n">fCurrRMSError</span> <span class="o">+</span> <span class="n">fSum</span><span class="p">;</span>
     <span class="n">END_FOR</span><span class="p">;</span>
     <span class="n">fCurrRMSError</span> <span class="o">:=</span> <span class="n">fCurrRMSError</span> <span class="o">/</span> <span class="mf">999.0</span><span class="p">;</span> <span class="o">//</span> <span class="mi">1000</span> <span class="n">element</span> <span class="n">array</span> <span class="n">but</span> <span class="n">ditched</span> <span class="n">the</span> <span class="n">first</span> <span class="n">point</span>
     <span class="n">fCurrRMSError</span> <span class="o">:=</span> <span class="n">SQRT</span><span class="p">(</span><span class="n">fCurrRMSError</span><span class="p">);</span>
     <span class="o">//</span> <span class="n">Watch</span> <span class="k">for</span> <span class="nb">max</span><span class="p">:</span>
     <span class="n">IF</span> <span class="n">fCurrRMSError</span> <span class="o">&gt;</span> <span class="n">fMaxRMSError</span> <span class="n">THEN</span>
-            <span class="n">fMaxRMSError</span> <span class="o">:=</span> <span class="n">fCurrRMSError</span><span class="p">;</span>
+        <span class="n">fMaxRMSError</span> <span class="o">:=</span> <span class="n">fCurrRMSError</span><span class="p">;</span>
     <span class="n">END_IF</span>
     <span class="o">//</span> <span class="n">Watch</span> <span class="k">for</span> <span class="nb">min</span><span class="p">:</span>
     <span class="n">IF</span> <span class="n">fCurrRMSError</span> <span class="o">&lt;</span> <span class="n">fMinRMSError</span> <span class="n">THEN</span>
-            <span class="n">fMinRMSError</span> <span class="o">:=</span> <span class="n">fCurrRMSError</span><span class="p">;</span>
+        <span class="n">fMinRMSError</span> <span class="o">:=</span> <span class="n">fCurrRMSError</span><span class="p">;</span>
     <span class="n">END_IF</span>
     <span class="n">fCurrRMSError</span> <span class="o">:=</span> <span class="n">fCurrRMSError</span> <span class="o">*</span> <span class="n">fEncScale</span><span class="p">;</span>
     <span class="n">fMaxRMSError</span> <span class="o">:=</span> <span class="n">FMaxRMSError</span> <span class="o">*</span> <span class="n">fEncScale</span><span class="p">;</span>
@@ -1569,11 +1666,11 @@ VAR_OUTPUT
 END_VAR
 VAR_IN_OUT
     // Motor Structs
-    stYup : DUT_MotionStage;
-    stYdwn : DUT_MotionStage;
-    stXup : DUT_MotionStage;
-    stXdwn : DUT_MotionStage;
-    stPitch : DUT_MotionStage;
+    stYup : ST_MotionStage;
+    stYdwn : ST_MotionStage;
+    stXup : ST_MotionStage;
+    stXdwn : ST_MotionStage;
+    stPitch : ST_MotionStage;
 
     // Manual coupling Gantried Axes
     bExecuteCoupleY : BOOL;
@@ -1617,21 +1714,21 @@ stPitch.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 // Start Autocoupling
 fbAutoCoupleY(nGantryTol:=nGantryTolY,
               Master:=stYup,
-                      MasterEnc:= stYupEnc,
-                      Slave:=stYdwn,
-                      SlaveEnc:=stYdwnEnc,
-                      bExecuteCouple:=bExecuteCoupleY,
-                      bExecuteDecouple:=bExecuteDecoupleY,
-                      bGantryAlreadyCoupled=&gt;bGantryAlreadyCoupledY);
+              MasterEnc:= stYupEnc,
+              Slave:=stYdwn,
+              SlaveEnc:=stYdwnEnc,
+              bExecuteCouple:=bExecuteCoupleY,
+              bExecuteDecouple:=bExecuteDecoupleY,
+              bGantryAlreadyCoupled=&gt;bGantryAlreadyCoupledY);
 
 fbAutoCoupleX(nGantryTol:=nGantryTolX,
               Master:=stXup,
-                      MasterEnc:= stXupEnc,
-                      Slave:=stXdwn,
-                      SlaveEnc:=stXdwnEnc,
-                      bExecuteCouple:=bExecuteCoupleX,
-                      bExecuteDecouple:=bExecuteDecoupleX,
-                      bGantryAlreadyCoupled=&gt;bGantryAlreadyCoupledX);
+              MasterEnc:= stXupEnc,
+              Slave:=stXdwn,
+              SlaveEnc:=stXdwnEnc,
+              bExecuteCouple:=bExecuteCoupleX,
+              bExecuteDecouple:=bExecuteDecoupleX,
+              bGantryAlreadyCoupled=&gt;bGantryAlreadyCoupledX);
 
 END_FUNCTION_BLOCK
 </pre></div>
@@ -1651,21 +1748,21 @@ END_FUNCTION_BLOCK
     <span class="o">//</span> <span class="n">Test</span> <span class="n">Pitch</span> <span class="n">Control</span>
     <span class="n">fbPitchControl</span> <span class="p">:</span> <span class="n">FB_PitchControl</span><span class="p">;</span>
     <span class="n">TestPitch</span> <span class="p">:</span> <span class="n">HOMS_PitchMechanism</span> <span class="o">:=</span> <span class="p">(</span><span class="n">ReqPosLimHi</span><span class="o">:=</span><span class="mi">2000</span><span class="p">,</span>
-                                            <span class="n">ReqPosLimLo</span><span class="o">:=-</span><span class="mi">2000</span><span class="p">,</span>
-                                            <span class="n">diEncPosLimHi</span><span class="o">:=</span><span class="mi">10768330</span><span class="p">,</span>
-                                            <span class="n">diEncPosLimLo</span><span class="o">:=</span><span class="mi">8141680</span><span class="p">);</span>
-    <span class="n">M1</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span><span class="p">;</span>
+                                        <span class="n">ReqPosLimLo</span><span class="o">:=-</span><span class="mi">2000</span><span class="p">,</span>
+                                        <span class="n">diEncPosLimHi</span><span class="o">:=</span><span class="mi">10768330</span><span class="p">,</span>
+                                        <span class="n">diEncPosLimLo</span><span class="o">:=</span><span class="mi">8141680</span><span class="p">);</span>
+    <span class="n">M1</span> <span class="p">:</span> <span class="n">ST_MotionStage</span><span class="p">;</span>
     <span class="n">bPitchDone</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
     <span class="o">*</span><span class="p">)</span>
 
     <span class="o">//</span> <span class="n">Test</span> <span class="n">Bender</span> <span class="n">vs</span> <span class="n">No</span> <span class="n">Bender</span>
     <span class="n">TESTWithBender</span> <span class="p">:</span> <span class="n">DUT_HOMS</span><span class="p">;</span>
-    <span class="n">M1</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
-    <span class="n">M2</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
-    <span class="n">M3</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
-    <span class="n">M4</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
-    <span class="n">M5</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
-    <span class="n">M6</span> <span class="p">:</span> <span class="n">DUT_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
+    <span class="n">M1</span> <span class="p">:</span> <span class="n">ST_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
+    <span class="n">M2</span> <span class="p">:</span> <span class="n">ST_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
+    <span class="n">M3</span> <span class="p">:</span> <span class="n">ST_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
+    <span class="n">M4</span> <span class="p">:</span> <span class="n">ST_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
+    <span class="n">M5</span> <span class="p">:</span> <span class="n">ST_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
+    <span class="n">M6</span> <span class="p">:</span> <span class="n">ST_MotionStage</span> <span class="o">:=</span> <span class="p">(</span><span class="n">nEnableMode</span><span class="o">:=</span><span class="n">ENUM_StageEnableMode</span><span class="o">.</span><span class="n">ALWAYS</span><span class="p">);</span>
     <span class="n">fbBender</span> <span class="p">:</span> <span class="n">FB_Bender</span><span class="p">;</span>
 
     <span class="n">fbMotionStage_m1</span> <span class="p">:</span> <span class="n">FB_MotionStage</span><span class="p">;</span>
@@ -1681,10 +1778,10 @@ END_FUNCTION_BLOCK
 <span class="n">M1</span><span class="o">.</span><span class="n">bHardwareEnable</span><span class="p">;</span>
 <span class="n">M1</span><span class="o">.</span><span class="n">fVelocity</span> <span class="o">:=</span> <span class="mf">150.0</span><span class="p">;</span>
 <span class="n">fbPitchControl</span><span class="p">(</span><span class="n">Pitch</span><span class="o">:=</span><span class="n">TestPitch</span><span class="p">,</span>
-                       <span class="n">Stepper</span><span class="o">:=</span><span class="n">M1</span><span class="p">,</span>
-                       <span class="n">lrCurrentSetpoint</span><span class="o">:=</span><span class="n">M1</span><span class="o">.</span><span class="n">fPosition</span><span class="p">,</span>
-                       <span class="n">q_bDone</span><span class="o">=&gt;</span><span class="n">bPitchDone</span><span class="p">,</span>
-                       <span class="n">q_bBusy</span><span class="o">=&gt;</span><span class="p">);</span>
+               <span class="n">Stepper</span><span class="o">:=</span><span class="n">M1</span><span class="p">,</span>
+               <span class="n">lrCurrentSetpoint</span><span class="o">:=</span><span class="n">M1</span><span class="o">.</span><span class="n">fPosition</span><span class="p">,</span>
+               <span class="n">q_bDone</span><span class="o">=&gt;</span><span class="n">bPitchDone</span><span class="p">,</span>
+               <span class="n">q_bBusy</span><span class="o">=&gt;</span><span class="p">);</span>
 <span class="n">IF</span> <span class="n">NOT</span> <span class="n">M1</span><span class="o">.</span><span class="n">bHardwareEnable</span> <span class="n">THEN</span>
     <span class="n">M1</span><span class="o">.</span><span class="n">fPosition</span> <span class="o">:=</span> <span class="n">M1</span><span class="o">.</span><span class="n">stAxisStatus</span><span class="o">.</span><span class="n">fActPosition</span><span class="p">;</span>
 <span class="n">END_IF</span>
@@ -1724,9 +1821,9 @@ END_FUNCTION_BLOCK
                          <span class="n">nYdwnEncRef</span><span class="o">:=</span><span class="mi">0</span><span class="p">,</span>
                          <span class="n">nXupEncRef</span><span class="o">:=</span><span class="mi">0</span><span class="p">,</span>
                          <span class="n">nXdwnEncRef</span><span class="o">:=</span><span class="mi">0</span><span class="p">,</span>
-                                 <span class="n">bExecuteCoupleY</span><span class="o">:=</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">bExecuteCoupleY</span><span class="p">,</span>
+                         <span class="n">bExecuteCoupleY</span><span class="o">:=</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">bExecuteCoupleY</span><span class="p">,</span>
                          <span class="n">bExecuteCoupleX</span><span class="o">:=</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">bExecuteCoupleX</span><span class="p">,</span>
-                                 <span class="n">bExecuteDecoupleY</span><span class="o">:=</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">bExecuteDecoupleY</span><span class="p">,</span>
+                         <span class="n">bExecuteDecoupleY</span><span class="o">:=</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">bExecuteDecoupleY</span><span class="p">,</span>
                          <span class="n">bExecuteDecoupleX</span><span class="o">:=</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">bExecuteDecoupleX</span><span class="p">,</span>
                          <span class="n">bGantryAlreadyCoupledY</span><span class="o">=&gt;</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">bGantryAlreadyCoupledY</span><span class="p">,</span>
                          <span class="n">bGantryAlreadyCoupledX</span><span class="o">=&gt;</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">bGantryAlreadyCoupledX</span><span class="p">,</span>
@@ -1734,7 +1831,7 @@ END_FUNCTION_BLOCK
                          <span class="n">nCurrGantryX</span><span class="o">=&gt;</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">nCurrGantryX</span><span class="p">);</span>
 <span class="n">fbBender</span><span class="p">(</span><span class="n">stBender</span><span class="o">:=</span><span class="n">M6</span><span class="p">,</span>
          <span class="n">bSTOEnable1</span><span class="o">:=</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">fbRunHOMS</span><span class="o">.</span><span class="n">bSTOEnable1</span><span class="p">,</span>
-             <span class="n">bSTOEnable2</span><span class="o">:=</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">fbRunHOMS</span><span class="o">.</span><span class="n">bSTOEnable2</span><span class="p">);</span>
+         <span class="n">bSTOEnable2</span><span class="o">:=</span><span class="n">TESTWithBender</span><span class="o">.</span><span class="n">fbRunHOMS</span><span class="o">.</span><span class="n">bSTOEnable2</span><span class="p">);</span>
 
 <span class="n">fbMotionStage_m1</span><span class="p">(</span><span class="n">stMotionStage</span><span class="o">:=</span><span class="n">M1</span><span class="p">);</span>
 <span class="n">fbMotionStage_m2</span><span class="p">(</span><span class="n">stMotionStage</span><span class="o">:=</span><span class="n">M2</span><span class="p">);</span>
@@ -1791,18 +1888,18 @@ END_FUNCTION_BLOCK
 <span class="n">rtExecute</span><span class="p">(</span><span class="n">CLK</span><span class="o">:=</span><span class="n">Execute</span><span class="p">);</span>
 
 <span class="n">IF</span> <span class="p">(</span> <span class="p">(</span><span class="n">ReqAbsPos</span> <span class="o">&lt;&gt;</span> <span class="n">ReqAbsPosPrevious</span> <span class="n">AND</span> <span class="n">Enable</span><span class="p">)</span> <span class="n">OR</span> <span class="n">rtExecute</span><span class="o">.</span><span class="n">Q</span><span class="p">)</span> <span class="n">THEN</span>
-                    <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Execute</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
-                    <span class="n">imcBlockIndex</span> <span class="o">:=</span> <span class="n">imcBlockIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-                    <span class="n">IF</span> <span class="n">imcBlockIndex</span> <span class="o">&gt;</span><span class="mi">2</span> <span class="n">THEN</span> <span class="n">imcBlockIndex</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">END_IF</span>
-                    <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Position</span> <span class="o">:=</span> <span class="n">ReqAbsPos</span><span class="p">;</span>
-                    <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Execute</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
-                    <span class="n">ReqAbsPosPrevious</span> <span class="o">:=</span> <span class="n">ReqAbsPos</span><span class="p">;</span>
-            <span class="n">ELSIF</span> <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Done</span> <span class="n">OR</span>
-                            <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">CommandAborted</span> <span class="n">OR</span>
-                            <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Busy</span> <span class="n">OR</span>
-                            <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Error</span> <span class="n">THEN</span>
-                    <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Execute</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
-            <span class="n">END_IF</span>
+            <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Execute</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
+            <span class="n">imcBlockIndex</span> <span class="o">:=</span> <span class="n">imcBlockIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">IF</span> <span class="n">imcBlockIndex</span> <span class="o">&gt;</span><span class="mi">2</span> <span class="n">THEN</span> <span class="n">imcBlockIndex</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">END_IF</span>
+            <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Position</span> <span class="o">:=</span> <span class="n">ReqAbsPos</span><span class="p">;</span>
+            <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Execute</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+            <span class="n">ReqAbsPosPrevious</span> <span class="o">:=</span> <span class="n">ReqAbsPos</span><span class="p">;</span>
+        <span class="n">ELSIF</span> <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Done</span> <span class="n">OR</span>
+                <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">CommandAborted</span> <span class="n">OR</span>
+                <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Busy</span> <span class="n">OR</span>
+                <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Error</span> <span class="n">THEN</span>
+            <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">imcBlockIndex</span><span class="p">]</span><span class="o">.</span><span class="n">Execute</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
+        <span class="n">END_IF</span>
 
 <span class="n">FOR</span> <span class="n">iI</span> <span class="o">:=</span> <span class="mi">1</span> <span class="n">TO</span> <span class="mi">2</span> <span class="n">DO</span>
     <span class="n">mcMoveAbsolute</span><span class="p">[</span><span class="n">iI</span><span class="p">](</span><span class="n">Axis</span> <span class="o">:=</span> <span class="n">Axis</span><span class="p">,</span> <span class="n">Velocity</span><span class="o">:=</span><span class="n">Velocity</span><span class="p">,</span> <span class="n">BufferMode</span><span class="o">:=</span><span class="n">MC_Aborting</span><span class="p">);</span>
@@ -1866,8 +1963,8 @@ END_FUNCTION_BLOCK
 <span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="o">.</span><span class="n">Stepper</span><span class="o">.</span><span class="n">fVelocity</span> <span class="o">:=</span> <span class="mf">150.0</span><span class="p">;</span>
 
 <span class="n">fbPitchControl</span><span class="p">(</span><span class="n">Pitch</span><span class="o">:=</span><span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="p">,</span>
-                       <span class="n">q_bDone</span><span class="o">=&gt;</span><span class="n">bPitchDone</span><span class="p">,</span>
-                       <span class="n">q_bBusy</span><span class="o">=&gt;</span><span class="p">);</span>
+               <span class="n">q_bDone</span><span class="o">=&gt;</span><span class="n">bPitchDone</span><span class="p">,</span>
+               <span class="n">q_bBusy</span><span class="o">=&gt;</span><span class="p">);</span>
 <span class="n">rtDone</span><span class="p">(</span><span class="n">CLK</span><span class="o">:=</span><span class="n">bPitchDone</span><span class="p">);</span>
 
 <span class="n">tonHack</span><span class="p">(</span><span class="n">IN</span><span class="o">:=</span><span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="o">.</span><span class="n">Stepper</span><span class="o">.</span><span class="n">Axis</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">MotionState</span> <span class="o">=</span> <span class="n">MC_AXISSTATE_STANDSTILL</span><span class="p">);</span>
@@ -1972,8 +2069,8 @@ END_FUNCTION_BLOCK
 <span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="o">.</span><span class="n">Stepper</span><span class="o">.</span><span class="n">fVelocity</span> <span class="o">:=</span> <span class="mf">150.0</span><span class="p">;</span>
 
 <span class="n">fbPitchControl</span><span class="p">(</span><span class="n">Pitch</span><span class="o">:=</span><span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="p">,</span>
-                       <span class="n">q_bDone</span><span class="o">=&gt;</span><span class="p">,</span>
-                       <span class="n">q_bBusy</span><span class="o">=&gt;</span><span class="p">);</span>
+               <span class="n">q_bDone</span><span class="o">=&gt;</span><span class="p">,</span>
+               <span class="n">q_bBusy</span><span class="o">=&gt;</span><span class="p">);</span>
 
 
 <span class="n">CASE</span> <span class="n">iStep</span> <span class="n">OF</span>
@@ -2047,7 +2144,7 @@ END_FUNCTION_BLOCK
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, SLAC National Accelerator Laboratory.</p>
+    <p>&#169; Copyright 2024, SLAC National Accelerator Laboratory.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

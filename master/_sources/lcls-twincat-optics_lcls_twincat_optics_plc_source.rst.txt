@@ -11,62 +11,62 @@ DUT_HOMS
 
     TYPE DUT_HOMS :
     STRUCT
-    	// System initializiation
-    	fbRunHOMS : FB_RunHOMS;
+        // System initializiation
+        fbRunHOMS : FB_RunHOMS;
 
-    	// Couple/Decouple motors
-    	{attribute 'pytmc' := '
-    		pv: COUPLE_Y
-    		io: o
-    	'}
-    	bExecuteCoupleY : BOOL;
-    	{attribute 'pytmc' := '
-    		pv: DECOUPLE_Y
-    		io: o
-    	'}
-    	bExecuteDecoupleY : BOOL;
-    	{attribute 'pytmc' := '
-    		pv: COUPLE_X
-    		io: o
-    	'}
-    	bExecuteCoupleX : BOOL;
-    	{attribute 'pytmc' := '
-    		pv: DECOUPLE_X
-    		io: o
-    	'}
-    	bExecuteDecoupleX : BOOL;
+        // Couple/Decouple motors
+        {attribute 'pytmc' := '
+            pv: COUPLE_Y
+            io: o
+        '}
+        bExecuteCoupleY : BOOL;
+        {attribute 'pytmc' := '
+            pv: DECOUPLE_Y
+            io: o
+        '}
+        bExecuteDecoupleY : BOOL;
+        {attribute 'pytmc' := '
+            pv: COUPLE_X
+            io: o
+        '}
+        bExecuteCoupleX : BOOL;
+        {attribute 'pytmc' := '
+            pv: DECOUPLE_X
+            io: o
+        '}
+        bExecuteDecoupleX : BOOL;
 
-    	// Coupling status
-    	{attribute 'pytmc' := '
-    		pv: ALREADY_COUPLED_Y
-    		io: i
+        // Coupling status
+        {attribute 'pytmc' := '
+            pv: ALREADY_COUPLED_Y
+            io: i
             field: ZSV MAJOR
-    	'}
-    	bGantryAlreadyCoupledY : BOOL;
-    	{attribute 'pytmc' := '
-    		pv: ALREADY_COUPLED_X
-    		io: i
+        '}
+        bGantryAlreadyCoupledY : BOOL;
+        {attribute 'pytmc' := '
+            pv: ALREADY_COUPLED_X
+            io: i
             field: ZSV MAJOR
-    	'}
-    	bGantryAlreadyCoupledX : BOOL;
+        '}
+        bGantryAlreadyCoupledX : BOOL;
 
-    	// Current gantry differences
-    	nCurrGantryY : LINT; // encoder counts = nm
-    	nCurrGantryX : LINT; // encoder counts = nm
+        // Current gantry differences
+        nCurrGantryY : LINT; // encoder counts = nm
+        nCurrGantryX : LINT; // encoder counts = nm
 
-    	// Convert gantry differences to um (smaller number) to readout in epics
-    	{attribute 'pytmc' := '
-    		pv: GANTRY_Y
-    		field: EGU um
-    		io: i
-    	'}
-    	fCurrGantryY_um : REAL; // Y Gantry difference in um
-    	{attribute 'pytmc' := '
-    		pv: GANTRY_X
-    		field: EGU um
-    		io: i
-    	'}
-    	fCurrGantryX_um : REAL; // X Gantry difference in um
+        // Convert gantry differences to um (smaller number) to readout in epics
+        {attribute 'pytmc' := '
+            pv: GANTRY_Y
+            field: EGU um
+            io: i
+        '}
+        fCurrGantryY_um : REAL; // Y Gantry difference in um
+        {attribute 'pytmc' := '
+            pv: GANTRY_X
+            field: EGU um
+            io: i
+        '}
+        fCurrGantryX_um : REAL; // X Gantry difference in um
     END_STRUCT
     END_TYPE
 
@@ -83,14 +83,14 @@ E_PiezoControl
 
     TYPE E_PiezoControl :
     (
-    	//Piezo Control Machine
-    	EPC_Idle := 0,
-    	EPC_Init := 10,
-    	EPC_MoveRequested  := 50,
-    	EPC_MovingPositive := 100,
-    	EPC_MovingNegative := 200,
-    	EPC_MoveCompleted  := 350,
-    	EPC_Error := 500
+        //Piezo Control Machine
+        EPC_Idle := 0,
+        EPC_Init := 10,
+        EPC_MoveRequested  := 50,
+        EPC_MovingPositive := 100,
+        EPC_MovingNegative := 200,
+        EPC_MoveCompleted  := 350,
+        EPC_Error := 500
     );
     END_TYPE
 
@@ -104,21 +104,21 @@ E_PitchControl
 
     TYPE E_PitchControl :
     (
-    	//Pitch Control Machine
-    	PCM_Init := 0,
-    	PCM_Standby := 1,
-    	PCM_MoveRequested := 10,
-    	PCM_Coarse50Piezo	:= 20,
-    	PCM_CoarseMove	:= 21,
-    	PCM_CoarseMoveCleanup := 22,
-    	PCM_FineMove	:= 30,
-    	PCM_Halt		:= 50,
-    	PCM_Done	:= 8000, //why is 8000 done? Where did this come from??
-    	PCM_Error   := 9000, //Anything above 9000 is considered an error
-    	PCM_StepperError	:= 9100,
-    	PCM_PiezoError	:= 9200,
-    	PCM_OtherError := 9300,
-    	PCM_STOHit := 9400
+        //Pitch Control Machine
+        PCM_Init := 0,
+        PCM_Standby := 1,
+        PCM_MoveRequested := 10,
+        PCM_Coarse50Piezo	:= 20,
+        PCM_CoarseMove	:= 21,
+        PCM_CoarseMoveCleanup := 22,
+        PCM_FineMove	:= 30,
+        PCM_Halt		:= 50,
+        PCM_Done	:= 8000, //why is 8000 done? Where did this come from??
+        PCM_Error   := 9000, //Anything above 9000 is considered an error
+        PCM_StepperError	:= 9100,
+        PCM_PiezoError	:= 9200,
+        PCM_OtherError := 9300,
+        PCM_STOHit := 9400
     );
     END_TYPE
 
@@ -132,22 +132,22 @@ HOMS_PitchMechanism
 
     TYPE HOMS_PitchMechanism :
     STRUCT
-    	Piezo	:	ST_PiezoAxis;	//Piezo
+        Piezo	:	ST_PiezoAxis;	//Piezo
 
-    	(* Soft limits, egu urad *)
-    	ReqPosLimHi	:	REAL;
-    	ReqPosLimLo	:	REAL;
+        (* Soft limits, egu urad *)
+        ReqPosLimHi	:	REAL;
+        ReqPosLimLo	:	REAL;
 
 
-    	(* Hard limits, egu INC *)
-    	(* These are discovered during installation, and represent encoder ticks, unbiased *)
-    	(* We changed to these when our pitch mechanism limit switches were insufficient for
-    	good control. They had too much hysteresis/ lack of precision. At this point the limit
-    	switches are ignored, and instead their function is carried out by these. *)
-    	diEncPosLimHi	:	LINT;
-    	diEncPosLimLo	:	LINT;
-    	//Raw encoder count
-    	diEncCnt	AT %I*	:	LINT;
+        (* Hard limits, egu INC *)
+        (* These are discovered during installation, and represent encoder ticks, unbiased *)
+        (* We changed to these when our pitch mechanism limit switches were insufficient for
+        good control. They had too much hysteresis/ lack of precision. At this point the limit
+        switches are ignored, and instead their function is carried out by these. *)
+        diEncPosLimHi	:	LINT;
+        diEncPosLimLo	:	LINT;
+        //Raw encoder count
+        diEncCnt	AT %I*	:	LINT;
     END_STRUCT
     END_TYPE
 
@@ -163,46 +163,46 @@ ST_PiezoAxis
 
     TYPE ST_PiezoAxis :
     STRUCT
-    	(* IO *)
-    		//Readback
-    		sIdn				:	STRING; //Identity
-    		iCurError			:	INT; //Current error code, should be 0 most of the time
-    		iLastError			:	INT; //Last error code, for history
-    		rActVoltage			:	REAL; //Actual voltage
-    		rLastReqVoltage		:	REAL; //Last requested piezo voltage
-    		//Control
-    		rSetVoltage			:	REAL; //this parameter is set by the control loop/ voltage mode
-    		sAxis				:   STRING :='A'; //Axis, e.g. A, B, C...A if single unit	
-    		//Summaries
-    		xTimeout	:	BOOL;
-    		xDriverError		:	BOOL; //Summary of any driver errors
-    	
-    	(* Operation *)
-    		xEnable	:	BOOL; //Enable control.
-    		(* Note: Voltage mode and Idle mode overrides "DirectPiezoMode" of FB_PitchControl *)
-    		xVoltageMode	:	BOOL; //Voltage mode gives direct access to piezo voltage, false means closed loop position acquisition (see FB_PitchControl for piezo and stepper separation)
-    		xIdleMode	:	BOOL; //Use to put the piezo at half-stroke
-    		rReqVoltage : REAL; //Requested piezo voltage in voltage mode
-    		rReqAbsPos	:	LREAL; //Requested Position, latched at rising StartAbsMov
-    		xStop	:	BOOL;	//Stops piezo and holds position
-    	
-    	
-    	(* Control Parameters *)
-    		rActPos	:	LREAL; //Encoder Readback
-    		//Pitch piezo dmove range (urad)
-    		rPiezoDmovRange		:	REAL := 1.0;
-    		stPIParams	:	ST_CTRL_PI_PARAMS := (
-    			tCtrlCycleTime := T#0MS,
-    			tTaskCycleTime := T#0MS,
-    			tTn       := T#200MS,
-    			fKp      := 0.0005,
-    			fOutMaxLimit := 1,
-    			fOutMinLimit := -1,
-    			bARWOnIPartOnly := FALSE);
+        (* IO *)
+            //Readback
+            sIdn				:	STRING; //Identity
+            iCurError			:	INT; //Current error code, should be 0 most of the time
+            iLastError			:	INT; //Last error code, for history
+            rActVoltage			:	REAL; //Actual voltage
+            rLastReqVoltage		:	REAL; //Last requested piezo voltage
+            //Control
+            rSetVoltage			:	REAL; //this parameter is set by the control loop/ voltage mode
+            sAxis				:   STRING :='A'; //Axis, e.g. A, B, C...A if single unit
+            //Summaries
+            xTimeout	:	BOOL;
+            xDriverError		:	BOOL; //Summary of any driver errors
 
-    	(* Voltage ranges, come from specifications of the driver *)
-    		UpperVoltage	:	REAL := GVL_Constants.cPiezoMaxVoltage; // E-816 has no software limits
-    		LowerVoltage	:	REAL := GVL_Constants.cPiezoMinVoltage; // E-816 has no software limits
+        (* Operation *)
+            xEnable	:	BOOL; //Enable control.
+            (* Note: Voltage mode and Idle mode overrides "DirectPiezoMode" of FB_PitchControl *)
+            xVoltageMode	:	BOOL; //Voltage mode gives direct access to piezo voltage, false means closed loop position acquisition (see FB_PitchControl for piezo and stepper separation)
+            xIdleMode	:	BOOL; //Use to put the piezo at half-stroke
+            rReqVoltage : REAL; //Requested piezo voltage in voltage mode
+            rReqAbsPos	:	LREAL; //Requested Position, latched at rising StartAbsMov
+            xStop	:	BOOL;	//Stops piezo and holds position
+
+
+        (* Control Parameters *)
+            rActPos	:	LREAL; //Encoder Readback
+            //Pitch piezo dmove range (urad)
+            rPiezoDmovRange		:	REAL := 1.0;
+            stPIParams	:	ST_CTRL_PI_PARAMS := (
+                tCtrlCycleTime := T#0MS,
+                tTaskCycleTime := T#0MS,
+                tTn       := T#200MS,
+                fKp      := 0.0005,
+                fOutMaxLimit := 1,
+                fOutMinLimit := -1,
+                bARWOnIPartOnly := FALSE);
+
+        (* Voltage ranges, come from specifications of the driver *)
+            UpperVoltage	:	REAL := GVL_Constants.cPiezoMaxVoltage; // E-816 has no software limits
+            LowerVoltage	:	REAL := GVL_Constants.cPiezoMinVoltage; // E-816 has no software limits
     END_STRUCT
     END_TYPE
 
@@ -240,10 +240,10 @@ GVL_Constants
 
     {attribute 'qualified_only'}
     VAR_GLOBAL CONSTANT
-    	nGANTRY_TOLERANCE_NM_DEFAULT : LINT := 50000; // default gantry tolerance in encoder counts = nm
-    	cPiezoMaxVoltage	:	LREAL := 120; // in Volts
-    	cPiezoMinVoltage	:	LREAL := -10; // in Volts
-    	cPiezoRange : REAL := 60.0; // From Old HOMS_FEE Project, 90 um of piezo stroke, unsure what these units are
+        nGANTRY_TOLERANCE_NM_DEFAULT : LINT := 50000; // default gantry tolerance in encoder counts = nm
+        cPiezoMaxVoltage	:	LREAL := 120; // in Volts
+        cPiezoMinVoltage	:	LREAL := -10; // in Volts
+        cPiezoRange : REAL := 60.0; // From Old HOMS_FEE Project, 90 um of piezo stroke, unsure what these units are
     END_VAR
 
 
@@ -256,10 +256,10 @@ GVL_TestStructs
 
     {attribute 'qualified_only'}
     VAR_GLOBAL
-    	TestPitch_LimitSwitches : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
-    		                                              ReqPosLimLo:=-2000,
-    		                                              diEncPosLimHi:=10768330,
-    		                                              diEncPosLimLo:=8141680);
+        TestPitch_LimitSwitches : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
+                                                          ReqPosLimLo:=-2000,
+                                                          diEncPosLimHi:=10768330,
+                                                          diEncPosLimLo:=8141680);
     END_VAR
 
 
@@ -271,6 +271,95 @@ POUs
 ----
 
 
+FB_Axilon_Cooling_1f1p
+^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    FUNCTION_BLOCK FB_Axilon_Cooling_1f1p
+    VAR_INPUT
+    END_VAR
+    VAR_OUTPUT
+        // Mirrors with 1 Cooling Flow Meter and 1 Pressure Meter
+        {attribute 'pytmc' := '
+            pv: FWM:1
+            field: EGU lpm
+            field: HIGH 2.3
+            field: HIHI 3.0
+            field: LOW 1.7
+            field: LOLO 1.5
+            field: LSV MINOR
+            field: LLSV MAJOR
+            field: HSV MINOR
+            field: HHSV MAJOR
+            io: i
+        '}
+        fFlow_1_val : LREAL;
+
+        {attribute 'pytmc' := '
+            pv: PRSM:1
+            field: EGU bar
+            field: LOW 0.1
+            field: LSV MAJOR
+            io: i
+        '}
+        fPress_1_val : LREAL;
+    END_VAR
+    VAR
+        fbFlow_1 : FB_AnalogInput;
+        fbPress_1 : FB_AnalogInput;
+    END_VAR
+    fbFlow_1(iTermBits:=15, fTermMax:=5.0427, fTermMin:=0.050472);
+    fFlow_1_val := fbFlow_1.fReal;
+
+    fbPress_1(iTermBits:=15, fTermMax:=4.0, fTermMin:=0);
+    fPress_1_val := fbPress_1.fReal;
+
+    END_FUNCTION_BLOCK
+
+
+
+
+FB_Axilon_Cooling_2f1p
+^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    FUNCTION_BLOCK FB_Axilon_Cooling_2f1p EXTENDS FB_Axilon_Cooling_1f1p
+    // Mirrors with 2 Cooling Flow Meters and 1 Pressure Meter
+    VAR_INPUT
+    END_VAR
+    VAR_OUTPUT
+        {attribute 'pytmc' := '
+            pv: FWM:2
+            field: EGU lpm
+            field: HIGH 2.3
+            field: HIHI 3.0
+            field: LOW 1.7
+            field: LOLO 1.5
+            field: LSV MINOR
+            field: LLSV MAJOR
+            field: HSV MINOR
+            field: HHSV MAJOR
+            io: i
+        '}
+        fFlow_2_val : LREAL;
+    END_VAR
+    VAR
+        fbFlow_2 : FB_AnalogInput;
+    END_VAR
+    fbFlow_2(iTermBits:=15, fTermMax:=5.0427, fTermMin:=0.050472);
+    fFlow_2_val := fbFlow_2.fReal;
+
+    SUPER^();
+
+    END_FUNCTION_BLOCK
+
+
+Related:
+    * `FB_Axilon_Cooling_1f1p`_
+
+
 FB_Bender
 ^^^^^^^^^
 
@@ -278,9 +367,9 @@ FB_Bender
 
     FUNCTION_BLOCK FB_Bender
     VAR_IN_OUT
-    	stBender : DUT_MotionStage;
-    	bSTOEnable1 : BOOL;
-    	bSTOEnable2 : BOOL;
+        stBender : ST_MotionStage;
+        bSTOEnable1 : BOOL;
+        bSTOEnable2 : BOOL;
     END_VAR
     VAR_INPUT
     END_VAR
@@ -307,8 +396,8 @@ FB_HomsStats
     FUNCTION_BLOCK FB_HomsStats
     VAR_INPUT
         homs : DUT_HOMS;
-        fbUpStreamY : DUT_MotionStage;
-        fbUpStreamX : DUT_MotionStage;
+        fbUpStreamY : ST_MotionStage;
+        fbUpStreamX : ST_MotionStage;
     END_VAR
     VAR_OUTPUT
     END_VAR
@@ -318,42 +407,42 @@ FB_HomsStats
 
         fbDataYGantryDiff : FB_LREALBuffer; // YGantry Data Acquisition FB
         fbDataXGantryDiff : FB_LREALBuffer; // XGantry Data Acquisition FB
-        
+
         fbYGantryStats : FB_BasicStats; // Calculate mean/standard deviation of YGantryDiff
         fbXGantryStats : FB_BasicStats; // Calculate mean/standard deviation of XGantryDiff
         {attribute 'pytmc' := '
-    		pv: YGANDIFFMEAN
-    		io: i
+            pv: YGANDIFFMEAN
+            io: i
         '}
-    	fYGantryDiffMean : LREAL;
-    	{attribute 'pytmc' := '
-    		pv: YGANDIFFSTDEV
-    		io: i
-        '}
-    	fYGantryDiffStDev : LREAL;
-            {attribute 'pytmc' := '
-    		pv: XGANDIFFMEAN
-    		io: i
-        '}
-    	fXGantryDiffMean : LREAL;
-    	{attribute 'pytmc' := '
-    		pv: XGANDIFFSTDEV
-    		io: i
-        '}
-    	fXGantryDiffStDev : LREAL;
-        
-        bNewEncArray : BOOL;
-        
+        fYGantryDiffMean : LREAL;
         {attribute 'pytmc' := '
-    		pv: YGANDIFFARRAY
-    		io: i
+            pv: YGANDIFFSTDEV
+            io: i
         '}
-    	aYGantryDiff : ARRAY [1..1000] OF LREAL;
-    	{attribute 'pytmc' := '
-    		pv: XGANDIFFARRAY
-    		io: i
-    	'}
-    	aXGantryDiff : ARRAY [1..1000] OF LREAL;
+        fYGantryDiffStDev : LREAL;
+            {attribute 'pytmc' := '
+            pv: XGANDIFFMEAN
+            io: i
+        '}
+        fXGantryDiffMean : LREAL;
+        {attribute 'pytmc' := '
+            pv: XGANDIFFSTDEV
+            io: i
+        '}
+        fXGantryDiffStDev : LREAL;
+
+        bNewEncArray : BOOL;
+
+        {attribute 'pytmc' := '
+            pv: YGANDIFFARRAY
+            io: i
+        '}
+        aYGantryDiff : ARRAY [1..1000] OF LREAL;
+        {attribute 'pytmc' := '
+            pv: XGANDIFFARRAY
+            io: i
+        '}
+        aXGantryDiff : ARRAY [1..1000] OF LREAL;
     END_VAR
     // Ecn scale for end result stats
     fEncYScale := fbUpStreamY.stAxisParameters.fEncScaleFactorNumerator / fbUpstreamY.stAxisParameters.fEncScaleFactorDenominator;
@@ -361,26 +450,26 @@ FB_HomsStats
 
     // Gantry Diff Readback/Storage
     fbDataYGantryDiff(bExecute:=True,
-               	 fInput:= LINT_TO_LREAL(homs.nCurrGantryY),
-               	 arrOutput=>aYGantryDiff,
+                    fInput:= LINT_TO_LREAL(homs.nCurrGantryY),
+                    arrOutput=>aYGantryDiff,
                  bNewArray=>bNewEncArray);
-                 
-    fbDataXGantryDiff(bExecute:=True,
-               	 fInput:= LINT_TO_LREAL(homs.nCurrGantryX),
-               	 arrOutput=>aXGantryDiff,
-                 bNewArray=>bNewEncArray);
-                 
-    fbYGantryStats(aSignal:=aYGantryDiff,
-    	    bAlwaysCalc:=TRUE,
-    		fMean=>fYGantryDiffMean,
-    		fStDev=>fYGantryDiffStDev);
-            
-    fbXGantryStats(aSignal:=aXGantryDiff,
-    	    bAlwaysCalc:=TRUE,
-    		fMean=>fXGantryDiffMean,
-    		fStDev=>fXGantryDiffStDev);
 
-    //scale outputs to actual values       
+    fbDataXGantryDiff(bExecute:=True,
+                    fInput:= LINT_TO_LREAL(homs.nCurrGantryX),
+                    arrOutput=>aXGantryDiff,
+                 bNewArray=>bNewEncArray);
+
+    fbYGantryStats(aSignal:=aYGantryDiff,
+            bAlwaysCalc:=TRUE,
+            fMean=>fYGantryDiffMean,
+            fStDev=>fYGantryDiffStDev);
+
+    fbXGantryStats(aSignal:=aXGantryDiff,
+            bAlwaysCalc:=TRUE,
+            fMean=>fXGantryDiffMean,
+            fStDev=>fXGantryDiffStDev);
+
+    //scale outputs to actual values
     fYGantryDiffMean := fbYGantryStats.fMean * fEncYScale;
     fYGantryDiffStDev := fbYGantryStats.fStDev * fEncYScale;
     fXGantryDiffMean := fbXGantryStats.fMean * fEncXScale;
@@ -416,6 +505,12 @@ FB_MirrorTwoCoatingProtection
         bAutoClear : BOOL := TRUE; // Auto-clear these fast faults
 
         bReadPmpsDb : BOOL; // Trigger a re-read of the JSON Beam Parameters
+
+        bUsePmpsDb : BOOL := FALSE; // Set TRUE to lookup Beam Parameters via DB.
+
+        nUpperCoatingBitmask : DWORD := 0;
+
+        nLowerCoatingBitMask : DWORD := 0;
     END_VAR
     VAR_OUTPUT
     END_VAR
@@ -425,20 +520,21 @@ FB_MirrorTwoCoatingProtection
     VAR
         ffUpperCoating: FB_FastFault := (
             i_xAutoReset := FALSE,
-            i_TypeCode := 16#401);
+            i_TypeCode := 16#401,
+            i_Desc := ' mirror coating incompatible with beam photon energy');
         ffLowerCoating : FB_FastFault := (
             i_xAutoReset := FALSE,
-            i_TypeCode := 16#401);
-        sFFBeamParamMismatch : STRING := ' mirror coating incompatible with beam photon energy';
-        sFFBeamParamNotLoaded : STRING := ' mirror coating beam parameters not loaded';
+            i_TypeCode := 16#401,
+            i_Desc := ' mirror coating incompatible with beam photon energy');
+        ffBeamParamsNotLoaded : FB_FastFault := (
+            i_xAutoReset := TRUE,
+            i_TypeCode := 16#488,
+            i_Desc := ' mirror coating beam parameters not loaded');
 
         aDbStateParams : ARRAY[0..1] OF ST_DbStateParams;
         fbGetCoatingBPs : FB_JsonDocToSafeBP;
         ftReadJsonDocDone : F_TRIG;
         bBPsLoaded : BOOL := FALSE;
-
-        nUpperCoatingBitmask : DWORD := 0;
-        nLowerCoatingBitMask : DWORD := 0;
 
         i : INT;
         sDevState : STRING  := '';
@@ -447,50 +543,46 @@ FB_MirrorTwoCoatingProtection
     IF NOT bInit THEN
         ffUpperCoating.i_DevName := sDevName;
         ffLowerCoating.i_DevName := sDevName;
-
-        FOR i:=0 to 1 BY 1 DO
-            sDevState := CONCAT(sDevState, sDevName);
-            sDevState := CONCAT(sDevState, '-');
-            CASE i OF
-            0:
-                sDevState := CONCAT(sDevState, sUpperCoatingType);
-            1:
-                sDevState := CONCAT(sDevState, sLowerCoatingType);
-            END_CASE
-            aDbStateParams[i].sPmpsState := sDevState;
-            sDevState := '';
-        END_FOR
+        IF bUsePmpsDb THEN
+            FOR i:=0 to 1 BY 1 DO
+                sDevState := CONCAT(sDevState, sDevName);
+                sDevState := CONCAT(sDevState, '-');
+                CASE i OF
+                0:
+                    sDevState := CONCAT(sDevState, sUpperCoatingType);
+                1:
+                    sDevState := CONCAT(sDevState, sLowerCoatingType);
+                END_CASE
+                aDbStateParams[i].sPmpsState := sDevState;
+                sDevState := '';
+            END_FOR
+        ELSE
+            bBPsLoaded := TRUE;
+        END_IF
         bInit := TRUE;
     END_IF
 
-    IF bReadPmpsDB THEN
-        bBPsLoaded := FALSE;
-    END_IF
+    IF bUsePmpsDb THEN
+        IF bReadPmpsDB THEN
+            bBPsLoaded := FALSE;
+        END_IF
 
-    fbGetCoatingBPs(bExecute := bReadPmpsDB,
-        jsonDoc := PMPS_GVL.BP_jsonDoc,
-        sDeviceName:=sDevName,
-        io_fbFFHWO:=FFO,
-        arrStates := aDbStateParams);
+        fbGetCoatingBPs(bExecute := bReadPmpsDB,
+            jsonDoc := PMPS_GVL.BP_jsonDoc,
+            sDeviceName:=sDevName,
+            io_fbFFHWO:=FFO,
+            arrStates := aDbStateParams);
 
-    ftReadJsonDocDone(CLK:=fbGetCoatingBPs.bBusy);
+        ftReadJsonDocDone(CLK:=fbGetCoatingBPs.bBusy);
 
-    IF ftReadJsonDocDone.Q AND NOT fbGetCoatingBps.bError THEN
-        bBPsLoaded := TRUE;
-    END_IF
+        IF ftReadJsonDocDone.Q AND NOT fbGetCoatingBps.bError THEN
+            bBPsLoaded := TRUE;
+        END_IF
 
-    IF bBPsLoaded THEN
-        ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFFBeamParamMismatch);
-        ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFFBeamParamMismatch);
-
-        nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
-        nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
-    ELSE
-        ffUpperCoating.i_Desc := CONCAT(sUpperCoatingType, sFFBeamParamNotLoaded);
-        ffLowerCoating.i_Desc := CONCAT(sLowerCoatingType, sFFBeamParamNotLoaded);
-
-        nUpperCoatingBitmask := 0;
-        nLowerCoatingBitMask := 0;
+        IF bBPsLoaded THEN
+            nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
+            nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
+        END_IF
     END_IF
 
     IF nCurrentEncoderCount <= nLowerCoatingBoundary THEN
@@ -504,8 +596,11 @@ FB_MirrorTwoCoatingProtection
         ffUpperCoating.i_xOK := FALSE;
     END_IF
 
+    ffBeamParamsNotLoaded.i_xOK := bBPsLoaded;
+
     ffUpperCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
     ffLowerCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
+    ffBeamParamsNotLoaded(io_fbFFHWO:=FFO);
 
     END_FUNCTION_BLOCK
 
@@ -938,65 +1033,65 @@ FB_PiezoControl
 
     FUNCTION_BLOCK FB_PiezoControl
     VAR_IN_OUT
-    	iq_Piezo	:	ST_PiezoAxis;
+        iq_Piezo	:	ST_PiezoAxis;
     END_VAR
     VAR_INPUT
-    	xExecute	:	BOOL; //Rising edge being piezo motion
-    	xReset      :   BOOL;
-    	Enable_Positive : BOOL; //Reverse of Positive Limit Switch
-    	Enable_Negative : BOOL; //Reverse of Negative Limit Switch
+        xExecute	:	BOOL; //Rising edge being piezo motion
+        xReset      :   BOOL;
+        Enable_Positive : BOOL; //Reverse of Positive Limit Switch
+        Enable_Negative : BOOL; //Reverse of Negative Limit Switch
     END_VAR
     VAR_OUTPUT
-    	xBusy	:	BOOL; //Busy remains true while piezo position is being adjusted
-    	xDone	:	BOOL; //Reached target position
-    	xError	:	BOOL; //General error
-    	xLimited:	BOOL; //Piezo move was limited
+        xBusy	:	BOOL; //Busy remains true while piezo position is being adjusted
+        xDone	:	BOOL; //Reached target position
+        xError	:	BOOL; //General error
+        xLimited:	BOOL; //Piezo move was limited
     END_VAR
     VAR
-    	E_State     : E_PiezoControl; //ENUM for Piezo Control State
-    	rtStartMove : R_TRIG; //Rising Trigger for Execution
-    	rtReset     : R_TRIG; //Rising Trigger for Error reset
-    	rSetpoint   : REAL;   //Internal Storage of Setpoint
-    	rReqVoltage	:	REAL; //requested voltage
-    	rLLSV: REAL := 0;
-    	rHLSV: REAL := 120;
-    	fbPI: FB_CTRL_PI;
-    	fbRamp: FB_CTRL_RAMP_GENERATOR_EXT;
-    	// FB initialized flag
-    	bInitialized: BOOL;
-    	//Get cycle time for control FBs
-    	fbGetCycleTime	:	FB_CTRL_GET_TASK_CYCLETIME;
-    	tTaskCycleTime: TIME;
-    	bCycleTimeValid: BOOL;
-    	rtVoltMode: R_TRIG;
-    	fOut: LREAL;
-    	fPiezoBias: LREAL := 60;
-    	fScale: REAL := -60;
-    	tonPiezoDone: TON := (PT:=T#2S);
-    	tonPiezoLimited: TON := (PT:=T#500MS);
-    	xVoltageLimited: BOOL;
-    	ftEnPos	:	F_TRIG;
-    	ftEnNeg	:	F_TRIG;
-    	rtEnPos	:	R_TRIG;
-    	rtEnNeg	:	R_TRIG;
-    	fOutLimitHolder	:	LREAL; //holds the limit value until restored
-    	fOutHiLimHolder	:	LREAL; //holds the limit value until restored
-    	fOutLoLimHolder	:	LREAL; //holds the limit value until restored
-    	xFirstPass 	: 	BOOL := TRUE;
+        E_State     : E_PiezoControl; //ENUM for Piezo Control State
+        rtStartMove : R_TRIG; //Rising Trigger for Execution
+        rtReset     : R_TRIG; //Rising Trigger for Error reset
+        rSetpoint   : REAL;   //Internal Storage of Setpoint
+        rReqVoltage	:	REAL; //requested voltage
+        rLLSV: REAL := 0;
+        rHLSV: REAL := 120;
+        fbPI: FB_CTRL_PI;
+        fbRamp: FB_CTRL_RAMP_GENERATOR_EXT;
+        // FB initialized flag
+        bInitialized: BOOL;
+        //Get cycle time for control FBs
+        fbGetCycleTime	:	FB_CTRL_GET_TASK_CYCLETIME;
+        tTaskCycleTime: TIME;
+        bCycleTimeValid: BOOL;
+        rtVoltMode: R_TRIG;
+        fOut: LREAL;
+        fPiezoBias: LREAL := 60;
+        fScale: REAL := -60;
+        tonPiezoDone: TON := (PT:=T#2S);
+        tonPiezoLimited: TON := (PT:=T#500MS);
+        xVoltageLimited: BOOL;
+        ftEnPos	:	F_TRIG;
+        ftEnNeg	:	F_TRIG;
+        rtEnPos	:	R_TRIG;
+        rtEnNeg	:	R_TRIG;
+        fOutLimitHolder	:	LREAL; //holds the limit value until restored
+        fOutHiLimHolder	:	LREAL; //holds the limit value until restored
+        fOutLoLimHolder	:	LREAL; //holds the limit value until restored
+        xFirstPass 	: 	BOOL := TRUE;
     END_VAR
     // FB Piezo Control
 
     //Triggers
     ///////////////////////////////
-    	rtStartMove(CLK:=xExecute);
-    	rtReset(CLK:=iq_Piezo.xEnable);
-    	rtVoltMode(CLK:=iq_Piezo.xVoltageMode);
+        rtStartMove(CLK:=xExecute);
+        rtReset(CLK:=iq_Piezo.xEnable);
+        rtVoltMode(CLK:=iq_Piezo.xVoltageMode);
 
     //Status bits
     ///////////////////////////
     xBusy S= rtStartMove.Q;
     xDone R= rtStartMove.Q;
-    	
+
     //Keep requested voltage to within limits
     iq_Piezo.rReqVoltage := LIMIT(iq_Piezo.LowerVoltage, iq_Piezo.rReqVoltage, iq_Piezo.UpperVoltage);
 
@@ -1007,92 +1102,92 @@ FB_PiezoControl
     rtEnPos(CLK:=Enable_Positive);
     rtEnNeg(CLK:=Enable_Negative);
     IF xFirstPass THEN
-    	//Want to hold the limits on first pass if a switch is hit.
-    	(* When we move off the limit, we'll restore the init value (usually 1). This will be reset
-    	to something less than 1 when the limit gets tripped again, because presumably the actual limit
-    	would have been set at a value < 1 if the system had been runing.
-    	We just need to hold the init value to make it past this edge case that is present at startup. *)
-    	IF NOT Enable_Positive THEN fOutHiLimHolder := iq_Piezo.stPIParams.fOutMaxLimit; END_IF
-    	IF NOT Enable_Negative THEN fOutLoLimHolder := iq_Piezo.stPIParams.fOutMinLimit; END_IF
+        //Want to hold the limits on first pass if a switch is hit.
+        (* When we move off the limit, we'll restore the init value (usually 1). This will be reset
+        to something less than 1 when the limit gets tripped again, because presumably the actual limit
+        would have been set at a value < 1 if the system had been runing.
+        We just need to hold the init value to make it past this edge case that is present at startup. *)
+        IF NOT Enable_Positive THEN fOutHiLimHolder := iq_Piezo.stPIParams.fOutMaxLimit; END_IF
+        IF NOT Enable_Negative THEN fOutLoLimHolder := iq_Piezo.stPIParams.fOutMinLimit; END_IF
     ELSE
-    	IF ftEnPos.Q THEN
-    		rLLSV := iq_Piezo.rSetVoltage;
-    		fOutHiLimHolder := iq_Piezo.stPIParams.fOutMaxLimit;
-    		iq_Piezo.stPIParams.fOutMaxLimit := fbPI.fOut;
-    	ELSIF rtEnPos.Q THEN
-    		rLLSV := iq_Piezo.LowerVoltage;
-    		iq_Piezo.stPIParams.fOutMaxLimit := fOutHiLimHolder;
-    	END_IF
+        IF ftEnPos.Q THEN
+            rLLSV := iq_Piezo.rSetVoltage;
+            fOutHiLimHolder := iq_Piezo.stPIParams.fOutMaxLimit;
+            iq_Piezo.stPIParams.fOutMaxLimit := fbPI.fOut;
+        ELSIF rtEnPos.Q THEN
+            rLLSV := iq_Piezo.LowerVoltage;
+            iq_Piezo.stPIParams.fOutMaxLimit := fOutHiLimHolder;
+        END_IF
 
-    	IF ftEnNeg.Q THEN
-    		rHLSV := iq_Piezo.rSetVoltage;
-    		
-    		fOutLoLimHolder := iq_Piezo.stPIParams.fOutMinLimit;
-    		iq_Piezo.stPIParams.fOutMinLimit := fbPI.fOut;
-    	ELSIF rtEnNeg.Q THEN
-    		rHLSV := iq_Piezo.UpperVoltage;
-    		iq_Piezo.stPIParams.fOutMinLimit := fOutLoLimHolder;
-    	END_IF
+        IF ftEnNeg.Q THEN
+            rHLSV := iq_Piezo.rSetVoltage;
+
+            fOutLoLimHolder := iq_Piezo.stPIParams.fOutMinLimit;
+            iq_Piezo.stPIParams.fOutMinLimit := fbPI.fOut;
+        ELSIF rtEnNeg.Q THEN
+            rHLSV := iq_Piezo.UpperVoltage;
+            iq_Piezo.stPIParams.fOutMinLimit := fOutLoLimHolder;
+        END_IF
     END_IF
 
     // Don't do anything until we're ready
     IF bInitialized THEN
-    	// While the block is working, a new position may be requested, this is OK
-    	IF xBusy THEN
-    		fbPI.fSetpointValue := iq_Piezo.rReqAbsPos;
-    	END_IF
+        // While the block is working, a new position may be requested, this is OK
+        IF xBusy THEN
+            fbPI.fSetpointValue := iq_Piezo.rReqAbsPos;
+        END_IF
 
-    	(* The next chunk of code prevents the PI block from winding up.
-    		First, when the PI block begins to request a voltage that is 
-    		beyond the permitted range (this range is affected by the state
-    		of limit switches/ or enable fwd/bwd), we latch the requested position.
-    		Presumeably this position request  *)
+        (* The next chunk of code prevents the PI block from winding up.
+            First, when the PI block begins to request a voltage that is
+            beyond the permitted range (this range is affected by the state
+            of limit switches/ or enable fwd/bwd), we latch the requested position.
+            Presumeably this position request  *)
 
-    	//Select the PI block control mode
-    	////////////////////////////////////////
-    	IF iq_Piezo.xVoltageMode THEN
-    		//Set PI block to idle
-    		fbPI.eMode := eCTRL_MODE_PASSIVE;
-    		rReqVoltage := iq_Piezo.rReqVoltage; //TODO add a ramp
-    	ELSE
-    		IF iq_Piezo.xIdleMode THEN
-    			rReqVoltage := fScale * 0 + fPiezoBias;
+        //Select the PI block control mode
+        ////////////////////////////////////////
+        IF iq_Piezo.xVoltageMode THEN
+            //Set PI block to idle
+            fbPI.eMode := eCTRL_MODE_PASSIVE;
+            rReqVoltage := iq_Piezo.rReqVoltage; //TODO add a ramp
+        ELSE
+            IF iq_Piezo.xIdleMode THEN
+                rReqVoltage := fScale * 0 + fPiezoBias;
 
-    			fbPI.eMode := eCTRL_MODE_MANUAL;
-    			ACT_Controller();
-    			fbPI.bHold := TRUE;
-    		ELSE
-    			//Fout is connected to the piezo voltage control
-    			rReqVoltage := fScale * fbPI.fOut + fPiezoBias;
-    			fbPI.bHold := FALSE;
-    			//Control mode is always active, so compensation takes over more smoothly
-    			fbPI.eMode := eCTRL_MODE_ACTIVE;
-    		END_IF		
-    	
-    	END_IF
+                fbPI.eMode := eCTRL_MODE_MANUAL;
+                ACT_Controller();
+                fbPI.bHold := TRUE;
+            ELSE
+                //Fout is connected to the piezo voltage control
+                rReqVoltage := fScale * fbPI.fOut + fPiezoBias;
+                fbPI.bHold := FALSE;
+                //Control mode is always active, so compensation takes over more smoothly
+                fbPI.eMode := eCTRL_MODE_ACTIVE;
+            END_IF
 
-    	ACT_Controller();
+        END_IF
 
-    	xVoltageLimited := rLLSV > rReqVoltage OR rHLSV < rReqVoltage;
+        ACT_Controller();
 
-    	//This is where the voltage request gets sent to the piezo driver
-    	iq_Piezo.rSetVoltage := LIMIT(rLLSV, rReqVoltage, rHLSV);
+        xVoltageLimited := rLLSV > rReqVoltage OR rHLSV < rReqVoltage;
+
+        //This is where the voltage request gets sent to the piezo driver
+        iq_Piezo.rSetVoltage := LIMIT(rLLSV, rReqVoltage, rHLSV);
 
     //Initialization
     ELSE
-    	fbGetCycleTime( eMode   := eCTRL_MODE_ACTIVE,
+        fbGetCycleTime( eMode   := eCTRL_MODE_ACTIVE,
                     tTaskCycleTime => tTaskCycleTime,
                     bCycleTimeValid => bCycleTimeValid);
-    	IF bCycleTimeValid THEN
-    		iq_Piezo.stPIParams.tTaskCycleTime := tTaskCycleTime;
-    		iq_Piezo.stPIParams.tCtrlCycleTime := tTaskCycleTime;
-    		bInitialized	:= TRUE;
-    	END_IF
+        IF bCycleTimeValid THEN
+            iq_Piezo.stPIParams.tTaskCycleTime := tTaskCycleTime;
+            iq_Piezo.stPIParams.tCtrlCycleTime := tTaskCycleTime;
+            bInitialized	:= TRUE;
+        END_IF
 
     END_IF
 
-    tonPiezoDone.IN := WithinRange(ValA:=iq_Piezo.rActPos, Center:=iq_Piezo.rReqAbsPos, Range:=iq_Piezo.rPiezoDmovRange, Offset:=0) 
-    					AND NOT rtStartMove.Q; //rtStartMove interrupts the timer, resetting it
+    tonPiezoDone.IN := WithinRange(ValA:=iq_Piezo.rActPos, Center:=iq_Piezo.rReqAbsPos, Range:=iq_Piezo.rPiezoDmovRange, Offset:=0)
+                        AND NOT rtStartMove.Q; //rtStartMove interrupts the timer, resetting it
     tonPiezoDone();
 
     tonPiezoLimited.IN := (fbPI.bARWactive OR xVoltageLimited) AND NOT rtStartMove.Q;
@@ -1130,10 +1225,10 @@ FB_PitchControl
     FUNCTION_BLOCK FB_PitchControl
     VAR_IN_OUT
         Pitch : HOMS_PitchMechanism;
-        Stepper : DUT_MotionStage;
+        Stepper : ST_MotionStage;
     END_VAR
     VAR_INPUT
-        lrCurrentSetpoint : LREAL; // Setpoint: Epics writes to DUT_MotionStage which gets fed into this
+        lrCurrentSetpoint : LREAL; // Setpoint: Epics writes to ST_MotionStage which gets fed into this
     END_VAR
     VAR_OUTPUT
         q_bError : BOOL;
@@ -1358,57 +1453,57 @@ FB_RMSWatch
     VAR_INPUT
     END_VAR
     VAR_OUTPUT
-    	// RMS Error
-    	fMaxRMSError : LREAL := 0;
-    	fMinRMSError : LREAL := 1000; // start at something huge, FB will update with any smaller measured value
+        // RMS Error
+        fMaxRMSError : LREAL := 0;
+        fMinRMSError : LREAL := 1000; // start at something huge, FB will update with any smaller measured value
     END_VAR
     VAR_IN_OUT
-    	stMotionStage : DUT_MotionStage;
+        stMotionStage : ST_MotionStage;
     END_VAR
     VAR
         fEncScalingNum : LREAL := 1.0;
         fEncScalingDenom : LREAL := 1.0;
         fEncOffset : LREAL := 0;
         fEncScale : LREAL := 1.0;
-        
-    	fbDataEncPos : FB_LREALBuffer; // ActPos Data Acquisition FB
-    	fbDataSetPos : FB_LREALBuffer; // SetPos Data Acquisition FB
-    	bExecuteDataStorage : BOOL := TRUE; // Take data of both ActPos and SetPos
-    	bNewEncArray : BOOL;
 
-    	fbStats : FB_BasicStats; // Calculate mean/standard deviation of ActPos
-    	{attribute 'pytmc' := '
-    		pv: MEAN
-    		io: i
-        '}
-    	fEncMean : LREAL;
-    	{attribute 'pytmc' := '
-    		pv: STDEV
-    		io: i
-        '}
-    	fEncStDev : LREAL;
-    	{attribute 'pytmc' := '
-    		pv: RMS
-    		io: i
-        '}
-    	fCurrRMSError : LREAL := 0;
+        fbDataEncPos : FB_LREALBuffer; // ActPos Data Acquisition FB
+        fbDataSetPos : FB_LREALBuffer; // SetPos Data Acquisition FB
+        bExecuteDataStorage : BOOL := TRUE; // Take data of both ActPos and SetPos
+        bNewEncArray : BOOL;
 
-    	nIndex : DINT;
-    	fSum : LREAL := 0; // Just for calculating rms
-    	fDiff : LREAL := 0;
-
-    	{attribute 'pytmc' := '
-    		pv: ACTPOSARRAY
-    		io: i
+        fbStats : FB_BasicStats; // Calculate mean/standard deviation of ActPos
+        {attribute 'pytmc' := '
+            pv: MEAN
+            io: i
         '}
-    	aEncActPos : ARRAY [1..1000] OF LREAL;
-    	{attribute 'pytmc' := '
-    		pv: SETPOSARRAY
-    		io: i
-    	'}
-    	aEncSetPos : ARRAY [1..1000] OF LREAL;
+        fEncMean : LREAL;
+        {attribute 'pytmc' := '
+            pv: STDEV
+            io: i
+        '}
+        fEncStDev : LREAL;
+        {attribute 'pytmc' := '
+            pv: RMS
+            io: i
+        '}
+        fCurrRMSError : LREAL := 0;
+
+        nIndex : DINT;
+        fSum : LREAL := 0; // Just for calculating rms
+        fDiff : LREAL := 0;
+
+        {attribute 'pytmc' := '
+            pv: ACTPOSARRAY
+            io: i
+        '}
+        aEncActPos : ARRAY [1..1000] OF LREAL;
+        {attribute 'pytmc' := '
+            pv: SETPOSARRAY
+            io: i
+        '}
+        aEncSetPos : ARRAY [1..1000] OF LREAL;
     END_VAR
-    // Encoder Scaling 
+    // Encoder Scaling
     fEncScalingNum := stMotionStage.stAxisParameters.fEncScaleFactorNumerator;
     fEncScalingDenom := stMotionStage.stAxisParameters.fEncScaleFactorDenominator;
     fEncOffset := stMotionStage.stAxisParameters.fEncOffset;
@@ -1417,38 +1512,38 @@ FB_RMSWatch
     // FB to store encoder positions in 1000 element arrays, compute RMS errors, and watch for min/max
     // Encoder Readback/Storage
     fbDataEncPos(bExecute:=bExecuteDataStorage,
-               	 fInput:= ULINT_TO_LREAL(stMotionStage.nRawEncoderULINT),
-               	 arrOutput=>aEncActPos,
+                    fInput:= ULINT_TO_LREAL(stMotionStage.nRawEncoderULINT),
+                    arrOutput=>aEncActPos,
                  bNewArray=>bNewEncArray);
 
     fbDataSetPos(bExecute:=bExecuteDataStorage,
-             	 fInput:=(stMotionStage.Axis.NcToPlc.SetPos - fEncOffset) / fEncScale,
-               	 arrOutput=>aEncSetPos);
+                  fInput:=(stMotionStage.Axis.NcToPlc.SetPos - fEncOffset) / fEncScale,
+                    arrOutput=>aEncSetPos);
 
     fbStats(aSignal:=aEncActPos,
-    	    bAlwaysCalc:=TRUE,
-    		fMean=>fEncMean,
-    		fStDev=>fEncStDev);
+            bAlwaysCalc:=TRUE,
+            fMean=>fEncMean,
+            fStDev=>fEncStDev);
 
     // Calculate RMS Error:
     If bNewEncArray THEN
-    	fCurrRMSError := 0;
-    	FOR nIndex := 2 TO 1000 DO
-    		// First point in array stuck as 0 for some reason...
-    		fDiff := aEncActPos[nIndex] - aEncSetPos[nIndex];
-    		fSum := EXPT(fDiff, 2);
-    		fCurrRMSError := fCurrRMSError + fSum;
-    	END_FOR;
-    	fCurrRMSError := fCurrRMSError / 999.0; // 1000 element array but ditched the first point
-    	fCurrRMSError := SQRT(fCurrRMSError);
-    	// Watch for max:
-    	IF fCurrRMSError > fMaxRMSError THEN
-    		fMaxRMSError := fCurrRMSError;
-    	END_IF
-    	// Watch for min:
-    	IF fCurrRMSError < fMinRMSError THEN
-    		fMinRMSError := fCurrRMSError;
-    	END_IF
+        fCurrRMSError := 0;
+        FOR nIndex := 2 TO 1000 DO
+            // First point in array stuck as 0 for some reason...
+            fDiff := aEncActPos[nIndex] - aEncSetPos[nIndex];
+            fSum := EXPT(fDiff, 2);
+            fCurrRMSError := fCurrRMSError + fSum;
+        END_FOR;
+        fCurrRMSError := fCurrRMSError / 999.0; // 1000 element array but ditched the first point
+        fCurrRMSError := SQRT(fCurrRMSError);
+        // Watch for max:
+        IF fCurrRMSError > fMaxRMSError THEN
+            fMaxRMSError := fCurrRMSError;
+        END_IF
+        // Watch for min:
+        IF fCurrRMSError < fMinRMSError THEN
+            fMinRMSError := fCurrRMSError;
+        END_IF
         fCurrRMSError := fCurrRMSError * fEncScale;
         fMaxRMSError := FMaxRMSError * fEncScale;
         fMinRMSError := FMinRMSError * fEncScale;
@@ -1469,54 +1564,54 @@ FB_RunHOMS
 
     FUNCTION_BLOCK FB_RunHOMS
     VAR_INPUT
-    	// Encoder Reference Values
-    	nYupEncRef : ULINT;
-    	nYdwnEncRef : ULINT;
-    	nXupEncRef : ULINT;
-    	nXdwnEncRef : ULINT;
+        // Encoder Reference Values
+        nYupEncRef : ULINT;
+        nYdwnEncRef : ULINT;
+        nXupEncRef : ULINT;
+        nXdwnEncRef : ULINT;
 
-    	// Gantry Tolerances
-    	nGantryTolY : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
-    	nGantryTolX : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+        // Gantry Tolerances
+        nGantryTolY : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
+        nGantryTolX : LINT := GVL_Constants.nGANTRY_TOLERANCE_NM_DEFAULT; // Encoder counts = nm
     END_VAR
     VAR_OUTPUT
-    	// Gantry coupling status
-    	bGantryAlreadyCoupledY : BOOL;
-    	bGantryAlreadyCoupledX : BOOL;
-    	
-    	// Current gantry difference
-    	nCurrGantryY : LINT;
-    	nCurrGantryX : LINT;
+        // Gantry coupling status
+        bGantryAlreadyCoupledY : BOOL;
+        bGantryAlreadyCoupledX : BOOL;
+
+        // Current gantry difference
+        nCurrGantryY : LINT;
+        nCurrGantryX : LINT;
     END_VAR
     VAR_IN_OUT
-    	// Motor Structs
-    	stYup : DUT_MotionStage;
-    	stYdwn : DUT_MotionStage;
-    	stXup : DUT_MotionStage;
-    	stXdwn : DUT_MotionStage;
-    	stPitch : DUT_MotionStage;
+        // Motor Structs
+        stYup : ST_MotionStage;
+        stYdwn : ST_MotionStage;
+        stXup : ST_MotionStage;
+        stXdwn : ST_MotionStage;
+        stPitch : ST_MotionStage;
 
-    	// Manual coupling Gantried Axes
-    	bExecuteCoupleY : BOOL;
-    	bExecuteCoupleX : BOOL;
-    	bExecuteDecoupleY : BOOL;
-    	bExecuteDecoupleX : BOOL;
+        // Manual coupling Gantried Axes
+        bExecuteCoupleY : BOOL;
+        bExecuteCoupleX : BOOL;
+        bExecuteDecoupleY : BOOL;
+        bExecuteDecoupleX : BOOL;
     END_VAR
     VAR
-    	// STO Button
-    	bSTOEnable1 AT %I* : BOOL;
-    	bSTOEnable2 AT %I* : BOOL;
+        // STO Button
+        bSTOEnable1 AT %I* : BOOL;
+        bSTOEnable2 AT %I* : BOOL;
 
-    	// Encoders
-    	stYupEnc AT %I* : ST_RenishawAbsEnc;
-    	stYdwnEnc AT %I* : ST_RenishawAbsEnc;
-    	
-    	stXupEnc AT %I* : ST_RenishawAbsEnc;
-    	stXdwnEnc AT %I* : ST_RenishawAbsEnc;
+        // Encoders
+        stYupEnc AT %I* : ST_RenishawAbsEnc;
+        stYdwnEnc AT %I* : ST_RenishawAbsEnc;
 
-    	// Autocoupling Gantried Axes
-    	fbAutoCoupleY : FB_GantryAutoCoupling;
-    	fbAutoCoupleX : FB_GantryAutoCoupling;
+        stXupEnc AT %I* : ST_RenishawAbsEnc;
+        stXdwnEnc AT %I* : ST_RenishawAbsEnc;
+
+        // Autocoupling Gantried Axes
+        fbAutoCoupleY : FB_GantryAutoCoupling;
+        fbAutoCoupleX : FB_GantryAutoCoupling;
     END_VAR
     // Encoder Reference Values
     stYupEnc.Ref := nYupEncRef;
@@ -1537,22 +1632,22 @@ FB_RunHOMS
 
     // Start Autocoupling
     fbAutoCoupleY(nGantryTol:=nGantryTolY,
-    	          Master:=stYup,
-    			  MasterEnc:= stYupEnc,
-    			  Slave:=stYdwn,
-    			  SlaveEnc:=stYdwnEnc,
-    			  bExecuteCouple:=bExecuteCoupleY,
-    			  bExecuteDecouple:=bExecuteDecoupleY,
-    			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledY);
+                  Master:=stYup,
+                  MasterEnc:= stYupEnc,
+                  Slave:=stYdwn,
+                  SlaveEnc:=stYdwnEnc,
+                  bExecuteCouple:=bExecuteCoupleY,
+                  bExecuteDecouple:=bExecuteDecoupleY,
+                  bGantryAlreadyCoupled=>bGantryAlreadyCoupledY);
 
     fbAutoCoupleX(nGantryTol:=nGantryTolX,
-    	          Master:=stXup,
-    			  MasterEnc:= stXupEnc,
-    			  Slave:=stXdwn,
-    			  SlaveEnc:=stXdwnEnc,
-    			  bExecuteCouple:=bExecuteCoupleX,
-    			  bExecuteDecouple:=bExecuteDecoupleX,
-    			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);
+                  Master:=stXup,
+                  MasterEnc:= stXupEnc,
+                  Slave:=stXdwn,
+                  SlaveEnc:=stXdwnEnc,
+                  bExecuteCouple:=bExecuteCoupleX,
+                  bExecuteDecouple:=bExecuteDecoupleX,
+                  bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);
 
     END_FUNCTION_BLOCK
 
@@ -1568,32 +1663,32 @@ Main
 
     PROGRAM Main
     VAR
-    	(*
-    	// Test Pitch Control
-    	fbPitchControl : FB_PitchControl;
-    	TestPitch : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
-    		                                ReqPosLimLo:=-2000,
-    		                                diEncPosLimHi:=10768330,
-    		                                diEncPosLimLo:=8141680);
-    	M1 : DUT_MotionStage;
-    	bPitchDone : BOOL;
-    	*)
+        (*
+        // Test Pitch Control
+        fbPitchControl : FB_PitchControl;
+        TestPitch : HOMS_PitchMechanism := (ReqPosLimHi:=2000,
+                                            ReqPosLimLo:=-2000,
+                                            diEncPosLimHi:=10768330,
+                                            diEncPosLimLo:=8141680);
+        M1 : ST_MotionStage;
+        bPitchDone : BOOL;
+        *)
 
-    	// Test Bender vs No Bender
-    	TESTWithBender : DUT_HOMS;
-    	M1 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    	M2 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    	M3 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    	M4 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    	M5 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    	M6 : DUT_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
-    	fbBender : FB_Bender;
+        // Test Bender vs No Bender
+        TESTWithBender : DUT_HOMS;
+        M1 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+        M2 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+        M3 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+        M4 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+        M5 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+        M6 : ST_MotionStage := (nEnableMode:=ENUM_StageEnableMode.ALWAYS);
+        fbBender : FB_Bender;
 
-    	fbMotionStage_m1 : FB_MotionStage;
-    	fbMotionStage_m2 : FB_MotionStage;
-    	fbMotionStage_m3 : FB_MotionStage;
-    	fbMotionStage_m4 : FB_MotionStage;
-    	fbMotionStage_m6 : FB_MotionStage;
+        fbMotionStage_m1 : FB_MotionStage;
+        fbMotionStage_m2 : FB_MotionStage;
+        fbMotionStage_m3 : FB_MotionStage;
+        fbMotionStage_m4 : FB_MotionStage;
+        fbMotionStage_m6 : FB_MotionStage;
     END_VAR
     (*
     // Test Pitch Control
@@ -1602,12 +1697,12 @@ Main
     M1.bHardwareEnable;
     M1.fVelocity := 150.0;
     fbPitchControl(Pitch:=TestPitch,
-    			   Stepper:=M1,
-    			   lrCurrentSetpoint:=M1.fPosition,
-    			   q_bDone=>bPitchDone,
-    			   q_bBusy=>);
+                   Stepper:=M1,
+                   lrCurrentSetpoint:=M1.fPosition,
+                   q_bDone=>bPitchDone,
+                   q_bBusy=>);
     IF NOT M1.bHardwareEnable THEN
-    	M1.fPosition := M1.stAxisStatus.fActPosition;
+        M1.fPosition := M1.stAxisStatus.fActPosition;
     END_IF
     *)
 
@@ -1641,21 +1736,21 @@ Main
                              stXup:=M3,
                              stXdwn:=M4,
                              stPitch:=M5,
-    	                     nYupEncRef:=0,
+                             nYupEncRef:=0,
                              nYdwnEncRef:=0,
                              nXupEncRef:=0,
                              nXdwnEncRef:=0,
-    			             bExecuteCoupleY:=TESTWithBender.bExecuteCoupleY,
+                             bExecuteCoupleY:=TESTWithBender.bExecuteCoupleY,
                              bExecuteCoupleX:=TESTWithBender.bExecuteCoupleX,
-    			             bExecuteDecoupleY:=TESTWithBender.bExecuteDecoupleY,
+                             bExecuteDecoupleY:=TESTWithBender.bExecuteDecoupleY,
                              bExecuteDecoupleX:=TESTWithBender.bExecuteDecoupleX,
                              bGantryAlreadyCoupledY=>TESTWithBender.bGantryAlreadyCoupledY,
                              bGantryAlreadyCoupledX=>TESTWithBender.bGantryAlreadyCoupledX,
                              nCurrGantryY=>TESTWithBender.nCurrGantryY,
                              nCurrGantryX=>TESTWithBender.nCurrGantryX);
     fbBender(stBender:=M6,
-    	     bSTOEnable1:=TESTWithBender.fbRunHOMS.bSTOEnable1,
-    		 bSTOEnable2:=TESTWithBender.fbRunHOMS.bSTOEnable2);
+             bSTOEnable1:=TESTWithBender.fbRunHOMS.bSTOEnable1,
+             bSTOEnable2:=TESTWithBender.fbRunHOMS.bSTOEnable2);
 
     fbMotionStage_m1(stMotionStage:=M1);
     fbMotionStage_m2(stMotionStage:=M2);
@@ -1680,25 +1775,25 @@ MC_SmoothMover
 
     FUNCTION_BLOCK MC_SmoothMover
     VAR_IN_OUT
-    	Axis	:	AXIS_REF;
+        Axis	:	AXIS_REF;
     END_VAR
     VAR_INPUT
-    	Velocity : LREAL;
-    	ReqAbsPos : LREAL; //New requested position
-    	Enable	:	BOOL; //While true the block will accept new positions and attempt to move to them if they are different
-    	Execute	:	BOOL; //Will retry a move if the target position is the same
+        Velocity : LREAL;
+        ReqAbsPos : LREAL; //New requested position
+        Enable	:	BOOL; //While true the block will accept new positions and attempt to move to them if they are different
+        Execute	:	BOOL; //Will retry a move if the target position is the same
     END_VAR
     VAR_OUTPUT
-    	Done	:	BOOL;
-    	Busy	:	BOOL;
-    	Error	:	BOOL;
+        Done	:	BOOL;
+        Busy	:	BOOL;
+        Error	:	BOOL;
     END_VAR
     VAR
-    	mcMoveAbsolute : ARRAY[1..2] OF MC_MoveAbsolute;
-    	iI: INT;
-    	imcBlockIndex: INT;
-    	ReqAbsPosPrevious	: LREAL;
-    	rtExecute: R_TRIG;
+        mcMoveAbsolute : ARRAY[1..2] OF MC_MoveAbsolute;
+        iI: INT;
+        imcBlockIndex: INT;
+        ReqAbsPosPrevious	: LREAL;
+        rtExecute: R_TRIG;
     END_VAR
     (* Smooth Mover
     2017-8-30
@@ -1712,21 +1807,21 @@ MC_SmoothMover
     rtExecute(CLK:=Execute);
 
     IF ( (ReqAbsPos <> ReqAbsPosPrevious AND Enable) OR rtExecute.Q) THEN
-    			mcMoveAbsolute[imcBlockIndex].Execute := FALSE;
-    			imcBlockIndex := imcBlockIndex + 1;
-    			IF imcBlockIndex >2 THEN imcBlockIndex := 1; END_IF
-    			mcMoveAbsolute[imcBlockIndex].Position := ReqAbsPos;
-    			mcMoveAbsolute[imcBlockIndex].Execute := TRUE;
-    			ReqAbsPosPrevious := ReqAbsPos;
-    		ELSIF mcMoveAbsolute[imcBlockIndex].Done OR 
-    				mcMoveAbsolute[imcBlockIndex].CommandAborted OR 
-    				mcMoveAbsolute[imcBlockIndex].Busy OR 
-    				mcMoveAbsolute[imcBlockIndex].Error THEN
-    			mcMoveAbsolute[imcBlockIndex].Execute := FALSE;
-    		END_IF
-    		
+                mcMoveAbsolute[imcBlockIndex].Execute := FALSE;
+                imcBlockIndex := imcBlockIndex + 1;
+                IF imcBlockIndex >2 THEN imcBlockIndex := 1; END_IF
+                mcMoveAbsolute[imcBlockIndex].Position := ReqAbsPos;
+                mcMoveAbsolute[imcBlockIndex].Execute := TRUE;
+                ReqAbsPosPrevious := ReqAbsPos;
+            ELSIF mcMoveAbsolute[imcBlockIndex].Done OR
+                    mcMoveAbsolute[imcBlockIndex].CommandAborted OR
+                    mcMoveAbsolute[imcBlockIndex].Busy OR
+                    mcMoveAbsolute[imcBlockIndex].Error THEN
+                mcMoveAbsolute[imcBlockIndex].Execute := FALSE;
+            END_IF
+
     FOR iI := 1 TO 2 DO
-    	mcMoveAbsolute[iI](Axis := Axis, Velocity:=Velocity, BufferMode:=MC_Aborting);
+        mcMoveAbsolute[iI](Axis := Axis, Velocity:=Velocity, BufferMode:=MC_Aborting);
     END_FOR
 
     Error := mcMoveAbsolute[1].Error OR mcMoveAbsolute[2].Error;
@@ -1758,29 +1853,29 @@ TEST_PitchControl
 
     METHOD LimitSwitches
     VAR_INPUT
-        
+
     END_VAR
     VAR
         fActPosition : LREAL;
-    	bPitchDone : BOOL;
+        bPitchDone : BOOL;
     END_VAR
     VAR_INST
         fbPitchControl : FB_PitchControl;
 
-    	ExpertMode : BOOL := FALSE;
-    	PitchManualMode : BOOL := FALSE;
-        
+        ExpertMode : BOOL := FALSE;
+        PitchManualMode : BOOL := FALSE;
+
         iStep : UINT := 0;
-        
+
         rtDone : R_TRIG;
-        
+
         tonHack : TON := (PT:=T#2s);
-        
+
     END_VAR
     VAR CONSTANT
         BwdLimPos : LREAL := -500;
         FwdLimPos : LREAL := 500;
-        
+
         ForwardTestSP : LREAL := 1000;
     END_VAR
     fActPosition := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition;
@@ -1791,14 +1886,14 @@ TEST_PitchControl
     GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fVelocity := 150.0;
 
     fbPitchControl(Pitch:=GVL_TestStructs.TestPitch_LimitSwitches,
-    			   q_bDone=>bPitchDone,
-    			   q_bBusy=>);
+                   q_bDone=>bPitchDone,
+                   q_bBusy=>);
     rtDone(CLK:=bPitchDone);
 
     tonHack(IN:=GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL);
 
-                   
-    TEST('PitchControlLimitSwitchTests');               
+
+    TEST('PitchControlLimitSwitchTests');
     CASE iStep OF
 
 
@@ -1810,9 +1905,9 @@ TEST_PitchControl
     IF fActPosition > FwdLimPos AND rtDone.Q THEN
 
     //    AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
-    	AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL AND NOT GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bAllForwardEnable, 'Did not stop at forward limit');
+        AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL AND NOT GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bAllForwardEnable, 'Did not stop at forward limit');
         TEST_FINISHED_NAMED('Forward Limit Switch Stop');
-        
+
         iStep := 20;
     END_IF
 
@@ -1826,7 +1921,7 @@ TEST_PitchControl
     //    AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition, 'Position not at back off position');
         AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Position not at back off position');
         TEST_FINISHED_NAMED('Forward Limit BO');
-        
+
         iStep := 30;
     END_IF
 
@@ -1838,9 +1933,9 @@ TEST_PitchControl
     IF fActPosition > FwdLimPos AND rtDone.Q THEN
 
         AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
-        
+
         TEST_FINISHED_NAMED('Bwd Limit Switch Stop');
-        
+
         iStep := 50;
     END_IF
 
@@ -1853,23 +1948,23 @@ TEST_PitchControl
     IF rtDone.Q THEN
 
         AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Position not at back off position');
-        
+
         TEST_FINISHED_NAMED('Bwd Limit BO');
-        
+
         iStep := 8000;
     END_IF
 
     60:
 
     8000:
-    TEST_FINISHED_NAMED('PitchControlLimitSwitchTests');             
+    TEST_FINISHED_NAMED('PitchControlLimitSwitchTests');
 
     END_CASE
     END_METHOD
 
     METHOD StepperPiezoExchange
     VAR_INPUT
-        
+
     END_VAR
     VAR
         fActPosition : LREAL;
@@ -1877,16 +1972,16 @@ TEST_PitchControl
     VAR_INST
         fbPitchControl : FB_PitchControl;
 
-    	ExpertMode : BOOL := FALSE;
-    	PitchManualMode : BOOL := FALSE;
-        
+        ExpertMode : BOOL := FALSE;
+        PitchManualMode : BOOL := FALSE;
+
         iStep : UINT := 0;
-        
+
     END_VAR
     VAR CONSTANT
         BwdLimPos : LREAL := -500;
         FwdLimPos : LREAL := 500;
-        
+
         ForwardTestSP : LREAL := 1000;
     END_VAR
     fActPosition := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition;
@@ -1897,10 +1992,10 @@ TEST_PitchControl
     GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fVelocity := 150.0;
 
     fbPitchControl(Pitch:=GVL_TestStructs.TestPitch_LimitSwitches,
-    			   q_bDone=>,
-    			   q_bBusy=>);
-                   
-                   
+                   q_bDone=>,
+                   q_bBusy=>);
+
+
     CASE iStep OF
 
 
@@ -1911,7 +2006,7 @@ TEST_PitchControl
     IF fActPosition > FwdLimPos AND GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL THEN
         AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.Axis.Status.MotionState = MC_AXISSTATE_STANDSTILL, 'Axis not at standstill');
         AssertTrue(GVL_TestStructs.TestPitch_LimitSwitches.Stepper.fPosition = fActPosition, 'Setpoint did not reset to stopped position');
-        
+
         TEST_FINISHED_NAMED('Forward Limit Switch Stop');
     END_IF
 
@@ -1923,7 +2018,7 @@ TEST_PitchControl
 
     40: // Attempt to move again past bwd limit and be denied
 
-    50: // Attempt to back off limit and succeed            
+    50: // Attempt to back off limit and succeed
 
     END_CASE
     END_METHOD
@@ -1941,19 +2036,19 @@ WithinRange
 
     FUNCTION WithinRange : BOOL
     VAR_INPUT
-    	ValA	:	REAL; //New position to evaluate
-    	Center :	REAL; //Current position
-    	Range : REAL; //Span of the range
-    	Offset	:	REAL := 0; //Offset from center if the range is non-symetric
+        ValA	:	REAL; //New position to evaluate
+        Center :	REAL; //Current position
+        Range : REAL; //Span of the range
+        Offset	:	REAL := 0; //Offset from center if the range is non-symetric
     END_VAR
     VAR
     END_VAR
     IF ValA < (Center + Offset - (Range/2) ) THEN
-    	WithinRange := FALSE;
+        WithinRange := FALSE;
     ELSIF ValA > (Center + Offset + (Range/2) ) THEN
-    	WithinRange := FALSE;
+        WithinRange := FALSE;
     ELSE
-    	WithinRange := TRUE;
+        WithinRange := TRUE;
     END_IF
 
     END_FUNCTION

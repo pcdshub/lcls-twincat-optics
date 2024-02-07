@@ -103,6 +103,12 @@ LCLS_General.DUT_EPS
       - Type
       - Description
       - Pragma
+    * - $(PREFIX):bEPS_OK_RBV
+      - bi
+      - check if nFlags are all true
+      - | io: input
+
+
     * - $(PREFIX):nFlags_RBV
       - longin
       - Contains EPS flags
@@ -163,78 +169,6 @@ lcls_twincat_motion.DUT_MotionStage
       - Type
       - Description
       - Pragma
-    * - $(PREFIX):PLC:bAllBackwardEnable_RBV
-      - bi
-      - Summary of axis permission to move backward
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bAllEnable_RBV
-      - bi
-      - Summary of axis permission to have power
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bAllForwardEnable_RBV
-      - bi
-      - Summary of axis permission to move forward
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bBrakeRelease_RBV
-      - bi
-      - TRUE if brake released
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bBusy_RBV
-      - bi
-      - TRUE if in the middle of a command
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bDone_RBV
-      - bi
-      - TRUE if command finished successfully
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bEnable
-      - bo
-      - Used internally to request enables
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: output
-
-
-    * - $(PREFIX):PLC:bEnable_RBV
-      - bi
-      - Used internally to request enables
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: output
-
-
-    * - $(PREFIX):PLC:bEnableDone_RBV
-      - bi
-      - TRUE if done enabling
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
     * - $(PREFIX):PLC:bError_RBV
       - bi
       - TRUE if we are in an error state
@@ -244,57 +178,9 @@ lcls_twincat_motion.DUT_MotionStage
         | update: 100hz notify
 
 
-    * - $(PREFIX):PLC:bExecute
-      - bo
-      - Used internally and by the IOC to start or stop
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: output
-
-
-    * - $(PREFIX):PLC:bExecute_RBV
-      - bi
-      - Used internally and by the IOC to start or stop
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: output
-
-
-    * - $(PREFIX):PLC:bGantryAxis_RBV
-      - bi
-      - TRUE if gantry EPS active
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bGantryBackwardEnable_RBV
-      - bi
-      - TRUE if gantry ok to move backward
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bGantryForwardEnable_RBV
-      - bi
-      - TRUE if gantry ok to move forward
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
     * - $(PREFIX):PLC:bHardwareEnable_RBV
       - bi
       - TRUE if STO not hit
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bHome_RBV
-      - bi
-      - TRUE if at homing switch
       - | field: ONAM TRUE
         | field: ZNAM FALSE
         | io: input
@@ -310,48 +196,6 @@ lcls_twincat_motion.DUT_MotionStage
       - bi
       - Start the homing routine
       - | io: output
-
-
-    * - $(PREFIX):PLC:bHomed_RBV
-      - bi
-      - TRUE if the motor has been homed
-      - | io: input
-
-
-    * - $(PREFIX):PLC:bLimitBackwardEnable_RBV
-      - bi
-      - FALSE if reverse limit hit
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bLimitForwardEnable_RBV
-      - bi
-      - FALSE if forward limit hit
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bMoveCmd
-      - bo
-      - Start a move
-      - | io: output
-
-
-    * - $(PREFIX):PLC:bMoveCmd_RBV
-      - bi
-      - Start a move
-      - | io: output
-
-
-    * - $(PREFIX):PLC:bPowerSelf_RBV
-      - bi
-      - FALSE if axis is in PMPS
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
 
 
     * - $(PREFIX):PLC:bReset
@@ -370,14 +214,6 @@ lcls_twincat_motion.DUT_MotionStage
         | io: output
 
 
-    * - $(PREFIX):PLC:bSafetyReady_RBV
-      - bi
-      - TRUE if safe to start a move
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
     * - $(PREFIX):PLC:bUserEnable
       - bo
       - Used to disable power entirely for an axis
@@ -392,30 +228,6 @@ lcls_twincat_motion.DUT_MotionStage
       - | field: ONAM ENABLE
         | field: ZNAM DISABLE
         | io: output
-
-
-    * - $(PREFIX):PLC:fAcceleration
-      - ao
-      - Used internally and by the IOC to set acceleration
-      - | io: output
-
-
-    * - $(PREFIX):PLC:fAcceleration_RBV
-      - ai
-      - Used internally and by the IOC to set acceleration
-      - | io: output
-
-
-    * - $(PREFIX):PLC:fDeceleration
-      - ao
-      - Used internally and by the IOC to set deceleration
-      - | io: output
-
-
-    * - $(PREFIX):PLC:fDeceleration_RBV
-      - ai
-      - Used internally and by the IOC to set deceleration
-      - | io: output
 
 
     * - $(PREFIX):PLC:fHomePosition
@@ -436,66 +248,6 @@ lcls_twincat_motion.DUT_MotionStage
       - | io: input
 
 
-    * - $(PREFIX):PLC:fPosition
-      - ao
-      - Used internally and by the IOC as the set position
-      - | io: output
-
-
-    * - $(PREFIX):PLC:fPosition_RBV
-      - ai
-      - Used internally and by the IOC as the set position
-      - | io: output
-
-
-    * - $(PREFIX):PLC:fVelocity
-      - ao
-      - Used internally and by the IOC to set velocity
-      - | io: output
-
-
-    * - $(PREFIX):PLC:fVelocity_RBV
-      - ai
-      - Used internally and by the IOC to set velocity
-      - | io: output
-
-
-    * - $(PREFIX):PLC:nBrakeMode_RBV
-      - mbbi
-      - Describes when the brake will be released
-      - | io: input
-
-
-    * - $(PREFIX):PLC:nCmdData
-      - longout
-      - Used internally and by the IOC to pass extra args
-      - | io: output
-
-
-    * - $(PREFIX):PLC:nCmdData_RBV
-      - longin
-      - Used internally and by the IOC to pass extra args
-      - | io: output
-
-
-    * - $(PREFIX):PLC:nCommand
-      - longout
-      - Used internally and by the IOC to pick move type
-      - | io: output
-
-
-    * - $(PREFIX):PLC:nCommand_RBV
-      - longin
-      - Used internally and by the IOC to pick move type
-      - | io: output
-
-
-    * - $(PREFIX):PLC:nEnableMode_RBV
-      - mbbi
-      - Describes when the axis will automatically get power
-      - | io: input
-
-
     * - $(PREFIX):PLC:nEncoderCount_RBV
       - longin
       - Count from encoder hardware
@@ -509,18 +261,6 @@ lcls_twincat_motion.DUT_MotionStage
         | update: 100hz notify
 
 
-    * - $(PREFIX):PLC:nHomingMode_RBV
-      - mbbi
-      - Describes our homing strategy
-      - | io: input
-
-
-    * - $(PREFIX):PLC:nMotionAxisID_RBV
-      - longin
-      - Unique ID assigned to each axis in the NC
-      - | io: input
-
-
     * - $(PREFIX):PLC:sErrorMessage_RBV
       - waveform
       - Message to identify the error state
@@ -528,67 +268,79 @@ lcls_twincat_motion.DUT_MotionStage
         | update: 100hz notify
 
 
-    * - $(PREFIX):PLC:sName_RBV
-      - waveform
-      - PLC program name
+    * - $(PREFIX):PLC:stEPSB:bEPS_OK_RBV
+      - bi
+      - check if nFlags are all true
       - | io: input
 
 
-    * - $(PREFIX):PLC:stEPSBackwardEnable:nFlags_RBV
+    * - $(PREFIX):PLC:stEPSB:nFlags_RBV
       - longin
       - Contains EPS flags
       - | io: input
 
 
-    * - $(PREFIX):PLC:stEPSBackwardEnable:sFlagDesc_RBV
+    * - $(PREFIX):PLC:stEPSB:sFlagDesc_RBV
       - waveform
       - semicolon-delimited nFlag variable
       - | io: input
 
 
-    * - $(PREFIX):PLC:stEPSBackwardEnable:sMessage_RBV
+    * - $(PREFIX):PLC:stEPSB:sMessage_RBV
       - waveform
       - Message from EPS to usr
       - | io: input
 
 
-    * - $(PREFIX):PLC:stEPSForwardEnable:nFlags_RBV
+    * - $(PREFIX):PLC:stEPSF:bEPS_OK_RBV
+      - bi
+      - check if nFlags are all true
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSF:nFlags_RBV
       - longin
       - Contains EPS flags
       - | io: input
 
 
-    * - $(PREFIX):PLC:stEPSForwardEnable:sFlagDesc_RBV
+    * - $(PREFIX):PLC:stEPSF:sFlagDesc_RBV
       - waveform
       - semicolon-delimited nFlag variable
       - | io: input
 
 
-    * - $(PREFIX):PLC:stEPSForwardEnable:sMessage_RBV
+    * - $(PREFIX):PLC:stEPSF:sMessage_RBV
       - waveform
       - Message from EPS to usr
       - | io: input
 
 
-    * - $(PREFIX):PLC:stEPSPowerEnable:nFlags_RBV
+    * - $(PREFIX):PLC:stEPSP:bEPS_OK_RBV
+      - bi
+      - check if nFlags are all true
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSP:nFlags_RBV
       - longin
       - Contains EPS flags
       - | io: input
 
 
-    * - $(PREFIX):PLC:stEPSPowerEnable:sFlagDesc_RBV
+    * - $(PREFIX):PLC:stEPSP:sFlagDesc_RBV
       - waveform
       - semicolon-delimited nFlag variable
       - | io: input
 
 
-    * - $(PREFIX):PLC:stEPSPowerEnable:sMessage_RBV
+    * - $(PREFIX):PLC:stEPSP:sMessage_RBV
       - waveform
       - Message from EPS to usr
       - | io: input
 
 
-                       
+                      
 lcls_twincat_motion.FB_Standard_PMPSDB
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -616,6 +368,189 @@ lcls_twincat_motion.FB_Standard_PMPSDB
       - bi
       - $(SYMBOL).bRefresh
       - | io: output
+
+
+    
+lcls_twincat_motion.ST_MotionStage
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. list-table::
+    :header-rows: 1
+    :align: center
+
+    * - Record
+      - Type
+      - Description
+      - Pragma
+    * - $(PREFIX):PLC:bError_RBV
+      - bi
+      - TRUE if we are in an error state
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
+        | io: input
+        | update: 100hz notify
+
+
+    * - $(PREFIX):PLC:bHardwareEnable_RBV
+      - bi
+      - TRUE if STO not hit
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
+        | io: input
+
+
+    * - $(PREFIX):PLC:bHomeCmd
+      - bo
+      - Start the homing routine
+      - | io: output
+
+
+    * - $(PREFIX):PLC:bHomeCmd_RBV
+      - bi
+      - Start the homing routine
+      - | io: output
+
+
+    * - $(PREFIX):PLC:bReset
+      - bo
+      - Used internally to reset errors
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
+        | io: output
+
+
+    * - $(PREFIX):PLC:bReset_RBV
+      - bi
+      - Used internally to reset errors
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
+        | io: output
+
+
+    * - $(PREFIX):PLC:bUserEnable
+      - bo
+      - Used to disable power entirely for an axis
+      - | field: ONAM ENABLE
+        | field: ZNAM DISABLE
+        | io: output
+
+
+    * - $(PREFIX):PLC:bUserEnable_RBV
+      - bi
+      - Used to disable power entirely for an axis
+      - | field: ONAM ENABLE
+        | field: ZNAM DISABLE
+        | io: output
+
+
+    * - $(PREFIX):PLC:fHomePosition
+      - ao
+      - Used internally and by the IOC to pick home position
+      - | io: output
+
+
+    * - $(PREFIX):PLC:fHomePosition_RBV
+      - ai
+      - Used internally and by the IOC to pick home position
+      - | io: output
+
+
+    * - $(PREFIX):PLC:fPosDiff_RBV
+      - ai
+      - Position lag difference
+      - | io: input
+
+
+    * - $(PREFIX):PLC:nEncoderCount_RBV
+      - longin
+      - Count from encoder hardware
+      - | io: input
+
+
+    * - $(PREFIX):PLC:nErrorId_RBV
+      - longin
+      - Error code if nonzero
+      - | io: input
+        | update: 100hz notify
+
+
+    * - $(PREFIX):PLC:sErrorMessage_RBV
+      - waveform
+      - Message to identify the error state
+      - | io: input
+        | update: 100hz notify
+
+
+    * - $(PREFIX):PLC:stEPSB:bEPS_OK_RBV
+      - bi
+      - check if nFlags are all true
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSB:nFlags_RBV
+      - longin
+      - Contains EPS flags
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSB:sFlagDesc_RBV
+      - waveform
+      - semicolon-delimited nFlag variable
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSB:sMessage_RBV
+      - waveform
+      - Message from EPS to usr
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSF:bEPS_OK_RBV
+      - bi
+      - check if nFlags are all true
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSF:nFlags_RBV
+      - longin
+      - Contains EPS flags
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSF:sFlagDesc_RBV
+      - waveform
+      - semicolon-delimited nFlag variable
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSF:sMessage_RBV
+      - waveform
+      - Message from EPS to usr
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSP:bEPS_OK_RBV
+      - bi
+      - check if nFlags are all true
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSP:nFlags_RBV
+      - longin
+      - Contains EPS flags
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSP:sFlagDesc_RBV
+      - waveform
+      - semicolon-delimited nFlag variable
+      - | io: input
+
+
+    * - $(PREFIX):PLC:stEPSP:sMessage_RBV
+      - waveform
+      - Message from EPS to usr
+      - | io: input
 
 
                  
@@ -8056,7 +7991,7 @@ PMPS.ST_PMPS_Aperture
         | io: input
 
 
-    
+     
 ST_PMPS_Aperture_IO
 ^^^^^^^^^^^^^^^^^^^
 
