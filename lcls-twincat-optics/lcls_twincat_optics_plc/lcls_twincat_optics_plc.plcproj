@@ -16,7 +16,7 @@
     <CombineIds>false</CombineIds>
     <Company>SLAC</Company>
     <Released>false</Released>
-    <Title>lcls-twincat-optics-nrw</Title>
+    <Title>lcls-twincat-optics</Title>
     <ProjectVersion>0.0.0</ProjectVersion>
   </PropertyGroup>
   <ItemGroup>
