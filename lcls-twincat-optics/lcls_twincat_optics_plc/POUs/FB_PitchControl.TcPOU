@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_PitchControl" Id="{143b5005-3e50-4e14-8a6a-21db919333f0}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_PitchControl
 VAR_IN_OUT
     Pitch : HOMS_PitchMechanism;
-    Stepper : DUT_MotionStage;
+    Stepper : ST_MotionStage;
 END_VAR
 VAR_INPUT
-    lrCurrentSetpoint : LREAL; // Setpoint: Epics writes to DUT_MotionStage which gets fed into this
+    lrCurrentSetpoint : LREAL; // Setpoint: Epics writes to ST_MotionStage which gets fed into this
 END_VAR
 VAR_OUTPUT
     q_bError : BOOL;
