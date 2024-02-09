@@ -13,6 +13,10 @@ VAR_OUTPUT
         field: HIHI 3.0
         field: LOW 1.7
         field: LOLO 1.5
+        field: LSV MINOR
+        field: LLSV MAJOR
+        field: HSV MINOR
+        field: HHSV MAJOR
         io: i
     '}
     fFlow_2_val : LREAL;

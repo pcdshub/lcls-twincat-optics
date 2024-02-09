@@ -13,6 +13,10 @@ VAR_OUTPUT
         field: HIHI 3.0
         field: LOW 1.7
         field: LOLO 1.5
+        field: LSV MINOR
+        field: LLSV MAJOR
+        field: HSV MINOR
+        field: HHSV MAJOR
         io: i
     '}
     fFlow_1_val : LREAL;
@@ -21,6 +25,7 @@ VAR_OUTPUT
         pv: PRSM:1
         field: EGU bar
         field: LOW 0.1
+        field: LSV MAJOR
         io: i
     '}
     fPress_1_val : LREAL;
