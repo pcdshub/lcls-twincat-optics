@@ -64,6 +64,12 @@
     <Compile Include="POUs\FB_RunHOMS.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Helpers\FB_Axilon_Cooling_1f1p.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Helpers\FB_Axilon_Cooling_2f1p.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Helpers\FB_MirrorTwoCoatingProtection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
