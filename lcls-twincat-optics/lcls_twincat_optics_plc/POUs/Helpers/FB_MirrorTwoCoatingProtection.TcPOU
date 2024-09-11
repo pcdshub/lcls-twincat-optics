@@ -25,11 +25,14 @@ VAR_INPUT
     nUpperCoatingBitmask : DWORD := 0;
 
     nLowerCoatingBitMask : DWORD := 0;
+
+    bMirrorTempFaults : BOOL := FALSE;
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR_IN_OUT
     FFO : FB_HardwareFFOutput;
+
 END_VAR
 VAR
     ffUpperCoating: FB_FastFault := (
@@ -44,6 +47,12 @@ VAR
         i_xAutoReset := TRUE,
         i_TypeCode := 16#488,
         i_Desc := ' mirror coating beam parameters not loaded');
+
+    // Mirrors have two RTDs on the chin guard, Left and Right
+    ffUpperCoatingLTemp : FB_TempSensor_FFO;
+    ffUpperCoatingRTemp : FB_TempSensor_FFO;
+    ffLowerCoatingLTemp : FB_TempSensor_FFO;
+    ffLowerCoatingRTemp : FB_TempSensor_FFO;
 
     aDbStateParams : ARRAY[0..1] OF ST_DbStateParams;
     fbGetCoatingBPs : FB_JsonDocToSafeBP;
@@ -104,19 +113,45 @@ END_IF
 IF nCurrentEncoderCount <= nLowerCoatingBoundary THEN
     ffLowerCoating.i_xOK := (neVRange AND nLowerCoatingBitMask) = neVRange;
     ffUpperCoating.i_xOK  := TRUE;
+    IF bMirrorTempFaults THEN
+        ffLowerCoatingLTemp(fFaultThreshold:=aDbStateParams[1].stReactiveParams.nTempSP,
+            fHysteresis:= 10.0,
+            sDevName:= sDevName,
+            bAutoReset:=bAutoClear,
+            io_fbFFHWO:=FFO);
+        ffLowerCoatingRTemp(fFaultThreshold:=aDbStateParams[1].stReactiveParams.nTempSP,
+            fHysteresis:= 10.0,
+            sDevName:= sDevName,
+            bAutoReset:=bAutoClear,
+            io_fbFFHWO:=FFO);
+    END_IF
 ELSIF nCurrentEncoderCount >= nUpperCoatingBoundary THEN
     ffUpperCoating.i_xOK := (neVRange AND nUpperCoatingBitmask) = neVRange;
     ffLowerCoating.i_xOK := TRUE;
+    IF bMirrorTempFaults THEN
+        ffUpperCoatingLTemp(fFaultThreshold:=aDbStateParams[0].stReactiveParams.nTempSP,
+            fHysteresis:= 10.0,
+            sDevName:= sDevName,
+            bAutoReset:=bAutoClear,
+            io_fbFFHWO:=FFO);
+        ffUpperCoatingRTemp(fFaultThreshold:=aDbStateParams[0].stReactiveParams.nTempSP,
+            fHysteresis:= 10.0,
+            sDevName:= sDevName,
+            bAutoReset:=bAutoClear,
+            io_fbFFHWO:=FFO);
+    END_IF
 ELSE
     ffLowerCoating.i_xOK := FALSE;
     ffUpperCoating.i_xOK := FALSE;
+
 END_IF
 
 ffBeamParamsNotLoaded.i_xOK := bBPsLoaded;
 
 ffUpperCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
 ffLowerCoating(io_fbFFHWO:=FFO, i_xAutoReset := bAutoClear);
-ffBeamParamsNotLoaded(io_fbFFHWO:=FFO);]]></ST>
+ffBeamParamsNotLoaded(io_fbFFHWO:=FFO);
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
