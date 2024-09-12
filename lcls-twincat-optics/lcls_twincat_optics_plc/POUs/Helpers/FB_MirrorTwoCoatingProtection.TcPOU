@@ -3,6 +3,8 @@
   <POU Name="FB_MirrorTwoCoatingProtection" Id="{e481ed92-d77f-4692-a2ea-e5f1d2863716}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MirrorTwoCoatingProtection
 VAR_INPUT
+    E_CoatingPos : E_CoatingPosition;
+
     nCurrentEncoderCount : UDINT; // Current encoder count
     neVRange : DWORD; // Current ev range from stCurrentBeamParams
 
@@ -62,6 +64,7 @@ VAR
     i : INT;
     sDevState : STRING  := '';
     bInit : BOOL;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -73,9 +76,9 @@ END_VAR
             sDevState := CONCAT(sDevState, sDevName);
             sDevState := CONCAT(sDevState, '-');
             CASE i OF
-            0:
+            E_CoatingPos.COA_Upper:
                 sDevState := CONCAT(sDevState, sUpperCoatingType);
-            1:
+            E_CoatingPos.COA_Lower:
                 sDevState := CONCAT(sDevState, sLowerCoatingType);
             END_CASE
             aDbStateParams[i].sPmpsState := sDevState;
@@ -105,8 +108,8 @@ IF bUsePmpsDb THEN
     END_IF
 
     IF bBPsLoaded THEN
-        nUpperCoatingBitmask := aDbStateParams[0].stBeamParams.neVRange;
-        nLowerCoatingBitMask := aDbStateParams[1].stBeamParams.neVRange;
+        nUpperCoatingBitmask := aDbStateParams[E_CoatingPos.COA_Upper].stBeamParams.neVRange;
+        nLowerCoatingBitMask := aDbStateParams[E_CoatingPos.COA_Lower].stBeamParams.neVRange;
     END_IF
 END_IF
 
@@ -114,12 +117,12 @@ IF nCurrentEncoderCount <= nLowerCoatingBoundary THEN
     ffLowerCoating.i_xOK := (neVRange AND nLowerCoatingBitMask) = neVRange;
     ffUpperCoating.i_xOK  := TRUE;
     IF bMirrorTempFaults THEN
-        ffLowerCoatingLTemp(fFaultThreshold:=aDbStateParams[1].stReactiveParams.nTempSP,
+        ffLowerCoatingLTemp(fFaultThreshold:=aDbStateParams[E_CoatingPos.COA_Lower].stReactiveParams.nTempSP,
             fHysteresis:= 10.0,
             sDevName:= sDevName,
             bAutoReset:=bAutoClear,
             io_fbFFHWO:=FFO);
-        ffLowerCoatingRTemp(fFaultThreshold:=aDbStateParams[1].stReactiveParams.nTempSP,
+        ffLowerCoatingRTemp(fFaultThreshold:=aDbStateParams[E_CoatingPos.COA_Lower].stReactiveParams.nTempSP,
             fHysteresis:= 10.0,
             sDevName:= sDevName,
             bAutoReset:=bAutoClear,
@@ -129,12 +132,12 @@ ELSIF nCurrentEncoderCount >= nUpperCoatingBoundary THEN
     ffUpperCoating.i_xOK := (neVRange AND nUpperCoatingBitmask) = neVRange;
     ffLowerCoating.i_xOK := TRUE;
     IF bMirrorTempFaults THEN
-        ffUpperCoatingLTemp(fFaultThreshold:=aDbStateParams[0].stReactiveParams.nTempSP,
+        ffUpperCoatingLTemp(fFaultThreshold:=aDbStateParams[E_CoatingPos.COA_Upper].stReactiveParams.nTempSP,
             fHysteresis:= 10.0,
             sDevName:= sDevName,
             bAutoReset:=bAutoClear,
             io_fbFFHWO:=FFO);
-        ffUpperCoatingRTemp(fFaultThreshold:=aDbStateParams[0].stReactiveParams.nTempSP,
+        ffUpperCoatingRTemp(fFaultThreshold:=aDbStateParams[E_CoatingPos.COA_Upper].stReactiveParams.nTempSP,
             fHysteresis:= 10.0,
             sDevName:= sDevName,
             bAutoReset:=bAutoClear,
