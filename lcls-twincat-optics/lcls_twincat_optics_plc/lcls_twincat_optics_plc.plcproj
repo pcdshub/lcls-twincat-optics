@@ -23,9 +23,6 @@
     <Compile Include="DUTs\DUT_HOMS.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\E_CoatingPosition.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\E_PiezoControl.TcDUT">
       <SubType>Code</SubType>
     </Compile>
