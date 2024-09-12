@@ -1020,7 +1020,7 @@ External Setpoint Generation:
 		</DataType>
 	</DataTypes>
 	<Project GUID="{7651416F-AC71-419B-B241-022DADC2F507}" Name="lcls_twincat_optics_plc" PrjFilePath="..\..\lcls_twincat_optics_plc\lcls_twincat_optics_plc.plcproj" TmcFilePath="..\..\lcls_twincat_optics_plc\lcls_twincat_optics_plc.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="lcls_twincat_optics_plc\lcls_twincat_optics_plc.tmc" TmcHash="{F8861644-DEF5-B9CD-1EE4-CB74041CE32B}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="lcls_twincat_optics_plc\lcls_twincat_optics_plc.tmc" TmcHash="{E67EE40E-6728-632A-DA31-031E60AA68DF}">
 			<Name>lcls_twincat_optics_plc Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
