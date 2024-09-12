@@ -35,6 +35,7 @@ VAR_IN_OUT
 
 END_VAR
 VAR
+    // Coating Enums for local coding, not a readback.
     E_CoatingPos : (Upper:=0, Lower:=1);
 
     ffUpperCoating: FB_FastFault := (
