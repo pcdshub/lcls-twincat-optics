@@ -123,12 +123,12 @@ IF nCurrentEncoderCount <= nLowerCoatingBoundary THEN
         ffLowerCoatingLTemp(fFaultThreshold:=aDbStateParams[E_CoatingPos].stReactiveParams.nTempSP,
             fHysteresis:= 10.0,
             sDevName:= sDevName,
-            bAutoReset:=bAutoClear,
+            bAutoReset:=FALSE,
             io_fbFFHWO:=FFO);
         ffLowerCoatingRTemp(fFaultThreshold:=aDbStateParams[E_CoatingPos].stReactiveParams.nTempSP,
             fHysteresis:= 10.0,
             sDevName:= sDevName,
-            bAutoReset:=bAutoClear,
+            bAutoReset:=FALSE,
             io_fbFFHWO:=FFO);
     END_IF
 ELSIF nCurrentEncoderCount >= nUpperCoatingBoundary THEN
@@ -139,12 +139,12 @@ ELSIF nCurrentEncoderCount >= nUpperCoatingBoundary THEN
         ffUpperCoatingLTemp(fFaultThreshold:=aDbStateParams[E_CoatingPos].stReactiveParams.nTempSP,
             fHysteresis:= 10.0,
             sDevName:= sDevName,
-            bAutoReset:=bAutoClear,
+            bAutoReset:=FALSE,
             io_fbFFHWO:=FFO);
         ffUpperCoatingRTemp(fFaultThreshold:=aDbStateParams[E_CoatingPos].stReactiveParams.nTempSP,
             fHysteresis:= 10.0,
             sDevName:= sDevName,
-            bAutoReset:=bAutoClear,
+            bAutoReset:=FALSE,
             io_fbFFHWO:=FFO);
     END_IF
 ELSE
