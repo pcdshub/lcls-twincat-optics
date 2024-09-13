@@ -18,7 +18,7 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/docs-versions-menu.js?v=3d6a1aea"></script>
     <script src="_static/js/theme.js"></script>
@@ -604,13 +604,19 @@ END_TYPE
     <span class="n">nUpperCoatingBitmask</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
 
     <span class="n">nLowerCoatingBitMask</span> <span class="p">:</span> <span class="n">DWORD</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">bMirrorTempFaults</span> <span class="p">:</span> <span class="n">BOOL</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
 <span class="n">END_VAR</span>
 <span class="n">VAR_OUTPUT</span>
 <span class="n">END_VAR</span>
 <span class="n">VAR_IN_OUT</span>
     <span class="n">FFO</span> <span class="p">:</span> <span class="n">FB_HardwareFFOutput</span><span class="p">;</span>
+
 <span class="n">END_VAR</span>
 <span class="n">VAR</span>
+    <span class="o">//</span> <span class="n">Coating</span> <span class="n">Enums</span> <span class="k">for</span> <span class="n">local</span> <span class="n">coding</span><span class="p">,</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">readback</span><span class="o">.</span>
+    <span class="n">E_CoatingPos</span> <span class="p">:</span> <span class="p">(</span><span class="n">Upper</span><span class="o">:=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Lower</span><span class="o">:=</span><span class="mi">1</span><span class="p">);</span>
+
     <span class="n">ffUpperCoating</span><span class="p">:</span> <span class="n">FB_FastFault</span> <span class="o">:=</span> <span class="p">(</span>
         <span class="n">i_xAutoReset</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">,</span>
         <span class="n">i_TypeCode</span> <span class="o">:=</span> <span class="mi">16</span><span class="c1">#401,</span>
@@ -624,6 +630,12 @@ END_TYPE
         <span class="n">i_TypeCode</span> <span class="o">:=</span> <span class="mi">16</span><span class="c1">#488,</span>
         <span class="n">i_Desc</span> <span class="o">:=</span> <span class="s1">&#39; mirror coating beam parameters not loaded&#39;</span><span class="p">);</span>
 
+    <span class="o">//</span> <span class="n">Mirrors</span> <span class="n">have</span> <span class="n">two</span> <span class="n">RTDs</span> <span class="n">on</span> <span class="n">the</span> <span class="n">chin</span> <span class="n">guard</span><span class="p">,</span> <span class="n">Left</span> <span class="ow">and</span> <span class="n">Right</span>
+    <span class="n">ffUpperCoatingLTemp</span> <span class="p">:</span> <span class="n">FB_TempSensor_FFO</span><span class="p">;</span>
+    <span class="n">ffUpperCoatingRTemp</span> <span class="p">:</span> <span class="n">FB_TempSensor_FFO</span><span class="p">;</span>
+    <span class="n">ffLowerCoatingLTemp</span> <span class="p">:</span> <span class="n">FB_TempSensor_FFO</span><span class="p">;</span>
+    <span class="n">ffLowerCoatingRTemp</span> <span class="p">:</span> <span class="n">FB_TempSensor_FFO</span><span class="p">;</span>
+
     <span class="n">aDbStateParams</span> <span class="p">:</span> <span class="n">ARRAY</span><span class="p">[</span><span class="mf">0..1</span><span class="p">]</span> <span class="n">OF</span> <span class="n">ST_DbStateParams</span><span class="p">;</span>
     <span class="n">fbGetCoatingBPs</span> <span class="p">:</span> <span class="n">FB_JsonDocToSafeBP</span><span class="p">;</span>
     <span class="n">ftReadJsonDocDone</span> <span class="p">:</span> <span class="n">F_TRIG</span><span class="p">;</span>
@@ -632,6 +644,7 @@ END_TYPE
     <span class="n">i</span> <span class="p">:</span> <span class="n">INT</span><span class="p">;</span>
     <span class="n">sDevState</span> <span class="p">:</span> <span class="n">STRING</span>  <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
     <span class="n">bInit</span> <span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
+
 <span class="n">END_VAR</span>
 <span class="n">IF</span> <span class="n">NOT</span> <span class="n">bInit</span> <span class="n">THEN</span>
     <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_DevName</span> <span class="o">:=</span> <span class="n">sDevName</span><span class="p">;</span>
@@ -673,20 +686,49 @@ END_TYPE
     <span class="n">END_IF</span>
 
     <span class="n">IF</span> <span class="n">bBPsLoaded</span> <span class="n">THEN</span>
-        <span class="n">nUpperCoatingBitmask</span> <span class="o">:=</span> <span class="n">aDbStateParams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stBeamParams</span><span class="o">.</span><span class="n">neVRange</span><span class="p">;</span>
-        <span class="n">nLowerCoatingBitMask</span> <span class="o">:=</span> <span class="n">aDbStateParams</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stBeamParams</span><span class="o">.</span><span class="n">neVRange</span><span class="p">;</span>
+        <span class="n">E_CoatingPos</span> <span class="o">:=</span> <span class="n">Upper</span><span class="p">;</span>
+        <span class="n">nUpperCoatingBitmask</span> <span class="o">:=</span> <span class="n">aDbStateParams</span><span class="p">[</span><span class="n">E_CoatingPos</span><span class="p">]</span><span class="o">.</span><span class="n">stBeamParams</span><span class="o">.</span><span class="n">neVRange</span><span class="p">;</span>
+        <span class="n">E_CoatingPos</span> <span class="o">:=</span> <span class="n">Lower</span><span class="p">;</span>
+        <span class="n">nLowerCoatingBitMask</span> <span class="o">:=</span> <span class="n">aDbStateParams</span><span class="p">[</span><span class="n">E_CoatingPos</span><span class="p">]</span><span class="o">.</span><span class="n">stBeamParams</span><span class="o">.</span><span class="n">neVRange</span><span class="p">;</span>
     <span class="n">END_IF</span>
 <span class="n">END_IF</span>
 
 <span class="n">IF</span> <span class="n">nCurrentEncoderCount</span> <span class="o">&lt;=</span> <span class="n">nLowerCoatingBoundary</span> <span class="n">THEN</span>
     <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="p">(</span><span class="n">neVRange</span> <span class="n">AND</span> <span class="n">nLowerCoatingBitMask</span><span class="p">)</span> <span class="o">=</span> <span class="n">neVRange</span><span class="p">;</span>
     <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_xOK</span>  <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+    <span class="n">IF</span> <span class="n">bMirrorTempFaults</span> <span class="n">THEN</span>
+        <span class="n">E_CoatingPos</span> <span class="o">:=</span> <span class="n">Lower</span><span class="p">;</span>
+        <span class="n">ffLowerCoatingLTemp</span><span class="p">(</span><span class="n">fFaultThreshold</span><span class="o">:=</span><span class="n">aDbStateParams</span><span class="p">[</span><span class="n">E_CoatingPos</span><span class="p">]</span><span class="o">.</span><span class="n">stReactiveParams</span><span class="o">.</span><span class="n">nTempSP</span><span class="p">,</span>
+            <span class="n">fHysteresis</span><span class="o">:=</span> <span class="mf">10.0</span><span class="p">,</span>
+            <span class="n">sDevName</span><span class="o">:=</span> <span class="n">sDevName</span><span class="p">,</span>
+            <span class="n">bAutoReset</span><span class="o">:=</span><span class="n">FALSE</span><span class="p">,</span>
+            <span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">);</span>
+        <span class="n">ffLowerCoatingRTemp</span><span class="p">(</span><span class="n">fFaultThreshold</span><span class="o">:=</span><span class="n">aDbStateParams</span><span class="p">[</span><span class="n">E_CoatingPos</span><span class="p">]</span><span class="o">.</span><span class="n">stReactiveParams</span><span class="o">.</span><span class="n">nTempSP</span><span class="p">,</span>
+            <span class="n">fHysteresis</span><span class="o">:=</span> <span class="mf">10.0</span><span class="p">,</span>
+            <span class="n">sDevName</span><span class="o">:=</span> <span class="n">sDevName</span><span class="p">,</span>
+            <span class="n">bAutoReset</span><span class="o">:=</span><span class="n">FALSE</span><span class="p">,</span>
+            <span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">);</span>
+    <span class="n">END_IF</span>
 <span class="n">ELSIF</span> <span class="n">nCurrentEncoderCount</span> <span class="o">&gt;=</span> <span class="n">nUpperCoatingBoundary</span> <span class="n">THEN</span>
     <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="p">(</span><span class="n">neVRange</span> <span class="n">AND</span> <span class="n">nUpperCoatingBitmask</span><span class="p">)</span> <span class="o">=</span> <span class="n">neVRange</span><span class="p">;</span>
     <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
+    <span class="n">IF</span> <span class="n">bMirrorTempFaults</span> <span class="n">THEN</span>
+        <span class="n">E_CoatingPos</span> <span class="o">:=</span> <span class="n">Upper</span><span class="p">;</span>
+        <span class="n">ffUpperCoatingLTemp</span><span class="p">(</span><span class="n">fFaultThreshold</span><span class="o">:=</span><span class="n">aDbStateParams</span><span class="p">[</span><span class="n">E_CoatingPos</span><span class="p">]</span><span class="o">.</span><span class="n">stReactiveParams</span><span class="o">.</span><span class="n">nTempSP</span><span class="p">,</span>
+            <span class="n">fHysteresis</span><span class="o">:=</span> <span class="mf">10.0</span><span class="p">,</span>
+            <span class="n">sDevName</span><span class="o">:=</span> <span class="n">sDevName</span><span class="p">,</span>
+            <span class="n">bAutoReset</span><span class="o">:=</span><span class="n">FALSE</span><span class="p">,</span>
+            <span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">);</span>
+        <span class="n">ffUpperCoatingRTemp</span><span class="p">(</span><span class="n">fFaultThreshold</span><span class="o">:=</span><span class="n">aDbStateParams</span><span class="p">[</span><span class="n">E_CoatingPos</span><span class="p">]</span><span class="o">.</span><span class="n">stReactiveParams</span><span class="o">.</span><span class="n">nTempSP</span><span class="p">,</span>
+            <span class="n">fHysteresis</span><span class="o">:=</span> <span class="mf">10.0</span><span class="p">,</span>
+            <span class="n">sDevName</span><span class="o">:=</span> <span class="n">sDevName</span><span class="p">,</span>
+            <span class="n">bAutoReset</span><span class="o">:=</span><span class="n">FALSE</span><span class="p">,</span>
+            <span class="n">io_fbFFHWO</span><span class="o">:=</span><span class="n">FFO</span><span class="p">);</span>
+    <span class="n">END_IF</span>
 <span class="n">ELSE</span>
     <span class="n">ffLowerCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
     <span class="n">ffUpperCoating</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">;</span>
+
 <span class="n">END_IF</span>
 
 <span class="n">ffBeamParamsNotLoaded</span><span class="o">.</span><span class="n">i_xOK</span> <span class="o">:=</span> <span class="n">bBPsLoaded</span><span class="p">;</span>

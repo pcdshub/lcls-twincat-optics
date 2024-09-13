@@ -157,190 +157,7 @@ LCLS_General.FB_LogMessage
       - | io: input
 
 
-               
-lcls_twincat_motion.DUT_MotionStage
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. list-table::
-    :header-rows: 1
-    :align: center
-
-    * - Record
-      - Type
-      - Description
-      - Pragma
-    * - $(PREFIX):PLC:bError_RBV
-      - bi
-      - TRUE if we are in an error state
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-        | update: 100hz notify
-
-
-    * - $(PREFIX):PLC:bHardwareEnable_RBV
-      - bi
-      - TRUE if STO not hit
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: input
-
-
-    * - $(PREFIX):PLC:bHomeCmd
-      - bo
-      - Start the homing routine
-      - | io: output
-
-
-    * - $(PREFIX):PLC:bHomeCmd_RBV
-      - bi
-      - Start the homing routine
-      - | io: output
-
-
-    * - $(PREFIX):PLC:bReset
-      - bo
-      - Used internally to reset errors
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: output
-
-
-    * - $(PREFIX):PLC:bReset_RBV
-      - bi
-      - Used internally to reset errors
-      - | field: ONAM TRUE
-        | field: ZNAM FALSE
-        | io: output
-
-
-    * - $(PREFIX):PLC:bUserEnable
-      - bo
-      - Used to disable power entirely for an axis
-      - | field: ONAM ENABLE
-        | field: ZNAM DISABLE
-        | io: output
-
-
-    * - $(PREFIX):PLC:bUserEnable_RBV
-      - bi
-      - Used to disable power entirely for an axis
-      - | field: ONAM ENABLE
-        | field: ZNAM DISABLE
-        | io: output
-
-
-    * - $(PREFIX):PLC:fHomePosition
-      - ao
-      - Used internally and by the IOC to pick home position
-      - | io: output
-
-
-    * - $(PREFIX):PLC:fHomePosition_RBV
-      - ai
-      - Used internally and by the IOC to pick home position
-      - | io: output
-
-
-    * - $(PREFIX):PLC:fPosDiff_RBV
-      - ai
-      - Position lag difference
-      - | io: input
-
-
-    * - $(PREFIX):PLC:nEncoderCount_RBV
-      - longin
-      - Count from encoder hardware
-      - | io: input
-
-
-    * - $(PREFIX):PLC:nErrorId_RBV
-      - longin
-      - Error code if nonzero
-      - | io: input
-        | update: 100hz notify
-
-
-    * - $(PREFIX):PLC:sErrorMessage_RBV
-      - waveform
-      - Message to identify the error state
-      - | io: input
-        | update: 100hz notify
-
-
-    * - $(PREFIX):PLC:stEPSB:bEPS_OK_RBV
-      - bi
-      - check if nFlags are all true
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSB:nFlags_RBV
-      - longin
-      - Contains EPS flags
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSB:sFlagDesc_RBV
-      - waveform
-      - semicolon-delimited nFlag variable
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSB:sMessage_RBV
-      - waveform
-      - Message from EPS to usr
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSF:bEPS_OK_RBV
-      - bi
-      - check if nFlags are all true
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSF:nFlags_RBV
-      - longin
-      - Contains EPS flags
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSF:sFlagDesc_RBV
-      - waveform
-      - semicolon-delimited nFlag variable
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSF:sMessage_RBV
-      - waveform
-      - Message from EPS to usr
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSP:bEPS_OK_RBV
-      - bi
-      - check if nFlags are all true
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSP:nFlags_RBV
-      - longin
-      - Contains EPS flags
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSP:sFlagDesc_RBV
-      - waveform
-      - semicolon-delimited nFlag variable
-      - | io: input
-
-
-    * - $(PREFIX):PLC:stEPSP:sMessage_RBV
-      - waveform
-      - Message from EPS to usr
-      - | io: input
-
-
-                      
+                                    
 lcls_twincat_motion.FB_Standard_PMPSDB
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -370,7 +187,91 @@ lcls_twincat_motion.FB_Standard_PMPSDB
       - | io: output
 
 
-    
+   
+lcls_twincat_motion.ST_AxisParameterSetExposed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. list-table::
+    :header-rows: 1
+    :align: center
+
+    * - Record
+      - Type
+      - Description
+      - Pragma
+    * - $(PREFIX):EncOffset_RBV
+      - ai
+      - Encoder offset in EU.
+      - | io: input
+
+
+    * - $(PREFIX):EncScaling_RBV
+      - ai
+      - Encoder scaling numerator / denominator in EU/COUNT.
+      - | io: input
+
+
+    * - $(PREFIX):MaxAccel_RBV
+      - ai
+      - Maximum rate of increase in speed of the axis in EU/s^2.
+      - | io: input
+
+
+    * - $(PREFIX):MaxDecel_RBV
+      - ai
+      - Maximum rate of decrease in speed of the axis in EU/s^2.
+      - | io: input
+
+
+    * - $(PREFIX):MaxVel_RBV
+      - ai
+      - Maximum commandable speed of the axis in EU/s.
+      - | io: input
+
+
+    * - $(PREFIX):PosLagEn_RBV
+      - longin
+      - TRUE if position lag monitor (also known as stall monitor) is enabled.
+      - | io: input
+
+
+    * - $(PREFIX):PosLagTime_RBV
+      - ai
+      - Maximum allowable duration outside of maximum position lag value in seconds.
+      - | io: input
+
+
+    * - $(PREFIX):PosLagVal_RBV
+      - ai
+      - Maximum magnitude of position lag in EU.
+      - | io: input
+
+
+    * - $(PREFIX):SLimMax_RBV
+      - ai
+      - Maximum commandable position of the axis in EU.
+      - | io: input
+
+
+    * - $(PREFIX):SLimMaxEn_RBV
+      - longin
+      - TRUE if controller static maximum limit is enabled.
+      - | io: input
+
+
+    * - $(PREFIX):SLimMin_RBV
+      - ai
+      - Minimum commandable position of the axis in EU.
+      - | io: input
+
+
+    * - $(PREFIX):SLimMinEn_RBV
+      - longin
+      - TRUE if controller static minimum limit is enabled.
+      - | io: input
+
+
+  
 lcls_twincat_motion.ST_MotionStage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -382,6 +283,78 @@ lcls_twincat_motion.ST_MotionStage
       - Type
       - Description
       - Pragma
+    * - $(PREFIX):PLC:AxisPar:EncOffset_RBV
+      - ai
+      - Encoder offset in EU.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:EncScaling_RBV
+      - ai
+      - Encoder scaling numerator / denominator in EU/COUNT.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:MaxAccel_RBV
+      - ai
+      - Maximum rate of increase in speed of the axis in EU/s^2.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:MaxDecel_RBV
+      - ai
+      - Maximum rate of decrease in speed of the axis in EU/s^2.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:MaxVel_RBV
+      - ai
+      - Maximum commandable speed of the axis in EU/s.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:PosLagEn_RBV
+      - longin
+      - TRUE if position lag monitor (also known as stall monitor) is enabled.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:PosLagTime_RBV
+      - ai
+      - Maximum allowable duration outside of maximum position lag value in seconds.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:PosLagVal_RBV
+      - ai
+      - Maximum magnitude of position lag in EU.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:SLimMax_RBV
+      - ai
+      - Maximum commandable position of the axis in EU.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:SLimMaxEn_RBV
+      - longin
+      - TRUE if controller static maximum limit is enabled.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:SLimMin_RBV
+      - ai
+      - Minimum commandable position of the axis in EU.
+      - | io: input
+
+
+    * - $(PREFIX):PLC:AxisPar:SLimMinEn_RBV
+      - longin
+      - TRUE if controller static minimum limit is enabled.
+      - | io: input
+
+
     * - $(PREFIX):PLC:bError_RBV
       - bi
       - TRUE if we are in an error state
@@ -553,7 +526,7 @@ lcls_twincat_motion.ST_MotionStage
       - | io: input
 
 
-                 
+                               
 PMPS.FB_HardwareFFOutput
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -8023,7 +7996,7 @@ ST_PMPS_Aperture_IO
         | io: input
 
 
-                                                                                                                        
+                                                                                                                                     
 Database Records
 ----------------
 
