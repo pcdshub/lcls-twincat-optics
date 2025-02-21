@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_PiezoControl" Id="{0c3d171e-6759-449c-9e69-236d43fd29fc}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_PiezoControl
 VAR_IN_OUT
@@ -22,9 +22,9 @@ VAR
     rtStartMove : R_TRIG; //Rising Trigger for Execution
     rtReset     : R_TRIG; //Rising Trigger for Error reset
     rSetpoint   : REAL;   //Internal Storage of Setpoint
-    rReqVoltage	:	REAL; //requested voltage
-    rLLSV: REAL := 0;
-    rHLSV: REAL := 120;
+    rReqVoltage	:	LREAL; //requested voltage
+    rLLSV: LREAL := 0;
+    rHLSV: LREAL := 120;
     fbPI: FB_CTRL_PI;
     fbRamp: FB_CTRL_RAMP_GENERATOR_EXT;
     // FB initialized flag
@@ -36,7 +36,7 @@ VAR
     rtVoltMode: R_TRIG;
     fOut: LREAL;
     fPiezoBias: LREAL := 60;
-    fScale: REAL := -60;
+    fScale: LREAL := -60;
     tonPiezoDone: TON := (PT:=T#2S);
     tonPiezoLimited: TON := (PT:=T#500MS);
     xVoltageLimited: BOOL;

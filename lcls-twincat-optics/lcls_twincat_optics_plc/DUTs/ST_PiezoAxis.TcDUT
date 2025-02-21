@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1">
   <DUT Name="ST_PiezoAxis" Id="{94081b12-5a5d-4193-a69e-fd329da2319a}">
     <Declaration><![CDATA[TYPE ST_PiezoAxis :
 STRUCT
@@ -11,7 +11,7 @@ STRUCT
         rActVoltage			:	REAL; //Actual voltage
         rLastReqVoltage		:	REAL; //Last requested piezo voltage
         //Control
-        rSetVoltage			:	REAL; //this parameter is set by the control loop/ voltage mode
+        rSetVoltage			:	LREAL; //this parameter is set by the control loop/ voltage mode
         sAxis				:   STRING :='A'; //Axis, e.g. A, B, C...A if single unit
         //Summaries
         xTimeout	:	BOOL;

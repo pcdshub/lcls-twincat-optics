@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_PitchControl" Id="{143b5005-3e50-4e14-8a6a-21db919333f0}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_PitchControl
 VAR_IN_OUT
@@ -108,7 +108,7 @@ CASE PC_State OF
         END_IF
     PCM_MoveRequested:
         // A move has been requested, is it within range of the piezo?
-        IF WithinRange(ValA:=lrCurrentSetpoint, Center:=lrPrevStepperPos, Range:=GVL_Constants.cPiezoRange, Offset:=0) THEN
+        IF WithinRange(ValA:=LREAL_TO_REAL(lrCurrentSetpoint), Center:=LREAL_TO_REAL(lrPrevStepperPos), Range:=GVL_Constants.cPiezoRange, Offset:=0) THEN
             // Move is within the nominal range of the piezo
             fbFormatString.sFormat := 'Within range, fine move %f';
             fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
@@ -140,7 +140,7 @@ CASE PC_State OF
         // With the piezo at a nominal 50% extension, move the stepper to requested position
         bExecuteStepper := TRUE;
         // Timer that waits to start until stepper is within range of the setpoint
-        tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=lrCurrentSetpoint, Range:=rSettledRange, Offset:=0);
+        tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=LREAL_TO_REAL(lrCurrentSetpoint), Range:=rSettledRange, Offset:=0);
         tonStepperHold(); // call this here to reset Q just below on first cycle
         // If the coarse move is complete, finish position correction with the piezo
         IF tonStepperHold.Q  OR ftLimitSwitch.Q THEN

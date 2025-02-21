@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="TEST_PitchControl" Id="{0a8e5b1d-3668-41f9-bef4-c801593b9f08}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'call_after_init'}
 FUNCTION_BLOCK TEST_PitchControl EXTENDS TcUnit.FB_TestSuite
@@ -44,6 +44,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[fActPosition := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition;
 
+//GVL_TestStructs.TestPitch_LimitSwitches.
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitBackwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition > BwdLimPos;
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitForwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition < FwdLimPos;
 GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bHardwareEnable := TRUE;
