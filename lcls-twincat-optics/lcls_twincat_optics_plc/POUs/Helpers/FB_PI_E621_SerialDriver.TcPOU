@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_PI_E621_SerialDriver" Id="{70cebafc-4342-47f0-b840-ef59112aefde}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_PI_E621_SerialDriver
 VAR_INPUT
@@ -118,7 +118,7 @@ CASE iStep OF
             fbPITransaction.i_xExecute:= TRUE;
             fbPITransaction.i_sCmd:= 'SVA';
             fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
-            fbPITransaction.i_sParam:=REAL_TO_STRING(iq_stPiezoAxis.rSetVoltage);
+            fbPITransaction.i_sParam:=LREAL_TO_STRING(iq_stPiezoAxis.rSetVoltage);
             fbPITransaction.i_xExpectReply:= FALSE;
             IF fbPITransaction.q_xDone THEN
                     a_ClearTrans();  (* to provide rising edge for execute *)
