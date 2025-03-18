@@ -67,6 +67,28 @@ DUT_HOMS
             io: i
         '}
         fCurrGantryX_um : REAL; // X Gantry difference in um
+        {attribute 'pytmc' := '
+            pv: SUP:SEC:VOL:Y
+            io: i
+        '}
+        fSupplySecondY  AT %I*: UINT; // Y Driver supply voltage cV
+        {attribute 'pytmc' := '
+            pv: CUR:SEC:AMP:Y
+            field: EGU mA
+            io: i
+        '}
+        fMotorCurSecondY  AT %I* :  UINT; // Y Current DC current mA
+            {attribute 'pytmc' := '
+            pv: SUP:SEC:VOL:X
+            io: i
+        '}
+        fSupplySecondX  AT %I* :  UINT; // X Driver supply voltage cV
+        {attribute 'pytmc' := '
+            pv: CUR:SEC:AMP:X
+            field: EGU mA
+            io: i
+        '}
+        fMotorCurSecondX  AT %I* :  UINT; // X Current DC current mA
     END_STRUCT
     END_TYPE
 
@@ -171,7 +193,7 @@ ST_PiezoAxis
             rActVoltage			:	REAL; //Actual voltage
             rLastReqVoltage		:	REAL; //Last requested piezo voltage
             //Control
-            rSetVoltage			:	REAL; //this parameter is set by the control loop/ voltage mode
+            rSetVoltage			:	LREAL; //this parameter is set by the control loop/ voltage mode
             sAxis				:   STRING :='A'; //Axis, e.g. A, B, C...A if single unit
             //Summaries
             xTimeout	:	BOOL;
@@ -241,8 +263,8 @@ GVL_Constants
     {attribute 'qualified_only'}
     VAR_GLOBAL CONSTANT
         nGANTRY_TOLERANCE_NM_DEFAULT : LINT := 50000; // default gantry tolerance in encoder counts = nm
-        cPiezoMaxVoltage	:	LREAL := 120; // in Volts
-        cPiezoMinVoltage	:	LREAL := -10; // in Volts
+        cPiezoMaxVoltage	:	REAL := 120; // in Volts
+        cPiezoMinVoltage	:	REAL := -10; // in Volts
         cPiezoRange : REAL := 60.0; // From Old HOMS_FEE Project, 90 um of piezo stroke, unsure what these units are
     END_VAR
 
@@ -770,7 +792,7 @@ FB_PI_E621_SerialDriver
                 fbPITransaction.i_xExecute:= TRUE;
                 fbPITransaction.i_sCmd:= 'SVA';
                 fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
-                fbPITransaction.i_sParam:=REAL_TO_STRING(iq_stPiezoAxis.rSetVoltage);
+                fbPITransaction.i_sParam:=LREAL_TO_STRING(iq_stPiezoAxis.rSetVoltage);
                 fbPITransaction.i_xExpectReply:= FALSE;
                 IF fbPITransaction.q_xDone THEN
                         a_ClearTrans();  (* to provide rising edge for execute *)
@@ -1094,9 +1116,9 @@ FB_PiezoControl
         rtStartMove : R_TRIG; //Rising Trigger for Execution
         rtReset     : R_TRIG; //Rising Trigger for Error reset
         rSetpoint   : REAL;   //Internal Storage of Setpoint
-        rReqVoltage	:	REAL; //requested voltage
-        rLLSV: REAL := 0;
-        rHLSV: REAL := 120;
+        rReqVoltage	:	LREAL; //requested voltage
+        rLLSV: LREAL := 0;
+        rHLSV: LREAL := 120;
         fbPI: FB_CTRL_PI;
         fbRamp: FB_CTRL_RAMP_GENERATOR_EXT;
         // FB initialized flag
@@ -1108,7 +1130,7 @@ FB_PiezoControl
         rtVoltMode: R_TRIG;
         fOut: LREAL;
         fPiezoBias: LREAL := 60;
-        fScale: REAL := -60;
+        fScale: LREAL := -60;
         tonPiezoDone: TON := (PT:=T#2S);
         tonPiezoLimited: TON := (PT:=T#500MS);
         xVoltageLimited: BOOL;
@@ -1370,7 +1392,7 @@ FB_PitchControl
             END_IF
         PCM_MoveRequested:
             // A move has been requested, is it within range of the piezo?
-            IF WithinRange(ValA:=lrCurrentSetpoint, Center:=lrPrevStepperPos, Range:=GVL_Constants.cPiezoRange, Offset:=0) THEN
+            IF WithinRange(ValA:=LREAL_TO_REAL(lrCurrentSetpoint), Center:=LREAL_TO_REAL(lrPrevStepperPos), Range:=GVL_Constants.cPiezoRange, Offset:=0) THEN
                 // Move is within the nominal range of the piezo
                 fbFormatString.sFormat := 'Within range, fine move %f';
                 fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
@@ -1402,7 +1424,7 @@ FB_PitchControl
             // With the piezo at a nominal 50% extension, move the stepper to requested position
             bExecuteStepper := TRUE;
             // Timer that waits to start until stepper is within range of the setpoint
-            tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=lrCurrentSetpoint, Range:=rSettledRange, Offset:=0);
+            tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=LREAL_TO_REAL(lrCurrentSetpoint), Range:=rSettledRange, Offset:=0);
             tonStepperHold(); // call this here to reset Q just below on first cycle
             // If the coarse move is complete, finish position correction with the piezo
             IF tonStepperHold.Q  OR ftLimitSwitch.Q THEN
@@ -1922,6 +1944,7 @@ TEST_PitchControl
     END_VAR
     fActPosition := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition;
 
+    //GVL_TestStructs.TestPitch_LimitSwitches.
     GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitBackwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition > BwdLimPos;
     GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bLimitForwardEnable := GVL_TestStructs.TestPitch_LimitSwitches.Stepper.stAxisStatus.fActPosition < FwdLimPos;
     GVL_TestStructs.TestPitch_LimitSwitches.Stepper.bHardwareEnable := TRUE;
@@ -2078,10 +2101,10 @@ WithinRange
 
     FUNCTION WithinRange : BOOL
     VAR_INPUT
-        ValA	:	REAL; //New position to evaluate
-        Center :	REAL; //Current position
-        Range : REAL; //Span of the range
-        Offset	:	REAL := 0; //Offset from center if the range is non-symetric
+        ValA	:	LREAL; //New position to evaluate
+        Center :	LREAL; //Current position
+        Range : LREAL; //Span of the range
+        Offset	:	LREAL := 0; //Offset from center if the range is non-symetric
     END_VAR
     VAR
     END_VAR

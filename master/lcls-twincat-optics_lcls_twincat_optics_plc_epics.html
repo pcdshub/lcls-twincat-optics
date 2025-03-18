@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -5,22 +7,18 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Types &mdash; pcdshub/lcls-twincat-optics  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/tree.css?v=837a00b9" />
       <link rel="stylesheet" type="text/css" href="_static/width.css?v=ab210c7a" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/docs-versions-menu.js?v=3d6a1aea"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/docs-versions-menu.js?v=3d6a1aea"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -65,10 +63,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#dut-homs">DUT_HOMS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lcls-general-dut-eps">LCLS_General.DUT_EPS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lcls-general-fb-logmessage">LCLS_General.FB_LogMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lcls-general-gvl-logger">LCLS_General.GVL_Logger</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lcls-twincat-motion-fb-standard-pmpsdb">lcls_twincat_motion.FB_Standard_PMPSDB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lcls-twincat-motion-motion-gvl">lcls_twincat_motion.MOTION_GVL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lcls-twincat-motion-st-axisparametersetexposed">lcls_twincat_motion.ST_AxisParameterSetExposed</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lcls-twincat-motion-st-motionstage">lcls_twincat_motion.ST_MotionStage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pmps-fb-hardwareffoutput">PMPS.FB_HardwareFFOutput</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pmps-pmps-gvl">PMPS.PMPS_GVL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pmps-st-beamparams">PMPS.ST_BeamParams</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pmps-st-ff">PMPS.ST_FF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pmps-st-ffinfo">PMPS.ST_FFInfo</a></li>
@@ -307,6 +308,68 @@
 </tbody>
 </table>
 </section>
+<section id="lcls-general-gvl-logger">
+<h2>LCLS_General.GVL_Logger<a class="headerlink" href="#lcls-general-gvl-logger" title="Link to this heading"></a></h2>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>Record</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Pragma</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)LCLSGeneral:GlobalLogTrickleTrip_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>Tripped by overall log count</p></td>
+<td><div class="line-block">
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)LCLSGeneral:LogHost</p></td>
+<td><p>waveform</p></td>
+<td><p>The log host IP address</p></td>
+<td><div class="line-block">
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)LCLSGeneral:LogHost_RBV</p></td>
+<td><p>waveform</p></td>
+<td><p>The log host IP address</p></td>
+<td><div class="line-block">
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)LCLSGeneral:LogMessageCount_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>Total log messages on the last cycle</p></td>
+<td><div class="line-block">
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)LCLSGeneral:LogPort</p></td>
+<td><p>longout</p></td>
+<td><p>The log host UDP port</p></td>
+<td><div class="line-block">
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)LCLSGeneral:LogPort_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>The log host UDP port</p></td>
+<td><div class="line-block">
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="lcls-twincat-motion-fb-standard-pmpsdb">
 <h2>lcls_twincat_motion.FB_Standard_PMPSDB<a class="headerlink" href="#lcls-twincat-motion-fb-standard-pmpsdb" title="Link to this heading"></a></h2>
 <table class="docutils align-center">
@@ -337,6 +400,44 @@
 <tr class="row-even"><td><p>$(PREFIX):REFRESH_RBV</p></td>
 <td><p>bi</p></td>
 <td><p>$(SYMBOL).bRefresh</p></td>
+<td><div class="line-block">
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lcls-twincat-motion-motion-gvl">
+<h2>lcls_twincat_motion.MOTION_GVL<a class="headerlink" href="#lcls-twincat-motion-motion-gvl" title="Link to this heading"></a></h2>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>Record</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Pragma</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)DB:LAST_REFRESH_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).fbStandardPMPSDB.nLastRefreshTime</p></td>
+<td><div class="line-block">
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)DB:REFRESH</p></td>
+<td><p>bo</p></td>
+<td><p>$(SYMBOL).fbStandardPMPSDB.bRefresh</p></td>
+<td><div class="line-block">
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)DB:REFRESH_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).fbStandardPMPSDB.bRefresh</p></td>
 <td><div class="line-block">
 <div class="line">io: output</div>
 </div>
@@ -562,7 +663,37 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:bError_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:bBacklashEn</p></td>
+<td><p>bo</p></td>
+<td><p>Enable Backlash compensation</p></td>
+<td><div class="line-block">
+<div class="line">field: ONAM TRUE</div>
+<div class="line">field: ZNAM FALSE</div>
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:bBacklashEn_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>Enable Backlash compensation</p></td>
+<td><div class="line-block">
+<div class="line">field: ONAM TRUE</div>
+<div class="line">field: ZNAM FALSE</div>
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):PLC:bBacklasStatus_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>Backlash compensation status</p></td>
+<td><div class="line-block">
+<div class="line">field: ONAM ENABLED</div>
+<div class="line">field: ZNAM DISABLED</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:bError_RBV</p></td>
 <td><p>bi</p></td>
 <td><p>TRUE if we are in an error state</p></td>
 <td><div class="line-block">
@@ -573,7 +704,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:bHardwareEnable_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:bHardwareEnable_RBV</p></td>
 <td><p>bi</p></td>
 <td><p>TRUE if STO not hit</p></td>
 <td><div class="line-block">
@@ -583,7 +714,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:bHomeCmd</p></td>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:bHomeCmd</p></td>
 <td><p>bo</p></td>
 <td><p>Start the homing routine</p></td>
 <td><div class="line-block">
@@ -591,7 +722,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:bHomeCmd_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:bHomeCmd_RBV</p></td>
 <td><p>bi</p></td>
 <td><p>Start the homing routine</p></td>
 <td><div class="line-block">
@@ -599,7 +730,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:bReset</p></td>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:bReset</p></td>
 <td><p>bo</p></td>
 <td><p>Used internally to reset errors</p></td>
 <td><div class="line-block">
@@ -609,7 +740,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:bReset_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:bReset_RBV</p></td>
 <td><p>bi</p></td>
 <td><p>Used internally to reset errors</p></td>
 <td><div class="line-block">
@@ -619,7 +750,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p>$(PREFIX):PLC:bUserEnable</p></td>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:bUserEnable</p></td>
 <td><p>bo</p></td>
 <td><p>Used to disable power entirely for an axis</p></td>
 <td><div class="line-block">
@@ -629,13 +760,37 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>$(PREFIX):PLC:bUserEnable_RBV</p></td>
+<tr class="row-even"><td><p>$(PREFIX):PLC:bUserEnable_RBV</p></td>
 <td><p>bi</p></td>
 <td><p>Used to disable power entirely for an axis</p></td>
 <td><div class="line-block">
 <div class="line">field: ONAM ENABLE</div>
 <div class="line">field: ZNAM DISABLE</div>
 <div class="line">io: output</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:fBacklash</p></td>
+<td><p>ao</p></td>
+<td><p>Backlash compensation</p></td>
+<td><div class="line-block">
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):PLC:fBacklash_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Backlash compensation</p></td>
+<td><div class="line-block">
+<div class="line">io: output</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):PLC:fCurrentBacklash_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Currently applied compensation</p></td>
+<td><div class="line-block">
+<div class="line">io: input</div>
 </div>
 </td>
 </tr>
@@ -10066,6 +10221,924 @@
 </tbody>
 </table>
 </section>
+<section id="pmps-pmps-gvl">
+<h2>PMPS.PMPS_GVL<a class="headerlink" href="#pmps-pmps-gvl" title="Link to this heading"></a></h2>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>Record</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Pragma</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:01:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:01:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:01:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:02:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:02:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:02:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:03:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:03:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:03:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:04:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:04:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Apt:04:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:BeamClass_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:BeamClassRanges_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Cohort_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>Cohort inc on each arb cycle</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:eVRanges_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:MachineMode_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:PhotonEnergy_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Rate_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU Hz</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Transmission_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: HOPR 1</div>
+<div class="line">field: LOPR 0</div>
+<div class="line">field: PREC 2</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Valid_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)0RateBeamCnst:Veto_RBV</p></td>
+<td><p>waveform</p></td>
+<td><p>0-rate beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)AccumulatedFastFaults_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).AccumulatedFF</p></td>
+<td><div class="line-block">
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:01:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[1].Height</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:01:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[1].xOK</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:01:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[1].Width</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:02:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[2].Height</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:02:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[2].xOK</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:02:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[2].Width</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:03:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[3].Height</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:03:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[3].xOK</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:03:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[3].Width</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:04:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[4].Height</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:04:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[4].xOK</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Apt:04:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.astApertures[4].Width</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:BeamClass_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.nBeamClass</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:BeamClassRanges_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.nBCRange</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Cohort_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>Cohort inc on each arb cycle</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:eVRanges_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.neVRange</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:MachineMode_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.nMachineMode</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:PhotonEnergy_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.neV</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Rate_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.nRate</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU Hz</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Transmission_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.nTran</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: HOPR 1</div>
+<div class="line">field: LOPR 0</div>
+<div class="line">field: PREC 2</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Valid_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.xValid</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)CurrentBP:Veto_RBV</p></td>
+<td><p>waveform</p></td>
+<td><p>$(SYMBOL).stCurrentBeamParameters.aVetoDevices</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)eVRangeCnst_RBV</p></td>
+<td><p>waveform</p></td>
+<td><p>Active eV Range constants</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)eVRangeHyst_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>eV Range hystersis</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:01:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:01:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:01:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:02:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:02:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:02:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:03:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:03:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:03:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:04:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:04:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Apt:04:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:BeamClass_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:BeamClassRanges_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Cohort_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>Cohort inc on each arb cycle</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:eVRanges_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:MachineMode_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:PhotonEnergy_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Rate_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU Hz</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Transmission_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: HOPR 1</div>
+<div class="line">field: LOPR 0</div>
+<div class="line">field: PREC 2</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Valid_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)FullBeamCnst:Veto_RBV</p></td>
+<td><p>waveform</p></td>
+<td><p>Full beam constant</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)K:eVRangeCnst_RBV</p></td>
+<td><p>waveform</p></td>
+<td><p>eV Range constants</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)L:eVRangeCnst_RBV</p></td>
+<td><p>waveform</p></td>
+<td><p>eV Range constants</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:01:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[1].Height</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:01:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[1].xOK</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:01:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[1].Width</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:02:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[2].Height</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:02:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[2].xOK</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:02:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[2].Width</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:03:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[3].Height</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:03:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[3].xOK</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:03:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[3].Width</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:04:Height_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[4].Height</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:04:OK_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[4].xOK</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Apt:04:Width_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.astApertures[4].Width</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU mm</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:BeamClass_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.nBeamClass</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:BeamClassRanges_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.nBCRange</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Cohort_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>Cohort inc on each arb cycle</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:eVRanges_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.neVRange</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:MachineMode_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.nMachineMode</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:PhotonEnergy_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.neV</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU eV</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Rate_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.nRate</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: EGU Hz</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Transmission_RBV</p></td>
+<td><p>ai</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.nTran</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">field: HOPR 1</div>
+<div class="line">field: LOPR 0</div>
+<div class="line">field: PREC 2</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Valid_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.xValid</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(PREFIX):$(PREFIX)RequestedBP:Veto_RBV</p></td>
+<td><p>waveform</p></td>
+<td><p>$(SYMBOL).stRequestedBeamParameters.aVetoDevices</p></td>
+<td><div class="line-block">
+<div class="line">archive: 1s monitor</div>
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>$(PREFIX):$(PREFIX)SuccessfulPreemptions_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>$(SYMBOL).SuccessfulPreemption</p></td>
+<td><div class="line-block">
+<div class="line">io: input</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="pmps-st-beamparams">
 <h2>PMPS.ST_BeamParams<a class="headerlink" href="#pmps-st-beamparams" title="Link to this heading"></a></h2>
 <table class="docutils align-center">
@@ -11731,7 +12804,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, SLAC National Accelerator Laboratory.</p>
+    <p>&#169; Copyright 2025, SLAC National Accelerator Laboratory.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

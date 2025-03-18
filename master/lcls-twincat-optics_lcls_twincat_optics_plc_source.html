@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -5,22 +7,18 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DUTs &mdash; pcdshub/lcls-twincat-optics  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/tree.css?v=837a00b9" />
       <link rel="stylesheet" type="text/css" href="_static/width.css?v=ab210c7a" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/docs-versions-menu.js?v=3d6a1aea"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/docs-versions-menu.js?v=3d6a1aea"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -182,6 +180,28 @@
         <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
     <span class="s1">&#39;}</span>
     <span class="n">fCurrGantryX_um</span> <span class="p">:</span> <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span> <span class="n">X</span> <span class="n">Gantry</span> <span class="n">difference</span> <span class="ow">in</span> <span class="n">um</span>
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">SUP</span><span class="p">:</span><span class="n">SEC</span><span class="p">:</span><span class="n">VOL</span><span class="p">:</span><span class="n">Y</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fSupplySecondY</span>  <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span><span class="p">:</span> <span class="n">UINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Y</span> <span class="n">Driver</span> <span class="n">supply</span> <span class="n">voltage</span> <span class="n">cV</span>
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">CUR</span><span class="p">:</span><span class="n">SEC</span><span class="p">:</span><span class="n">AMP</span><span class="p">:</span><span class="n">Y</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">EGU</span> <span class="n">mA</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fMotorCurSecondY</span>  <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span> <span class="p">:</span>  <span class="n">UINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Y</span> <span class="n">Current</span> <span class="n">DC</span> <span class="n">current</span> <span class="n">mA</span>
+        <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">SUP</span><span class="p">:</span><span class="n">SEC</span><span class="p">:</span><span class="n">VOL</span><span class="p">:</span><span class="n">X</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fSupplySecondX</span>  <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span> <span class="p">:</span>  <span class="n">UINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">X</span> <span class="n">Driver</span> <span class="n">supply</span> <span class="n">voltage</span> <span class="n">cV</span>
+    <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;pytmc&#39;</span> <span class="o">:=</span> <span class="s1">&#39;</span>
+        <span class="n">pv</span><span class="p">:</span> <span class="n">CUR</span><span class="p">:</span><span class="n">SEC</span><span class="p">:</span><span class="n">AMP</span><span class="p">:</span><span class="n">X</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">EGU</span> <span class="n">mA</span>
+        <span class="n">io</span><span class="p">:</span> <span class="n">i</span>
+    <span class="s1">&#39;}</span>
+    <span class="n">fMotorCurSecondX</span>  <span class="n">AT</span> <span class="o">%</span><span class="n">I</span><span class="o">*</span> <span class="p">:</span>  <span class="n">UINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">X</span> <span class="n">Current</span> <span class="n">DC</span> <span class="n">current</span> <span class="n">mA</span>
 <span class="n">END_STRUCT</span>
 <span class="n">END_TYPE</span>
 </pre></div>
@@ -278,7 +298,7 @@ END_TYPE
         <span class="n">rActVoltage</span>                 <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Actual</span> <span class="n">voltage</span>
         <span class="n">rLastReqVoltage</span>             <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Last</span> <span class="n">requested</span> <span class="n">piezo</span> <span class="n">voltage</span>
         <span class="o">//</span><span class="n">Control</span>
-        <span class="n">rSetVoltage</span>                 <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">this</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">by</span> <span class="n">the</span> <span class="n">control</span> <span class="n">loop</span><span class="o">/</span> <span class="n">voltage</span> <span class="n">mode</span>
+        <span class="n">rSetVoltage</span>                 <span class="p">:</span>       <span class="n">LREAL</span><span class="p">;</span> <span class="o">//</span><span class="n">this</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">by</span> <span class="n">the</span> <span class="n">control</span> <span class="n">loop</span><span class="o">/</span> <span class="n">voltage</span> <span class="n">mode</span>
         <span class="n">sAxis</span>                               <span class="p">:</span>   <span class="n">STRING</span> <span class="o">:=</span><span class="s1">&#39;A&#39;</span><span class="p">;</span> <span class="o">//</span><span class="n">Axis</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">...</span><span class="n">A</span> <span class="k">if</span> <span class="n">single</span> <span class="n">unit</span>
         <span class="o">//</span><span class="n">Summaries</span>
         <span class="n">xTimeout</span>    <span class="p">:</span>       <span class="n">BOOL</span><span class="p">;</span>
@@ -307,7 +327,7 @@ END_TYPE
             <span class="n">fOutMinLimit</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">bARWOnIPartOnly</span> <span class="o">:=</span> <span class="n">FALSE</span><span class="p">);</span>
 
-    <span class="p">(</span><span class="o">*</span> <span class="n">Voltage</span> <span class="n">ranges</span><span class="p">,</span> <span class="n">come</span> <span class="kn">from</span> <span class="nn">specifications</span> <span class="n">of</span> <span class="n">the</span> <span class="n">driver</span> <span class="o">*</span><span class="p">)</span>
+    <span class="p">(</span><span class="o">*</span> <span class="n">Voltage</span> <span class="n">ranges</span><span class="p">,</span> <span class="n">come</span> <span class="kn">from</span><span class="w"> </span><span class="nn">specifications</span> <span class="n">of</span> <span class="n">the</span> <span class="n">driver</span> <span class="o">*</span><span class="p">)</span>
         <span class="n">UpperVoltage</span>        <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="n">GVL_Constants</span><span class="o">.</span><span class="n">cPiezoMaxVoltage</span><span class="p">;</span> <span class="o">//</span> <span class="n">E</span><span class="o">-</span><span class="mi">816</span> <span class="n">has</span> <span class="n">no</span> <span class="n">software</span> <span class="n">limits</span>
         <span class="n">LowerVoltage</span>        <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="n">GVL_Constants</span><span class="o">.</span><span class="n">cPiezoMinVoltage</span><span class="p">;</span> <span class="o">//</span> <span class="n">E</span><span class="o">-</span><span class="mi">816</span> <span class="n">has</span> <span class="n">no</span> <span class="n">software</span> <span class="n">limits</span>
 <span class="n">END_STRUCT</span>
@@ -330,7 +350,7 @@ END_TYPE
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;TcGenerated&#39;</span><span class="p">}</span>
 <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;no-analysis&#39;</span><span class="p">}</span>
 <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;linkalways&#39;</span><span class="p">}</span>
-<span class="o">//</span> <span class="n">This</span> <span class="n">function</span> <span class="n">has</span> <span class="n">been</span> <span class="n">automatically</span> <span class="n">generated</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">project</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">//</span> <span class="n">This</span> <span class="n">function</span> <span class="n">has</span> <span class="n">been</span> <span class="n">automatically</span> <span class="n">generated</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">project</span> <span class="n">information</span><span class="o">.</span>
 <span class="n">VAR_GLOBAL</span> <span class="n">CONSTANT</span>
     <span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;const_non_replaced&#39;</span><span class="p">}</span>
     <span class="n">stLibVersion_lcls_twincat_optics</span> <span class="p">:</span> <span class="n">ST_LibVersion</span> <span class="o">:=</span> <span class="p">(</span><span class="n">iMajor</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iMinor</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iBuild</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">iRevision</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nFlags</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sVersion</span> <span class="o">:=</span> <span class="s1">&#39;0.0.0&#39;</span><span class="p">);</span>
@@ -343,8 +363,8 @@ END_TYPE
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">attribute</span> <span class="s1">&#39;qualified_only&#39;</span><span class="p">}</span>
 <span class="n">VAR_GLOBAL</span> <span class="n">CONSTANT</span>
     <span class="n">nGANTRY_TOLERANCE_NM_DEFAULT</span> <span class="p">:</span> <span class="n">LINT</span> <span class="o">:=</span> <span class="mi">50000</span><span class="p">;</span> <span class="o">//</span> <span class="n">default</span> <span class="n">gantry</span> <span class="n">tolerance</span> <span class="ow">in</span> <span class="n">encoder</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">nm</span>
-    <span class="n">cPiezoMaxVoltage</span>        <span class="p">:</span>       <span class="n">LREAL</span> <span class="o">:=</span> <span class="mi">120</span><span class="p">;</span> <span class="o">//</span> <span class="ow">in</span> <span class="n">Volts</span>
-    <span class="n">cPiezoMinVoltage</span>        <span class="p">:</span>       <span class="n">LREAL</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="o">//</span> <span class="ow">in</span> <span class="n">Volts</span>
+    <span class="n">cPiezoMaxVoltage</span>        <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="mi">120</span><span class="p">;</span> <span class="o">//</span> <span class="ow">in</span> <span class="n">Volts</span>
+    <span class="n">cPiezoMinVoltage</span>        <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span> <span class="o">//</span> <span class="ow">in</span> <span class="n">Volts</span>
     <span class="n">cPiezoRange</span> <span class="p">:</span> <span class="n">REAL</span> <span class="o">:=</span> <span class="mf">60.0</span><span class="p">;</span> <span class="o">//</span> <span class="n">From</span> <span class="n">Old</span> <span class="n">HOMS_FEE</span> <span class="n">Project</span><span class="p">,</span> <span class="mi">90</span> <span class="n">um</span> <span class="n">of</span> <span class="n">piezo</span> <span class="n">stroke</span><span class="p">,</span> <span class="n">unsure</span> <span class="n">what</span> <span class="n">these</span> <span class="n">units</span> <span class="n">are</span>
 <span class="n">END_VAR</span>
 </pre></div>
@@ -583,7 +603,7 @@ END_TYPE
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_BLOCK</span> <span class="n">FB_MirrorTwoCoatingProtection</span>
 <span class="n">VAR_INPUT</span>
     <span class="n">nCurrentEncoderCount</span> <span class="p">:</span> <span class="n">UDINT</span><span class="p">;</span> <span class="o">//</span> <span class="n">Current</span> <span class="n">encoder</span> <span class="n">count</span>
-    <span class="n">neVRange</span> <span class="p">:</span> <span class="n">DWORD</span><span class="p">;</span> <span class="o">//</span> <span class="n">Current</span> <span class="n">ev</span> <span class="nb">range</span> <span class="kn">from</span> <span class="nn">stCurrentBeamParams</span>
+    <span class="n">neVRange</span> <span class="p">:</span> <span class="n">DWORD</span><span class="p">;</span> <span class="o">//</span> <span class="n">Current</span> <span class="n">ev</span> <span class="nb">range</span> <span class="kn">from</span><span class="w"> </span><span class="nn">stCurrentBeamParams</span>
 
     <span class="n">sDevName</span> <span class="p">:</span> <span class="n">STRING</span> <span class="o">:=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> <span class="o">//</span> <span class="n">Device</span> <span class="n">name</span>
 
@@ -859,7 +879,7 @@ CASE iStep OF
             fbPITransaction.i_xExecute:= TRUE;
             fbPITransaction.i_sCmd:= &#39;SVA&#39;;
             fbPITransaction.i_sAxis:= iq_stPiezoAxis.sAxis;
-            fbPITransaction.i_sParam:=REAL_TO_STRING(iq_stPiezoAxis.rSetVoltage);
+            fbPITransaction.i_sParam:=LREAL_TO_STRING(iq_stPiezoAxis.rSetVoltage);
             fbPITransaction.i_xExpectReply:= FALSE;
             IF fbPITransaction.q_xDone THEN
                     a_ClearTrans();  (* to provide rising edge for execute *)
@@ -1179,9 +1199,9 @@ END_FUNCTION_BLOCK
     <span class="n">rtStartMove</span> <span class="p">:</span> <span class="n">R_TRIG</span><span class="p">;</span> <span class="o">//</span><span class="n">Rising</span> <span class="n">Trigger</span> <span class="k">for</span> <span class="n">Execution</span>
     <span class="n">rtReset</span>     <span class="p">:</span> <span class="n">R_TRIG</span><span class="p">;</span> <span class="o">//</span><span class="n">Rising</span> <span class="n">Trigger</span> <span class="k">for</span> <span class="n">Error</span> <span class="n">reset</span>
     <span class="n">rSetpoint</span>   <span class="p">:</span> <span class="n">REAL</span><span class="p">;</span>   <span class="o">//</span><span class="n">Internal</span> <span class="n">Storage</span> <span class="n">of</span> <span class="n">Setpoint</span>
-    <span class="n">rReqVoltage</span>     <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">requested</span> <span class="n">voltage</span>
-    <span class="n">rLLSV</span><span class="p">:</span> <span class="n">REAL</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">rHLSV</span><span class="p">:</span> <span class="n">REAL</span> <span class="o">:=</span> <span class="mi">120</span><span class="p">;</span>
+    <span class="n">rReqVoltage</span>     <span class="p">:</span>       <span class="n">LREAL</span><span class="p">;</span> <span class="o">//</span><span class="n">requested</span> <span class="n">voltage</span>
+    <span class="n">rLLSV</span><span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">rHLSV</span><span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mi">120</span><span class="p">;</span>
     <span class="n">fbPI</span><span class="p">:</span> <span class="n">FB_CTRL_PI</span><span class="p">;</span>
     <span class="n">fbRamp</span><span class="p">:</span> <span class="n">FB_CTRL_RAMP_GENERATOR_EXT</span><span class="p">;</span>
     <span class="o">//</span> <span class="n">FB</span> <span class="n">initialized</span> <span class="n">flag</span>
@@ -1193,7 +1213,7 @@ END_FUNCTION_BLOCK
     <span class="n">rtVoltMode</span><span class="p">:</span> <span class="n">R_TRIG</span><span class="p">;</span>
     <span class="n">fOut</span><span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span>
     <span class="n">fPiezoBias</span><span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="mi">60</span><span class="p">;</span>
-    <span class="n">fScale</span><span class="p">:</span> <span class="n">REAL</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">60</span><span class="p">;</span>
+    <span class="n">fScale</span><span class="p">:</span> <span class="n">LREAL</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">60</span><span class="p">;</span>
     <span class="n">tonPiezoDone</span><span class="p">:</span> <span class="n">TON</span> <span class="o">:=</span> <span class="p">(</span><span class="n">PT</span><span class="o">:=</span><span class="n">T</span><span class="c1">#2S);</span>
     <span class="n">tonPiezoLimited</span><span class="p">:</span> <span class="n">TON</span> <span class="o">:=</span> <span class="p">(</span><span class="n">PT</span><span class="o">:=</span><span class="n">T</span><span class="c1">#500MS);</span>
     <span class="n">xVoltageLimited</span><span class="p">:</span> <span class="n">BOOL</span><span class="p">;</span>
@@ -1264,7 +1284,7 @@ END_FUNCTION_BLOCK
         <span class="n">fbPI</span><span class="o">.</span><span class="n">fSetpointValue</span> <span class="o">:=</span> <span class="n">iq_Piezo</span><span class="o">.</span><span class="n">rReqAbsPos</span><span class="p">;</span>
     <span class="n">END_IF</span>
 
-    <span class="p">(</span><span class="o">*</span> <span class="n">The</span> <span class="nb">next</span> <span class="n">chunk</span> <span class="n">of</span> <span class="n">code</span> <span class="n">prevents</span> <span class="n">the</span> <span class="n">PI</span> <span class="n">block</span> <span class="kn">from</span> <span class="nn">winding</span> <span class="n">up</span><span class="o">.</span>
+    <span class="p">(</span><span class="o">*</span> <span class="n">The</span> <span class="nb">next</span> <span class="n">chunk</span> <span class="n">of</span> <span class="n">code</span> <span class="n">prevents</span> <span class="n">the</span> <span class="n">PI</span> <span class="n">block</span> <span class="kn">from</span><span class="w"> </span><span class="nn">winding</span> <span class="n">up</span><span class="o">.</span>
         <span class="n">First</span><span class="p">,</span> <span class="n">when</span> <span class="n">the</span> <span class="n">PI</span> <span class="n">block</span> <span class="n">begins</span> <span class="n">to</span> <span class="n">request</span> <span class="n">a</span> <span class="n">voltage</span> <span class="n">that</span> <span class="ow">is</span>
         <span class="n">beyond</span> <span class="n">the</span> <span class="n">permitted</span> <span class="nb">range</span> <span class="p">(</span><span class="n">this</span> <span class="nb">range</span> <span class="ow">is</span> <span class="n">affected</span> <span class="n">by</span> <span class="n">the</span> <span class="n">state</span>
         <span class="n">of</span> <span class="n">limit</span> <span class="n">switches</span><span class="o">/</span> <span class="ow">or</span> <span class="n">enable</span> <span class="n">fwd</span><span class="o">/</span><span class="n">bwd</span><span class="p">),</span> <span class="n">we</span> <span class="n">latch</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">position</span><span class="o">.</span>
@@ -1455,7 +1475,7 @@ CASE PC_State OF
         END_IF
     PCM_MoveRequested:
         // A move has been requested, is it within range of the piezo?
-        IF WithinRange(ValA:=lrCurrentSetpoint, Center:=lrPrevStepperPos, Range:=GVL_Constants.cPiezoRange, Offset:=0) THEN
+        IF WithinRange(ValA:=LREAL_TO_REAL(lrCurrentSetpoint), Center:=LREAL_TO_REAL(lrPrevStepperPos), Range:=GVL_Constants.cPiezoRange, Offset:=0) THEN
             // Move is within the nominal range of the piezo
             fbFormatString.sFormat := &#39;Within range, fine move %f&#39;;
             fbFormatString.arg1 := F_LREAL(lrCurrentSetpoint);
@@ -1487,7 +1507,7 @@ CASE PC_State OF
         // With the piezo at a nominal 50% extension, move the stepper to requested position
         bExecuteStepper := TRUE;
         // Timer that waits to start until stepper is within range of the setpoint
-        tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=lrCurrentSetpoint, Range:=rSettledRange, Offset:=0);
+        tonStepperHold.IN := WithinRange(ValA:=LREAL_TO_REAL(lrActPos), Center:=LREAL_TO_REAL(lrCurrentSetpoint), Range:=rSettledRange, Offset:=0);
         tonStepperHold(); // call this here to reset Q just below on first cycle
         // If the coarse move is complete, finish position correction with the piezo
         IF tonStepperHold.Q  OR ftLimitSwitch.Q THEN
@@ -1999,6 +2019,7 @@ END_FUNCTION_BLOCK
 <span class="n">END_VAR</span>
 <span class="n">fActPosition</span> <span class="o">:=</span> <span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="o">.</span><span class="n">Stepper</span><span class="o">.</span><span class="n">stAxisStatus</span><span class="o">.</span><span class="n">fActPosition</span><span class="p">;</span>
 
+<span class="o">//</span><span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="o">.</span>
 <span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="o">.</span><span class="n">Stepper</span><span class="o">.</span><span class="n">bLimitBackwardEnable</span> <span class="o">:=</span> <span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="o">.</span><span class="n">Stepper</span><span class="o">.</span><span class="n">stAxisStatus</span><span class="o">.</span><span class="n">fActPosition</span> <span class="o">&gt;</span> <span class="n">BwdLimPos</span><span class="p">;</span>
 <span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="o">.</span><span class="n">Stepper</span><span class="o">.</span><span class="n">bLimitForwardEnable</span> <span class="o">:=</span> <span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="o">.</span><span class="n">Stepper</span><span class="o">.</span><span class="n">stAxisStatus</span><span class="o">.</span><span class="n">fActPosition</span> <span class="o">&lt;</span> <span class="n">FwdLimPos</span><span class="p">;</span>
 <span class="n">GVL_TestStructs</span><span class="o">.</span><span class="n">TestPitch_LimitSwitches</span><span class="o">.</span><span class="n">Stepper</span><span class="o">.</span><span class="n">bHardwareEnable</span> <span class="o">:=</span> <span class="n">TRUE</span><span class="p">;</span>
@@ -2155,10 +2176,10 @@ END_FUNCTION_BLOCK
 <h2>WithinRange<a class="headerlink" href="#withinrange" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION</span> <span class="n">WithinRange</span> <span class="p">:</span> <span class="n">BOOL</span>
 <span class="n">VAR_INPUT</span>
-    <span class="n">ValA</span>    <span class="p">:</span>       <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">New</span> <span class="n">position</span> <span class="n">to</span> <span class="n">evaluate</span>
-    <span class="n">Center</span> <span class="p">:</span>        <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Current</span> <span class="n">position</span>
-    <span class="n">Range</span> <span class="p">:</span> <span class="n">REAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Span</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">range</span>
-    <span class="n">Offset</span>  <span class="p">:</span>       <span class="n">REAL</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">//</span><span class="n">Offset</span> <span class="kn">from</span> <span class="nn">center</span> <span class="k">if</span> <span class="n">the</span> <span class="nb">range</span> <span class="ow">is</span> <span class="n">non</span><span class="o">-</span><span class="n">symetric</span>
+    <span class="n">ValA</span>    <span class="p">:</span>       <span class="n">LREAL</span><span class="p">;</span> <span class="o">//</span><span class="n">New</span> <span class="n">position</span> <span class="n">to</span> <span class="n">evaluate</span>
+    <span class="n">Center</span> <span class="p">:</span>        <span class="n">LREAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Current</span> <span class="n">position</span>
+    <span class="n">Range</span> <span class="p">:</span> <span class="n">LREAL</span><span class="p">;</span> <span class="o">//</span><span class="n">Span</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">range</span>
+    <span class="n">Offset</span>  <span class="p">:</span>       <span class="n">LREAL</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">//</span><span class="n">Offset</span> <span class="kn">from</span><span class="w"> </span><span class="nn">center</span> <span class="k">if</span> <span class="n">the</span> <span class="nb">range</span> <span class="ow">is</span> <span class="n">non</span><span class="o">-</span><span class="n">symetric</span>
 <span class="n">END_VAR</span>
 <span class="n">VAR</span>
 <span class="n">END_VAR</span>
@@ -2186,7 +2207,7 @@ END_FUNCTION_BLOCK
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, SLAC National Accelerator Laboratory.</p>
+    <p>&#169; Copyright 2025, SLAC National Accelerator Laboratory.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

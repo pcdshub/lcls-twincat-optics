@@ -91,7 +91,7 @@ DUT_HOMS
         | io: input
 
 
-     
+        
 LCLS_General.DUT_EPS
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -157,7 +157,55 @@ LCLS_General.FB_LogMessage
       - | io: input
 
 
-                                    
+  
+LCLS_General.GVL_Logger
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. list-table::
+    :header-rows: 1
+    :align: center
+
+    * - Record
+      - Type
+      - Description
+      - Pragma
+    * - $(PREFIX):$(PREFIX)LCLSGeneral:GlobalLogTrickleTrip_RBV
+      - bi
+      - Tripped by overall log count
+      - | io: input
+
+
+    * - $(PREFIX):$(PREFIX)LCLSGeneral:LogHost
+      - waveform
+      - The log host IP address
+      - | io: output
+
+
+    * - $(PREFIX):$(PREFIX)LCLSGeneral:LogHost_RBV
+      - waveform
+      - The log host IP address
+      - | io: output
+
+
+    * - $(PREFIX):$(PREFIX)LCLSGeneral:LogMessageCount_RBV
+      - longin
+      - Total log messages on the last cycle
+      - | io: input
+
+
+    * - $(PREFIX):$(PREFIX)LCLSGeneral:LogPort
+      - longout
+      - The log host UDP port
+      - | io: output
+
+
+    * - $(PREFIX):$(PREFIX)LCLSGeneral:LogPort_RBV
+      - longin
+      - The log host UDP port
+      - | io: output
+
+
+                                            
 lcls_twincat_motion.FB_Standard_PMPSDB
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -187,7 +235,37 @@ lcls_twincat_motion.FB_Standard_PMPSDB
       - | io: output
 
 
-   
+    
+lcls_twincat_motion.MOTION_GVL
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. list-table::
+    :header-rows: 1
+    :align: center
+
+    * - Record
+      - Type
+      - Description
+      - Pragma
+    * - $(PREFIX):$(PREFIX)DB:LAST_REFRESH_RBV
+      - longin
+      - $(SYMBOL).fbStandardPMPSDB.nLastRefreshTime
+      - | io: input
+
+
+    * - $(PREFIX):$(PREFIX)DB:REFRESH
+      - bo
+      - $(SYMBOL).fbStandardPMPSDB.bRefresh
+      - | io: output
+
+
+    * - $(PREFIX):$(PREFIX)DB:REFRESH_RBV
+      - bi
+      - $(SYMBOL).fbStandardPMPSDB.bRefresh
+      - | io: output
+
+
+  
 lcls_twincat_motion.ST_AxisParameterSetExposed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -355,6 +433,30 @@ lcls_twincat_motion.ST_MotionStage
       - | io: input
 
 
+    * - $(PREFIX):PLC:bBacklashEn
+      - bo
+      - Enable Backlash compensation
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
+        | io: output
+
+
+    * - $(PREFIX):PLC:bBacklashEn_RBV
+      - bi
+      - Enable Backlash compensation
+      - | field: ONAM TRUE
+        | field: ZNAM FALSE
+        | io: output
+
+
+    * - $(PREFIX):PLC:bBacklasStatus_RBV
+      - bi
+      - Backlash compensation status
+      - | field: ONAM ENABLED
+        | field: ZNAM DISABLED
+        | io: input
+
+
     * - $(PREFIX):PLC:bError_RBV
       - bi
       - TRUE if we are in an error state
@@ -414,6 +516,24 @@ lcls_twincat_motion.ST_MotionStage
       - | field: ONAM ENABLE
         | field: ZNAM DISABLE
         | io: output
+
+
+    * - $(PREFIX):PLC:fBacklash
+      - ao
+      - Backlash compensation
+      - | io: output
+
+
+    * - $(PREFIX):PLC:fBacklash_RBV
+      - ai
+      - Backlash compensation
+      - | io: output
+
+
+    * - $(PREFIX):PLC:fCurrentBacklash_RBV
+      - ai
+      - Currently applied compensation
+      - | io: input
 
 
     * - $(PREFIX):PLC:fHomePosition
@@ -526,7 +646,7 @@ lcls_twincat_motion.ST_MotionStage
       - | io: input
 
 
-                               
+                                
 PMPS.FB_HardwareFFOutput
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -7487,6 +7607,734 @@ PMPS.FB_HardwareFFOutput
 
 
    
+PMPS.PMPS_GVL
+^^^^^^^^^^^^^
+
+.. list-table::
+    :header-rows: 1
+    :align: center
+
+    * - Record
+      - Type
+      - Description
+      - Pragma
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:01:Height_RBV
+      - ai
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:01:OK_RBV
+      - bi
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:01:Width_RBV
+      - ai
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:02:Height_RBV
+      - ai
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:02:OK_RBV
+      - bi
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:02:Width_RBV
+      - ai
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:03:Height_RBV
+      - ai
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:03:OK_RBV
+      - bi
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:03:Width_RBV
+      - ai
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:04:Height_RBV
+      - ai
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:04:OK_RBV
+      - bi
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Apt:04:Width_RBV
+      - ai
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:BeamClass_RBV
+      - longin
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:BeamClassRanges_RBV
+      - longin
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Cohort_RBV
+      - longin
+      - Cohort inc on each arb cycle
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:eVRanges_RBV
+      - longin
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:MachineMode_RBV
+      - longin
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:PhotonEnergy_RBV
+      - ai
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Rate_RBV
+      - longin
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: EGU Hz
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Transmission_RBV
+      - ai
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | field: HOPR 1
+        | field: LOPR 0
+        | field: PREC 2
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Valid_RBV
+      - bi
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)0RateBeamCnst:Veto_RBV
+      - waveform
+      - 0-rate beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)AccumulatedFastFaults_RBV
+      - longin
+      - $(SYMBOL).AccumulatedFF
+      - | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:01:Height_RBV
+      - ai
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[1].Height
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:01:OK_RBV
+      - bi
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[1].xOK
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:01:Width_RBV
+      - ai
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[1].Width
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:02:Height_RBV
+      - ai
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[2].Height
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:02:OK_RBV
+      - bi
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[2].xOK
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:02:Width_RBV
+      - ai
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[2].Width
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:03:Height_RBV
+      - ai
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[3].Height
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:03:OK_RBV
+      - bi
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[3].xOK
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:03:Width_RBV
+      - ai
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[3].Width
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:04:Height_RBV
+      - ai
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[4].Height
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:04:OK_RBV
+      - bi
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[4].xOK
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Apt:04:Width_RBV
+      - ai
+      - $(SYMBOL).stCurrentBeamParameters.astApertures[4].Width
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:BeamClass_RBV
+      - longin
+      - $(SYMBOL).stCurrentBeamParameters.nBeamClass
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:BeamClassRanges_RBV
+      - longin
+      - $(SYMBOL).stCurrentBeamParameters.nBCRange
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Cohort_RBV
+      - longin
+      - Cohort inc on each arb cycle
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:eVRanges_RBV
+      - longin
+      - $(SYMBOL).stCurrentBeamParameters.neVRange
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:MachineMode_RBV
+      - longin
+      - $(SYMBOL).stCurrentBeamParameters.nMachineMode
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:PhotonEnergy_RBV
+      - ai
+      - $(SYMBOL).stCurrentBeamParameters.neV
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Rate_RBV
+      - longin
+      - $(SYMBOL).stCurrentBeamParameters.nRate
+      - | archive: 1s monitor
+        | field: EGU Hz
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Transmission_RBV
+      - ai
+      - $(SYMBOL).stCurrentBeamParameters.nTran
+      - | archive: 1s monitor
+        | field: HOPR 1
+        | field: LOPR 0
+        | field: PREC 2
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Valid_RBV
+      - bi
+      - $(SYMBOL).stCurrentBeamParameters.xValid
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)CurrentBP:Veto_RBV
+      - waveform
+      - $(SYMBOL).stCurrentBeamParameters.aVetoDevices
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)eVRangeCnst_RBV
+      - waveform
+      - Active eV Range constants
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)eVRangeHyst_RBV
+      - ai
+      - eV Range hystersis
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:01:Height_RBV
+      - ai
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:01:OK_RBV
+      - bi
+      - Full beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:01:Width_RBV
+      - ai
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:02:Height_RBV
+      - ai
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:02:OK_RBV
+      - bi
+      - Full beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:02:Width_RBV
+      - ai
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:03:Height_RBV
+      - ai
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:03:OK_RBV
+      - bi
+      - Full beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:03:Width_RBV
+      - ai
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:04:Height_RBV
+      - ai
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:04:OK_RBV
+      - bi
+      - Full beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Apt:04:Width_RBV
+      - ai
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:BeamClass_RBV
+      - longin
+      - Full beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:BeamClassRanges_RBV
+      - longin
+      - Full beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Cohort_RBV
+      - longin
+      - Cohort inc on each arb cycle
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:eVRanges_RBV
+      - longin
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:MachineMode_RBV
+      - longin
+      - Full beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:PhotonEnergy_RBV
+      - ai
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Rate_RBV
+      - longin
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: EGU Hz
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Transmission_RBV
+      - ai
+      - Full beam constant
+      - | archive: 1s monitor
+        | field: HOPR 1
+        | field: LOPR 0
+        | field: PREC 2
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Valid_RBV
+      - bi
+      - Full beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)FullBeamCnst:Veto_RBV
+      - waveform
+      - Full beam constant
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)K:eVRangeCnst_RBV
+      - waveform
+      - eV Range constants
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)L:eVRangeCnst_RBV
+      - waveform
+      - eV Range constants
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:01:Height_RBV
+      - ai
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[1].Height
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:01:OK_RBV
+      - bi
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[1].xOK
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:01:Width_RBV
+      - ai
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[1].Width
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:02:Height_RBV
+      - ai
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[2].Height
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:02:OK_RBV
+      - bi
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[2].xOK
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:02:Width_RBV
+      - ai
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[2].Width
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:03:Height_RBV
+      - ai
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[3].Height
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:03:OK_RBV
+      - bi
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[3].xOK
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:03:Width_RBV
+      - ai
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[3].Width
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:04:Height_RBV
+      - ai
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[4].Height
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:04:OK_RBV
+      - bi
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[4].xOK
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Apt:04:Width_RBV
+      - ai
+      - $(SYMBOL).stRequestedBeamParameters.astApertures[4].Width
+      - | archive: 1s monitor
+        | field: EGU mm
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:BeamClass_RBV
+      - longin
+      - $(SYMBOL).stRequestedBeamParameters.nBeamClass
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:BeamClassRanges_RBV
+      - longin
+      - $(SYMBOL).stRequestedBeamParameters.nBCRange
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Cohort_RBV
+      - longin
+      - Cohort inc on each arb cycle
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:eVRanges_RBV
+      - longin
+      - $(SYMBOL).stRequestedBeamParameters.neVRange
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:MachineMode_RBV
+      - longin
+      - $(SYMBOL).stRequestedBeamParameters.nMachineMode
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:PhotonEnergy_RBV
+      - ai
+      - $(SYMBOL).stRequestedBeamParameters.neV
+      - | archive: 1s monitor
+        | field: EGU eV
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Rate_RBV
+      - longin
+      - $(SYMBOL).stRequestedBeamParameters.nRate
+      - | archive: 1s monitor
+        | field: EGU Hz
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Transmission_RBV
+      - ai
+      - $(SYMBOL).stRequestedBeamParameters.nTran
+      - | archive: 1s monitor
+        | field: HOPR 1
+        | field: LOPR 0
+        | field: PREC 2
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Valid_RBV
+      - bi
+      - $(SYMBOL).stRequestedBeamParameters.xValid
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)RequestedBP:Veto_RBV
+      - waveform
+      - $(SYMBOL).stRequestedBeamParameters.aVetoDevices
+      - | archive: 1s monitor
+        | io: input
+
+
+    * - $(PREFIX):$(PREFIX)SuccessfulPreemptions_RBV
+      - longin
+      - $(SYMBOL).SuccessfulPreemption
+      - | io: input
+
+
+   
 PMPS.ST_BeamParams
 ^^^^^^^^^^^^^^^^^^
 
@@ -7996,7 +8844,7 @@ ST_PMPS_Aperture_IO
         | io: input
 
 
-                                                                                                                                     
+                                                                                                                                                     
 Database Records
 ----------------
 
