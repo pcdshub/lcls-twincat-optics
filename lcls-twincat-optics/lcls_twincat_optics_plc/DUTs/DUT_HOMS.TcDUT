@@ -4,7 +4,6 @@
     <Declaration><![CDATA[TYPE DUT_HOMS :
 STRUCT
     // System initializiation
-    {attribute 'pytmc' := ''}
     fbRunHOMS : FB_RunHOMS;
 
     // Couple/Decouple motors
@@ -60,7 +59,7 @@ STRUCT
         io: i
     '}
     fCurrGantryX_um : REAL; // X Gantry difference in um
-        {attribute 'pytmc' := '
+    {attribute 'pytmc' := '
         pv: SUP:SEC:VOL:Y
         io: i
     '}
