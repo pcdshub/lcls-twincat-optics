@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <DUT Name="DUT_HOMS" Id="{0a6ad08f-c6e6-47f2-ab1c-db91063eb2d4}">
     <Declaration><![CDATA[TYPE DUT_HOMS :
 STRUCT
     // System initializiation
+    {attribute 'pytmc' := ''}
     fbRunHOMS : FB_RunHOMS;
 
     // Couple/Decouple motors
@@ -59,6 +60,28 @@ STRUCT
         io: i
     '}
     fCurrGantryX_um : REAL; // X Gantry difference in um
+        {attribute 'pytmc' := '
+        pv: SUP:SEC:VOL:Y
+        io: i
+    '}
+    fSupplySecondY  AT %I*: UINT; // Y Driver supply voltage cV
+    {attribute 'pytmc' := '
+        pv: CUR:SEC:AMP:Y
+        field: EGU mA
+        io: i
+    '}
+    fMotorCurSecondY  AT %I* :  UINT; // Y Current DC current mA
+        {attribute 'pytmc' := '
+        pv: SUP:SEC:VOL:X
+        io: i
+    '}
+    fSupplySecondX  AT %I* :  UINT; // X Driver supply voltage cV
+    {attribute 'pytmc' := '
+        pv: CUR:SEC:AMP:X
+        field: EGU mA
+        io: i
+    '}
+    fMotorCurSecondX  AT %I* :  UINT; // X Current DC current mA
 END_STRUCT
 END_TYPE]]></Declaration>
   </DUT>
